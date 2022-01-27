@@ -14,8 +14,8 @@ const router = express.Router()
 
 const port = 3001;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get('/test', (req, res) => {
+    res.send('Déploiment marche!')
   })
 //const __dirname = path.resolve();
 app.use(express.static(__dirname + '/build/'));
