@@ -1,0 +1,55 @@
+name: VPS
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  VPS-deploiement:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Build application
+        working-directory: .
+        run: |
+          cd frontend 
+          npm install
+          CI= npm run build
+          cd ..
+          chmod +x build.sh
+          ./build.sh
+          
+      
+      - name: Application folder to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: Application
+          remote: Application
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT}}
+          username: ${{ secrets.VPS_USER }}
+          privateKey: ${{ secrets.VPS_PRIVATEKEY }}
+      
+      - name: Restart services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT}}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_PRIVATEKEY }}
+          script: |
+            cp -R db Application
+            cp .env Application/www/backend
+            cp .env Application
+            cd Application
+            docker stop app
+            docker stop database
+            docker rm app
+            docker rmi node:14.15.1
+            docker-compose up -d
+            
