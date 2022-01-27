@@ -1,4 +1,5 @@
 echo "Creation de l'Application a déployer"
+cd ..
 mkdir ./Application
 mkdir ./Application/www
 
