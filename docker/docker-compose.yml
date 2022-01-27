@@ -5,18 +5,19 @@ services:
   app:
     image: node:14.15.1
     container_name: app
+
     restart: unless-stopped
     volumes:
       - ./www/backend:/var/www/backend
     networks:
-      vps-projet-network:
+      vps-ikram-network:
         ipv4_address: 192.168.10.10
     command: bash -c "cd /var/www/backend && npm i && node app.js"
 
 
 networks:
-  vps-projet-network:
-    name: vps-projet-network
+  vps-ikram-network:
+    name: vps-ikram-network
     driver: bridge
     ipam:
       config:
