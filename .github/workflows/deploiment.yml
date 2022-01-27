@@ -21,7 +21,8 @@ jobs:
           npm install
           CI= npm run build
           cd ..
-          chmod +x scripts/build.sh
+          cd scripts
+          chmod +x build.sh
           ./build.sh
           
       
