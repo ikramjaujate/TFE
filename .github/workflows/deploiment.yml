@@ -1,4 +1,4 @@
-name: VPS
+name: Deploiment
 on:
   push:
     branches:
