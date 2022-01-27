@@ -35,8 +35,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           privateKey: ${{ secrets.VPS_PRIVATEKEY }}
 
-
-      
       - name: Restart services
         uses: appleboy/ssh-action@master
         with:
