@@ -45,6 +45,5 @@ jobs:
           key: ${{ secrets.VPS_PRIVATEKEY }}
           script: |
             cd Application
-
             docker-compose up -d
             
