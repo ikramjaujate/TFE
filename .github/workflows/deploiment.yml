@@ -24,9 +24,7 @@ jobs:
           cd scripts
           chmod +x build.sh
           ./build.sh
-          
-          
-      
+
       - name: Application folder to remote
         uses: garygrossgarten/github-action-scp@release
         with:
