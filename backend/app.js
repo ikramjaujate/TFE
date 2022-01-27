@@ -18,15 +18,15 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 //const __dirname = path.resolve();
-//app.use(express.static(__dirname + '/build/'));
+app.use(express.static(__dirname + '/build/'));
 
 console.log(__dirname)
 
 
-/*app.get('*', (req, res) => {
+app.get('*', (req, res) => {
     return res.sendFile(path
       .join(__dirname + '/build/', 'index.html'))
-  });*/
+  });
 
 const server = app.listen(port, () => {
 console.log(`App running on port ${port}.`)

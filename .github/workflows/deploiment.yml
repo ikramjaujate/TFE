@@ -44,5 +44,8 @@ jobs:
           key: ${{ secrets.VPS_PRIVATEKEY }}
           script: |
             cd Application
+            docker stop app
+            docker rm app
+            docker rmi node:14.15.1
             docker-compose up -d
             
