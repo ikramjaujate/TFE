@@ -8,7 +8,6 @@ cp -R backend ./Application/www
 cp -R frontend/build ./Application/www/backend
 
 rm -rf ./Application/www/backend/node_modules 
-rm -rf ./Application/www/backend/.env 
 
 
 cp docker/docker-compose.yml ./Application/
