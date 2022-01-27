@@ -5,7 +5,7 @@ Développement d'un système d'information pour l'entreprise Master Services
 
 ## Contexte general 
 
-Le client est une entreprise dans secteur du bâtiment et travaux publics et est située à Sint-Pieters-Leeuw. Dans le cadre de ses activités, le client doit constamment gérer le flux de matériaux, ses clients, ses employés, ses fournisseurs ainsi que toutes les facturations qui en découlent.
+Le client est une entreprise dans secteur du bâtiment et travaux publics et est situé à Sint-Pieters-Leeuw. Dans le cadre de ses activités, le client doit constamment gérer le flux de matériaux, ses clients, ses employés, ses fournisseurs ainsi que toutes les facturations qui en découlent.
 
 Le client ne possède actuellement aucun moyen informatisé de gérer l'ensemble de ses entités et m'a demandé de concevoir une solution pour répondre à l'ensemble de ses besoins : 
 
@@ -20,15 +20,15 @@ Le client ne possède actuellement aucun moyen informatisé de gérer l'ensemble
 * Gestion utilisateurs 
 
 Cette solution doit être conçue de telle sorte qu'elle puisse être adaptée au fil des années en fonction de l'évolution des besoins du client.
-De plus, le client étant souvent sur chantier, il est primordial que l'application puisse être facilement portable d'un système / ordinateur à un autre. Il a donc été décidé en commun accord avec le client que la solution sera déployée sous forme d'une application web ce qui apportera un grande flexibilité aux niveau de l'utilisation de la solution. 
+De plus, le client étant souvent sur chantier, il est primordial que l'application puisse être facilement portable d'un système / ordinateur à un autre. Il a donc été décidé en commun accord avec le client que la solution sera déployée sous forme d'une application web ce qui apportera une grande flexibilité au niveau de l'utilisation de la solution. 
 
-> Le volume d'information a gérer étant conséquent, la visualisation doit principalement être adaptée aux écrans d'ordinateur.
+> Le volume d'information a géré étant conséquent, la visualisation doit principalement être adaptée aux écrans d'ordinateur.
 
 ## Choix de la méthodologie de travail
 
 Vu la quantité de travail et de tâches techniques à accomplir, la méthodologie que j’ai choisie pour la réalisation de ce projet est méthodologie Agile. 
 
-> Spécifiquement j'ai décidé de travailler avec la méthode Scrum avec son organisation en sprints
+> Spécifiquement j'ai décidé de travailler avec la méthode Scrum avec son organisation en sprints.
 
 Tout d'abord, j'ai pu définir avec le client les `principales fonctionnalités` à intégrer dans le projet. Ces fonctionnalités sont classées par **ordre de priorité** et ainsi que d'un **délai approximatif** qui correspond à une estimation du temps que je pense consacrer pour chacune des fonctionnalités. 
 
@@ -36,7 +36,7 @@ En outre, les principales fonctionnalités contenues dans le projet sont détail
 
 > Les sprints auront une durée d’environ 2 semaines.
 
-À la fin de chaque sprint, un livrable correspondant aux tâches / user stories effectuées lors du sprint devra être présenté au client, et ce dernier devra donc vérifier et valider ces différentes tâches.
+À la fin de chaque sprint, un livrable correspondant aux tâches / user stories effectuées lors du sprint devra être présenté au client, et ce dernier devra donc vérifier et valider les différentes tâches.
 
 > Pour chaque sprint, avec le client nous avons décidé de détailler et de mettre en oeuvre de 4 à 5 user stories 
 
@@ -46,12 +46,12 @@ L'avantage de cette méthode est que, en cas d'erreurs et non validation des tâ
 
 Pour l’organisation des tâches à effectuer pour chaque sprint, j’utiliserai l’outil Trello. Cet outil me permettra de diviser les tâches à effectuer pour chaque sprint, ce qui facilitera la visualisation de l’avancement du projet. 
 
-Cette méthodologie de travail permet donc de ne pas définir certaines user stories qui ne seront peut-être jamais mises en place.
+Cette méthode de travail permet donc de ne pas définir certaines user stories qui ne seront peut-être jamais mises en place.
 
 
 ### Gitflow
 
-J'ai décidé de travailler avec le gitflow par branche qui me permettra d'avoir une division au niveau des fonctionnalités qui seront crées lors du projet.
+J'ai décidé de travailler avec le gitflow par branche qui me permettra d'avoir une division au niveau des fonctionnalités qui seront implémentées lors du projet.
 
 - une branche 'develop' qui correspond à la branche 'master' du 'github-flow'
 - les releases sont préparées sur une branche spécifique (fusion depuis la branche 'develop' jusqu'à ce que la release soit validée)
@@ -66,22 +66,22 @@ J'ai décidé de travailler avec le gitflow par branche qui me permettra d'avoir
 
 Étant donné que la réalisation du TFE devra se faire en même temps que le stage, j'ai décidé de planifier la répartition du travail sur les prochaines semaines comme suit : 
 
-![Planning pour les semaines qui viennent](https://github.com/ikramjaujate/TFE/blob/main/docs/images/PlanificationTFE.png)
+![Planning pour les semaines qui viennent](https://github.com/ikramjaujate/TFE/blob/main/docs/images/PlanificationTFE.png?raw=true)
 
-Nous pouvons voir sur ce planning que les samedis et dimanches n'apparaissent pas et ce pour le simple fait mon but est de consacrer 8 heures au total chaque weekend.
+Sur ce planning, les samedis et dimanches n'apparaissent pas et ce parce que l'horaire de travail de mon weekend est susceptible de varier chaque semaine.
 
-> L'horaire de travail pendant le weekend pourrait varier, j'ai décidé de ne pas les inclure dans le planning.
+> Mon but est de dédiée au minimum 8 heures chaque weekend
 
 ## État d'avancement
 
-Dans le but de visualiser l'avancement du projet, ici vous pouvez retrouver les différents étapes réalisées : 
+Dans le but de visualiser l'avancement du projet, ici vous pouvez retrouver les différentes étapes réalisées : 
 
  - [X] Description du client
  - [X] Contact avec le client
-   > Au niveau des réunions avec le client, [ici](https://github.com/ikramjaujate/TFE/wiki/Reunions) vous trouverez le détails de ces dernières.
+   > Au niveau des réunions avec le client, [ici](https://github.com/ikramjaujate/TFE/wiki/Reunions) vous trouverez les détails de ces dernières.
  - [X] Description du projet
  - [X] Choix technologique
-   > Au niveau des technologies choisies, [ici](https://github.com/ikramjaujate/TFE/wiki/Technologies-choisies) vous trouverez le détails de ces dernières.
+   > Au niveau des technologies choisies, [ici](https://github.com/ikramjaujate/TFE/wiki/Technologies-choisies) vous trouverez les détails de ces dernières.
  
  - [X] Description des US stories
    - [X] [Gestion des clients](https://github.com/ikramjaujate/TFE/wiki/Gestion-Clients)
