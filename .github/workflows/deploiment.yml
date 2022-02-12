@@ -43,6 +43,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_PRIVATEKEY }}
           script: |
+            cp .env Application/www/backend
+            cp .env Application
             cd Application
             docker stop app
             docker rm app
