@@ -12,6 +12,6 @@ router.get('/users', getAllUsers)
 router.get('/users/:id', getUserById)
 
 const { getAllCompanies} = require('../controllers/company.js');
-router.post('/company', getAllCompanies)
+router.get('/company', getAllCompanies)
 
 module.exports = router
