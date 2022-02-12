@@ -29,11 +29,11 @@ services:
         max-size: 10m
         max-file: '3'
     networks:
-      vps-projet-network:
+      vps-ikram-network:
         ipv4_address: 192.168.10.11
     volumes:
       - ./database/data:/var/lib/postgresql/data
-      
+
 networks:
   vps-ikram-network:
     name: vps-ikram-network
