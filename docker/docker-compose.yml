@@ -2,19 +2,38 @@ version: '2'
 
 services:
 
+
   app:
     image: node:14.15.1
     container_name: app
-
+    depends_on:
+      - "db"
     restart: unless-stopped
     volumes:
       - ./www/backend:/var/www/backend
     networks:
       vps-ikram-network:
         ipv4_address: 192.168.10.10
-    command: bash -c "cd /var/www/backend && npm i && node app.js"
+    command: bash -c "cd /var/www/backend && npm i && npm:migrate && node app.js"
 
-
+  db:
+    image: postgres
+    container_name: database
+    restart: always
+    environment:
+        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
+    logging:
+      options:
+        max-size: 10m
+        max-file: '3'
+    networks:
+      vps-projet-network:
+        ipv4_address: 192.168.10.11
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      
 networks:
   vps-ikram-network:
     name: vps-ikram-network
