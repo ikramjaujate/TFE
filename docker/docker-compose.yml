@@ -14,7 +14,7 @@ services:
     networks:
       vps-ikram-network:
         ipv4_address: 192.168.10.10
-    command: bash -c "cd /var/www/backend && npm i && npm run db:migrate && node app.js"
+    command: bash -c "cd /var/www/backend && npm i && npm install argon2 --build-from-source &&npm run db:migrate && node app.js"
 
   db:
     image: postgres
