@@ -1,4 +1,7 @@
 const { Router } = require('express');
+const verifyToken = require('../middleware/auth.js');
+
+
 const {
     createUser,
     getAllUsers,
@@ -37,14 +40,17 @@ router.get('/', (req, res) => res.send('This is root!'))
  *              mobile:
  *                type: string
  *      responses:
+ *        
  *        201:
  *          description: New user created
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
 */
-router.post('/users/create', createUser)
+router.post('/users/create', verifyToken,createUser)
 
 /**
  * @swagger
@@ -57,12 +63,14 @@ router.post('/users/create', createUser)
  *      responses:
  *        200:
  *          description: OK
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
  */
-router.get('/users', getAllUsers)
+router.get('/users', verifyToken,getAllUsers)
 
 /**
  * @swagger
@@ -81,12 +89,14 @@ router.get('/users', getAllUsers)
  *      responses:
  *        200:
  *          description: OK
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
  */
-router.get('/users/:id', getUserById)
+router.get('/users/:id', verifyToken,getUserById)
 
 const { getAllCompanies} = require('../controllers/company.js');
 /**
@@ -100,12 +110,14 @@ const { getAllCompanies} = require('../controllers/company.js');
  *      responses:
  *        200:
  *          description: OK
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
  */
-router.get('/company', getAllCompanies)
+router.get('/company', verifyToken,getAllCompanies)
 
 const {createAddress, getAllAddress} = require('../controllers/address.js');
 
@@ -120,12 +132,14 @@ const {createAddress, getAllAddress} = require('../controllers/address.js');
  *      responses:
  *        200:
  *          description: OK
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
  */
-router.get('/address', getAllAddress)
+router.get('/address', verifyToken,getAllAddress)
 /** 
  *  @swagger
  *  /api/address/create:
@@ -152,12 +166,14 @@ router.get('/address', getAllAddress)
  *      responses:
  *        201:
  *          description: New address created
+ *        401: 
+ *          description: Unauthorized 
  *        404: 
  *          description: Not found 
  *        500:
  *          description: Server internal error
 */
-router.post('/address/create', createAddress)
+router.post('/address/create', verifyToken,createAddress)
 
 const { login } = require('../controllers/login.js');
 
@@ -166,7 +182,7 @@ const { login } = require('../controllers/login.js');
  *  /api/login:
  *    post:
  *      tags : ["Login"]
- *      summary: Login.
+ *      summary: Get JWT Token
  *      consumes:
  *        - application/json
  *      parameters:

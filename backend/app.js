@@ -41,7 +41,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
-app.use('/api', routes);
+app.use('/api' ,routes);
 
 
 app.get('/test', (req, res) => {
