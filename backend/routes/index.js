@@ -108,6 +108,7 @@ const { getAllCompanies} = require('../controllers/company.js');
 router.get('/company', getAllCompanies)
 
 const {createAddress, getAllAddress} = require('../controllers/address.js');
+
 /**
  * @swagger
  * /api/address:
@@ -157,4 +158,39 @@ router.get('/address', getAllAddress)
  *          description: Server internal error
 */
 router.post('/address/create', createAddress)
+
+const { login } = require('../controllers/login.js');
+
+/** 
+ *  @swagger
+ *  /api/login:
+ *    post:
+ *      tags : ["Login"]
+ *      summary: Login.
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - in: body
+ *          name: user
+ *          description: The address to create.
+ *          schema:
+ *            type: object
+ *            required:
+ *              - email
+ *              - password
+ *            properties:
+ *              email:
+ *                type: string
+ *              password:
+ *                type: string
+ *      responses:
+ *        200:
+ *          description: New address created
+ *        404: 
+ *          description: Not found 
+ *        500:
+ *          description: Server internal error
+*/
+router.post('/login', login)
+
 module.exports = router

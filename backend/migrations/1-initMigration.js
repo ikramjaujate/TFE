@@ -6,6 +6,7 @@ var Sequelize = require('sequelize');
  * Actions summary:
  *
  * createTable "Address", deps: []
+ * createTable "userLogin", deps: []
  * createTable "Company", deps: [Address]
  * createTable "User", deps: [Address]
  *
@@ -14,7 +15,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-02-12T19:13:03.860Z",
+    "created": "2022-02-13T12:29:56.486Z",
     "comment": ""
 };
 
@@ -41,6 +42,52 @@ var migrationCommands = [{
                 "postal_code": {
                     "type": Sequelize.STRING,
                     "field": "postal_code"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "userLogin",
+            {
+                "id": {
+                    "type": Sequelize.INTEGER,
+                    "field": "id",
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false
+                },
+                "firstName": {
+                    "type": Sequelize.STRING,
+                    "field": "firstName"
+                },
+                "lastName": {
+                    "type": Sequelize.STRING,
+                    "field": "lastName"
+                },
+                "email": {
+                    "type": Sequelize.STRING,
+                    "field": "email"
+                },
+                "password": {
+                    "type": Sequelize.STRING,
+                    "field": "password"
+                },
+                "role": {
+                    "type": Sequelize.ENUM('dev', 'admin', 'sec'),
+                    "field": "role"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
