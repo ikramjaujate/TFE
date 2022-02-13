@@ -9,10 +9,40 @@ const routes = require('./routes');
 const bodyParser = require('body-parser')
 const app = express();
 
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUi =require('swagger-ui-express')
+
 const port = 3001;
 
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+
+
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      version: "1.0.0",
+      title: "MasterServices API",
+      description: "MasterServices API Information",
+      contact: {
+        name: "Ikram Jaujate Ouldkhala"
+      },
+      servers: ["http://localhost:3001"]
+    }
+  },
+  // ['.routes/*.js']
+  apis: ["./routes/index.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
 app.use('/api', routes);
+
 
 app.get('/test', (req, res) => {
   res.send('Déploiment marche!')
