@@ -50,8 +50,9 @@ jobs:
             cd Application/www/backend
             npm i
             npm i argon2
+            cd ../..
             docker stop app
             docker rm app
-            docker rmi node:14.15.1
+            docker rmi node:16
             docker-compose up -d
             

@@ -4,7 +4,7 @@ services:
 
 
   app:
-    image: node:14.15.4
+    image: node:16
     container_name: app
     depends_on:
       - "db"
