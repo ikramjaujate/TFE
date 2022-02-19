@@ -47,9 +47,6 @@ jobs:
             cp .env Application/www/backend
             cp .env Application
             cd Application
-            cd www/backend
-            npm i
-            cd ../..
             docker stop app
             docker rm app
             docker rmi node:16
