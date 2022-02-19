@@ -1,0 +1,31 @@
+.home_btn {
+    width: 338px;
+    margin: 15px;
+    height: 200px;
+    background-color: white;
+    color: black;
+    line-height: 180px;
+    border-radius: 25px;
+    border-color: #170b57;
+}
+
+.home_btn p {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #0b063d;
+}
+
+.home_btn:hover {
+    color: rgb(255, 255, 255);
+    background-color: #edecec;
+}
+
+.home_btn:hover p, svg {
+    color: #ef3420;
+}
+
+svg:hover {
+    color: #375f79!important;
+}
