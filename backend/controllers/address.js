@@ -1,5 +1,11 @@
 const {Address} = require('../models');
 const createAddress = async (req, res) => {
+    // #swagger.tags = ['Address']
+    /* 
+    #swagger.summary = 'Creates a new address'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
     try {
         console.log(req.body)
         const address = await Address.create(req.body);
@@ -12,6 +18,12 @@ const createAddress = async (req, res) => {
     }
 }
 const getAllAddress = async (req, res) => {
+    // #swagger.tags = ['Address']
+    /* 
+    #swagger.summary = 'Get all adresses'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
     try {
         const address = await Address.findAll();
         return res.status(200).json({ address });

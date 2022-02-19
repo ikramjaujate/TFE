@@ -1,5 +1,11 @@
 const {Company} = require('../models');
 const getAllCompanies = async (req, res) => {
+    // #swagger.tags = ['Company']
+    /* 
+    #swagger.summary = 'Get all companies'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
     try {
         const companies = await Company.findAll();
         return res.status(200).json({ companies });

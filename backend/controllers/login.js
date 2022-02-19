@@ -1,7 +1,9 @@
 const {userLogin} = require('../models');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+
 const login = async (req, res) => {
+    //#swagger.summary = 'Get JWT Token'
     try {
         const { email, password } = req.body;
         
@@ -22,7 +24,7 @@ const login = async (req, res) => {
               expiresIn: "30m",
             }
           );
-        res.header('auth-token', token).json({
+        res.header('Authorization', token).json({
             error: null,
             data: {token}
         })
