@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Facturas = () => {
+const Invoices = () => {
     return (
         <div className='Remisiones'>
-            <h1>Facturas</h1>
+            <h1>Invoices</h1>
         </div>
     )
 }
 
-export default Facturas
+export default Invoices

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Remisiones = () => {
+const Employees = () => {
     return (
         <div className='Remisiones'>
-            <h1>Remisiones</h1>
+            <h1>Employees</h1>
         </div>
     )
 }
 
-export default Remisiones
+export default Employees

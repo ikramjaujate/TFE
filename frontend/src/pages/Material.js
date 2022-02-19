@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Historiales = () => {
+const Material = () => {
     return (
         <div className='Historiales'>
-            <h1>Historiales</h1>
+            <h1>Material</h1>
         </div>
     )
 }
 
-export default Historiales
+export default Material

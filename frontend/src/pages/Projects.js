@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Vehiculos() {
+function Projects() {
   return (
     <div className='Vehiculos'>
-      <h1>Vehiculos</h1>
+      <h1>Projects</h1>
     </div>
   );
 }
 
-export default Vehiculos;
+export default Projects;

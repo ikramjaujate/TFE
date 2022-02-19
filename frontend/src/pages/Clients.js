@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Clientes() {
+function Clients() {
   return (
     <div className='Clientes'>
-      <h1>Clientes</h1>
+      <h1>Clients</h1>
     </div>
   );
 }
 
-export default Clientes;
+export default Clients;
