@@ -47,7 +47,7 @@ jobs:
             cp .env Application/www/backend
             cp .env Application
             cd Application
-            cd Application/www/backend
+            cd www/backend
             npm i
             cd ../..
             docker stop app
