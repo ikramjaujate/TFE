@@ -47,6 +47,9 @@ jobs:
             cp .env Application/www/backend
             cp .env Application
             cd Application
+            cd Application/www/backend
+            npm i
+            npm i argon2
             docker stop app
             docker rm app
             docker rmi node:14.15.1
