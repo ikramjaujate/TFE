@@ -2,11 +2,12 @@
     width: 338px;
     margin: 15px;
     height: 200px;
-    background-color: white;
-    color: black;
+    background-color: #f55a3f;
+    color: rgb(255, 255, 255);
     line-height: 180px;
     border-radius: 25px;
-    border-color: #170b57;
+    border-color: #ffffff;
+    border-width: 2px;
 }
 
 .home_btn p {
@@ -14,18 +15,15 @@
     line-height: normal;
     vertical-align: middle;
     font-weight: bold;
-    color: #0b063d;
+    color: #ffffff;
 }
 
+.home_btn a {
+    background-color: #ffffff;
+    color: rgb(255, 255, 255);
+}
 .home_btn:hover {
     color: rgb(255, 255, 255);
     background-color: #edecec;
 }
 
-.home_btn:hover p, svg {
-    color: #ef3420;
-}
-
-svg:hover {
-    color: #375f79!important;
-}

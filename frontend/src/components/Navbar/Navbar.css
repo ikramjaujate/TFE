@@ -12,7 +12,18 @@
     color: #c9392f!important;
   }
 
-    
+  .navbar__link {
+    color :  black;
+  }
+  
+  .navbar__link:hover {
+    color: rgb(31, 57, 90) !important;
+  }
+  
+  .navbar__link--active {
+    background-color: #ffffff!important;
+    color: #1d1f3d !important;
+  }
 
   .nav-menu {
     background-color: #c9392f;

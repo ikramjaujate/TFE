@@ -34,7 +34,7 @@ const Navbar = () => {
                 {SidebarData.map((item, index) => {
                     return (
                         <li key={index} className={item.cName}>
-                            <NavLink to={item.path}>
+                            <NavLink exact to={item.path} activeClassName="navbar__link--active" className="navbar__link">
                                 {item.icon}
                                 <span>{item.title}</span>
                             </NavLink>

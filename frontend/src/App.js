@@ -2,12 +2,12 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route}  from 'react-router-dom'
-import Home from './pages/Home'
-import Clients from './pages/Clients'
-import Projects from './pages/Projects'
-import Invoices from './pages/Invoices'
-import Employees from './pages/Employees'
-import Material from './pages/Material'
+import Home from './pages/Home/Home'
+import Clients from './pages/Clients/Clients'
+import Projects from './pages/Projects/Projects'
+import Invoices from './pages/Invoices/Invoices'
+import Employees from './pages/Employees/Employees'
+import Material from './pages/Material/Material'
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
