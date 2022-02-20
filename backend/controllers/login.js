@@ -25,7 +25,7 @@ const login = async (req, res) => {
             }
           );
         
-        res.header('Authorization', token).json({
+        res.setHeader('Authorization', token).json({
             error: null,
             data: {token}
         })
