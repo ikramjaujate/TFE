@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 // middleware to validate token (rutas protegidas)
 const verifyToken = (req, res, next) => {
+
     const token = req.header('Authorization').split("Bearer")[1].trim();
     //console.log(token)
     

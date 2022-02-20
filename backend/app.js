@@ -15,6 +15,7 @@ const helmet = require("helmet");
 const permissionsPolicy = require("permissions-policy");
 const expectCt = require("expect-ct");
 const path = require('path');
+//const cors = require('cors')
 
 const port = 3001;
 
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 
 //X-Content-Type-Options
 app.use(helmet.noSniff());
+
 
 //X-Frame-Options
  app.use(
@@ -55,6 +57,8 @@ app.use(
   })
 );
 
+
+//app.use(cors())
 // CSP Header middlewar 
 /*app.use(function(req, res, next) {
   res.setHeader("content-security-policy-report-only", "default-src 'self'; font-src 'self' data: https://maxcdn.bootstrapcdn.com; img-src 'self' http://c0nrad.io; object-src 'none'; script-src 'report-sample' 'self'; style-src 'report-sample' 'self' https://maxcdn.bootstrapcdn.com; base-uri 'none'; report-uri https://5e52f4c893efdeaaa7d40460.endpoint.csper.io;"),
