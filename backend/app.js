@@ -56,11 +56,8 @@ app.use(
 
 // CSP Header middlewar 
 app.use(function(req, res, next) {
-   res.setHeader(
-     "Content-Security-Policy",
-     "frame-ancestors 'self'; default-src 'self'; script-src 'sha256-leYCTtAGk9OA86rkpsFvzjewfVkLMqDTkMVb/B4Pt2Q=' 'self'; img-src 'self' data: http://www.w3.org http://*.w3.org https://ikram.m-michotte.be  https://*.ftcdn.net; upgrade-insecure-requests; style-src 'self'  'sha256-UyZXAxwnOfm7gFnYxk/X20KR8vRiHVrQCVThoRHBcDY=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-mkh8535AFt6ogczZfol78HZgvhGGEDTCXpPucFH37Jo=' 'report-sample' ikram.m-michotte.be; object-src 'none'; frame-src 'self'; child-src 'self'; font-src 'self'; connect-src 'self'; manifest-src 'self' projet.4x4vert.be; base-uri 'self'; form-action 'self'; media-src 'self'; prefetch-src 'self'; worker-src 'self';"
-   ),
-   next();
+  res.setHeader("content-security-policy-report-only", "default-src 'self'; font-src 'self' data: https://maxcdn.bootstrapcdn.com; img-src 'self' http://c0nrad.io; object-src 'none'; script-src 'report-sample' 'self'; style-src 'report-sample' 'self' https://maxcdn.bootstrapcdn.com; base-uri 'none'; report-uri https://5e52f4c893efdeaaa7d40460.endpoint.csper.io;"),
+  next();
  });
 
 //Expect-CT
