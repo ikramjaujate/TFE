@@ -29,7 +29,7 @@ const login = async (req, res) => {
             error: null,
             data: {token}
         })
-        //return;
+        return;
 
         return res.status(404).send('Invalid Credentials');
     } catch (error) {
