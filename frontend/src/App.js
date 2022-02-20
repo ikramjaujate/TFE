@@ -9,6 +9,9 @@ import Invoices from './pages/Invoices/Invoices'
 import Employees from './pages/Employees/Employees'
 import Material from './pages/Material/Material'
 
+import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";  
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
