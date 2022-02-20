@@ -17,7 +17,7 @@
   }
   
   .navbar__link:hover {
-    color: rgb(31, 57, 90) !important;
+    color: rgb(255, 255, 255) !important;
   }
   
   .navbar__link--active {
@@ -63,8 +63,8 @@
   }
   
   .nav-text a:hover {
-    background-color: rgb(255, 255, 255)!important;
-    color: black;
+    background-color: rgb(153, 123, 123)!important;
+    color: rgb(255, 255, 255);
   }
   
   ul {
