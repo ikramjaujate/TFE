@@ -11,6 +11,9 @@ const app = express();
 const swaggerFile = require('./swagger_output.json')
 //const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi =require('swagger-ui-express')
+const helmet = require("helmet");
+const permissionsPolicy = require("permissions-policy");
+const expectCt = require("expect-ct");
 
 const port = 3001;
 
@@ -19,39 +22,42 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+//X-Content-Type-Options
+app.use(helmet.noSniff());
 
-// Extended: https://swagger.io/specification/#infoObject
-/*const swaggerOptions = {
-  swaggerDefinition: {
+//X-Frame-Options
+ app.use(
+  helmet.frameguard({
+    action: "sameorigin",
+  })
+ );
 
-    info: {
-      version: "1.0",
-      title: "MasterServices API",
-      description: "MasterServices API Information",
-      contact: {
-        name: "Ikram Jaujate Ouldkhala"
-      },
-      servers: ["http://localhost:3001"]
-    }
-  },
-  components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer"
-      },
-    }
-  }
-  ,
-  security: [{
-    bearerAuth: []
-  }],
-  swagger: "1.0",
-  // ['.routes/*.js']
-  apis: ["./routes/index.js"]
-};
-*/
-//const swaggerDocs = swaggerJsDoc(swaggerOptions);
+//X-XSS-Protection
+app.use(helmet.xssFilter());
+
+//Referrer-Policy
+app.use(
+  helmet.referrerPolicy({
+    policy: ["strict-origin-when-cross-origin"]
+  })
+ );
+
+ //X-Powered-By
+app.use(helmet.hidePoweredBy());
+
+//Strict-Transport-Security
+app.use(
+  helmet.hsts({
+    maxAge: 63072000, //2ans
+    includeSubDomains: true,
+    preload: false
+  })
+);
+
+//Expect-CT
+app.use(expectCt({ maxAge: 86400 }));
+
+
 app.use('/api' ,routes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
