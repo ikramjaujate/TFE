@@ -25,13 +25,15 @@ const login = async (req, res) => {
             }
           );
         
-        res.setHeader('Authorization', token).json({
+        console.log(token)
+        
+        res.header('Authorization', token).json({
             error: null,
             data: {token}
         })
-        return;
+        return res;
 
-        return res.status(404).send('Invalid Credentials');
+        //return res.status(404).send('Invalid Credentials');
     } catch (error) {
         return res.status(500).send(error.message);
     }

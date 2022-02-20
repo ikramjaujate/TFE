@@ -26,6 +26,7 @@ function Login() {
                     return (response.json())             
                 }).then(token => {
                     console.log(token["data"]["token"])
+                    
                     setErrorMsg(<p style={{color:'red'}}>{token.message}</p>)
                     if (token["data"]["token"]) {
                         localStorage.setItem('access_token', token["data"]["token"]);

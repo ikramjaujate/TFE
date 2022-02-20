@@ -16,14 +16,20 @@
     vertical-align: middle;
     font-weight: bold;
     color: #ffffff;
+    
 }
+
 
 .home_btn a {
     background-color: #ffffff;
-    color: rgb(255, 255, 255);
+    color: rgb(75, 28, 28);
 }
 .home_btn:hover {
     color: rgb(255, 255, 255);
     background-color: #edecec;
+}
+
+.home_btn:hover p svg, .home_btn:hover p {
+    color: rgb(14, 28, 110)!important;
 }
 
