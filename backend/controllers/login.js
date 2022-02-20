@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const login = async (req, res) => {
     //#swagger.summary = 'Get JWT Token'
     try {
-        const { email, password } = req.body;
-        
+        const { username, password } = req.body;
+        //console.log(username, password)
         const user = await userLogin.findOne({
-            where: { email: email}
+            where: { email: username}
         });
         //console.log(user.dataValues['password'])
 
@@ -16,14 +16,15 @@ const login = async (req, res) => {
         const validPassword = await argon2.verify(passwordHash, password)
         
         if (!validPassword) return res.status(401).json({error: "Invalid Credentials"});
-
+        
         const token = jwt.sign(
-            { user_id: email },
+            { user_id: username },
             process.env.TOKEN_SECRET,
             {
-              expiresIn: "30m",
+              expiresIn: "10000h",
             }
           );
+        
         res.header('Authorization', token).json({
             error: null,
             data: {token}

@@ -11,7 +11,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      firstName: 'Ikram',
+      firstName: 'Toto',
       lastName: 'Jaujate Ouldkhala',
       email: 'i.jaujate@masterservices.com',
       VAT_num: 123456,
@@ -21,7 +21,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      firstName: 'Ikram',
+      firstName: 'Jean',
       lastName: 'Jaujate Ouldkhala',
       email: 'i.jaujate@masterservices.com',
       VAT_num: 123456,
