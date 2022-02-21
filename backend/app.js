@@ -68,10 +68,10 @@ app.use(permissionsPolicy({
 
 //app.use(cors())
 // CSP Header middlewar 
-/*app.use(function(req, res, next) {
-  res.setHeader("content-security-policy-report-only", "default-src 'self'; font-src 'self' data: https://maxcdn.bootstrapcdn.com; img-src 'self' http://c0nrad.io; object-src 'none'; script-src 'report-sample' 'self'; style-src 'report-sample' 'self' https://maxcdn.bootstrapcdn.com; base-uri 'none'; report-uri https://5e52f4c893efdeaaa7d40460.endpoint.csper.io;"),
-  next();
- });*/
+app.use(function(req, res, next) {
+  res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
+  return next();
+});
 
 //Expect-CT
 app.use(expectCt({ maxAge: 86400 }));
