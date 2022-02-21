@@ -78,6 +78,7 @@ app.use(expressCspHeader({
   directives: {
       'default-src': [SELF],
       'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
+      'style-src': [SELF, 'https://fonts.googleapis.com'],
       'worker-src': [NONE],
       'block-all-mixed-content': false
   }
