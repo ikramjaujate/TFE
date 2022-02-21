@@ -12,7 +12,7 @@ const swaggerFile = require('./swagger_output.json')
 //const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi =require('swagger-ui-express')
 const helmet = require("helmet");
-const permissionsPolicy = require("permissions-policy");
+const permissionsPolicy = require('permissions-policy')
 const expectCt = require("expect-ct");
 const path = require('path');
 //const cors = require('cors')
@@ -57,6 +57,14 @@ app.use(
   })
 );
 
+app.use(permissionsPolicy({
+  features: {
+    fullscreen: ['self'],               // fullscreen=()
+    vibrate: ['none'],                  // vibrate=(none)
+    payment: ['self', '"ikram.m-michotte.be"'], // payment=(self "example.com")
+    syncXhr: [],                        // syncXhr=()
+  }
+}))
 
 //app.use(cors())
 // CSP Header middlewar 
