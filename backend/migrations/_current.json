@@ -1,13 +1,61 @@
 {
     "tables": {
-        "Address": {
-            "tableName": "Address",
+        "Person_Company": {
+            "tableName": "Person_Company",
             "schema": {
                 "id": {
                     "allowNull": false,
                     "primaryKey": true,
                     "autoIncrement": true,
                     "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "isPrimary": {
+                    "field": "isPrimary",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "idPerson": {
+                    "field": "idPerson",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Person",
+                        "key": "idPerson"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idCompany": {
+                    "field": "idCompany",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Company",
+                        "key": "idCompany"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Address": {
+            "tableName": "Address",
+            "schema": {
+                "idAddress": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idAddress",
                     "seqType": "Sequelize.INTEGER"
                 },
                 "street": {
@@ -38,11 +86,10 @@
         "Company": {
             "tableName": "Company",
             "schema": {
-                "id": {
-                    "allowNull": false,
+                "idCompany": {
                     "primaryKey": true,
                     "autoIncrement": true,
-                    "field": "id",
+                    "field": "idCompany",
                     "seqType": "Sequelize.INTEGER"
                 },
                 "name": {
@@ -61,12 +108,12 @@
                     "field": "mobile",
                     "seqType": "Sequelize.STRING"
                 },
-                "addressId": {
-                    "field": "addressId",
+                "idAddress": {
+                    "field": "idAddress",
                     "allowNull": true,
                     "references": {
                         "model": "Address",
-                        "key": "id"
+                        "key": "idAddress"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
@@ -85,14 +132,54 @@
             },
             "indexes": []
         },
-        "User": {
-            "tableName": "User",
+        "Document": {
+            "tableName": "Document",
             "schema": {
-                "id": {
-                    "allowNull": false,
+                "idDocument": {
                     "primaryKey": true,
                     "autoIncrement": true,
-                    "field": "id",
+                    "field": "idDocument",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "file": {
+                    "field": "file",
+                    "seqType": "Sequelize.BLOB"
+                },
+                "idProject": {
+                    "field": "idProject",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Project",
+                        "key": "idProject"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "type": {
+                    "field": "type",
+                    "seqType": "Sequelize.ENUM('devis', 'facture')"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Person": {
+            "tableName": "Person",
+            "schema": {
+                "idPerson": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idPerson",
                     "seqType": "Sequelize.INTEGER"
                 },
                 "firstName": {
@@ -115,16 +202,76 @@
                     "field": "mobile",
                     "seqType": "Sequelize.STRING"
                 },
-                "addressId": {
-                    "field": "addressId",
+                "idAddress": {
+                    "field": "idAddress",
                     "allowNull": true,
                     "references": {
                         "model": "Address",
-                        "key": "id"
+                        "key": "idAddress"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Project": {
+            "tableName": "Project",
+            "schema": {
+                "idProject": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idProject",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "idPerson": {
+                    "field": "idPerson",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Person",
+                        "key": "idPerson"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idCompany": {
+                    "field": "idCompany",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Company",
+                        "key": "idCompany"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "status": {
+                    "field": "status",
+                    "seqType": "Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed')"
+                },
+                "start_date": {
+                    "field": "start_date",
+                    "seqType": "Sequelize.DATE"
+                },
+                "end_date": {
+                    "field": "end_date",
+                    "seqType": "Sequelize.DATE"
                 },
                 "createdAt": {
                     "allowNull": false,

@@ -20,16 +20,18 @@ function App() {
   if(isLoggedIn()){
   return (
     <>
-    <Router>
-      <Navbar/>
-        <Switch>
-          <PrivateRoute exact isloggedin={isLoggedIn()}  path="/"  component={Home}/>
-          <PrivateRoute exact isloggedin={isLoggedIn()} path="/clients" component={Clients}/>
-          <PrivateRoute exact isloggedin={isLoggedIn()} path="/projects" component={Projects}/>
-          <PrivateRoute exact isloggedin={isLoggedIn()} path="/invoices" component={Invoices}/>
-          <PrivateRoute exact isloggedin={isLoggedIn()} path="/employees" component={Employees}/>
-          <PrivateRoute exact isloggedin={isLoggedIn()} path="/material" component={Material}/>
-        </Switch>
+    <Router className="flex-container">
+      <Navbar className="sideBar"/>
+
+      <Switch className="content">
+        <PrivateRoute exact isloggedin={isLoggedIn()}  path="/"  component={Home}/>
+        <PrivateRoute exact isloggedin={isLoggedIn()} path="/clients" component={Clients}/>
+        <PrivateRoute exact isloggedin={isLoggedIn()} path="/projects" component={Projects}/>
+        <PrivateRoute exact isloggedin={isLoggedIn()} path="/invoices" component={Invoices}/>
+        <PrivateRoute exact isloggedin={isLoggedIn()} path="/employees" component={Employees}/>
+        <PrivateRoute exact isloggedin={isLoggedIn()} path="/material" component={Material}/>
+      </Switch>
+      
     </Router>
     </>
   );}else{

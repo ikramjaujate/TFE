@@ -8,14 +8,17 @@ var Sequelize = require('sequelize');
  * createTable "Address", deps: []
  * createTable "userLogin", deps: []
  * createTable "Company", deps: [Address]
- * createTable "User", deps: [Address]
+ * createTable "Person", deps: [Address]
+ * createTable "Project", deps: [Person, Company]
+ * createTable "Person_Company", deps: [Person, Company]
+ * createTable "Document", deps: [Project]
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-02-13T12:29:56.486Z",
+    "created": "2022-02-20T19:47:34.962Z",
     "comment": ""
 };
 
@@ -24,12 +27,11 @@ var migrationCommands = [{
         params: [
             "Address",
             {
-                "id": {
+                "idAddress": {
                     "type": Sequelize.INTEGER,
-                    "field": "id",
+                    "field": "idAddress",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "street": {
                     "type": Sequelize.STRING,
@@ -108,12 +110,11 @@ var migrationCommands = [{
         params: [
             "Company",
             {
-                "id": {
+                "idCompany": {
                     "type": Sequelize.INTEGER,
-                    "field": "id",
+                    "field": "idCompany",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "name": {
                     "type": Sequelize.STRING,
@@ -131,16 +132,16 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "field": "mobile"
                 },
-                "addressId": {
+                "idAddress": {
                     "type": Sequelize.INTEGER,
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
                         "model": "Address",
-                        "key": "id"
+                        "key": "idAddress"
                     },
                     "allowNull": true,
-                    "field": "addressId"
+                    "field": "idAddress"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -159,14 +160,13 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "User",
+            "Person",
             {
-                "id": {
+                "idPerson": {
                     "type": Sequelize.INTEGER,
-                    "field": "id",
+                    "field": "idPerson",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "firstName": {
                     "type": Sequelize.STRING,
@@ -188,16 +188,175 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "field": "mobile"
                 },
-                "addressId": {
+                "idAddress": {
                     "type": Sequelize.INTEGER,
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
                         "model": "Address",
-                        "key": "id"
+                        "key": "idAddress"
                     },
                     "allowNull": true,
-                    "field": "addressId"
+                    "field": "idAddress"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Project",
+            {
+                "idProject": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idProject",
+                    "autoIncrement": true,
+                    "primaryKey": true
+                },
+                "name": {
+                    "type": Sequelize.STRING,
+                    "field": "name"
+                },
+                "idPerson": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Person",
+                        "key": "idPerson"
+                    },
+                    "allowNull": true,
+                    "field": "idPerson"
+                },
+                "idCompany": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Company",
+                        "key": "idCompany"
+                    },
+                    "allowNull": true,
+                    "field": "idCompany"
+                },
+                "status": {
+                    "type": Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
+                    "field": "status"
+                },
+                "start_date": {
+                    "type": Sequelize.DATE,
+                    "field": "start_date"
+                },
+                "end_date": {
+                    "type": Sequelize.DATE,
+                    "field": "end_date"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Person_Company",
+            {
+                "id": {
+                    "type": Sequelize.INTEGER,
+                    "field": "id",
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false
+                },
+                "isPrimary": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isPrimary"
+                },
+                "idPerson": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Person",
+                        "key": "idPerson"
+                    },
+                    "allowNull": true,
+                    "field": "idPerson"
+                },
+                "idCompany": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Company",
+                        "key": "idCompany"
+                    },
+                    "allowNull": true,
+                    "field": "idCompany"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Document",
+            {
+                "idDocument": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idDocument",
+                    "autoIncrement": true,
+                    "primaryKey": true
+                },
+                "file": {
+                    "type": Sequelize.BLOB,
+                    "field": "file"
+                },
+                "idProject": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Project",
+                        "key": "idProject"
+                    },
+                    "allowNull": true,
+                    "field": "idProject"
+                },
+                "type": {
+                    "type": Sequelize.ENUM('devis', 'facture'),
+                    "field": "type"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,

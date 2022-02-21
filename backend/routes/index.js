@@ -4,7 +4,7 @@ const {
     createUser,
     getAllUsers,
     getUserById
-} = require('../controllers/users.js');
+} = require('../controllers/person.js');
 const router = Router();
 
 // Routes
@@ -14,6 +14,7 @@ router.get('/', (req, res) => res.send('This is root!'))
 router.post('/users/create', verifyToken,createUser)
 router.get('/users', verifyToken,getAllUsers)
 router.get('/users/:id', verifyToken,getUserById)
+
 
 // COMPANY
 const { getAllCompanies} = require('../controllers/company.js');

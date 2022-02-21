@@ -1,4 +1,4 @@
-const {User} = require('../models');
+const {Person, Address} = require('../models');
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
     /* 
@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
     }] */
     try {
         //console.log(req.body)
-        const user = await User.create(req.body);
+        const user = await Person.create(req.body);
         
         return res.status(201).json({
             user,
@@ -46,13 +46,17 @@ const getAllUsers = async (req, res) => {
     
     */
     try {
-        const users = await User.findAll();
+        const users = await Person.findAll({include : {
+            model : Address
+        }});
         return res.status(200).json({ users });
     } catch (error) {
         return res.status(500).send(error.message);
     }
     
 }
+
+
 
 const getUserById = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -69,10 +73,11 @@ const getUserById = async (req, res) => {
                 type: 'integer'
             }
     */
+   console.log('test')
     try {
         const { id } = req.params;
-        const user = await User.findOne({
-            where: { id: id },
+        const user = await Person.findOne({
+            where: { idPerson: id },
         });
         if (user) {
             return res.status(200).json({ user });

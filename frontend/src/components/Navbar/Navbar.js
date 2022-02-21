@@ -19,10 +19,6 @@ const Navbar = () => {
                 <FaIcons.FaBars style={{color: '#c9392f'}} onClick={showSidebar}/>
              </NavLink>
 
-                <div>
-                    
-                </div>
-
             </div>
             <nav className={ sidebar ? 'nav-menu active' : 'nav-menu'}>
             <ul className='nav-menu-items' onClick={showSidebar}>

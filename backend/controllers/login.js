@@ -6,11 +6,9 @@ const login = async (req, res) => {
     //#swagger.summary = 'Get JWT Token'
     try {
         const { username, password } = req.body;
-        //console.log(username, password)
         const user = await userLogin.findOne({
             where: { email: username}
         });
-        //console.log(user.dataValues['password'])
 
         const passwordHash = user.dataValues['password'].trim();
         const validPassword = await argon2.verify(passwordHash, password)
@@ -24,8 +22,6 @@ const login = async (req, res) => {
               expiresIn: "10000h",
             }
           );
-        
-        console.log(token)
         
         res.header('Authorization', token).json({
             error: null,

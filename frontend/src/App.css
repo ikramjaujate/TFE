@@ -18,4 +18,6 @@
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  flex-grow: 1;  /* ensures that the container will take up the full height of the parent container */
+    overflow-y: auto;
 }

@@ -34,6 +34,8 @@
     top: 0;
     left: -100%;
     transition: 850ms;
+    flex-grow: 1;  /* ensures that the container will take up the full height of the parent container */
+    overflow-y: auto;
   }
   
   .nav-menu.active {

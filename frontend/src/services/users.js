@@ -1,14 +1,13 @@
-const GetClients = () => {
+const GetClients = async () => {
+
     let informations = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('access_token') },
+      headers: { 'Content-Type': 'application/json', 
+      'Authorization': "Bearer " + localStorage.getItem('access_token') },
     };
-    fetch(`/api/users`, informations)
-      .then(response => {
-        return response.json()
-      }).then(response => {
-        //console.log(response["users"])
-        return response["users"]
-      })
-  }
+    return await (fetch(`/api/users`, informations).then(response => {
+      return response.json()
+    }))
+      
+}
   export default GetClients
