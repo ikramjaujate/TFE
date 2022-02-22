@@ -6,10 +6,12 @@ var Sequelize = require('sequelize');
  * Actions summary:
  *
  * createTable "Address", deps: []
+ * createTable "Material", deps: []
  * createTable "userLogin", deps: []
  * createTable "Company", deps: [Address]
  * createTable "Person", deps: [Address]
  * createTable "Project", deps: [Person, Company]
+ * createTable "Project_Materials", deps: [Project, Material]
  * createTable "Person_Company", deps: [Person, Company]
  * createTable "Document", deps: [Project]
  *
@@ -18,7 +20,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-02-20T19:47:34.962Z",
+    "created": "2022-02-22T09:24:01.717Z",
     "comment": ""
 };
 
@@ -44,6 +46,47 @@ var migrationCommands = [{
                 "postal_code": {
                     "type": Sequelize.STRING,
                     "field": "postal_code"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Material",
+            {
+                "idMaterial": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idMaterial",
+                    "autoIncrement": true,
+                    "primaryKey": true
+                },
+                "name": {
+                    "type": Sequelize.STRING,
+                    "field": "name"
+                },
+                "quantity": {
+                    "type": Sequelize.INTEGER,
+                    "field": "quantity"
+                },
+                "price": {
+                    "type": Sequelize.FLOAT,
+                    "field": "price"
+                },
+                "type": {
+                    "type": Sequelize.ENUM('static', 'consommable'),
+                    "field": "type"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -279,14 +322,64 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
+            "Project_Materials",
+            {
+                "idProjMat": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idProjMat",
+                    "autoIncrement": true,
+                    "primaryKey": true
+                },
+                "idProject": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Project",
+                        "key": "idProject"
+                    },
+                    "allowNull": true,
+                    "field": "idProject"
+                },
+                "idMaterial": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Material",
+                        "key": "idMaterial"
+                    },
+                    "allowNull": true,
+                    "field": "idMaterial"
+                },
+                "quantity": {
+                    "type": Sequelize.INTEGER,
+                    "field": "quantity"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
             "Person_Company",
             {
-                "id": {
+                "idPerComp": {
                     "type": Sequelize.INTEGER,
-                    "field": "id",
+                    "field": "idPerComp",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "isPrimary": {
                     "type": Sequelize.BOOLEAN,

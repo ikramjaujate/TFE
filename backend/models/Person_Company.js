@@ -4,6 +4,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Person_Company = sequelize.define('Person_Company', {
+    idPerComp : {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true 
+    },
     isPrimary : DataTypes.BOOLEAN,
     idPerson : DataTypes.INTEGER,
     idCompany : DataTypes.INTEGER
