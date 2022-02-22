@@ -42,7 +42,7 @@ function Login() {
     
     const usernameVerif = () => {
         if(username === ''){
-            setBlankUsername(<p style={{color : "red", fontSize : "calc(0.3rem + 0.4vw)", fontStyle:"italic"}}>Champ requis</p>)
+            setBlankUsername(<p style={{color : "white", fontSize : "calc(0.3rem + 0.4vw)", fontStyle:"italic"}}>Champ requis</p>)
         }
         else setBlankUsername('')
         
@@ -50,7 +50,7 @@ function Login() {
 
     const passwordVerif = () => {
         if(password === ''){
-            setBlankPassword(<p style={{color : "red", fontSize : "calc(0.3rem + 0.4vw)", fontStyle:"italic"}}>Champ requis</p>)
+            setBlankPassword(<p style={{color : "white", fontSize : "calc(0.3rem + 0.4vw)", fontStyle:"italic"}}>Champ requis</p>)
         }
         else setBlankPassword('')
 
@@ -69,7 +69,6 @@ function Login() {
 
                         <div class="pb-2">
 
-                            <p class="text-white-50 mb-2">Entrez vos identifiants</p>
                             <form>
                                 <div class="form-outline form-white mb-4">
                                 
@@ -85,7 +84,7 @@ function Login() {
                                     {blankPassword}
                                 </div>                        
 
-                                <button class="btn btn-outline-dark text-white btn-lg px-4 px-md-5 px-lg-5" onClick={loginUser} style={{fontSize: "calc(0.7rem + 0.7vw", backgroundColor : "#494848"}}>Connexion</button>                        
+                                <button class="btn btn-outline-dark text-white btn-lg px-4 px-md-5 px-lg-5" onClick={loginUser} style={{fontSize: "calc(0.7rem + 0.7vw", backgroundColor : "#494848"}}>LOGIN</button>                        
                             
                             </form>
                             {errorMsg}

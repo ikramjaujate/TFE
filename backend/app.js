@@ -80,6 +80,7 @@ app.use(expressCspHeader({
       'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
       'style-src': [SELF, 'https://fonts.googleapis.com'],
       'worker-src': [NONE],
+      'font-src' : [SELF, 'https://fonts.gstatic.com'],
       'block-all-mixed-content': false
   }
 }));
