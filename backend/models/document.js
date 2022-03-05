@@ -9,9 +9,18 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true 
       },
-    file : DataTypes.BLOB,
-    idProject: DataTypes.INTEGER,
-    type: DataTypes.ENUM('devis', 'facture' ),
+    file : {
+      type: DataTypes.BLOB,
+      allowNull: false
+    },
+    idProject: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    type: {
+      type: DataTypes.ENUM('devis', 'facture'),
+      allowNull: false
+  }
   }, {});
   
   Document.associate = function (models) {

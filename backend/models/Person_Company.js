@@ -9,9 +9,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true 
     },
-    isPrimary : DataTypes.BOOLEAN,
-    idPerson : DataTypes.INTEGER,
-    idCompany : DataTypes.INTEGER
+    idPerson : { 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    idCompany : { 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    isPrimary : { 
+      type: DataTypes.BOOLEAN, 
+      allowNull: false
+    }
   }, {});
   
   Person_Company.associate = function (models) {

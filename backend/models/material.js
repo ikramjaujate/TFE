@@ -9,10 +9,16 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true 
     },
-    name: DataTypes.STRING,
+    name: { 
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     quantity: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
-    type : DataTypes.ENUM('static', 'consommable')
+    type : { 
+      type: DataTypes.ENUM('static', 'consommable'),
+      allowNull: false
+    }
   }, {});
 
  

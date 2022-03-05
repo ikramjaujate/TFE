@@ -9,12 +9,40 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true 
       },
-    name : DataTypes.STRING,
-    idPerson : DataTypes.INTEGER,
-    idCompany : DataTypes.INTEGER,
-    status: DataTypes.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
-    start_date : DataTypes.DATE,
+    name : {
+      type: DataTypes.STRING, 
+      allowNull: false
+    },
+    idPerson : {
+      type: DataTypes.INTEGER,
+      validate:{
+        alreadyContainsFK(value){     
+          if(value && this.idCompany){
+            throw new Error('Cannot have 2 FK : Company already taken');
+          }
+        }
+      }
+    },
+    idCompany : {
+      type: DataTypes.INTEGER,
+      validate:{
+        alreadyContainsFK(value){
+          if(value && this.idPerson){
+            throw new Error('Cannot have 2 FK : Person already taken');
+          }
+        }
+      }
+    },
+    status: {
+      type: DataTypes.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
+      allowNull: false
+    },
+    start_date : { 
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     end_date: DataTypes.DATE
+    
   }, {});
   
   

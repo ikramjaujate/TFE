@@ -9,9 +9,18 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true 
     },
-    idProject : DataTypes.INTEGER,
-    idMaterial : DataTypes.INTEGER,
-    quantity : DataTypes.INTEGER 
+    idProject : { 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    idMaterial : { 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    quantity : { 
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   
   Project_Materials.associate = function (models) {

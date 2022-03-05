@@ -9,11 +9,29 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true 
     },
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    VAT_num: DataTypes.INTEGER,
-    mobile: DataTypes.STRING,
-    idAddress: DataTypes.INTEGER
+    idAddress: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    email: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    VAT_num: {
+      type:DataTypes.INTEGER,  
+      allowNull: false,
+      unique: true
+    },
+    mobile: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    }
   }, {});
   
   /*Company.associate = function (models) {

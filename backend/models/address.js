@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Sequelize
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('Address', {
@@ -9,9 +9,22 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true 
     },
-    street: DataTypes.STRING,
-    locality: DataTypes.STRING,
-    postal_code: DataTypes.STRING
+    street: {
+      type: DataTypes.STRING, 
+      allowNull: false
+    },
+    locality: {
+      type:DataTypes.STRING, 
+      allowNull: false
+    },
+    postal_code: {
+      type:DataTypes.STRING, 
+      allowNull: false
+    },
+    idCountry : { 
+      type: DataTypes.INTEGER, 
+      allowNull: false
+    }
   }, {});
 
  
@@ -22,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     })
     Address.hasOne(models.Person, {
       foreignKey: 'idAddress'
+    })
+    Address.belongsTo(models.Country, {
+      foreignKey: 'idCountry',
+      onDelete: 'CASCADE'
     })
   };
 
