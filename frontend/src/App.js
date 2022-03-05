@@ -15,6 +15,10 @@ import Home from './pages/Home/Home'
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
 import Clients from './pages/Clients/Clients';
+import Projects from './pages/Projects/Projects';
+import Invoices from './pages/Invoices/Invoices';
+import Employees from './pages/Employees/Employees';
+import Material from './pages/Material/Material';
 
 import './App.css'
 import 'primereact/resources/primereact.css';
@@ -128,7 +132,10 @@ const App = () => {
                 
             },
             { label: 'Clients', icon: 'pi pi-fw pi-id-card', to: '/clients' },
-            { label: 'Table', icon: 'pi pi-fw pi-table', to: '/table' }
+            { label: 'Project', icon: 'pi pi-fw pi-table', to: '/projects' },
+            { label: 'Invoices', icon: 'pi pi-fw pi-id-card', to: '/invoices' },
+            { label: 'Employees', icon: 'pi pi-fw pi-id-card', to: '/employees' },
+            { label: 'Material', icon: 'pi pi-fw pi-id-card', to: '/material' }
         ]
         }
     ];
@@ -175,7 +182,11 @@ const App = () => {
                 <div className="layout-main">
                     <PrivateRoute path="/" exact isloggedin={isLoggedIn()} component={Home} />
                     <PrivateRoute path="/clients" exact isloggedin={isLoggedIn()} component={Clients} />
-                    <PrivateRoute path="/table" isloggedin={isLoggedIn()}  component={TableDemo} />                    
+                    <PrivateRoute path="/table" isloggedin={isLoggedIn()}  component={TableDemo} />
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/projects" component={Projects}/>
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/invoices" component={Invoices}/>
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/employees" component={Employees}/>
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/material" component={Material}/>                    
 
                 </div>
 

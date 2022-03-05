@@ -6,7 +6,6 @@ const GetCompanies = async () => {
       'Authorization': "Bearer " + localStorage.getItem('access_token') },
     };
     return await (fetch(`/api/company`, informations).then(response => {
-        console.log(response)
       return response.json()
     }))
       

@@ -11,14 +11,14 @@
     background-color: rgb(255, 255, 255)!important;
 }
 .pi-home, .pi-id-card, .pi-table, .pi-bars{
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 .layout-topbar .layout-topbar-button i{
     font-size: 2rem!important;
     color:#c9392f!important
 }
 .layout-menu li.layout-menuitem-category:first-child{
-    font-size: 2rem;
+    font-size: 1.7rem;
     
 }
 .layout-menu li a.router-link-exact-active{
@@ -27,8 +27,14 @@
 }
 .layout-menu li a{
     color:rgb(189 28 28)!important;
+    font-weight: 600;
 }
-
+span.pi.pi-filter-icon.pi-filter{
+    color: #cca1a1;
+}
+.p-datatable .p-sortable-column .p-sortable-column-icon{
+    color:#eee7dc
+}
 a.navbar__link{
     color:#f55a3f!important;
 }
@@ -46,4 +52,13 @@ a.navbar__link{
     color: black;
     background-color: grey;
     border-color: #494848;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight{
+    background-color: #dad1d1;
+    color: black;
+}
+
+.p-datatable.p-datatable-selectable .p-datatable-tbody > tr.p-selectable-row:focus{
+    outline: #494848;
 }

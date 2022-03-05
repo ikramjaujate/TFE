@@ -10,6 +10,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import {GetCompanies} from "../../service/companies";
 import { TabView, TabPanel } from 'primereact/tabview';
+import template from "../../components/Paginator/Paginator";
 
 const Clients = () => {
 
@@ -22,11 +23,10 @@ const Clients = () => {
       'lastName': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
     });
     const [activeIndex, setActiveIndex] = useState(0);
-
-
+    const [selectedClient, setSelectedClient] = useState(null);
+    
     const getCompanies = () => {
       GetCompanies().then(response => {
-        console.log(response["companies"])
         setPostes(response["companies"])
     
       })
@@ -47,6 +47,8 @@ const Clients = () => {
       getCompanies()
 
     }, [])
+
+    
   
     const [position, setPosition] = useState('center');
   
@@ -62,26 +64,7 @@ const Clients = () => {
       }
     }
   
-    const onHide = (name) => {
-      dialogFuncMap[`${name}`](false);
-    }
-  
-    const renderFooter = (name) => {
-      return (
-        <div>
-          <Button label="No" icon="pi pi-times" onClick={() => onHide(name)} className="p-button-text" />
-          <Button label="Yes" icon="pi pi-check" onClick={() => onHide(name)} autoFocus />
-        </div>
-      );
-    }
-    const countryBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <img alt="flag" src="assets/demo/images/flags/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} width={30} />
-                <span style={{ marginLeft: '.5em', verticalAlign: 'middle' }} className="image-text">{rowData.country.name}</span>
-            </React.Fragment>
-        );
-    }
+
     const countryTemplate = (rowData) => {
       //console.log(rowData.Address.Country)
       return (
@@ -91,9 +74,15 @@ const Clients = () => {
           </React.Fragment>
       )
   }
+
     const refresh = () => {
       getClients()
       getCompanies()
+      
+    }
+
+    const onChangeSelectedClient = (id) => {
+        console.log(id)
     }
 
 
@@ -101,7 +90,10 @@ const Clients = () => {
         <div className="grid table-demo">
             <div className="col-12">
                 <div className="card">
-                <FormNewClient refreshTable={refresh}/>
+                <FormNewClient 
+                  refreshTable={refresh}
+                  sendData={selectedClient}
+                />
                 </div>
                 </div>
 
@@ -109,25 +101,26 @@ const Clients = () => {
                 <div className="card">
                 <TabView activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                     <TabPanel header="CLIENTS">
-                    <DataTable value={posts} loading={loading} scrollable scrollHeight="400px" scrollDirection="both" className="mt-3">
-                        <Column field="firstName" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="firstName" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="lastName" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="lastName" filter filterPlaceholder="Search by name" headerStyle={{  backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="email" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="email" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="VAT_num" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="mobile" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="Address.street" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Street" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="Address.Country.nicename" body={countryTemplate} style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Country"  headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                       
+                    <DataTable paginatorTemplate={template} value={posts} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedClient} onSelectionChange={e => setSelectedClient(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={5} paginator>
+                        <Column field="firstName" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="First Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="lastName" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Last Name" filter filterPlaceholder="Search by name" headerStyle={{  backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="email" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="VAT_num" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="mobile" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="Address.street" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Street" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="Address.Country.nicename" body={countryTemplate} style={{ width: '6rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Country"  headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        
+               
                     </DataTable>
                     </TabPanel>
                     <TabPanel header="COMPANIES">
                     <DataTable value={postes} loading={loading} scrollable scrollHeight="400px" scrollDirection="both" className="mt-3">
-                        <Column field="name" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Company's Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="email" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="email" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="VAT_num" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="mobile" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="Address.street" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Street" headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
-                        <Column field="Address.Country.nicename" body={countryTemplate} style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Country"  headerStyle={{ textAlign: 'center', backgroundColor: 'rgb(216 21 21 / 56%)', color: "white" }}></Column>
+                        <Column field="name" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Company's Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="email" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="email" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="VAT_num" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="mobile" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="Address.street" style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Street" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+                        <Column field="Address.Country.nicename" body={countryTemplate} style={{ minWidth: '12rem' ,flexGrow: 1, flexBasis: '200px' }} sortable header="Country"  headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
                        
                         
                     </DataTable>

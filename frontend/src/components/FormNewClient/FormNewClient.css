@@ -1,5 +1,5 @@
 .button-submit-position{
-    margin-left: 90%!important;
+    margin-left: 75%!important;
     
 }
 .p-fieldset-legend	{
@@ -36,4 +36,10 @@ button.p-inputnumber-button.p-inputnumber-button-down.p-button.p-button-icon-onl
 }
 button.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
     background-color: #4dc261!important;
+}
+
+.p-button:disabled {
+    margin-left: 4px;
+    margin-bottom: 6%;
+    margin-top: 6%;
 }

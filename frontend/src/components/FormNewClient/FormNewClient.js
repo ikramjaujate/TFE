@@ -12,11 +12,14 @@ import GetCountries from "../../service/countries";
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { Toast } from 'primereact/toast';
-import { GetClients, CreateNewClient } from '../../service/users'
+import { GetClients, CreateNewClient, UpdateUser } from '../../service/users'
 import Clients from '../../pages/Clients/Clients';
 import { TabView, TabPanel } from 'primereact/tabview';
 
-const FormNewClient = ({ refreshTable }) => {
+
+
+const FormNewClient = ({ refreshTable, sendData }) => {
+
     const toast = useRef(null);
     const [vta, setVta] = useState();
     const [email, setEmail] = useState('');
@@ -30,11 +33,29 @@ const FormNewClient = ({ refreshTable }) => {
     const [countries, setCountries] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
 
-    console.log(postalCode)
+    const [value, setValue] = useState(false)
+
+    useEffect(() => {
+        if (sendData) {
+            setFirstname(sendData.firstName)
+            setLastname(sendData.lastName)
+            setNumber(sendData.mobile)
+            setVta(sendData.VAT_num)
+            setEmail(sendData.email)
+            setAddress(sendData["Address"].street)
+            setLocality(sendData["Address"].locality)
+            setPostalCode(sendData["Address"].postal_code)
+            setCountry(sendData["Address"]["Country"].nicename)
+            setValue(true)
+        }
+
+    }, [sendData])
+
     useEffect(() => {
         GetCountries().then(response => {
             setCountries(response['countries'])
         });
+
 
     }, [])
 
@@ -44,6 +65,7 @@ const FormNewClient = ({ refreshTable }) => {
     }
     const handleClick = (e) => {
         e.preventDefault()
+
         const bodyForm = {
             'firstName': firstName,
             'lastName': lastName,
@@ -56,7 +78,6 @@ const FormNewClient = ({ refreshTable }) => {
             'country': country
         }
         CreateNewClient(bodyForm).then(response => {
-            console.log(response)
 
             if (response.hasOwnProperty("user")) {
                 return response
@@ -68,6 +89,35 @@ const FormNewClient = ({ refreshTable }) => {
             refreshTable()
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Client cannot be created', life: 3000 });
+        })
+
+    }
+    const handleClickUpdate = (e) => {
+        e.preventDefault()
+
+        const bodyForm = {
+            'firstName': firstName,
+            'lastName': lastName,
+            'email': email,
+            'vta': vta,
+            'mobile': number,
+            'street': address,
+            'locality': locality,
+            'postalCode': postalCode,
+            'country': country
+        }
+        UpdateUser(bodyForm).then(response => {
+
+            if (response.hasOwnProperty("user")) {
+                return response
+            }
+            throw new Error('Something went wrong.');
+
+        }).then(response => {
+            toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Client has been updated', life: 3000 });
+            refreshTable()
+        }).catch(error => {
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Client cannot be updated', life: 3000 });
         })
 
     }
@@ -101,26 +151,39 @@ const FormNewClient = ({ refreshTable }) => {
                                 </div>
 
                                 <div className="col-12 md:col-4">
+                                {value == false ?
                                     <div className="p-inputgroup">
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-envelope"></i>
                                         </span>
                                         <InputText value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                                     </div>
-
+                                    : 
+                                    <div className="p-inputgroup">
+                                        <span className="p-inputgroup-addon">
+                                            <i className="pi pi-envelope"></i>
+                                        </span>
+                                        <InputText value={email} placeholder="Email" disabled />
+                                    </div>
+                                    }
                                 </div>
                                 <div className="col-12 md:col-4">
-                                    <div className="p-inputgroup">
-                                        <span className="p-inputgroup-addon">VAT</span>
-                                        <InputNumber value={vta} onValueChange={(e) => setVta(e.target.value)} showButtons mode="decimal" useGrouping={false}  placeholder="VAT number" />
-                                    </div>
+                                    {value == false ?
+                                        <div className="p-inputgroup">
+                                            <span className="p-inputgroup-addon">VAT</span>
+                                            <InputNumber value={vta} onValueChange={(e) => setVta(e.target.value)} showButtons mode="decimal" useGrouping={false} placeholder="VAT number" />
+                                        </div>
+                                        : <div className="p-inputgroup">
+                                            <span className="p-inputgroup-addon">VAT</span>
+                                            <InputNumber value={vta} showButtons mode="decimal" useGrouping={false} placeholder="VAT number" disabled />
+                                        </div>}
                                 </div>
                                 <div className="col-12 md:col-4">
                                     <div className="p-inputgroup">
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-phone"></i>
                                         </span>
-                                        <InputText value={number} onChange={(e) => setNumber(e.target.value)} />
+                                        <InputText value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Phone Number" />
                                     </div>
                                 </div>
                                 <div className="col-12 md:col-4">
@@ -144,7 +207,7 @@ const FormNewClient = ({ refreshTable }) => {
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-map-marker"></i>
                                         </span>
-                                        <InputNumber value={postalCode} onValueChange={(e) => setPostalCode(e.target.value)} placeholder="Postal Code" />
+                                        <InputNumber value={postalCode} mode="decimal" useGrouping={false} onValueChange={(e) => setPostalCode(e.target.value)} placeholder="Postal Code" />
                                     </div>
                                 </div>
                                 <div className="col-12 md:col-4">
@@ -164,10 +227,20 @@ const FormNewClient = ({ refreshTable }) => {
                                 <div class="col">
                                 </div>
                                 <div class="col button-submit-position">
-                                    {firstName !== '' && lastName !== '' && email !== '' && number !== '' && address !== '' && locality !== '' &&  country !== '' && postalCode !== undefined? 
-                                    <Button label="Add" icon="pi pi-plus" className="p-button-success" onClick={handleClick} /> 
-                                    :
-                                    <Button label="Add" icon="pi pi-plus" disabled />
+                                    {firstName !== '' && lastName !== '' && email !== '' && number !== '' && address !== '' && locality !== '' && country !== '' && postalCode !== undefined && value == false ?
+                                        (<Button label="Add" icon="pi pi-plus" className="p-button-success" onClick={handleClick} />)
+                                        :
+                                        <div>
+                                            {firstName !== '' && lastName !== '' && email !== '' && number !== '' && address !== '' && locality !== '' && country !== '' && postalCode !== undefined && value == true ?
+                                                <div>
+                                                    <Button label="Update" icon="pi pi-pencil" className="p-button-warning" onClick={handleClickUpdate} />
+                                                </div>
+                                                :
+                                                <div>
+                                                    <Button label="Add" icon="pi pi-plus" disabled /></div>
+                                            }
+
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -176,7 +249,7 @@ const FormNewClient = ({ refreshTable }) => {
                         </Fieldset>
                     </TabPanel>
                     <TabPanel header="ADD COMPANY">
-                    <Fieldset legend="New Company"  >
+                        <Fieldset legend="New Company"  >
                             <div className="grid p-fluid m-2">
                                 <div className="col-12 md:col-4">
                                     <div className="p-inputgroup">
@@ -215,7 +288,7 @@ const FormNewClient = ({ refreshTable }) => {
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-phone"></i>
                                         </span>
-                                        <InputText value={number} onChange={(e) => setNumber(e.target.value)} />
+                                        <InputText value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Phone Number" />
                                     </div>
                                 </div>
                                 <div className="col-12 md:col-4">
