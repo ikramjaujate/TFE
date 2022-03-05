@@ -75,7 +75,7 @@ app.use(permissionsPolicy({
   return next();
 });*/
 
-/*app.use(expressCspHeader({
+app.use(expressCspHeader({
   directives: {
       'default-src': [SELF],
       'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
@@ -84,7 +84,7 @@ app.use(permissionsPolicy({
       'font-src' : [SELF, 'https://fonts.gstatic.com'],
       'block-all-mixed-content': false
   }
-}));*/
+}));
 
 
 //Expect-CT
