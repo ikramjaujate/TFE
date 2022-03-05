@@ -58,6 +58,7 @@ app.use(
   })
 );
 
+/*
 app.use(permissionsPolicy({
   features: {
     fullscreen: ['self'],               // fullscreen=()
@@ -65,7 +66,7 @@ app.use(permissionsPolicy({
     payment: ['self', '"ikram.m-michotte.be"'], // payment=(self "example.com")
     syncXhr: [],                        // syncXhr=()
   }
-}))
+}))*/
 
 //app.use(cors())
 // CSP Header middlewar 
@@ -74,7 +75,7 @@ app.use(permissionsPolicy({
   return next();
 });*/
 
-app.use(expressCspHeader({
+/*app.use(expressCspHeader({
   directives: {
       'default-src': [SELF],
       'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
@@ -83,7 +84,7 @@ app.use(expressCspHeader({
       'font-src' : [SELF, 'https://fonts.gstatic.com'],
       'block-all-mixed-content': false
   }
-}));
+}));*/
 
 
 //Expect-CT

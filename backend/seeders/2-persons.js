@@ -3,9 +3,8 @@ module.exports = {
     return queryInterface.bulkInsert('Person', [{
       firstName: 'Ikram',
       lastName: 'Jaujate',
-      email: 'ikram.jaujate@masterservices.com',
-      VAT_num: 123456,
-      mobile: '+32 488 37 96 72',
+      email: 'ikram.jaujate@gmail.com',
+      mobile: '+32 484 37 23 72',
       idAddress: 1,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -13,19 +12,18 @@ module.exports = {
     {
       firstName: 'Toto',
       lastName: 'Pierre',
-      email: 'toto.pierre@masterservices.com',
+      email: 'toto.pierre@gmail.com',
       VAT_num: 123456,
-      mobile: '+32 488 37 96 72',
-      idAddress: 1,
+      mobile: '+32 485 00 96 72',
+      idAddress: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
       firstName: 'Jean',
       lastName: 'Marie ',
-      email: 'j.marie@masterservices.com',
-      VAT_num: 123456,
-      mobile: '+32 488 37 96 72',
+      email: 'j.marie@gmail.com',
+      mobile: '+32 480 37 96 44',
       idAddress: 1,
       createdAt: new Date(),
       updatedAt: new Date()

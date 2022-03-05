@@ -5,11 +5,12 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
- * createTable "Address", deps: []
+ * createTable "Country", deps: []
  * createTable "Material", deps: []
  * createTable "userLogin", deps: []
- * createTable "Company", deps: [Address]
+ * createTable "Address", deps: [Country]
  * createTable "Person", deps: [Address]
+ * createTable "Company", deps: [Address]
  * createTable "Project", deps: [Person, Company]
  * createTable "Project_Materials", deps: [Project, Material]
  * createTable "Person_Company", deps: [Person, Company]
@@ -20,32 +21,40 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-02-22T09:24:01.717Z",
+    "created": "2022-03-05T11:02:27.603Z",
     "comment": ""
 };
 
 var migrationCommands = [{
         fn: "createTable",
         params: [
-            "Address",
+            "Country",
             {
-                "idAddress": {
+                "idCountry": {
                     "type": Sequelize.INTEGER,
-                    "field": "idAddress",
+                    "field": "idCountry",
                     "autoIncrement": true,
                     "primaryKey": true
                 },
-                "street": {
+                "name": {
                     "type": Sequelize.STRING,
-                    "field": "street"
+                    "field": "name",
+                    "allowNull": false
                 },
-                "locality": {
+                "nicename": {
                     "type": Sequelize.STRING,
-                    "field": "locality"
+                    "field": "nicename",
+                    "allowNull": false
                 },
-                "postal_code": {
+                "iso": {
                     "type": Sequelize.STRING,
-                    "field": "postal_code"
+                    "field": "iso",
+                    "allowNull": false
+                },
+                "iso3": {
+                    "type": Sequelize.STRING,
+                    "field": "iso3",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -74,7 +83,8 @@ var migrationCommands = [{
                 },
                 "name": {
                     "type": Sequelize.STRING,
-                    "field": "name"
+                    "field": "name",
+                    "allowNull": false
                 },
                 "quantity": {
                     "type": Sequelize.INTEGER,
@@ -86,7 +96,8 @@ var migrationCommands = [{
                 },
                 "type": {
                     "type": Sequelize.ENUM('static', 'consommable'),
-                    "field": "type"
+                    "field": "type",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -151,40 +162,39 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "Company",
+            "Address",
             {
-                "idCompany": {
+                "idAddress": {
                     "type": Sequelize.INTEGER,
-                    "field": "idCompany",
+                    "field": "idAddress",
                     "autoIncrement": true,
                     "primaryKey": true
                 },
-                "name": {
+                "street": {
                     "type": Sequelize.STRING,
-                    "field": "name"
+                    "field": "street",
+                    "allowNull": false
                 },
-                "email": {
+                "locality": {
                     "type": Sequelize.STRING,
-                    "field": "email"
+                    "field": "locality",
+                    "allowNull": false
                 },
-                "VAT_num": {
-                    "type": Sequelize.INTEGER,
-                    "field": "VAT_num"
-                },
-                "mobile": {
+                "postal_code": {
                     "type": Sequelize.STRING,
-                    "field": "mobile"
+                    "field": "postal_code",
+                    "allowNull": false
                 },
-                "idAddress": {
+                "idCountry": {
                     "type": Sequelize.INTEGER,
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
-                        "model": "Address",
-                        "key": "idAddress"
+                        "model": "Country",
+                        "key": "idCountry"
                     },
-                    "allowNull": true,
-                    "field": "idAddress"
+                    "field": "idCountry",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -213,23 +223,69 @@ var migrationCommands = [{
                 },
                 "firstName": {
                     "type": Sequelize.STRING,
-                    "field": "firstName"
+                    "field": "firstName",
+                    "allowNull": false
                 },
                 "lastName": {
                     "type": Sequelize.STRING,
-                    "field": "lastName"
+                    "field": "lastName",
+                    "allowNull": false
                 },
                 "email": {
                     "type": Sequelize.STRING,
-                    "field": "email"
+                    "field": "email",
+                    "validate": {
+                        "isEmail": true
+                    },
+                    "unique": true,
+                    "allowNull": false
                 },
                 "VAT_num": {
                     "type": Sequelize.INTEGER,
-                    "field": "VAT_num"
+                    "field": "VAT_num",
+                    "unique": true,
+                    "allowNull": true
                 },
                 "mobile": {
                     "type": Sequelize.STRING,
-                    "field": "mobile"
+                    "field": "mobile",
+                    "allowNull": false
+                },
+                "idAddress": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Address",
+                        "key": "idAddress"
+                    },
+                    "field": "idAddress",
+                    "allowNull": false
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Company",
+            {
+                "idCompany": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idCompany",
+                    "autoIncrement": true,
+                    "primaryKey": true
                 },
                 "idAddress": {
                     "type": Sequelize.INTEGER,
@@ -241,6 +297,32 @@ var migrationCommands = [{
                     },
                     "allowNull": true,
                     "field": "idAddress"
+                },
+                "name": {
+                    "type": Sequelize.STRING,
+                    "field": "name",
+                    "allowNull": false
+                },
+                "email": {
+                    "type": Sequelize.STRING,
+                    "field": "email",
+                    "validate": {
+                        "isEmail": true
+                    },
+                    "unique": true,
+                    "allowNull": false
+                },
+                "VAT_num": {
+                    "type": Sequelize.INTEGER,
+                    "field": "VAT_num",
+                    "unique": true,
+                    "allowNull": false
+                },
+                "mobile": {
+                    "type": Sequelize.STRING,
+                    "field": "mobile",
+                    "unique": true,
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -269,7 +351,8 @@ var migrationCommands = [{
                 },
                 "name": {
                     "type": Sequelize.STRING,
-                    "field": "name"
+                    "field": "name",
+                    "allowNull": false
                 },
                 "idPerson": {
                     "type": Sequelize.INTEGER,
@@ -280,7 +363,8 @@ var migrationCommands = [{
                         "key": "idPerson"
                     },
                     "allowNull": true,
-                    "field": "idPerson"
+                    "field": "idPerson",
+                    "validate": {}
                 },
                 "idCompany": {
                     "type": Sequelize.INTEGER,
@@ -291,15 +375,18 @@ var migrationCommands = [{
                         "key": "idCompany"
                     },
                     "allowNull": true,
-                    "field": "idCompany"
+                    "field": "idCompany",
+                    "validate": {}
                 },
                 "status": {
                     "type": Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
-                    "field": "status"
+                    "field": "status",
+                    "allowNull": false
                 },
                 "start_date": {
                     "type": Sequelize.DATE,
-                    "field": "start_date"
+                    "field": "start_date",
+                    "allowNull": false
                 },
                 "end_date": {
                     "type": Sequelize.DATE,
@@ -338,8 +425,8 @@ var migrationCommands = [{
                         "model": "Project",
                         "key": "idProject"
                     },
-                    "allowNull": true,
-                    "field": "idProject"
+                    "field": "idProject",
+                    "allowNull": false
                 },
                 "idMaterial": {
                     "type": Sequelize.INTEGER,
@@ -349,12 +436,13 @@ var migrationCommands = [{
                         "model": "Material",
                         "key": "idMaterial"
                     },
-                    "allowNull": true,
-                    "field": "idMaterial"
+                    "field": "idMaterial",
+                    "allowNull": false
                 },
                 "quantity": {
                     "type": Sequelize.INTEGER,
-                    "field": "quantity"
+                    "field": "quantity",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -381,10 +469,6 @@ var migrationCommands = [{
                     "autoIncrement": true,
                     "primaryKey": true
                 },
-                "isPrimary": {
-                    "type": Sequelize.BOOLEAN,
-                    "field": "isPrimary"
-                },
                 "idPerson": {
                     "type": Sequelize.INTEGER,
                     "onUpdate": "CASCADE",
@@ -393,8 +477,8 @@ var migrationCommands = [{
                         "model": "Person",
                         "key": "idPerson"
                     },
-                    "allowNull": true,
-                    "field": "idPerson"
+                    "field": "idPerson",
+                    "allowNull": false
                 },
                 "idCompany": {
                     "type": Sequelize.INTEGER,
@@ -404,8 +488,13 @@ var migrationCommands = [{
                         "model": "Company",
                         "key": "idCompany"
                     },
-                    "allowNull": true,
-                    "field": "idCompany"
+                    "field": "idCompany",
+                    "allowNull": false
+                },
+                "isPrimary": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isPrimary",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -434,7 +523,8 @@ var migrationCommands = [{
                 },
                 "file": {
                     "type": Sequelize.BLOB,
-                    "field": "file"
+                    "field": "file",
+                    "allowNull": false
                 },
                 "idProject": {
                     "type": Sequelize.INTEGER,
@@ -444,12 +534,13 @@ var migrationCommands = [{
                         "model": "Project",
                         "key": "idProject"
                     },
-                    "allowNull": true,
-                    "field": "idProject"
+                    "field": "idProject",
+                    "allowNull": false
                 },
                 "type": {
                     "type": Sequelize.ENUM('devis', 'facture'),
-                    "field": "type"
+                    "field": "type",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
