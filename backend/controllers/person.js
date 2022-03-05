@@ -1,18 +1,68 @@
-const {Person, Address} = require('../models');
+const {Person, Address, Country} = require('../models');
+
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
     /* 
     #swagger.summary = 'Creates a new user'
     #swagger.description = 'The user to create.'
+    #swagger.parameters['parameter_name'] = {
+                in: 'body',
+                description: 'Some description...',
+                schema: {
+                    $firstName: 'Jhon',
+                    $lastName: 'Doe',
+                    $email: 'test@test.com',
+                    $VAT_num: 29,
+                    $mobile: "32488907960"
+                }
+        } 
     #swagger.security = [{
                "bearerAuth": []
     }] */
     try {
-        //console.log(req.body)
-        const user = await Person.create(req.body);
+        const country = req.body.country;
+        console.log(country)
+        const existingCountry = await Country.findOne({
+            where: { nicename: country}
+        });
+        console.log(existingCountry)
+
+        if(!existingCountry){
+            throw new Error("No country")
+        };
+        const address = {
+            idCountry: existingCountry.idCountry,
+            street: req.body.street,
+            locality: req.body.locality,
+            postal_code: req.body.postalCode
+        }
+
+        const createAddress = await Address.create(address);
+        console.log(createAddress)
+
+        if(!createAddress){
+            throw new Error("Address couldn't be created")
+        };
+
+        const person = {
+            idAddress: createAddress.idAddress,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            VAT_num:  req.body.vta,
+            mobile:  req.body.mobile
+        }
         
+
+        
+        const user = await Person.create(person);
+        console.log(user)
+        if(!user){
+            throw new Error("User couldn't be created")
+        };
+
         return res.status(201).json({
-            user,
+            user
         });
     } catch (error) {
         return res.status(500).json({ error: error.message })
@@ -47,8 +97,9 @@ const getAllUsers = async (req, res) => {
     */
     try {
         const users = await Person.findAll({include : {
-            model : Address
+            model : Address, include:  [Country]
         }});
+        
         return res.status(200).json({ users });
     } catch (error) {
         return res.status(500).send(error.message);

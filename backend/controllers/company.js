@@ -1,4 +1,4 @@
-const {Company} = require('../models');
+const {Company, Address, Country} = require('../models');
 const getAllCompanies = async (req, res) => {
     // #swagger.tags = ['Company']
     /* 
@@ -6,8 +6,12 @@ const getAllCompanies = async (req, res) => {
     #swagger.security = [{
                "bearerAuth": []
     }] */
+    
     try {
-        const companies = await Company.findAll();
+        const companies = await Company.findAll({include : {
+            model : Address, include:  [Country]
+        }});
+
         return res.status(200).json({ companies });
     } catch (error) {
         return res.status(500).send(error.message);

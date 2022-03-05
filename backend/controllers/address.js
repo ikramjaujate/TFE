@@ -25,7 +25,9 @@ const getAllAddress = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
-        const address = await Address.findAll();
+        const address = await Address.findAll({include : {
+            model : Country
+        }});
         return res.status(200).json({ address });
     } catch (error) {
         return res.status(500).send(error.message);
