@@ -1,6 +1,14 @@
 
-import {useState} from "react" ;
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.css';
+import 'primeflex/primeflex.css';
+import React, { useEffect, useState } from 'react';
 
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Password } from 'primereact/password';
+import { classNames } from 'primereact/utils';
 
 
 function Login() {
@@ -39,6 +47,25 @@ function Login() {
                 })
         }    
 	}
+    const validate = (data) => {
+        let errors = {};
+
+
+        if (!data.email) {
+            errors.email = 'Email is required.';
+        }
+
+
+        if (!data.password) {
+            errors.password = 'Password is required.';
+        }
+
+        return errors;
+    };
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
     
     const usernameVerif = () => {
         if(username === ''){
@@ -60,7 +87,7 @@ function Login() {
 
     return (
         <>
-        <section class="vh-100 gradient-custom mx-md-0" style={{fontSize: "calc(0.5rem + 0.5vw", minWidth:"300px"}}>
+       {/* <section class="vh-100 gradient-custom mx-md-0" style={{fontSize: "calc(0.5rem + 0.5vw", minWidth:"300px"}}>
             <div class="container  py-md-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -73,7 +100,11 @@ function Login() {
                                 <div class="form-outline form-white mb-4">
                                 
                                     <label class="form-label">Identifiant</label>
-                                    <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="exemple" style={{fontSize: "calc(0.5rem + 0.5vw"}} class="form-control form-control-lg" />
+                                    <span className="p-inputgroup-addon">
+                            <i className="pi pi-user"></i>
+                            </span>
+                            <InputText value={username} onChange={(e) => setUsername(e.target.value)} placeholder="exemple" style={{fontSize: "calc(0.5rem + 0.5vw"}}  placeholder="First Name" />
+                                    
                                     {blankUsername}
                                     
                                 </div>
@@ -98,6 +129,37 @@ function Login() {
             </div>
         </section>
     
+    </>*/}
+     <div className="form-login">
+
+     <div className="flex justify-content-center mt-8">
+                <div className="card">
+                    <form className="p-fluid" validate={validate}>
+                        
+                        <div className="field">
+                            <span className="p-float-label p-input-icon-right">
+                                <i className="pi pi-envelope" />
+                                <InputText id="email" name="email" value={username} onChange={(e) => setUsername(e.target.value)} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
+                                <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid('email') })}>Email*</label>
+                            </span>
+                            {getFormErrorMessage('email')}
+                        </div>
+                        <div className="field">
+                            <span className="p-float-label p-input-icon-right">
+                                <Password id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask
+                                    className={classNames({ 'p-invalid': isFormFieldValid('password') })} />
+                                <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>Password*</label>
+                            </span>
+                            {getFormErrorMessage('password')}
+                        </div>
+                        
+                        
+
+                        <Button onClick={loginUser} label="Login" className="login-button" />
+                    </form>
+                </div>
+            </div>
+        </div>
         </>
     )
 

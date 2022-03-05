@@ -6,7 +6,7 @@
     color: rgb(255, 255, 255);
     line-height: 180px;
     border-radius: 25px;
-    border-color: #ffffff;
+    border-color: #f55a3f;
     border-width: 2px;
 }
 
@@ -31,5 +31,7 @@
 
 .home_btn:hover p svg, .home_btn:hover p {
     color: rgb(14, 28, 110)!important;
+    border-color: rgb(14, 28, 110)!important;
+    border-width: 2px;
 }
 
