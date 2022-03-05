@@ -184,7 +184,7 @@
                     "allowNull": false,
                     "unique": true,
                     "field": "VAT_num",
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.STRING"
                 },
                 "mobile": {
                     "allowNull": false,
@@ -362,7 +362,7 @@
                     "allowNull": true,
                     "unique": true,
                     "field": "VAT_num",
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.STRING"
                 },
                 "mobile": {
                     "allowNull": false,
@@ -502,5 +502,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 3
 }

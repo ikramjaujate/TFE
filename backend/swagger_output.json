@@ -22,7 +22,7 @@
         }
       }
     },
-    "/users/create": {
+    "/users": {
       "post": {
         "tags": [
           "Users"
@@ -35,43 +35,6 @@
             "in": "header",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "Some description...",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "Jhon"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Doe"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@test.com"
-                },
-                "VAT_num": {
-                  "type": "number",
-                  "example": 29
-                },
-                "mobile": {
-                  "type": "string",
-                  "example": "32488907960"
-                }
-              },
-              "required": [
-                "firstName",
-                "lastName",
-                "email",
-                "VAT_num",
-                "mobile"
-              ]
             }
           }
         ],
@@ -93,10 +56,46 @@
           {
             "bearerAuth": []
           }
-        ]
-      }
-    },
-    "/users": {
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "country": {
+                    "example": "any"
+                  },
+                  "street": {
+                    "example": "any"
+                  },
+                  "locality": {
+                    "example": "any"
+                  },
+                  "postalCode": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "vta": {
+                    "example": "any"
+                  },
+                  "mobile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Users"
@@ -233,6 +232,73 @@
             "bearerAuth": []
           }
         ]
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user",
+        "description": "Updating the user chosen.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "idAddress": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "vta": {
+                    "example": "any"
+                  },
+                  "mobile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/{id}": {
@@ -356,9 +422,7 @@
             "bearerAuth": []
           }
         ]
-      }
-    },
-    "/address/create": {
+      },
       "post": {
         "tags": [
           "Address"

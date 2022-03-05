@@ -16,7 +16,7 @@ const permissionsPolicy = require('permissions-policy')
 const expectCt = require("expect-ct");
 const path = require('path');
 //const cors = require('cors')
-const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
+//const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 
 const port = 3001;
 
@@ -70,12 +70,12 @@ app.use(permissionsPolicy({
 
 //app.use(cors())
 // CSP Header middlewar 
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
   res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
   return next();
-});*/
+});
 
-app.use(expressCspHeader({
+/*app.use(expressCspHeader({
   directives: {
       'default-src': [SELF],
       'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
@@ -84,7 +84,7 @@ app.use(expressCspHeader({
       'font-src' : [SELF, 'https://fonts.gstatic.com'],
       'block-all-mixed-content': false
   }
-}));
+}));*/
 
 
 //Expect-CT

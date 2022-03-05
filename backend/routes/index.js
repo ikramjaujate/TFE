@@ -3,7 +3,8 @@ const verifyToken = require('../middleware/auth.js');
 const {
     createUser,
     getAllUsers,
-    getUserById
+    getUserById,
+    updateUser
 } = require('../controllers/person.js');
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get('/', (req, res) => res.send('This is root!'))
 router.post('/users', verifyToken,createUser)
 router.get('/users',verifyToken, getAllUsers)
 router.get('/users/:id', verifyToken,getUserById)
-
+router.put('/users', verifyToken,updateUser)
 
 // COMPANY
 const { getAllCompanies} = require('../controllers/company.js');

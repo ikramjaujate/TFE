@@ -12,8 +12,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 2,
-    "name": "noname",
-    "created": "2022-03-05T11:02:34.603Z",
+    "name": "initMigration",
+    "created": "2022-03-05T17:45:22.642Z",
     "comment": ""
 };
 

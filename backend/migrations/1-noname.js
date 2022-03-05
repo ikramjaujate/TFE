@@ -20,8 +20,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "initMigration",
-    "created": "2022-03-05T11:02:27.603Z",
+    "name": "noname",
+    "created": "2022-03-05T17:24:10.512Z",
     "comment": ""
 };
 
@@ -241,7 +241,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "VAT_num": {
-                    "type": Sequelize.INTEGER,
+                    "type": Sequelize.STRING,
                     "field": "VAT_num",
                     "unique": true,
                     "allowNull": true
@@ -313,7 +313,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "VAT_num": {
-                    "type": Sequelize.INTEGER,
+                    "type": Sequelize.STRING,
                     "field": "VAT_num",
                     "unique": true,
                     "allowNull": false

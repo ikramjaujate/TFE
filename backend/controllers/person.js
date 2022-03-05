@@ -1,4 +1,4 @@
-const {Person, Address, Country} = require('../models');
+const { Person, Address, Country } = require('../models');
 
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -21,13 +21,13 @@ const createUser = async (req, res) => {
     }] */
     try {
         const country = req.body.country;
-        console.log(country)
+        
         const existingCountry = await Country.findOne({
-            where: { nicename: country}
+            where: { nicename: country }
         });
         console.log(existingCountry)
 
-        if(!existingCountry){
+        if (!existingCountry) {
             throw new Error("No country")
         };
         const address = {
@@ -40,24 +40,29 @@ const createUser = async (req, res) => {
         const createAddress = await Address.create(address);
         console.log(createAddress)
 
-        if(!createAddress){
+        if (!createAddress) {
             throw new Error("Address couldn't be created")
         };
-
+        if(req.body.vta){
+            if(country == "Belgium"){
+                req.body.vta = 'BE ' + String(req.body.vta)
+            }else{
+                req.body.vta = 'FR ' + String(req.body.vta)
+            }
+           
+        }
         const person = {
             idAddress: createAddress.idAddress,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            VAT_num:  req.body.vta,
-            mobile:  req.body.mobile
+            VAT_num: req.body.vta,
+            mobile: req.body.mobile
         }
-        
 
-        
         const user = await Person.create(person);
         console.log(user)
-        if(!user){
+        if (!user) {
             throw new Error("User couldn't be created")
         };
 
@@ -96,15 +101,17 @@ const getAllUsers = async (req, res) => {
     
     */
     try {
-        const users = await Person.findAll({include : {
-            model : Address, include:  [Country]
-        }});
-        
+        const users = await Person.findAll({
+            include: {
+                model: Address, include: [Country]
+            }
+        });
+
         return res.status(200).json({ users });
     } catch (error) {
         return res.status(500).send(error.message);
     }
-    
+
 }
 
 
@@ -124,7 +131,7 @@ const getUserById = async (req, res) => {
                 type: 'integer'
             }
     */
-   console.log('test')
+    console.log('test')
     try {
         const { id } = req.params;
         const user = await Person.findOne({
@@ -138,8 +145,51 @@ const getUserById = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+
+const updateUser = async (req, res) => {
+    // #swagger.tags = ['Users']
+    /* 
+    #swagger.summary = 'Update user'
+    #swagger.description = 'Updating the user .'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+
+    */
+    try {
+       
+       
+        const user = await Person.findOne({
+            where: { email: req.body.email }
+        });
+        
+        if (user) {
+            
+            await user.update(
+                {
+                    idAddress: req.body.idAddress,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    email: req.body.email,
+                    VAT_num: req.body.vta,
+                    mobile: req.body.mobile
+                }
+
+            )
+            await user.save()
+
+            return res.status(200).json({ user });
+        }
+        
+        return res.status(404).send('User with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     createUser,
     getAllUsers,
-    getUserById
+    getUserById,
+    updateUser
 }

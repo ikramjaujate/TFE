@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     VAT_num: {
-      type:DataTypes.INTEGER,
+      type:DataTypes.STRING,
       allowNull: true,
       unique: true
     },
