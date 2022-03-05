@@ -11,8 +11,8 @@ const router = Router();
 router.get('/', (req, res) => res.send('This is root!'))
 
 // USERS
-router.post('/users/create', verifyToken,createUser)
-router.get('/users', verifyToken,getAllUsers)
+router.post('/users', verifyToken,createUser)
+router.get('/users',verifyToken, getAllUsers)
 router.get('/users/:id', verifyToken,getUserById)
 
 
@@ -23,10 +23,18 @@ router.get('/company', verifyToken,getAllCompanies)
 // ADDRESS
 const {createAddress, getAllAddress} = require('../controllers/address.js');
 router.get('/address', verifyToken,getAllAddress)
-router.post('/address/create', verifyToken,createAddress)
+router.post('/address', verifyToken,createAddress)
 
 //LOGIN
 const { login } = require('../controllers/login.js');
 router.post('/login', login)
+
+// PROJECT
+const { createProject } = require('../controllers/project.js');
+router.post('/project',verifyToken,createProject)
+
+// COUNTRY
+const { getAllCountries} = require('../controllers/country.js');
+router.get('/countries',verifyToken,getAllCountries)
 
 module.exports = router
