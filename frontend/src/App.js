@@ -8,8 +8,6 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { BrowserRouter as Router, Switch,  Redirect}  from 'react-router-dom'
 import { PrivateRoute } from './components/Auth/PrivateRoute';
-import Dashboard from './components/Dashboard';
-import TableDemo from './components/TableDemo';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home'
 import PrimeReact from 'primereact/api';
@@ -182,7 +180,6 @@ const App = () => {
                 <div className="layout-main">
                     <PrivateRoute path="/" exact isloggedin={isLoggedIn()} component={Home} />
                     <PrivateRoute path="/clients" exact isloggedin={isLoggedIn()} component={Clients} />
-                    <PrivateRoute path="/table" isloggedin={isLoggedIn()}  component={TableDemo} />
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/projects" component={Projects}/>
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/invoices" component={Invoices}/>
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/employees" component={Employees}/>

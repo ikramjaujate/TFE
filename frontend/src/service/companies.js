@@ -10,6 +10,38 @@ const GetCompanies = async () => {
     }))
       
 }
+
+const CreateNewCompany = async (bodyForm) => {
+
+  let informations = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+    body: JSON.stringify(bodyForm)
+  };
+  return await (fetch(`/api/company`, informations).then(response => {
+    return response.json()
+  }))
+}
+
+const UpdateCompany = async (bodyForm) => {
+
+  let informations = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+    body: JSON.stringify(bodyForm)
+  };
+  return await (fetch(`/api/company`, informations).then(response => {
+    return response.json()
+  }))
+}
 export {
-    GetCompanies
+    GetCompanies,
+    CreateNewCompany,
+    UpdateCompany
   }

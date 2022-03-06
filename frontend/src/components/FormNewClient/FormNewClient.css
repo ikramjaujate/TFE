@@ -38,8 +38,17 @@ button.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-
     background-color: #4dc261!important;
 }
 
-.p-button:disabled {
-    margin-left: 4px;
-    margin-bottom: 6%;
-    margin-top: 6%;
+.btn-container{
+    display: flex;
+}
+
+.grid .button-demo{
+    justify-content: space-between;
+}
+
+.p-panel-titlebar{
+    font-size: 20px;
+}
+.p-panel.p-panel-toggleable .p-panel-header {
+    padding: 1rem 1.25rem;
 }
