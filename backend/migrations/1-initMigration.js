@@ -20,8 +20,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "noname",
-    "created": "2022-03-05T17:24:10.512Z",
+    "name": "initMigration",
+    "created": "2022-03-06T17:12:23.446Z",
     "comment": ""
 };
 
@@ -321,7 +321,7 @@ var migrationCommands = [{
                 "mobile": {
                     "type": Sequelize.STRING,
                     "field": "mobile",
-                    "unique": true,
+                    "unique": false,
                     "allowNull": false
                 },
                 "createdAt": {

@@ -3,9 +3,9 @@ module.exports = {
     return queryInterface.bulkInsert('Company', [{
       name : 'MasterServices',
       email: 'info@masterservices.com',
-      VAT_num: 123456,
+      VAT_num: 'BE 456789',
       mobile: '+32 488 37 96 72',
-      idAddress: 1,
+      idAddress: 3,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

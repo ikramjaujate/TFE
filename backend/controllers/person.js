@@ -1,4 +1,4 @@
-const { Person, Address, Country } = require('../models');
+const { Person, Address, Country, Company } = require('../models');
 
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
     }] */
     try {
         const country = req.body.country;
-        
+
         const existingCountry = await Country.findOne({
             where: { nicename: country }
         });
@@ -37,19 +37,21 @@ const createUser = async (req, res) => {
             postal_code: req.body.postalCode
         }
 
+
         const createAddress = await Address.create(address);
-        console.log(createAddress)
+
 
         if (!createAddress) {
             throw new Error("Address couldn't be created")
         };
-        if(req.body.vta){
-            if(country == "Belgium"){
+        //TODO : correction des vta en focntions des iso des countries
+        if (req.body.vta) {
+            if (country == "Belgium") {
                 req.body.vta = 'BE ' + String(req.body.vta)
-            }else{
+            } else {
                 req.body.vta = 'FR ' + String(req.body.vta)
             }
-           
+
         }
         const person = {
             idAddress: createAddress.idAddress,
@@ -61,7 +63,7 @@ const createUser = async (req, res) => {
         }
 
         const user = await Person.create(person);
-        console.log(user)
+
         if (!user) {
             throw new Error("User couldn't be created")
         };
@@ -131,7 +133,6 @@ const getUserById = async (req, res) => {
                 type: 'integer'
             }
     */
-    console.log('test')
     try {
         const { id } = req.params;
         const user = await Person.findOne({
@@ -157,32 +158,110 @@ const updateUser = async (req, res) => {
 
     */
     try {
-       
-       
+
+
         const user = await Person.findOne({
-            where: { email: req.body.email }
+            where: {
+                idPerson: req.body.id
+            }
         });
-        
-        if (user) {
-            
-            await user.update(
-                {
-                    idAddress: req.body.idAddress,
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    email: req.body.email,
-                    VAT_num: req.body.vta,
-                    mobile: req.body.mobile
-                }
 
-            )
-            await user.save()
 
-            return res.status(200).json({ user });
+        if (!user) {
+            throw new Error("No user")
+        };
+        const existingEmail = await Person.findOne({
+            where: {
+                email: req.body.email
+            }
+        });
+
+        if (req.body.vta) {
+            if (req.body.country == "Belgium") {
+                req.body.vta = 'BE ' + String(req.body.vta)
+            } else {
+                req.body.vta = 'FR ' + String(req.body.vta)
+            }
+
         }
-        
-        return res.status(404).send('User with the specified ID does not exists');
+
+        if (existingEmail && user.idPerson !== existingEmail.idPerson) {
+            throw new Error("Email already taken")
+        }
+        let existingVta = await Person.findOne({
+            where: {
+                VAT_num: req.body.vta
+            }
+        });
+
+        if (existingVta && user.idPerson !== existingVta.idPerson && existingVta.VAT_num) {
+
+            throw new Error("VAT already taken2")
+        }
+        existingVta = await Company.findOne({
+            where: {
+                VAT_num: req.body.vta
+            }
+        });
+        if (existingVta && existingVta.VAT_num) {
+            throw new Error("VAT already taken")
+        }
+        const userAddress = await Address.findOne({
+            where: {
+                idAddress: user.idAddress
+            }
+        })
+        const userAddressCountry = await Country.findOne({
+            where: {
+                idCountry: userAddress.idCountry
+            }
+        })
+
+        if (userAddressCountry.nicename != req.body.country) {
+            const existingCountry = await Country.findOne({
+                where: { nicename: req.body.country }
+            });
+            if (!existingCountry) {
+                throw new Error("No country")
+            };
+            userAddress.idCountry = existingCountry.idCountry
+            
+           /* await userAddress.update({
+                idCountry: existingCountry.idCountry
+            })
+            await userAddress.save()*/
+        }
+        if (userAddress.street != req.body.street
+            || userAddress.locality != req.body.locality
+            || userAddress.postal_code != req.body.postalCode
+            || userAddress.idCountry != userAddressCountry.idCountry) {
+
+            await userAddress.update({
+                street: req.body.street,
+                locality: req.body.locality,
+                postal_code: req.body.postalCode
+                //idCountry: userAddress.idCountry
+            })
+            await userAddress.save()
+
+        }
+
+        await user.update(
+            {
+                idAddress: req.body.idAddress,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                VAT_num: req.body.vta,
+                mobile: req.body.mobile
+            }
+
+        )
+        await user.save()
+
+        return res.status(200).json({ user });
     } catch (error) {
+        console.log(error)
         return res.status(500).send(error.message);
     }
 }

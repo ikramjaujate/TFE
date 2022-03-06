@@ -18,8 +18,10 @@ router.get('/users/:id', verifyToken,getUserById)
 router.put('/users', verifyToken,updateUser)
 
 // COMPANY
-const { getAllCompanies} = require('../controllers/company.js');
+const { getAllCompanies, createCompany, updateCompany} = require('../controllers/company.js');
 router.get('/company', verifyToken,getAllCompanies)
+router.post('/company', verifyToken,createCompany)
+router.put('/company', verifyToken,updateCompany)
 
 // ADDRESS
 const {createAddress, getAllAddress} = require('../controllers/address.js');
