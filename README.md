@@ -1,7 +1,7 @@
 # TFE
 
 ![Deploiement](https://github.com/ikramjaujate/TFE/workflows/Deploiment/badge.svg?branch=develop)
-
+![Availability](https://img.shields.io/uptimerobot/ratio/7/m790827699-ff82f96e57e5f1f1f8ef2461)(https://stats.uptimerobot.com/rNpLgcrN2N) 
 
 Le client est une entreprise dans secteur du bâtiment et travaux publics et est située à Sint-Pieters-Leeuw. Dans le cadre de ses activités, le client doit constamment gérer le flux de matériaux, ses clients, ses employés, ses fournisseurs ainsi que toutes les facturations qui en découlent.
 
