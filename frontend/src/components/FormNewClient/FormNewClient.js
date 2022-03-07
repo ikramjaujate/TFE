@@ -216,7 +216,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         <>
             <Toast ref={toast} />
 
-            <Panel header="Add Client" toggleable>
+            <Panel header="ADD CLIENT" toggleable>
                 <div className="grid p-fluid m-2">
                     {!isCompany ?
                         <div className="col-12 md:col-4">
@@ -275,7 +275,10 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                     <div className="col-12 md:col-4">
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">
+
                                 <i className="pi pi-home"></i>
+
+
                             </span>
                             <InputText value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street" />
                         </div>
@@ -317,7 +320,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                     <div className='btn-container'>
                         <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
                         <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={handleClick} />
-                        <Button label="Update" icon="pi pi-pencil" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData} />
+                        <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData} />
 
                     </div>
 

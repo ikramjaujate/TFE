@@ -10,7 +10,7 @@
 .layout-theme-light{
     background-color: rgb(255, 255, 255)!important;
 }
-.pi-home, .pi-id-card, .pi-table, .pi-bars{
+.layout-menu li a .pi-home, .layout-menu li a .pi-id-card, .layout-menu li a .pi-table, .layout-menu li a .pi-bars{
     font-size: 1.7rem;
 }
 .layout-topbar .layout-topbar-button i{

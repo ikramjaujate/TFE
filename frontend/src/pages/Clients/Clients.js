@@ -151,9 +151,9 @@ const Clients = () => {
 
   const handleClient = (client) => {
     if (client.type == 'c') {
-      history.push(`/clients/company/${client.id}`)
+      history.push(`/clients/company/${client.id}/detail`)
     } else {
-      history.push(`/clients/person/${client.id}`)
+      history.push(`/clients/person/${client.id}/detail`)
     }
 
   }

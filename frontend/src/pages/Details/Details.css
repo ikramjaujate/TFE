@@ -1,0 +1,35 @@
+.p-breadcrumb{
+    border: none;
+    margin-left:1%;
+}
+
+.p-breadcrumb ul li:last-child .p-menuitem-text {
+    color: #082a4c;
+    font-weight: 700;
+}
+
+.value-client{
+    font-weight: 700;
+}
+
+.title-span{
+    font-size: 14px;
+}
+.p-panel .p-panel-header .p-panel-title{
+    font-size: 14px;
+}
+
+.value-client-email{
+    font-weight: 700;
+    color: #082a4c;
+    text-decoration: underline;
+}
+
+.value-client-email:hover{
+    font-weight: 700;
+    color: rgb(184, 76, 76);
+}
+
+.p-breadcrumb ul{
+    font-size: 12px;
+}
