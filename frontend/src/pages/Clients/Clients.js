@@ -12,9 +12,12 @@ import { GetCompanies } from "../../service/companies";
 import { TabView, TabPanel } from 'primereact/tabview';
 import template from "../../components/Paginator/Paginator";
 import { Toolbar } from 'primereact/toolbar';
+import { Route, useLocation, Redirect, useHistory } from 'react-router-dom';
+
 
 const Clients = () => {
 
+  const history = useHistory();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [displayBasic, setDisplayBasic] = useState(false);
@@ -47,7 +50,6 @@ const Clients = () => {
   useEffect(() => {
     persons.forEach(person => {
       person.VAT_num = person.VAT_num ? Number(person.VAT_num?.split(' ')[1]) : null
-      console.log(person.Address.Country.idCountry)
       data.push({
         id: person.idPerson,
         type: 'p',
@@ -56,7 +58,7 @@ const Clients = () => {
         VAT_num: person.VAT_num,
         mobile: person.mobile,
         address: `${person.Address.street}, ${person.Address.postal_code} ${person.Address.locality}, ${person.Address.Country.nicename}`,
-        iso : person.Address.Country.iso
+        iso: person.Address.Country.iso
       });
     });
     setData([...data]);
@@ -65,7 +67,6 @@ const Clients = () => {
 
   useEffect(() => {
     companies.forEach(company => {
-      console.log(company.VAT_num)
       company.VAT_num = company.VAT_num ? Number(company.VAT_num?.split(' ')[1]) : null
       data.push({
         id: company.idCompany,
@@ -75,7 +76,7 @@ const Clients = () => {
         VAT_num: company.VAT_num,
         mobile: company.mobile,
         address: `${company.Address.street}, ${company.Address.postal_code} ${company.Address.locality}, ${company.Address.Country.nicename}`,
-        iso : company.Address.Country.iso
+        iso: company.Address.Country.iso
       });
     });
     setData([...data]);
@@ -147,43 +148,46 @@ const Clients = () => {
       );
     }
   }
-  const informationClientTemplate = (rowData) => {
-      return (
-        <React.Fragment>
-          <Button icon="pi pi-eye" className=" p-button-secondary" />
-          
-        </React.Fragment>
-      );
-    
-  }
 
+  const handleClient = (client) => {
+    if (client.type == 'c') {
+      history.push(`/clients/company/${client.id}`)
+    } else {
+      history.push(`/clients/person/${client.id}`)
+    }
+
+  }
+  const informationClientTemplate = (rowData) => {
+    return (
+      <React.Fragment>
+        <Button icon="pi pi-eye" className=" p-button-secondary" onClick={() => handleClient(rowData)} />
+      </React.Fragment>
+    );
+
+  }
 
 
   return (
     <div className="grid table-demo">
       <div className="col-12">
-          <FormNewClient
-            refreshTable={refresh}
-            sendData={selectedClient}
-          />
+        <FormNewClient
+          refreshTable={refresh}
+          sendData={selectedClient}
+        />
 
       </div>
 
       <div className="col-12">
         <div className="card">
-          
-
-
-              <DataTable paginatorTemplate={template} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-                <Column body={clientTypeTemplate} style={{ width: '2rem' }}  headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
-                <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
-                <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
-                <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
-                <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
-                <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }} body={countryTemplate}  ></Column>
-                <Column body={informationClientTemplate} style={{ width: '5rem' }}  headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
-              </DataTable>
-            
+          <DataTable paginatorTemplate={template} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+            <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+            <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+            <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+            <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT" dataType="numeric" headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+            <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }}></Column>
+            <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', backgroundColor: '#c9392f', color: "white" }} body={countryTemplate}  ></Column>
+            <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ backgroundColor: '#c9392f', color: "white" }}></Column>
+          </DataTable>
 
         </div>
       </div>

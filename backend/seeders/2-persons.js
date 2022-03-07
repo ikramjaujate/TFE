@@ -20,36 +20,6 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      firstName: "Zonda",
-      lastName: "Mussilli",
-      email: "zmussilli0@disqus.com",
-      mobile: "+86 609 986 5933",
-      VAT_num: null,
-      idAddress: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      firstName: "Milli",
-      lastName: "Dunbar",
-      email: "mdunbar1@ovh.net",
-      mobile: "+86 806 995 4087",
-      VAT_num: null,
-      idAddress: 2,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      firstName: "Danya",
-      lastName: "Heaysman",
-      email: "dheaysman2@usgs.gov",
-      mobile: "+62 518 663 8580",
-      VAT_num: null,
-      idAddress: 3,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
       firstName: "Fin",
       lastName: "Farrah",
       email: "ffarrah3@sbwire.com",

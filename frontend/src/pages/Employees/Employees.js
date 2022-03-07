@@ -7,7 +7,8 @@ import 'primeflex/primeflex.css';
 
 import React from 'react';
 import { Fieldset } from 'primereact/fieldset';
-const Employees = () => {
+const Employees = (clientType) => {
+    console.log(clientType)
     return (
         <div>
             <div className="card">

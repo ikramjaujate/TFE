@@ -178,12 +178,14 @@ const App = () => {
 
             <div className="layout-main-container">
                 <div className="layout-main">
-                    <PrivateRoute path="/" exact isloggedin={isLoggedIn()} component={Home} />
-                    <PrivateRoute path="/clients" exact isloggedin={isLoggedIn()} component={Clients} />
+                    <PrivateRoute  exact isloggedin={isLoggedIn()} path="/" component={Home} />
+                    <PrivateRoute  exact isloggedin={isLoggedIn()} path="/clients" component={Clients} />
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path='/clients/person/:id' component={() => Employees('p')}/>
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path='/clients/company/:id' component={() => Employees('c')}/>    
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/projects" component={Projects}/>
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/invoices" component={Invoices}/>
                     <PrivateRoute exact isloggedin={isLoggedIn()} path="/employees" component={Employees}/>
-                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/material" component={Material}/>                    
+                    <PrivateRoute exact isloggedin={isLoggedIn()} path="/material" component={Material}/>                   
 
                 </div>
 
