@@ -135,9 +135,18 @@ const getUserById = async (req, res) => {
     */
     try {
         const { id } = req.params;
-        const user = await Person.findOne({
+        /*const user = await Person.findOne({
             where: { idPerson: id },
+            
+        });*/
+        const user = await Person.findAll({
+            where: {idPerson: id},
+            include: [{
+              model: Address, include: [Country]
+              
+             }]
         });
+
         if (user) {
             return res.status(200).json({ user });
         }
