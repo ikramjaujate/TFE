@@ -75,6 +75,9 @@
                   "postalCode": {
                     "example": "any"
                   },
+                  "vta": {
+                    "example": "any"
+                  },
                   "firstName": {
                     "example": "any"
                   },
@@ -82,9 +85,6 @@
                     "example": "any"
                   },
                   "email": {
-                    "example": "any"
-                  },
-                  "vta": {
                     "example": "any"
                   },
                   "mobile": {
@@ -238,7 +238,7 @@
           "Users"
         ],
         "summary": "Update user",
-        "description": "Updating the user chosen.",
+        "description": "Updating the user .",
         "parameters": [
           {
             "name": "Authorization",
@@ -258,9 +258,6 @@
           "401": {
             "description": "Unauthorized"
           },
-          "404": {
-            "description": "Not Found"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -276,7 +273,25 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "id": {
+                    "example": "any"
+                  },
                   "email": {
+                    "example": "any"
+                  },
+                  "vta": {
+                    "example": "any"
+                  },
+                  "country": {
+                    "example": "any"
+                  },
+                  "street": {
+                    "example": "any"
+                  },
+                  "locality": {
+                    "example": "any"
+                  },
+                  "postalCode": {
                     "example": "any"
                   },
                   "idAddress": {
@@ -286,9 +301,6 @@
                     "example": "any"
                   },
                   "lastName": {
-                    "example": "any"
-                  },
-                  "vta": {
                     "example": "any"
                   },
                   "mobile": {
@@ -385,6 +397,152 @@
             "bearerAuth": []
           }
         ]
+      },
+      "post": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Creates a new company",
+        "description": "The company to create.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "country": {
+                    "example": "any"
+                  },
+                  "street": {
+                    "example": "any"
+                  },
+                  "locality": {
+                    "example": "any"
+                  },
+                  "postalCode": {
+                    "example": "any"
+                  },
+                  "vta": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "mobile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Update company",
+        "description": "Updating the company .",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "vta": {
+                    "example": "any"
+                  },
+                  "country": {
+                    "example": "any"
+                  },
+                  "street": {
+                    "example": "any"
+                  },
+                  "locality": {
+                    "example": "any"
+                  },
+                  "postalCode": {
+                    "example": "any"
+                  },
+                  "idAddress": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "mobile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/address": {
