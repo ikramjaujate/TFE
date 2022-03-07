@@ -1,0 +1,18 @@
+span.customer-badge.status-accepted {
+    background: #5bd454;
+    color: white;
+}
+span.customer-badge.status-pre-sale{
+    background: #aaa;
+    color: white;
+
+}
+.title {
+    color: #c9392f;
+    padding-bottom: .5rem;
+    font-weight: 700;
+    font-size: xx-large;
+    border-bottom: 2px solid #c9392f;
+    display:flex;
+    justify-content: end;
+}

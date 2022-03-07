@@ -8,13 +8,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
-import GetCountries from "../../service/countries";
+import GetCountries from "../../../service/countries";
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { Toast } from 'primereact/toast';
-import { GetClients, CreateNewClient, UpdateUser } from '../../service/users'
-import { CreateNewCompany, UpdateCompany } from '../../service/companies'
-import Clients from '../../pages/Clients/Clients';
+import { GetClients, CreateNewClient, UpdateUser } from '../../../service/users'
+import { CreateNewCompany, UpdateCompany } from '../../../service/companies'
+import Clients from '../../../pages/Clients/Clients';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
 import { Ripple } from 'primereact/ripple';
@@ -216,7 +216,10 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         <>
             <Toast ref={toast} />
 
-            <Panel header="ADD CLIENT" toggleable>
+            <Panel header={ <span >
+                                    <i className="pi pi-user mr-2"></i>   <i className="pi pi-building mr-2"></i>
+                                    ADD CLIENT
+                                </span>} toggleable>
                 <div className="grid p-fluid m-2">
                     {!isCompany ?
                         <div className="col-12 md:col-4">
