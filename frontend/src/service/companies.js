@@ -26,6 +26,20 @@ const CreateNewCompany = async (bodyForm) => {
   }))
 }
 
+const GetCompanyById = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/company/${id}`, informations).then(response => {
+    return response.json()
+  }))
+
+}
 const UpdateCompany = async (bodyForm) => {
 
   let informations = {
@@ -43,5 +57,6 @@ const UpdateCompany = async (bodyForm) => {
 export {
     GetCompanies,
     CreateNewCompany,
-    UpdateCompany
+    UpdateCompany,
+    GetCompanyById
   }

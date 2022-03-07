@@ -13,6 +13,21 @@ const GetClients = async () => {
 
 }
 
+const GetClientByID = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/users/${id}`, informations).then(response => {
+    return response.json()
+  }))
+
+}
+
 const CreateNewClient = async (bodyForm) => {
 
   let informations = {
@@ -47,5 +62,6 @@ const UpdateUser = async (bodyForm) => {
 export {
   CreateNewClient,
   GetClients,
-  UpdateUser
+  UpdateUser,
+  GetClientByID
 }
