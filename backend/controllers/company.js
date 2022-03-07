@@ -18,6 +18,45 @@ const getAllCompanies = async (req, res) => {
     }
     
 }
+
+
+const getCompanyById = async (req, res) => {
+    // #swagger.tags = ['Company']
+    /* 
+    #swagger.summary = 'Gets a company by ID'
+    #swagger.description = 'Numeric ID of the company to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'Company ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
+    try {
+        const { id } = req.params;
+        /*const user = await Person.findOne({
+            where: { idPerson: id },
+            
+        });*/
+        const company = await Company.findAll({
+            where: {idCompany: id},
+            include: [{
+              model: Address, include: [Country]
+              
+             }]
+        });
+
+        if (company) {
+            return res.status(200).json({ company });
+        }
+        return res.status(404).send('User with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 const createCompany = async (req, res) => {
     // #swagger.tags = ['Company']
     /* 
@@ -30,8 +69,7 @@ const createCompany = async (req, res) => {
                     $name: 'Donuts SLA',
                     $email: 'test@test.com',
                     $VAT_num: 29,
-                    $mobile: "32488907960",
-                    "..."
+                    $mobile: "32488907960"
                 }
         } 
     #swagger.security = [{
@@ -99,7 +137,7 @@ const createCompany = async (req, res) => {
 }
 
 const updateCompany = async (req, res) => {
-    // #swagger.tags = ['companys']
+    // #swagger.tags = ['Company']
     /* 
     #swagger.summary = 'Update company'
     #swagger.description = 'Updating the company .'
@@ -218,5 +256,6 @@ const updateCompany = async (req, res) => {
 module.exports = {
     getAllCompanies,
     createCompany,
-    updateCompany
+    updateCompany,
+    getCompanyById
 }
