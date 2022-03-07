@@ -545,6 +545,55 @@
         }
       }
     },
+    "/company/{id}": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Gets a company by ID",
+        "description": "Numeric ID of the company to get.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Company ID."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/address": {
       "get": {
         "tags": [
@@ -650,8 +699,12 @@
       }
     },
     "/project": {
-      "post": {
-        "description": "",
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Get all projects",
+        "description": "Get all the projects without using ID",
         "parameters": [
           {
             "name": "Authorization",
@@ -662,6 +715,200 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Projects successfully obtained.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Façade"
+                          },
+                          "idPerson": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "Accepted"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Façade"
+                          },
+                          "idPerson": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "Accepted"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Create new project",
+        "description": "Create new project linked to a client",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New project created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Façade"
+                          },
+                          "idPerson": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "Accepted"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "Façade"
+                          },
+                          "idPerson": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "Accepted"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
           "201": {
             "description": "Created"
           },
@@ -674,7 +921,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/countries": {

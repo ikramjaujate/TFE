@@ -34,8 +34,10 @@ const { login } = require('../controllers/login.js');
 router.post('/login', login)
 
 // PROJECT
-const { createProject } = require('../controllers/project.js');
-router.post('/project',verifyToken,createProject)
+const { createProject, getAllProjects } = require('../controllers/project.js');
+router.get('/projects',verifyToken,getAllProjects)
+router.post('/projects',verifyToken,createProject)
+
 
 // COUNTRY
 const { getAllCountries} = require('../controllers/country.js');
