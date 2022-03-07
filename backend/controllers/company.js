@@ -252,10 +252,42 @@ const updateCompany = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+const getProjectByCompanyId = async (req, res) => {
+    // #swagger.tags = ['Company']
+    /* 
+    #swagger.summary = 'Gets the project using the company ID'
+    #swagger.description = 'Numeric ID of the company to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'User ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
+    try {
+        const { id } = req.params;
+        console.log(id)
+        const company = await Project.findAll({
+            where: {idCompany: id},
+            
+        });
+        
+        if (company) {
+            return res.status(200).json({ company });
+        }
+        return res.status(404).send('User with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 
 module.exports = {
     getAllCompanies,
     createCompany,
     updateCompany,
-    getCompanyById
+    getCompanyById,
+    getProjectByCompanyId
 }

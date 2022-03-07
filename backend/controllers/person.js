@@ -1,4 +1,5 @@
-const { Person, Address, Country, Company } = require('../models');
+
+const { Person, Address, Country, Company, Project } = require('../models');
 
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -155,6 +156,37 @@ const getUserById = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+const getProjectByUserId = async (req, res) => {
+    // #swagger.tags = ['Users']
+    /* 
+    #swagger.summary = 'Gets the project using the user ID'
+    #swagger.description = 'Numeric ID of the user to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'User ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
+    try {
+        const { id } = req.params;
+        console.log(id)
+        const user = await Project.findAll({
+            where: {idPerson: id},
+            
+        });
+        
+        if (user) {
+            return res.status(200).json({ user });
+        }
+        return res.status(404).send('User with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 
 const updateUser = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -279,5 +311,6 @@ module.exports = {
     createUser,
     getAllUsers,
     getUserById,
-    updateUser
+    updateUser,
+    getProjectByUserId
 }

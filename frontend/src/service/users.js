@@ -28,6 +28,21 @@ const GetClientByID = async (id) => {
 
 }
 
+const GetProjectsByClientID = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/users/${id}/projects`, informations).then(response => {
+    return response.json()
+  }))
+
+}
+
 const CreateNewClient = async (bodyForm) => {
 
   let informations = {
@@ -46,7 +61,7 @@ const CreateNewClient = async (bodyForm) => {
 const UpdateUser = async (bodyForm) => {
 
   let informations = {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': "Bearer " + localStorage.getItem('access_token')
@@ -63,5 +78,6 @@ export {
   CreateNewClient,
   GetClients,
   UpdateUser,
-  GetClientByID
+  GetClientByID,
+  GetProjectsByClientID
 }

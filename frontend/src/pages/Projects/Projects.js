@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { GetProjects } from "../../service/projects";
 import template from "../../components/Paginator/Paginator";
 import { Toolbar } from 'primereact/toolbar';
-import {useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Tooltip } from 'primereact/tooltip';
 import moment from "moment";
 import './Project.css'
@@ -37,21 +37,22 @@ const Projects = () => {
 
   useEffect(() => {
     projects.forEach(project => {
-      if(project.idCompany == null){
-      data.push({
-        id: project.idProject,
-        idPerson: project.Person.idPerson,
-        idCompany: null,
-        displayName: `${project.Person.firstName}, ${project.Person.lastName}`,
-        type: 'p',
-        name: `${project.name}`,
-        status: project.status,
-        start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
-        end_date: project.end_date,
-        mobile: project.Person.mobile,
-        VAT_num: project.Person.VAT_num
-      })}
-      else{
+      if (project.idCompany == null) {
+        data.push({
+          id: project.idProject,
+          idPerson: project.Person.idPerson,
+          idCompany: null,
+          displayName: `${project.Person.firstName}, ${project.Person.lastName}`,
+          type: 'p',
+          name: `${project.name}`,
+          status: project.status,
+          start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
+          end_date: project.end_date,
+          mobile: project.Person.mobile,
+          VAT_num: project.Person.VAT_num
+        })
+      }
+      else {
         data.push({
           id: project.idProject,
           idPerson: null,
@@ -80,15 +81,15 @@ const Projects = () => {
   const refresh = () => {
     setData([])
     getProjects()
-    
+
     setSelectedClient(null)
     setSelectedRow(null)
   }
   const statusBodyTemplate = (rowData) => {
     return <span className={`customer-badge status-${rowData.status.toLowerCase()}`}>{rowData.status}</span>;
-}
+  }
 
-  
+
 
   const dialogFuncMap = {
     'displayBasic': setDisplayBasic
@@ -106,7 +107,7 @@ const Projects = () => {
     return (
       <React.Fragment>
         <Button icon="pi pi-eye" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
-        <Tooltip target=".logo" mouseTrack mouseTrackLeft={10}/>
+        <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
       </React.Fragment>
     );
 
@@ -129,24 +130,24 @@ const Projects = () => {
 
   return (
     <>
-    <h1 className='title'>Projects</h1>
-    <div className="grid table-demo">
-     
+      <h1 className='title'>Projects</h1>
+      <div className="grid table-demo">
 
-      <div className="col-12">
+
+        <div className="col-12">
           <DataTable paginatorTemplate={template} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-          <Column field="id" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="ID" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-          <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-          <Column  style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{  color: "#c9392f" }}></Column>
-          <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{  color: "#c9392f" }}></Column>
-           
-            <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{  color: "#c9392f" }}></Column>
+            <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '20px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
+            <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
+
+            <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }}></Column>
           </DataTable>
 
+        </div>
+
+
       </div>
-
-
-    </div>
     </>
   );
 }

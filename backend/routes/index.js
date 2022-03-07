@@ -4,34 +4,41 @@ const {
     createUser,
     getAllUsers,
     getUserById,
-    updateUser
+    updateUser,
+    getProjectByUserId
 } = require('../controllers/person.js');
 const router = Router();
 
-// Routes
-router.get('/', (req, res) => res.send('This is root!'))
-
+//LOGIN
+const { login } = require('../controllers/login.js');
+router.post('/login', login)
 // USERS
 router.post('/users', verifyToken,createUser)
 router.get('/users',verifyToken, getAllUsers)
 router.get('/users/:id', verifyToken,getUserById)
-router.put('/users', verifyToken,updateUser)
+router.patch('/users', verifyToken,updateUser)
+router.get('/users/:id/projects', verifyToken,getProjectByUserId)
 
 // COMPANY
-const { getAllCompanies, createCompany, updateCompany, getCompanyById} = require('../controllers/company.js');
+const { getAllCompanies, 
+    createCompany, 
+    updateCompany, 
+    getCompanyById, 
+    getProjectByCompanyId
+    
+} = require('../controllers/company.js');
 router.get('/company', verifyToken,getAllCompanies)
 router.post('/company', verifyToken,createCompany)
 router.put('/company', verifyToken,updateCompany)
 router.get('/company/:id', verifyToken,getCompanyById)
+router.get('/company/:id/projects', verifyToken,getProjectByCompanyId)
 
 // ADDRESS
 const {createAddress, getAllAddress} = require('../controllers/address.js');
 router.get('/address', verifyToken,getAllAddress)
 router.post('/address', verifyToken,createAddress)
 
-//LOGIN
-const { login } = require('../controllers/login.js');
-router.post('/login', login)
+
 
 // PROJECT
 const { createProject, getAllProjects } = require('../controllers/project.js');

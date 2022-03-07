@@ -3,6 +3,7 @@ const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
+    // #swagger.tags = ['Auth']
     //#swagger.summary = 'Get JWT Token'
     try {
         

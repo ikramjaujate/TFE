@@ -170,7 +170,7 @@ const Clients = () => {
 
   return (
     <>
-    <h1 className='title'>Clients</h1>
+    <h1 className='title'>CLIENTS</h1>
     <div className="grid table-demo">
       <div className="col-12">
         <FormNewClient

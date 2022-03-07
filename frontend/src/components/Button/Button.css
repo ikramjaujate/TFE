@@ -2,11 +2,11 @@
     width: 338px;
     margin: 15px;
     height: 200px;
-    background-color: #f55a3f;
+    background-color: #de2517;
     color: rgb(255, 255, 255);
     line-height: 180px;
     border-radius: 25px;
-    border-color: #f55a3f;
+    border-color: #de2517;
     border-width: 2px;
 }
 
@@ -26,12 +26,13 @@
 }
 .home_btn:hover {
     color: rgb(255, 255, 255);
-    background-color: #edecec;
+    background-color: #ffffff;
+    border-color: #de2517!important;
 }
 
 .home_btn:hover p svg, .home_btn:hover p {
-    color: rgb(14, 28, 110)!important;
-    border-color: rgb(14, 28, 110)!important;
+    color: #de2517!important;
+    border-color: #de2517!important;
     border-width: 2px;
 }
 

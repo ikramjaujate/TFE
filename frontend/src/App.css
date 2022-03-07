@@ -28,13 +28,13 @@
     
 }
 .p-selectbutton .p-button.p-highlight {
-    background: #050a4d;
-    border-color: #050a4d;
+    background: #c8392e;
+    border-color: #c8392e;
     color: #ffffff;
 }
 .p-selectbutton .p-button.p-highlight:hover {
-    background: #050a4d;
-    border-color: #050a4d;
+    background: #c8392e;
+    border-color: #c8392e;
     color: #ffffff;
 }
 .p-inputgroup-addon {
@@ -53,9 +53,14 @@ td{
     background: #ffffff;
     border: 1px solid #a00000;
 }
+.p-button.p-button-secondary:enabled:hover, .p-button.p-button-secondary:not(button):not(a):not(.p-disabled):hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-buttonset.p-button-secondary > .p-button:not(button):not(a):not(.p-disabled):hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:not(button):not(a):not(.p-disabled):hover, .p-fileupload-choose.p-button-secondary:enabled:hover, .p-fileupload-choose.p-button-secondary:not(button):not(a):not(.p-disabled):hover{
+    color: #ffff;
+    background: #bc0000;
+    border: 1px solid #a00000;
+}
 .layout-menu li a.router-link-exact-active{
     color:rgb(255, 255, 255)!important;
-    background-color: #494848!important;
+    background-color: #c9392f!important;
 }
 .layout-menu li a{
     color:rgb(189 28 28)!important;
@@ -86,9 +91,10 @@ a.navbar__link{
     border-color: #494848;
 }
 
-.p-datatable .p-datatable-tbody > tr.p-highlight{
+.p-datatable .p-datatable-tbody > tr.p-highlight {
     background-color: #b8151a54;
-    color: rgb(163, 0, 0);
+    color: rgb(0 0 0);
+    font-weight: 500;
 }
 
 .p-datatable.p-datatable-selectable .p-datatable-tbody > tr.p-selectable-row:focus{

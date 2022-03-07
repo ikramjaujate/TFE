@@ -1,6 +1,6 @@
 .p-breadcrumb{
     border: none;
-    margin-left:1%;
+    margin-left:0.4rem;
 }
 
 .p-breadcrumb ul li:last-child .p-menuitem-text {
@@ -32,4 +32,17 @@
 
 .p-breadcrumb ul{
     font-size: 12px;
+}
+.projects-link {
+    font-size: 13px;
+    display:flex;
+    justify-content: end;
+    color:rgb(184, 76, 76);
+}
+
+.projects-link-span:hover{
+    color: #082a4c;
+}
+.projects-link-icon:hover{
+    color: #082a4c;
 }

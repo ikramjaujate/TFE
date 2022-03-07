@@ -11,13 +11,37 @@
     }
   ],
   "paths": {
-    "/": {
-      "get": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get JWT Token",
         "description": "",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "OK"
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -233,7 +257,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "tags": [
           "Users"
         ],
@@ -319,6 +343,55 @@
           "Users"
         ],
         "summary": "Gets a user by ID",
+        "description": "Numeric ID of the user to get.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User ID."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{id}/projects": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets the project using the user ID",
         "description": "Numeric ID of the user to get.",
         "parameters": [
           {
@@ -594,6 +667,55 @@
         ]
       }
     },
+    "/company/{id}/projects": {
+      "get": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Gets the project using the company ID",
+        "description": "Numeric ID of the company to get.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User ID."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/address": {
       "get": {
         "tags": [
@@ -666,39 +788,7 @@
         ]
       }
     },
-    "/login": {
-      "post": {
-        "summary": "Get JWT Token",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/project": {
+    "/projects": {
       "get": {
         "tags": [
           "Project"

@@ -11,8 +11,8 @@ span.customer-badge.status-pre-sale{
     color: #c9392f;
     padding-bottom: .5rem;
     font-weight: 700;
-    font-size: xx-large;
-    border-bottom: 2px solid #c9392f;
+    font-size: x-large;
     display:flex;
-    justify-content: end;
+    justify-content: start;
+    border-bottom: 2px solid #c9392f;
 }
