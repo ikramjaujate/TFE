@@ -28,8 +28,8 @@ import './assets/demo/flags/flags.css';
 import './assets/demo/Demos.scss';
 import './assets/layout/layout.scss';
 import './App.scss';
-import "../node_modules/font-awesome/css/font-awesome.min.css";
 
+import { faTools, faAddressBook, faHome, faBook, faFileContract, faHardHat} from "@fortawesome/free-solid-svg-icons";
 
 
 const App = () => {
@@ -128,15 +128,15 @@ const App = () => {
     const menu = [
         {
             items: [{
-                label: 'Dashboard', icon: 'fas fa-home', to: '/',
+                label: 'Dashboard', icon: faHome, to: '/',
                 
             },
 
-            { label: 'Clients', icon: 'fas fa-address-book', to: '/clients' },
-            { label: 'Project', icon: ' fas fa-duotone fa-book', to: '/projects' },
-            { label: 'Invoices', icon: 'fas  fa-duotone fa-file-contract', to: '/invoices' },
-            { label: 'Employees', icon: ' fas fa-hard-hat', to: '/employees' },
-            { label: 'Material', icon: 'fas fa-tools', to: '/material' }
+            { label: 'Clients', icon: faAddressBook, to: '/clients' },
+            { label: 'Project', icon: faBook, to: '/projects' },
+            { label: 'Invoices', icon: faFileContract, to: '/invoices' },
+            { label: 'Employees', icon: faHardHat, to: '/employees' },
+            { label: 'Material', icon: faTools, to: '/material' }
         ]
         }
     ];

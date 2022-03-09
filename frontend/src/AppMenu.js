@@ -48,8 +48,8 @@ const AppSubmenu = (props) => {
 
         return (
             <React.Fragment>
-
-                <i className={item.icon}></i>
+                <FontAwesomeIcon icon={item.icon} />
+                {/*<i className={item.icon}></i>*/}
                 <span>{item.label}</span>
                 {submenuIcon}
                 {badge}
