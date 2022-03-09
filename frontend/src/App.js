@@ -28,8 +28,7 @@ import './assets/demo/flags/flags.css';
 import './assets/demo/Demos.scss';
 import './assets/layout/layout.scss';
 import './App.scss';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import "../node_modules/font-awesome/css/font-awesome.min.css";
 
 
 
