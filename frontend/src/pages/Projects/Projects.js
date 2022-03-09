@@ -17,6 +17,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { SelectButton } from 'primereact/selectbutton';
 import FormProject from '../../components/Form/Project/FormProject';
+import NewProject from '../../components/Form/Project/NewProject';
 const Projects = () => {
 
   const history = useHistory();
@@ -40,6 +41,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [valueClient, setValueClient] = useState([])
+  const [add, setAdd] = useState(false)
   const getProjects = () => {
     setLoading(true);
     GetProjects().then(response => {
@@ -143,6 +145,7 @@ const Projects = () => {
   }
   const onHide = (name) => {
     dialogFuncMap[`${name}`](false);
+    setAdd(true)
   }
 
   const renderFooter = (name) => {
@@ -174,16 +177,10 @@ const Projects = () => {
 
   const onClick = (name, position) => {
     dialogFuncMap[`${name}`](true);
-    console.log(nameClient)
 
     if (position) {
-
       setPosition(position);
-
     }
-
-
-
 
   }
 
@@ -196,19 +193,13 @@ const Projects = () => {
     );
 
   }
-  const onRowSelect = (client) => {
-    setSelectedRow(client);
-    if (client.type === 'p') {
-      const person = projects.find((p) => {
-        return p.idPerson == client.id
-      });
-      setSelectedClient(person);
-    } else if (client.type === 'c') {
-      const company = projects.find((c) => {
-        return c.idCompany == client.id
-      });
-      setSelectedClient(company);
+  const onRowSelect = (project) => {
+    setSelectedRow(project);
+    if(project){
+      setSelectedClient(project);
     }
+   
+
   }
   const options = [
     { name: 'Person', value: false },
@@ -261,7 +252,8 @@ const Projects = () => {
             </div>
           </div>
         </Dialog>
-        <FormProject/>
+        {add ? <NewProject/>: <FormProject refreshTable={refresh}
+          sendData={selectedClient}/>}
         <div className="grid table-demo">
 
 
