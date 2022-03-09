@@ -52,3 +52,6 @@ button.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-
 .p-panel.p-panel-toggleable .p-panel-header {
     padding: 1rem 1.25rem;
 }
+.p-inputtext:enabled:hover {
+    border-color: #bc0000;
+}

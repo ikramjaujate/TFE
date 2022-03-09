@@ -10,7 +10,7 @@
 .layout-theme-light{
     background-color: rgb(255, 255, 255)!important;
 }
-.layout-menu li a .pi-home, .layout-menu li a .pi-id-card, .layout-menu li a .pi-table, .layout-menu li a .pi-bars{
+.layout-menu li a .pi-home,.layout-menu li a .pi-book, .layout-menu li a .pi-id-card, .layout-menu li a .pi-table, .layout-menu li a .pi-bars{
     font-size: 1.7rem;
 }
 .layout-topbar .layout-topbar-button i{
@@ -52,6 +52,19 @@ td{
     color: #bc0000;
     background: #ffffff;
     border: 1px solid #a00000;
+}
+.p-button-secondary-project{
+    color: #ffff;
+    background: #bc0000;
+    border: 1px solid #a00000;
+
+}
+
+.p-button-secondary-project:enabled:hover{
+    color: #bc0000;
+    background: #ffffff;
+    border: 1px solid #a00000;
+
 }
 .p-button.p-button-secondary:enabled:hover, .p-button.p-button-secondary:not(button):not(a):not(.p-disabled):hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-buttonset.p-button-secondary > .p-button:not(button):not(a):not(.p-disabled):hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:not(button):not(a):not(.p-disabled):hover, .p-fileupload-choose.p-button-secondary:enabled:hover, .p-fileupload-choose.p-button-secondary:not(button):not(a):not(.p-disabled):hover{
     color: #ffff;

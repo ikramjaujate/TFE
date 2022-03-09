@@ -3,7 +3,7 @@ import { IconContext } from 'react-icons/lib';
 
 const Icon = ({ color, icon}) => {
     const style = {
-        color: color,
+        color: 'color',
         size: '90px',
     };
 

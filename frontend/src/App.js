@@ -22,11 +22,14 @@ import './App.css'
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
+import 'font-awesome/css/font-awesome.min.css';
 import 'prismjs/themes/prism-coy.css';
 import './assets/demo/flags/flags.css';
 import './assets/demo/Demos.scss';
 import './assets/layout/layout.scss';
 import './App.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 
@@ -126,14 +129,15 @@ const App = () => {
     const menu = [
         {
             items: [{
-                label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/',
+                label: 'Dashboard', icon: 'fas fa-home', to: '/',
                 
             },
-            { label: 'Clients', icon: 'pi pi-fw pi-id-card', to: '/clients' },
-            { label: 'Project', icon: 'pi pi-fw pi-table', to: '/projects' },
-            { label: 'Invoices', icon: 'pi pi-fw pi-id-card', to: '/invoices' },
-            { label: 'Employees', icon: 'pi pi-fw pi-id-card', to: '/employees' },
-            { label: 'Material', icon: 'pi pi-fw pi-id-card', to: '/material' }
+
+            { label: 'Clients', icon: 'fas fa-address-book', to: '/clients' },
+            { label: 'Project', icon: ' fas fa-duotone fa-book', to: '/projects' },
+            { label: 'Invoices', icon: 'fas  fa-duotone fa-file-contract', to: '/invoices' },
+            { label: 'Employees', icon: ' fas fa-hard-hat', to: '/employees' },
+            { label: 'Material', icon: 'fas fa-tools', to: '/material' }
         ]
         }
     ];

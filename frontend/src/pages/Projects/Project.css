@@ -16,3 +16,26 @@ span.customer-badge.status-pre-sale{
     justify-content: start;
     border-bottom: 2px solid #c9392f;
 }
+
+.btn-container-add-project{
+    display: flex;
+    justify-content: end;
+}
+.flex-dropdown-selectbutton{
+    display: flex;
+    justify-content: space-between;
+}
+
+.p-button.p-button-text {
+    background-color: transparent;
+    color: #c8392e;
+    border-color: transparent;
+}
+
+button.p-button.p-component.p-button-add {
+    background-color: #4dc261!important;
+    border: white;
+}
+.p-dropdown:not(.p-disabled):hover {
+    border-color: #bc0000;
+}

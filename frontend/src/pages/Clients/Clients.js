@@ -5,7 +5,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { GetClients, CreateNewClient } from "../../service/users";
 import GetCountries from '../../service/countries';
-import FormNewClient from "../../components/Form/New Client/FormNewClient";
+import FormNewClient from "../../components/Form/Client/FormNewClient";
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { GetCompanies } from "../../service/companies";
