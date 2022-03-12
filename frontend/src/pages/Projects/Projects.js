@@ -43,6 +43,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [valueClient, setValueClient] = useState([])
+
   const [add, setAdd] = useState(false)
   const getProjects = () => {
     setLoading(true);
@@ -59,6 +60,7 @@ const Projects = () => {
 
   useEffect(() => {
     projects.forEach(project => {
+      console.log(project)
       if (project.idCompany == null) {
         data.push({
           id: project.idProject,
@@ -75,15 +77,16 @@ const Projects = () => {
         })
       }
       else {
+        
         data.push({
           id: project.idProject,
           idPerson: null,
           idCompany: project.Company.idCompany,
-          displayName: `${project.Company.name}}`,
+          displayName: `${project.Company.name}`,
           type: 'c',
           name: `${project.name}`,
           status: project.status,
-          start_date: project.start_date,
+          start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
           end_date: project.end_date,
           mobile: project.Company.mobile,
           VAT_num: project.Company.VAT_num
@@ -150,26 +153,8 @@ const Projects = () => {
     setAdd(true)
   }
 
-  const renderFooter = (name) => {
-    return (
-      <div>
-        <Button label="No" icon="pi pi-times" onClick={() => onHide(name)} className="p-button-text" />
-        <Button label="Add" icon="pi pi-check" onClick={() => onHide(name)} className="p-button-add" autoFocus />
-      </div>
-    );
-  }
-  let nameClient = []
-  for (let i in dataClients) {
-    if (dataClients[i]["type"] == 'p') {
 
-      nameClient.push(dataClients[i]["displayName"])
-
-    } else {
-      nameClient.push(dataClients[i]["displayName"])
-
-    }
-
-  }
+  
 
 
   const dialogFuncMap = {
@@ -207,34 +192,7 @@ const Projects = () => {
     { name: 'Person', value: false },
     { name: 'Company', value: true }
   ];
-  const selected = (option, props) => {
-    for(let i in dataClients){
-      if(dataClients[i]['displayName'] == option){
-        setTypeSelected(dataClients[i]['type'])
-        setValueClient(dataClients[i]['displayName'])
-      }
-    }
-    if(typeSelected == 'p'){
-      setIsCompany(false)
-    }else{
-      setIsCompany(true)
-    }
-    if (option) {
-      return (
-        <div>
-          {typeSelected == 'p' ?
-            <div className="type-selected">
-              <div>{valueClient}</div>
-            </div>
-            :
-            <div>
-              <div className="type-selected">
-                <div>{valueClient}</div>
-              </div>
-            </div>}
-        </div>
-      );
-    }}
+  
 
   return (
     <>
@@ -242,20 +200,24 @@ const Projects = () => {
       <div className='btn-container-add-project'>
         <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
       </div>
-      <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-search mr-2"></i> Search Client </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }}  footer={renderFooter('displayResponsive')}>
-        <div className="col-12 md:col-8">
+      <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
+        {/*<div className="col-12 md:col-8">
           <div className="p-inputgroup">
             <span className="p-inputgroup-addon">
               <i className="pi pi-user"></i>
             </span>
               
-            <Dropdown  inputId="dropdown" value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)}  placeholder="Company's Name" />
-            <SelectButton value={isCompany} className="ml-6" options={options} onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
+           
+  
           </div>
         </div>
+         <Dropdown  inputId="dropdown" value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)}  placeholder="Company's Name" />
+         <SelectButton value={isCompany} className="ml-6" options={options} onChange={(e) => setIsCompany(e.value)} optionLabel="name" />*/}
+        <NewProject dataClients={dataClients} onHide={onHide} refreshTable={refresh}/>
+        
+        
       </Dialog>
-      {add ? <NewProject/>: <FormProject refreshTable={refresh}
-        sendData={selectedClient}/>}
+    
       <div className="grid table-demo">
 
 
