@@ -61,12 +61,14 @@ const getAllProjects = async (req, res) => {
     */
     try {
         const projects = await Project.findAll({
-            include: {
-                model: Person, Company
-            }
+            include: [{
+                model: Person
+            },
+            {
+                model: Company
+            }]
         });
-        console.log('==========================')
-        console.log(projects)
+
         return res.status(200).json({ projects });
     } catch (error) {
         return res.status(500).send(error.message);

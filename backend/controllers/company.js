@@ -1,4 +1,4 @@
-const {Company, Address, Country, Person} = require('../models');
+const {Company, Address, Country, Person, Project} = require('../models');
 const getAllCompanies = async (req, res) => {
     // #swagger.tags = ['Company']
     /* 
