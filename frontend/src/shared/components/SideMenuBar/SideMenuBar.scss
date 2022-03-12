@@ -1,0 +1,59 @@
+
+.side-menu {
+  width: var(--side-menu-width);
+  
+  height: calc(100vh - var(--top-menu-height));
+  transition: width var(--menu-transition-time);
+
+  margin-top: 1rem;
+
+  .menu-card {    
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    margin-top: 0.2rem;
+    margin-left: 1rem;
+    padding: 1rem 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 5px rgb(0 0 0 / 2%), 0 0 2px rgb(0 0 0 / 5%), 0 1px 4px rgb(0 0 0 / 8%);
+    font-weight: 600;
+    
+    .router-link {
+      font-size: 17px;
+      color: var(--main-color);
+      background-color: white;
+      
+      border-radius: 12px;
+      margin: 0 0.5rem;
+      margin-top: 1rem;
+      padding: 0.5rem 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      
+      * {
+        margin: auto 0.5rem;
+      }
+
+      .icon {
+        min-width: 2rem;
+        margin-right: 0;
+      }
+    }
+
+    .router-link:hover {
+      background-color: var(--main-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .router-link-active, .router-link-active:hover {
+      color: white;
+      background-color: var(--main-color);
+    }
+  }
+
+}

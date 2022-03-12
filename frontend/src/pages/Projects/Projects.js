@@ -3,10 +3,9 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { GetProjects } from "../../service/projects";
-import { GetClients } from "../../service/users";
-import { GetCompanies } from "../../service/companies";
-import template from "../../components/Paginator/Paginator";
+import { GetProjects } from "../../services/projects";
+import { GetClients } from "../../services/users";
+import { GetCompanies } from "../../services/companies";
 import { Toolbar } from 'primereact/toolbar';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from 'primereact/tooltip';
@@ -16,8 +15,11 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { SelectButton } from 'primereact/selectbutton';
-import FormProject from '../../components/Form/Project/FormProject';
-import NewProject from '../../components/Form/Project/NewProject';
+
+import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
+import FormProject from './FormProject/FormProject';
+import NewProject from './FormProject/NewProject';
+
 const Projects = () => {
 
   const history = useHistory();
@@ -220,58 +222,58 @@ const Projects = () => {
     if (option) {
       return (
         <div>
-        {typeSelected == 'p' ?
-        <div className="type-selected">
-            <div>{valueClient}</div>
+          {typeSelected == 'p' ?
+            <div className="type-selected">
+              <div>{valueClient}</div>
+            </div>
+            :
+            <div>
+              <div className="type-selected">
+                <div>{valueClient}</div>
+              </div>
+            </div>}
         </div>
-        :
-      <div>
-        <div className="type-selected">
-            <div>{valueClient}</div>
-        </div>
-        </div>}
-      </div>
       );
     }}
 
-    return (
-      <>
-        <h1 className='title'>PROJECTS</h1>
-        <div className='btn-container-add-project'>
-          <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
-        </div>
-        <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-search mr-2"></i> Search Client </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }}  footer={renderFooter('displayResponsive')}>
-          <div className="col-12 md:col-8">
-            <div className="p-inputgroup">
-              <span className="p-inputgroup-addon">
-                <i className="pi pi-user"></i>
-              </span>
+  return (
+    <>
+      <h1 className='title'>PROJECTS</h1>
+      <div className='btn-container-add-project'>
+        <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
+      </div>
+      <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-search mr-2"></i> Search Client </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }}  footer={renderFooter('displayResponsive')}>
+        <div className="col-12 md:col-8">
+          <div className="p-inputgroup">
+            <span className="p-inputgroup-addon">
+              <i className="pi pi-user"></i>
+            </span>
               
-              <Dropdown  inputId="dropdown" value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)}  placeholder="Company's Name" />
-              <SelectButton value={isCompany} className="ml-6" options={options} onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
-            </div>
+            <Dropdown  inputId="dropdown" value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)}  placeholder="Company's Name" />
+            <SelectButton value={isCompany} className="ml-6" options={options} onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
           </div>
-        </Dialog>
-        {add ? <NewProject/>: <FormProject refreshTable={refresh}
-          sendData={selectedClient}/>}
-        <div className="grid table-demo">
+        </div>
+      </Dialog>
+      {add ? <NewProject/>: <FormProject refreshTable={refresh}
+        sendData={selectedClient}/>}
+      <div className="grid table-demo">
 
 
-          <div className="col-12">
-            <DataTable paginatorTemplate={template} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-              <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '20px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-              <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-              <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
-              <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
+        <div className="col-12">
+          <DataTable paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+            <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '20px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
+            <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
 
-              <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }}></Column>
-            </DataTable>
-
-          </div>
-
+            <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }}></Column>
+          </DataTable>
 
         </div>
-      </>
-    );
-  }
-  export default Projects
+
+
+      </div>
+    </>
+  );
+}
+export default Projects

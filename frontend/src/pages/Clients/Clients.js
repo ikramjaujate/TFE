@@ -1,19 +1,21 @@
+import '../../assets/flags/flags.css'
+import './Clients.scss'
+
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import { GetClients, CreateNewClient } from "../../service/users";
-import GetCountries from '../../service/countries';
-import FormNewClient from "../../components/Form/Client/FormNewClient";
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { GetCompanies } from "../../service/companies";
-import { TabView, TabPanel } from 'primereact/tabview';
-import template from "../../components/Paginator/Paginator";
-import { Toolbar } from 'primereact/toolbar';
-import { Route, useLocation, Redirect, useHistory } from 'react-router-dom';
 import { Tooltip } from 'primereact/tooltip';
+
+import FormNewClient from "./FormNewClient/FormNewClient";
+import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
+
+import { GetClients } from "../../services/users";
+import { GetCompanies } from "../../services/companies";
+
 
 const Clients = () => {
 
@@ -127,7 +129,7 @@ const Clients = () => {
   const countryTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <img alt="flag" src={`assets/demo/images/flags/flag_placeholder.png`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className={`flag flag-${rowData.iso}`} width={30} />
+        <img alt="flag" src={`assets/flags/flag_placeholder.png`} className={`flag flag-${rowData.iso}`} width={30} />
         <span className="image-text">{rowData.address}</span>
       </React.Fragment>
     )
@@ -170,18 +172,18 @@ const Clients = () => {
 
   return (
     <>
-    <h1 className='title'>CLIENTS</h1>
-    <div className="grid table-demo">
-      <div className="col-12">
-        <FormNewClient
-          refreshTable={refresh}
-          sendData={selectedClient}
-        />
+      <h1 className='title'>CLIENTS</h1>
+      <div className="grid table-demo">
+        <div className="col-12">
+          <FormNewClient
+            refreshTable={refresh}
+            sendData={selectedClient}
+          />
 
-      </div>
+        </div>
 
-      <div className="col-12">
-          <DataTable paginatorTemplate={template} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+        <div className="col-12">
+          <DataTable paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
             <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{  color: "#c9392f" }}></Column>
             <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{  color: "#c9392f" }}></Column>
             <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
@@ -191,10 +193,10 @@ const Clients = () => {
             <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{  color: "#c9392f" }}></Column>
           </DataTable>
 
-      </div>
+        </div>
 
 
-    </div></>
+      </div></>
   );
 }
 export default Clients

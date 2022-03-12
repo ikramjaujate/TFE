@@ -37,13 +37,12 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "lint:fix:dry": "eslint --fix-dry-run --fix-type suggestion,layout --ext .js ./src",
+        "lint:fix": "eslint --fix --fix-type suggestion,layout --ext .js ./src"
     },
     "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+        "extends": "react-app"
     },
     "browserslist": {
         "production": [
@@ -58,6 +57,7 @@
         ]
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^6.0.0"
+        "@fortawesome/fontawesome-free": "^6.0.0",
+        "react-error-overlay": "^6.0.9"
     }
 }

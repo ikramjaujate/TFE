@@ -46,3 +46,6 @@
 .projects-link-icon:hover{
     color: #082a4c;
 }
+.p-panel .p-panel-header .p-panel-title{
+    color: var(--main-color);
+}

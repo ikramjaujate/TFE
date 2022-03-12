@@ -1,0 +1,94 @@
+.button-submit-position{
+  margin-left: 75%!important;
+  
+}
+.p-fieldset-legend	{
+  background-color: var(--main-color)!important;
+  color: white!important;
+}
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a{
+  padding: 0.5rem;
+  color: white!important;
+  
+}
+.p-button .p-component .p-highlight .p-focus{
+  color: white;
+  background-color: var(--main-color);
+}
+fieldset.p-fieldset.p-component {
+  border-color: var(--main-color)!important;
+}
+.p-fieldset-legend>a, .p-fieldset-legend>span {
+  margin: 0%;
+}
+.p-fieldset .p-fieldset-legend{
+  margin-left: 2%;
+  padding: 1rem;
+}
+button.p-inputnumber-button.p-inputnumber-button-up.p-button.p-button-icon-only.p-component{
+  background-color: var(--main-color)!important;
+  border-color: #ededed!important;
+}
+button.p-inputnumber-button.p-inputnumber-button-down.p-button.p-button-icon-only.p-component{
+  background-color: var(--main-color)!important;
+  border-color: #ededed!important;
+}
+
+.p-inputgroup-addon{
+  background-color: white;
+  color: var(--main-color);
+}
+button.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
+  background-color: #4dc261!important;
+}
+
+.btn-container-flex{
+  display: flex;
+}
+
+.btn-container{
+  display: flex;
+}
+
+.grid .button-demo{
+  justify-content: space-between;
+}
+
+.grid.button-demo-flex.mx-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-panel-titlebar{
+  font-size: 20px;
+}
+
+.p-panel.p-panel-toggleable .p-panel-header {
+  padding: 1rem 1.25rem;
+  color: var(--main-color)
+}
+.p-inputtext:enabled:hover {
+  border-color: #bc0000;
+}
+.p-selectbutton .p-button.p-highlight {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  color: #ffffff;
+}
+.p-selectbutton .p-button.p-highlight:hover {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  color: #ffffff;
+}
+.p-button:focus{
+  box-shadow: var(--main-color);
+}
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background-color: #b8151a54;
+  color: rgb(0 0 0);
+  font-weight: 500;
+}
+.p-datatable.p-datatable-selectable .p-datatable-tbody > tr.p-selectable-row:focus {
+  outline: 0.15rem solid var(--main-color);
+  outline-offset: -0.15rem;
+}

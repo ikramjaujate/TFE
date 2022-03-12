@@ -1,1 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  --main-color: #c9392f;
+
+  --success: rgb(18, 143, 18);
+  --info: lightblue;
+  --warning: orange;
+  --danger: red;
+
+  --top-menu-height: 4.5rem;
+  --side-menu-width: 18rem;
+  --menu-transition-time: 0.25s;
+}
+
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: black;
+  background-color: white;
+  width: 100vw;
+  max-width: 100%;
+}
+
+.main-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .main-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .main-content {
+      width: calc(100% - var(--side-menu-width) - 2rem); 
+      //100% of view - width of sideMenu - margin of sideMenu - margin of self
+      margin: 1rem;
+      transition: width var(--menu-transition-time);
+    }
+
+  }
+  
+
+}
+
+.menu-is-hidden {
+  width: 0 !important;
+  overflow: hidden;
+}
+
+.menu-is-hidden-content {
+  width: calc(100% - 2rem)!important;
+}
+
+
 

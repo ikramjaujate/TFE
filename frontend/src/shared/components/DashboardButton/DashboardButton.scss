@@ -1,0 +1,32 @@
+.dashboard-card {
+    width: 340px;
+    height: 200px;
+    background-color: var(--main-color);
+    border-radius: 25px;
+    margin: auto;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    text-align: center;
+    
+    text-decoration: none;
+    color: white;
+
+    * {
+        margin: 0.5rem;
+    }
+
+    .icon {
+        font-size: 5rem;
+    }
+     
+}
+
+.dashboard-card:hover {
+    background-color: white;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+}
