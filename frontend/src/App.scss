@@ -55,5 +55,23 @@ html, body {
   width: calc(100% - 2rem)!important;
 }
 
+.required::after{
+  content: '*';
+  color: red;
+}
+
+.title {
+    
+  padding-bottom: .5rem;
+  display:flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #c9392f;
+
+  h1{
+      color: #c9392f;
+      font-weight: 700;
+      font-size: x-large;
+  }
+}
 
 

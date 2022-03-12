@@ -6,7 +6,7 @@ import 'primeflex/primeflex.css';
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Redirect, Route, NavLink } from 'react-router-dom';
-import { faTools, faAddressBook, faHome, faBook, faFileContract, faHardHat } from "@fortawesome/free-solid-svg-icons";
+import { faTools, faAddressBook, faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
 
 import PrivateRoute from './shared/components/PrivateRoute';
 import { isLoggedIn } from './core/auth';
@@ -34,7 +34,7 @@ const App = () => {
     { label: 'Invoices', icon: faFileContract, to: '/invoices' },
     { label: 'Employees', icon: faHardHat, to: '/employees' },
     { label: 'Material', icon: faTools, to: '/material' },
-    { label: 'Devis', icon: faFileContract, to: '/devis' }
+    { label: 'Devis', icon: faFileSignature, to: '/devis' }
   ];
 
   const onToggleMenu = () => {

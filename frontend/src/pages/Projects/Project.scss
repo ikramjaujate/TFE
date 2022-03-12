@@ -8,13 +8,17 @@ span.customer-badge.status-pre-sale{
 
 }
 .title {
-    color: #c9392f;
+    
     padding-bottom: .5rem;
-    font-weight: 700;
-    font-size: x-large;
     display:flex;
-    justify-content: start;
+    justify-content: space-between;
     border-bottom: 2px solid #c9392f;
+
+    h1{
+        color: #c9392f;
+        font-weight: 700;
+        font-size: x-large;
+    }
 }
 
 .btn-container-add-project{

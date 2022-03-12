@@ -10,7 +10,7 @@ import { Toolbar } from 'primereact/toolbar';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from 'primereact/tooltip';
 import moment from "moment";
-import './Project.css'
+import './Project.scss'
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
@@ -196,9 +196,13 @@ const Projects = () => {
 
   return (
     <>
-      <h1 className='title'>PROJECTS</h1>
+    <div className='title'>
+    <h1 >PROJECTS</h1>
+    <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
+    </div>
+      
       <div className='btn-container-add-project'>
-        <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
+       
       </div>
       <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
         {/*<div className="col-12 md:col-8">

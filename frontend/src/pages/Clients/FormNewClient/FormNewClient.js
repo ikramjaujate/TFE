@@ -220,6 +220,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                   <i className="pi pi-user"></i>
                 </span>
                 <InputText value={firstName} onChange={(e) => setFirstname(e.target.value)} placeholder="First Name" />
+                <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
               </div>
             </div> :
             <div className="col-12 md:col-8">
@@ -228,15 +229,17 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                   <i className="pi pi-user"></i>
                 </span>
                 <InputText value={name} onChange={(e) => setName(e.target.value)} placeholder="Company's Name" />
+                <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
               </div>
             </div>
           }
           {!isCompany ? <div className="col-12 md:col-4">
             <div className="p-inputgroup">
-              <span className="p-inputgroup-addon">
+              <span className="p-inputgroup-addon ">
                 <i className="pi pi-user"></i>
               </span>
               <InputText value={lastName} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
           </div> :
             <div>
@@ -248,6 +251,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                 <i className="pi pi-envelope"></i>
               </span>
               <InputText value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+              <span className="p-inputgroup-addon" > <i className="pi pi-flag-fill"></i></span>
             </div>
 
           </div>
@@ -265,6 +269,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                 <i className="pi pi-phone"></i>
               </span>
               <InputText value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Phone Number" />
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
           </div>
           <div className="col-12 md:col-4">
@@ -276,6 +281,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
               </span>
               <InputText value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street" />
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
           </div>
           <div className="col-12 md:col-4">
@@ -284,6 +290,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                 <i className="pi pi-map-marker"></i>
               </span>
               <InputText value={locality} onChange={(e) => setLocality(e.target.value)} placeholder="Locality" />
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
           </div>
           <div className="col-12 md:col-4">
@@ -292,6 +299,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                 <i className="pi pi-map-marker"></i>
               </span>
               <InputNumber value={postalCode} mode="decimal" useGrouping={false} onValueChange={(e) => setPostalCode(e.target.value)} placeholder="Postal Code" />
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
           </div>
           <div className="col-12 md:col-4">
@@ -301,7 +309,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
               </span>
 
               <Dropdown inputId="dropdown" value={country} options={nameCountry} onChange={(e) => setCountry(e.value)} placeholder="Country" />
-
+              <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
             </div>
 
           </div>
