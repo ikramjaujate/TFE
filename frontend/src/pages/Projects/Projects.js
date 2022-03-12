@@ -196,10 +196,10 @@ const Projects = () => {
 
   return (
     <>
-    <div className='title'>
-    <h1 >PROJECTS</h1>
-    <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
-    </div>
+      <div className='title'>
+        <h1 >PROJECTS</h1>
+        <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
+      </div>
       
       <div className='btn-container-add-project'>
        

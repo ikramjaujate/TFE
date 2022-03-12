@@ -172,9 +172,9 @@ const Clients = () => {
 
   return (
     <>
-    <div className='title'>
-    <h1 >CLIENTS</h1>
-    </div>
+      <div className='title'>
+        <h1 >CLIENTS</h1>
+      </div>
      
       <div className="grid table-demo">
         <div className="col-12">
