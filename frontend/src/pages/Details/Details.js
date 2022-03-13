@@ -147,7 +147,10 @@ const Details = (clientType) => {
 
   return (
     <>
-      <h1 className='title'>DETAIL</h1>
+      <div className='title'>
+        <h1 >DETAIL</h1>
+      </div>
+
       <div>
         {clientType === 'c' ?
           <BreadCrumb model={company} home={homeCompany} />
@@ -163,7 +166,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            ID : <span className='value-client'> {idCompany}</span>
+                      ID : <span className='value-client'> {idCompany}</span>
                     </span>
 
                   </div>
@@ -171,7 +174,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Company's name : <span className='value-client'> {name}</span>
+                      Company's name : <span className='value-client'> {name}</span>
                     </span>
 
                   </div>
@@ -182,7 +185,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Locality :  <span className='value-client'> {locality}</span>
+                      Locality :  <span className='value-client'> {locality}</span>
                     </span>
 
                   </div>
@@ -190,22 +193,14 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Street :  <span className='value-client'> {street}</span>
+                      Street :  <span className='value-client'> {street}</span>
                     </span>
                   </div>
                 </div>
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                    </span>
-
-                  </div>
-                </div>
-                <div className="col-12 md:col-3">
-                  <div className="p-inputgroup">
-                    <span className='title-span' >
-                                            Postal Code :  <span className='value-client'> {postalCode}</span>
+                      Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
                     </span>
 
                   </div>
@@ -213,7 +208,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Mobile phone :  <span className='value-client'> {mobile}</span>
+                      Postal Code :  <span className='value-client'> {postalCode}</span>
                     </span>
 
                   </div>
@@ -221,7 +216,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Email address :  <span className='value-client-email'> {email}</span>
+                      Mobile phone :  <span className='value-client'> {mobile}</span>
                     </span>
 
                   </div>
@@ -229,7 +224,15 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            VAT :  <span className='value-client'> {vta}</span>
+                      Email address :  <span className='value-client-email'> {email}</span>
+                    </span>
+
+                  </div>
+                </div>
+                <div className="col-12 md:col-3">
+                  <div className="p-inputgroup">
+                    <span className='title-span' >
+                      VAT :  <span className='value-client'> {vta}</span>
                     </span>
 
                   </div>
@@ -249,7 +252,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            ID : <span className='value-client'>{idPerson} </span>
+                      ID : <span className='value-client'>{idPerson} </span>
                     </span>
 
                   </div>
@@ -257,7 +260,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            First Name : <span className='value-client'> {firstName}</span>
+                      First Name : <span className='value-client'> {firstName}</span>
                     </span>
 
                   </div>
@@ -265,7 +268,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Last Name : <span className='value-client'> {lastName}</span>
+                      Last Name : <span className='value-client'> {lastName}</span>
                     </span>
 
                   </div>
@@ -274,7 +277,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Locality :  <span className='value-client'> {locality}</span>
+                      Locality :  <span className='value-client'> {locality}</span>
                     </span>
 
                   </div>
@@ -282,22 +285,14 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Street :  <span className='value-client'> {street}</span>
+                      Street :  <span className='value-client'> {street}</span>
                     </span>
                   </div>
                 </div>
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                    </span>
-
-                  </div>
-                </div>
-                <div className="col-12 md:col-3">
-                  <div className="p-inputgroup">
-                    <span className='title-span' >
-                                            Postal Code :  <span className='value-client'> {postalCode}</span>
+                      Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
                     </span>
 
                   </div>
@@ -305,7 +300,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Mobile phone :  <span className='value-client'> {mobile}</span>
+                      Postal Code :  <span className='value-client'> {postalCode}</span>
                     </span>
 
                   </div>
@@ -313,7 +308,7 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            Email address :  <span className='value-client-email'> {email}</span>
+                      Mobile phone :  <span className='value-client'> {mobile}</span>
                     </span>
 
                   </div>
@@ -321,7 +316,15 @@ const Details = (clientType) => {
                 <div className="col-12 md:col-3">
                   <div className="p-inputgroup">
                     <span className='title-span' >
-                                            VAT :  <span className='value-client'> {vta}</span>
+                      Email address :  <span className='value-client-email'> {email}</span>
+                    </span>
+
+                  </div>
+                </div>
+                <div className="col-12 md:col-3">
+                  <div className="p-inputgroup">
+                    <span className='title-span' >
+                      VAT :  <span className='value-client'> {vta}</span>
                     </span>
 
                   </div>
@@ -358,9 +361,9 @@ const Details = (clientType) => {
         </Panel>
         <Panel header="INVOICES" toggleable className='m-3'>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </Panel>
       </div>
     </>

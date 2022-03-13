@@ -39,7 +39,7 @@ const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
-  const[typeSelected, setTypeSelected] = useState('p')
+  const [typeSelected, setTypeSelected] = useState('p')
   const [projects, setProjects] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [valueClient, setValueClient] = useState([])
@@ -60,13 +60,13 @@ const Projects = () => {
 
   useEffect(() => {
     projects.forEach(project => {
-      console.log(project)
+     
       if (project.idCompany == null) {
         data.push({
           id: project.idProject,
           idPerson: project.Person.idPerson,
           idCompany: null,
-          displayName: `${project.Person.firstName}, ${project.Person.lastName}`,
+          displayName: `${project.Person.firstName} ${project.Person.lastName}`,
           type: 'p',
           name: `${project.name}`,
           status: project.status,
@@ -77,7 +77,7 @@ const Projects = () => {
         })
       }
       else {
-        
+
         data.push({
           id: project.idProject,
           idPerson: null,
@@ -94,7 +94,7 @@ const Projects = () => {
       }
     });
     setData([...data]);
-    console.log(data)
+
     setLoading(false);
   }, [projects])
 
@@ -154,9 +154,6 @@ const Projects = () => {
   }
 
 
-  
-
-
   const dialogFuncMap = {
     'displayResponsive': setDisplayResponsive
   }
@@ -182,17 +179,18 @@ const Projects = () => {
   }
   const onRowSelect = (project) => {
     setSelectedRow(project);
-    if(project){
+
+    if (project) {
       setSelectedClient(project);
     }
-   
+
 
   }
   const options = [
     { name: 'Person', value: false },
     { name: 'Company', value: true }
   ];
-  
+
 
   return (
     <>
@@ -200,35 +198,20 @@ const Projects = () => {
         <h1 >PROJECTS</h1>
         <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
       </div>
-      
-      <div className='btn-container-add-project'>
-       
-      </div>
-      <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
-        {/*<div className="col-12 md:col-8">
-          <div className="p-inputgroup">
-            <span className="p-inputgroup-addon">
-              <i className="pi pi-user"></i>
-            </span>
-              
-           
-  
-          </div>
-        </div>
-         <Dropdown  inputId="dropdown" value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)}  placeholder="Company's Name" />
-         <SelectButton value={isCompany} className="ml-6" options={options} onChange={(e) => setIsCompany(e.value)} optionLabel="name" />*/}
-        <NewProject dataClients={dataClients} onHide={onHide} refreshTable={refresh}/>
-        
-        
+
+      <Dialog header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
+        <NewProject dataClients={dataClients} onHide={onHide} refreshTable={refresh} />
       </Dialog>
-    
+      <FormProject sendData={selectedClient} refreshTable={refresh}/>
+
       <div className="grid table-demo">
 
 
         <div className="col-12">
           <DataTable paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-            <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '20px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '10px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
             <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Client's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
             <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
             <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
 

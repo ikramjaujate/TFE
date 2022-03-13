@@ -22,6 +22,7 @@ import Projects from './pages/Projects/Projects';
 import Invoices from './pages/Invoices/Invoices';
 import Employees from './pages/Employees/Employees';
 import Material from './pages/Material/Material';
+import Quotation from './pages/Quotation/Quotation';
 
 const App = () => {
 
@@ -60,6 +61,7 @@ const App = () => {
             <PrivateRoute exact path="/invoices" component={Invoices} />
             <PrivateRoute exact path="/employees" component={Employees} />
             <PrivateRoute exact path="/material" component={Material} />
+            <PrivateRoute exact path="/devis" component={Quotation} />
           </div>
         </div>
 

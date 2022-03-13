@@ -7,6 +7,14 @@ span.customer-badge.status-pre-sale{
     color: white;
 
 }
+.select-day, button.p-button.p-component.p-datepicker-trigger.p-button-icon-only{
+    background-color: var(--main-color);
+    border: var(--main-color)
+}
+.select-day, button.p-button.p-component.p-datepicker-trigger.p-button-icon-only:hover{
+    background-color: white;
+    border: var(--main-color)
+}
 .title {
     
     padding-bottom: .5rem;

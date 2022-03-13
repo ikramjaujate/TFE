@@ -28,7 +28,22 @@ const CreateProject = async (bodyForm) => {
   }))
 }
 
+const UpdateProject = async (bodyForm) => {
+
+  let informations = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+    body: JSON.stringify(bodyForm)
+  };
+  return await (fetch(`/api/projects`, informations).then(response => {
+    return response.json()
+  }))
+}
 export {
   GetProjects,
-  CreateProject
+  CreateProject,
+  UpdateProject
 }
