@@ -18,9 +18,10 @@ import { SelectButton } from 'primereact/selectbutton';
 import { RiContactsBookLine } from 'react-icons/ri';
 import { Calendar } from 'primereact/calendar';
 import { max } from 'moment';
-import { faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
+import { faFlagCheckered, faInfo, faHourglassStart, faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UpdateProject } from '../../../services/projects';
+import { projectTypes } from '../../../shared/consts/projectTypes';
 
 const FormProject = ({ refreshTable, sendData }) => {
 
@@ -52,6 +53,9 @@ const FormProject = ({ refreshTable, sendData }) => {
     { name: 'Person', value: false },
     { name: 'Company', value: true }
   ];
+
+  const [filterStatus ,setFilterStatus]= useState([...projectTypes])
+
   useEffect(() => {
     
     if (sendData) {
@@ -70,6 +74,7 @@ const FormProject = ({ refreshTable, sendData }) => {
       }else{
         setIsCompany(true)
       }
+      checkAvailableStatus()
     }
 
   }, [sendData])
@@ -99,6 +104,42 @@ const FormProject = ({ refreshTable, sendData }) => {
     }).catch(error => {
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be updated', life: 3000 });
     })
+  }
+  const checkAvailableStatus = () => {
+    if(!sendData){
+      console.log('teee')
+      setFilterStatus([...projectTypes])
+      return
+    }
+    /**
+     * Pre sale: ok
+     * Accepted : Devis avce isAccepted == True
+     * In progress
+     * Done : facture presenté avec isPaid == null/false
+     * Closed : facture avec isPaid == True
+     */
+    /*if(!(projectDocuments.type == 'Devis' && projectDocuments.isAccepted)){
+      setFilterStatus(projectTypes.filter(pt => {
+        
+        return pt == 'Pre-Sale'
+      }))
+     
+    }else{
+      setFilterStatus(projectTypes.filter(pt => {
+        
+        return (pt != 'Done' ||pt != 'Closed' )
+      }))
+    }
+
+    if(!(projectDevis && projectDevis.isAccepted)){
+      setFilterStatus(projectTypes.filter(pt => {
+        
+        return pt == 'Pre-Sale'
+      }))
+     
+    }*/
+
+    console.log(filterStatus)
   }
 
   
@@ -148,7 +189,7 @@ const FormProject = ({ refreshTable, sendData }) => {
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-                <i class="fa-solid fa-hourglass-start"></i>
+              <FontAwesomeIcon icon={faHourglassStart}/>
               </span>
               <Calendar className='select-day' id="icon" value={start_date} onChange={(e) => setStartDate(e.value)} showIcon  maxDate={maxDate}  />
             </div>
@@ -156,9 +197,10 @@ const FormProject = ({ refreshTable, sendData }) => {
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-                <i class="fas fa-info"></i>
+                <FontAwesomeIcon icon={faInfo}/>
               </span>
-              <InputText value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Start Date" disabled />
+              <Dropdown className='my-dropdown' value={status}  options={filterStatus} onChange={(e) => setStatus(e.value)} />
+              {/*<InputText value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Start Date" disabled />*/}
             </div>
           </div>
           <div className="col-12 md:col-4">
@@ -166,7 +208,7 @@ const FormProject = ({ refreshTable, sendData }) => {
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-                <i class="fa-solid fa-hourglass-end"></i>
+              <FontAwesomeIcon icon={faHourglassEnd}/>
               </span>
               <Calendar className='select-day' id="icon" value={end_date} onChange={(e) => setEndDate(e.value)} showIcon minDate={today} maxDate={maxDate}  />
             </div>
