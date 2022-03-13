@@ -41,10 +41,10 @@ router.post('/address', verifyToken,createAddress)
 
 
 // PROJECT
-const { createProject, getAllProjects } = require('../controllers/project.js');
+const { createProject, getAllProjects, updateProject } = require('../controllers/project.js');
 router.get('/projects',verifyToken,getAllProjects)
 router.post('/projects',verifyToken,createProject)
-
+router.patch('/projects',verifyToken,updateProject)
 
 // COUNTRY
 const { getAllCountries} = require('../controllers/country.js');
