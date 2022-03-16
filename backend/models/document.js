@@ -4,12 +4,12 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Document = sequelize.define('Document', {
-    idDocument : {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true 
-      },
-    file : {
+    idDocument: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    file: {
       type: DataTypes.BLOB,
       allowNull: false
     },
@@ -20,9 +20,23 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.ENUM('devis', 'facture'),
       allowNull: false
-  }
+    },
+    isAccepted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    idPaid: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    notes: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+
+
   }, {});
-  
+
   Document.associate = function (models) {
     // associations can be defined here
     Document.belongsTo(models.Project, {
