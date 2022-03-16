@@ -200,7 +200,7 @@ const updateUser = async (req, res) => {
     */
     try {
 
-
+        console.log(req.body)
         const user = await Person.findOne({
             where: {
                 idPerson: req.body.id

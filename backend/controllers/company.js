@@ -48,6 +48,7 @@ const getCompanyById = async (req, res) => {
               
              }]
         });
+        
 
         if (company) {
             return res.status(200).json({ company });
@@ -274,8 +275,10 @@ const getProjectByCompanyId = async (req, res) => {
             where: {idCompany: id},
             
         });
+        console.log(company)
         
         if (company) {
+            console.log(company)
             return res.status(200).json({ company });
         }
         return res.status(404).send('User with the specified ID does not exists');
