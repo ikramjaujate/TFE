@@ -109,6 +109,7 @@ const getAllUsers = async (req, res) => {
                 model: Address, include: [Country]
             }
         });
+        
 
         return res.status(200).json({ users });
     } catch (error) {

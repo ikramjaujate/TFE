@@ -70,7 +70,9 @@ router.post('/address', verifyToken,createAddress)
 
 // COUNTRY
 const { getAllCountries} = require('../controllers/country.js');
+
 router.get('/countries',verifyToken,getAllCountries)
+
 
 
 module.exports = router

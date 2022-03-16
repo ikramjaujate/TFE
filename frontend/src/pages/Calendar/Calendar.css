@@ -6,9 +6,9 @@
 }
 
 .rbc-toolbar .rbc-btn-group button{
-    background-color: var(--main-color);
-    color: white;
-    font-weight: 540;
+    background-color: white;
+    color: var(--main-color);
+    font-weight: 600;
 }
 .rbc-active{
     background-color: white;
@@ -19,7 +19,8 @@
     background-color: white;
     color: var(--main-color);
     font-weight: 600;
-}
+};
+
 .rbc-toolbar button.rbc-active:focus{
     background-color: white;
     color: var(--main-color);
