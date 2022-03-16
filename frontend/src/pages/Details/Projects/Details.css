@@ -1,0 +1,64 @@
+.p-breadcrumb{
+    border: none;
+    margin-left:0.4rem;
+}
+
+.p-breadcrumb ul li:last-child .p-menuitem-text {
+    color: #082a4c;
+    font-weight: 700;
+}
+
+.value-client{
+    font-weight: 700;
+}
+
+.title-span{
+    font-size: 14px;
+}
+.p-panel .p-panel-header .p-panel-title{
+    font-size: 14px;
+}
+
+.value-client-email{
+    font-weight: 700;
+    color: #082a4c;
+    text-decoration: underline;
+}
+
+.value-client-email:hover{
+    font-weight: 700;
+    color: rgb(184, 76, 76);
+}
+
+.p-breadcrumb ul{
+    font-size: 12px;
+}
+.projects-link {
+    font-size: 13px;
+    display:flex;
+    justify-content: end;
+    color:rgb(184, 76, 76);
+}
+
+.projects-link-span:hover{
+    color: #082a4c;
+}
+.projects-link-icon:hover{
+    color: #082a4c;
+}
+.p-panel .p-panel-header .p-panel-title{
+    color: var(--main-color);
+}
+.value-client-link{
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--main-color);
+}
+span.customer-badge.status-no {
+    background: #ca2828;
+    color: white;
+}
+span.customer-badge.status-yes{
+    background: #5bd454;
+    color: white;
+}

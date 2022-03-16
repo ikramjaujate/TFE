@@ -1,4 +1,4 @@
-import '../../assets/flags/flags.css'
+import '../../../assets/flags/flags.css'
 import './Details.css'
 
 import React, { useState, useEffect } from 'react';
@@ -8,8 +8,8 @@ import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
 
 import { Fieldset } from 'primereact/fieldset';
-import { GetClientByID, GetProjectsByClientID } from "../../services/users";
-import { GetCompanyById, GetProjectsByCompanyID } from "../../services/companies";
+import { GetClientByID, GetProjectsByClientID } from "../../../services/users";
+import { GetCompanyById, GetProjectsByCompanyID } from "../../../services/companies";
 import { Tooltip } from 'primereact/tooltip';
 import { FileUpload } from 'primereact/fileupload';
 import { DataTable } from 'primereact/datatable';
@@ -17,7 +17,7 @@ import { Column } from 'primereact/column';
 import moment from "moment";
 import { Route, useHistory } from 'react-router-dom';
 
-import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
+import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 
 const Details = (clientType) => {
 
@@ -93,11 +93,20 @@ const Details = (clientType) => {
 
       })
       GetProjectsByCompanyID(id).then(response => {
-        for (let i in response["company"]) {
-          response["company"][i].start_date = moment(response["company"][i].start_date).utc().format('YYYY-MM-DD')
+
+        if(response['company'].length !== 0){
+          for (let i in response["company"]) {
+          
+            response["company"][i].start_date = moment(response["company"][i].start_date).utc().format('YYYY-MM-DD')
+          }
+          console.log(response["company"])
+          response["company"][0].start_date = moment(response["company"][0].start_date).utc().format('YYYY-MM-DD')
+        
+          setProjects(response["company"])}
+        else{
+          console.log('toto')
+          setProjects(response["company"])
         }
-        response["company"][0].start_date = moment(response["company"][0].start_date).utc().format('YYYY-MM-DD')
-        setProjects(response["company"])
       })
       setData([...data]);
       setLoading(false);
