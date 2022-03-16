@@ -1,0 +1,15 @@
+.p-button.p-button-icon-only.p-button-rounded {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    padding: 0.75rem 0;
+}
+
+.addfield{
+    background-color: #27c441!important;
+    border: white;
+}
+.restfield{
+    background-color: var(--main-color);
+    border: white;
+}

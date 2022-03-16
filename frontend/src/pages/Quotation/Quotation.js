@@ -1,31 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import jsPDFInvoiceTemplate, { OutputType, jsPDF } from "jspdf-invoice-template";
 
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
-
 const Quotation = () => {
-  const [shown, setShown] = useState(false);
-  const [add, setAdd] = useState(false)
-  const [position, setPosition] = useState('center');
-  const [displayResponsive, setDisplayResponsive] = useState(false);
-  const [fileURL, setFileUrl] = useState('')
-  const [image, setImage ] = useState('')
-  const onHide = (name) => {
-    dialogFuncMap[`${name}`](false);
-    setAdd(true)
-  }
-  const onClick = (name, position) => {
-    dialogFuncMap[`${name}`](true);
-    generate()
-    if (position) {
-      setPosition(position);
-    }
-    
-  }
-  const dialogFuncMap = {
-    'displayResponsive': setDisplayResponsive
-  }
+
   var props = {
     outputType: OutputType.Blob,
     returnJsPDFDocObject: true,
@@ -123,7 +100,7 @@ const Quotation = () => {
     fontStyle: "Arial"
   };
   const generate = () => {
-    setShown(true)
+    
     const pdfObject = jsPDFInvoiceTemplate(props);
     //setFileUrl(URL.createObjectURL(pdfObject.blob));
 
@@ -138,12 +115,7 @@ const Quotation = () => {
       <div className='title'>
         <h1>QUOTATION</h1>
       </div>
-      <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={() => onClick('displayResponsive')} />
-      <Dialog   header={ <span style={{color: "#bc0000"}}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50vw' }}   >
-        <iframe src={`${fileURL}` + '#toolbar=0'} width="100%" height="600px" allowtransparency="true" style={{background: "white"}}> 
-        </iframe>
-                
-      </Dialog>
+
     </>
   )
 }
