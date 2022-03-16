@@ -72,12 +72,7 @@ app.use(permissionsPolicy({
   }
 }))*/
 
-//app.use(cors())
-// CSP Header middlewar 
-/*app.use(function(req, res, next) {
-  res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
-  return next();
-});*/
+
 
 /*app.use(expressCspHeader({
   directives: {
