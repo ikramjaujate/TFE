@@ -1,4 +1,4 @@
-const { Project, Person, Company } = require('../models');
+const { Project, Person, Company, Address, Country, Document } = require('../models');
 const {projectTypes} = require('../consts/projectTypes')
 
 const createProject = async (req, res) => {
@@ -27,7 +27,7 @@ const createProject = async (req, res) => {
     */
 
     try {
-        console.log(req.body)
+       
         const project = await Project.create(req.body);
 
         return res.status(201).json({
@@ -35,6 +35,42 @@ const createProject = async (req, res) => {
         });
     } catch (error) {
         return res.status(500).json({ error: error.message })
+    }
+}
+const getProjectById = async (req, res) => {
+    // #swagger.tags = ['Project']
+    /* 
+    #swagger.summary = 'Gets a project by ID'
+    #swagger.description = 'Numeric ID of the project to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'Project ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
+    try {
+        const { id } = req.params;
+
+        const project = await Project.findAll({
+            where: {idProject: id},
+            include: [{
+                model: Person,  include: [{model: Address, include: [Country]}]
+            },
+            {
+                model: Company, include: [{model: Address, include: [Country]}]
+            }]
+        });
+
+        if (project) {
+            return res.status(200).json({ project });
+        }
+        return res.status(404).send('Project with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
     }
 }
 const getAllProjects = async (req, res) => {
@@ -92,21 +128,23 @@ const getDocumentsByProjectId = async (req, res) => {
                 type: 'integer'
             }
     */
-    /*try {
+    try {
         const { id } = req.params;
-        console.log(id)
-        const company = await Project.findAll({
-            where: {idCompany: id},
-            
+        const project = await Document.findAll({
+
+            include: [{
+                model: Project,  where: {idProject: id},
+               }]
         });
+        console.log(project)
         
-        if (company) {
-            return res.status(200).json({ company });
+        if (project) {
+            return res.status(200).json({ project });
         }
-        return res.status(404).send('User with the specified ID does not exists');
+        return res.status(404).send('Project with the specified ID does not exists');
     } catch (error) {
         return res.status(500).send(error.message);
-    }*/
+    }
 }
 
 const updateProject = async (req, res) => {
@@ -154,6 +192,7 @@ const updateProject = async (req, res) => {
     }
 }
 
+
 function validateUpdateBody(body){
     if(!body.id){
         throw new Error ('No project id')
@@ -180,5 +219,6 @@ module.exports = {
     createProject,
     getAllProjects,
     updateProject,
-    getDocumentsByProjectId
+    getDocumentsByProjectId,
+    getProjectById
 }
