@@ -44,9 +44,11 @@ const FormProject = ({ refreshTable, sendData }) => {
 
 
   const clearForm = () => {
-    setEmail('')
+    setClientName('')
     setName('')
-    setStatus('')
+    setStatus('Pre-Sale')
+    setStartDate('')
+    setEndDate('')
     refreshTable()
   }
   const options = [
@@ -54,10 +56,10 @@ const FormProject = ({ refreshTable, sendData }) => {
     { name: 'Company', value: true }
   ];
 
-  const [filterStatus ,setFilterStatus]= useState([...projectTypes])
+  const [filterStatus, setFilterStatus] = useState([...projectTypes])
 
   useEffect(() => {
-    
+
     if (sendData) {
       let displayName = (sendData.displayName).replace(/,/g, '');
       console.log(displayName)
@@ -67,11 +69,11 @@ const FormProject = ({ refreshTable, sendData }) => {
       setClientName(displayName)
       setStartDate(new Date(sendData.start_date))
       setStatus(sendData.status)
-      
-      setEndDate(sendData.end_date ? new Date(sendData.end_date) : null) 
-      if(sendData.type == 'p'){
+
+      setEndDate(sendData.end_date ? new Date(sendData.end_date) : null)
+      if (sendData.type == 'p') {
         setIsCompany(false)
-      }else{
+      } else {
         setIsCompany(true)
       }
       checkAvailableStatus()
@@ -79,7 +81,7 @@ const FormProject = ({ refreshTable, sendData }) => {
 
   }, [sendData])
   console.log(sendData)
- 
+
   const handleClickUpdate = (e) => {
     e.preventDefault()
 
@@ -87,8 +89,8 @@ const FormProject = ({ refreshTable, sendData }) => {
       'id': sendData.id,
       'name': name,
       'status': status,
-      'start_date' : new Date(start_date) ,
-      'end_date': end_date? new Date(end_date): null
+      'start_date': new Date(start_date),
+      'end_date': end_date ? new Date(end_date) : null
     }
 
     UpdateProject(bodyForm).then(response => {
@@ -106,7 +108,7 @@ const FormProject = ({ refreshTable, sendData }) => {
     })
   }
   const checkAvailableStatus = () => {
-    if(!sendData){
+    if (!sendData) {
       console.log('teee')
       setFilterStatus([...projectTypes])
       return
@@ -142,18 +144,18 @@ const FormProject = ({ refreshTable, sendData }) => {
     console.log(filterStatus)
   }
 
-  
 
 
-   
+
+
 
   return (
     <>
       <Toast ref={toast} />
 
-      <Panel  className='mt-2' header={ <span >
+      <Panel className='mt-2' header={<span >
         <i className="pi pi-book mr-2"></i>
-                                    EDIT PROJECT
+        EDIT PROJECT
       </span>} toggleable>
         <div className="grid p-fluid m-2">
 
@@ -165,7 +167,7 @@ const FormProject = ({ refreshTable, sendData }) => {
               <InputText value={name} onChange={(e) => setName(e.target.value)} placeholder="Project's name" />
             </div>
           </div>
-          {isCompany ?<div className="col-12 md:col-4">
+          {isCompany ? <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
 
@@ -175,7 +177,7 @@ const FormProject = ({ refreshTable, sendData }) => {
               </span>
               <InputText value={clientName} onChange={(e) => setClientName(e.target.value)} placeholder="Client's name" disabled />
             </div>
-          </div>: <div className="col-12 md:col-4">
+          </div> : <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
 
@@ -189,17 +191,17 @@ const FormProject = ({ refreshTable, sendData }) => {
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-              <FontAwesomeIcon icon={faHourglassStart}/>
+                <FontAwesomeIcon icon={faHourglassStart} />
               </span>
-              <Calendar className='select-day' id="icon" value={start_date} onChange={(e) => setStartDate(e.value)} showIcon  maxDate={maxDate}  />
+              <Calendar className='select-day' id="icon" value={start_date} onChange={(e) => setStartDate(e.value)} showIcon maxDate={maxDate} />
             </div>
           </div>
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-                <FontAwesomeIcon icon={faInfo}/>
+                <FontAwesomeIcon icon={faInfo} />
               </span>
-              <Dropdown className='my-dropdown' value={status}  options={filterStatus} onChange={(e) => setStatus(e.value)} />
+              <Dropdown className='my-dropdown' value={status} options={filterStatus} onChange={(e) => setStatus(e.value)} />
               {/*<InputText value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Start Date" disabled />*/}
             </div>
           </div>
@@ -208,9 +210,9 @@ const FormProject = ({ refreshTable, sendData }) => {
           <div className="col-12 md:col-4">
             <div className="p-inputgroup">
               <span className="p-inputgroup-addon">
-              <FontAwesomeIcon icon={faHourglassEnd}/>
+                <FontAwesomeIcon icon={faHourglassEnd} />
               </span>
-              <Calendar className='select-day' id="icon" value={end_date} onChange={(e) => setEndDate(e.value)} showIcon minDate={today} maxDate={maxDate}  />
+              <Calendar className='select-day' id="icon" value={end_date} onChange={(e) => setEndDate(e.value)} showIcon minDate={today} maxDate={maxDate} />
             </div>
           </div>
 
@@ -222,9 +224,9 @@ const FormProject = ({ refreshTable, sendData }) => {
             <Button label="Clear Form" icon="pi pi-refresh" className="p-button-info" onClick={clearForm} />
           </div>
           <div className='btn-container-flex'>
-            <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" disabled/>
+            <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" disabled />
             <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData} />
-                       
+
 
           </div>
 

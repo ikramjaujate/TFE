@@ -33,8 +33,7 @@ const Projects = () => {
   const [displayBasic, setDisplayBasic] = useState(false);
   const [position, setPosition] = useState('center');
   const [filters, setFilters] = useState({
-    'firstName': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] },
-    'lastName': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] }
+    'displayName': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] }
   });
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -62,6 +61,9 @@ const Projects = () => {
     projects.forEach(project => {
      
       if (project.idCompany == null) {
+        if(project.end_date != null){
+          project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
+        }
         data.push({
           id: project.idProject,
           idPerson: project.Person.idPerson,
@@ -77,7 +79,10 @@ const Projects = () => {
         })
       }
       else {
-
+       
+        if(project.end_date != null){
+          project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
+        }
         data.push({
           id: project.idProject,
           idPerson: null,
@@ -87,7 +92,7 @@ const Projects = () => {
           name: `${project.name}`,
           status: project.status,
           start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
-          end_date: project.end_date,
+          end_date: project.end_date ,
           mobile: project.Company.mobile,
           VAT_num: project.Company.VAT_num
         })
@@ -167,11 +172,17 @@ const Projects = () => {
     }
 
   }
+  const handleProject = (project) => {
+
+    history.push(`/projects/${project.id}/detail`)
+
+
+  }
 
   const informationClientTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Button icon="pi pi-eye" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
+        <Button icon="pi pi-info" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} onClick={() => handleProject(rowData)} />
         <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
       </React.Fragment>
     );
@@ -208,13 +219,13 @@ const Projects = () => {
 
 
         <div className="col-12">
-          <DataTable paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-            <Column field="id" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '10px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-            <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-            <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Client's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-            <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
-            <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
-
+          <DataTable filters={filters} globalFilterFields={['displayName']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+            <Column field="id" style={{  width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="name" style={{ width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column field="displayName" style={{ textAlign: "center",width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Client's Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+            <Column style={{ width: '10rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status"  headerStyle={{ color: "#c9392f" }}></Column>
+            <Column field="start_date" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Start Date"  headerStyle={{ color: "#c9392f" }}></Column>
+            <Column field="end_date" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} sortable header="End Date"  headerStyle={{ color: "#c9392f" }}></Column>
             <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }}></Column>
           </DataTable>
 
