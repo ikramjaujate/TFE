@@ -3,10 +3,11 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Redirect, Route, NavLink } from 'react-router-dom';
-import { faTools, faAddressBook, faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
+import { faTools, faAddressBook, faCalendar,faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
 
 import PrivateRoute from './shared/components/PrivateRoute';
 import { isLoggedIn } from './core/auth';
@@ -17,12 +18,14 @@ import SideMenuBar from './shared/components/SideMenuBar/SideMenuBar';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Clients from './pages/Clients/Clients';
-import Details from './pages/Details/Details';
+import Details from './pages/Details/Clients/Details';
 import Projects from './pages/Projects/Projects';
 import Invoices from './pages/Invoices/Invoices';
 import Employees from './pages/Employees/Employees';
 import Material from './pages/Material/Material';
 import Quotation from './pages/Quotation/Quotation';
+import DetailsProjects from './pages/Details/Projects/Details';
+import CalendarClient from './pages/Calendar/Calendar';
 
 const App = () => {
 
@@ -35,7 +38,8 @@ const App = () => {
     { label: 'Invoices', icon: faFileContract, to: '/invoices' },
     { label: 'Employees', icon: faHardHat, to: '/employees' },
     { label: 'Material', icon: faTools, to: '/material' },
-    { label: 'Devis', icon: faFileSignature, to: '/devis' }
+    { label: 'Devis', icon: faFileSignature, to: '/devis' },
+    { label: 'Calendar', icon: faCalendar, to: '/calendar' }
   ];
 
   const onToggleMenu = () => {
@@ -58,10 +62,12 @@ const App = () => {
             <PrivateRoute exact path='/clients/person/:id/detail' component={() => Details('p')} />
             <PrivateRoute exact path='/clients/company/:id/detail' component={() => Details('c')} />
             <PrivateRoute exact path="/projects" component={Projects} />
+            <PrivateRoute exact path="/projects/:id/detail" component={DetailsProjects} />
             <PrivateRoute exact path="/invoices" component={Invoices} />
             <PrivateRoute exact path="/employees" component={Employees} />
             <PrivateRoute exact path="/material" component={Material} />
             <PrivateRoute exact path="/devis" component={Quotation} />
+            <PrivateRoute exact path="/calendar" component={CalendarClient} />
           </div>
         </div>
 

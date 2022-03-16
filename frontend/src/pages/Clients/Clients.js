@@ -162,7 +162,7 @@ const Clients = () => {
   const informationClientTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Button icon="pi pi-eye" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }}  onClick={() => handleClient(rowData)} />
+        <Button icon="pi pi-info" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }}  onClick={() => handleClient(rowData)} />
         <Tooltip target=".logo" mouseTrack mouseTrackLeft={10}/>
       </React.Fragment>
     );
