@@ -15,6 +15,7 @@ const helmet = require("helmet");
 const permissionsPolicy = require('permissions-policy')
 const expectCt = require("expect-ct");
 const path = require('path');
+
 //const cors = require('cors')
 //const { expressCspHeader, INLINE, NONE, SELF } = require('express-csp-header');
 
@@ -24,6 +25,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
+//app.use(bodyParser.raw());
+app.use(bodyParser.raw({ limit: '1gb', type: 'application/pdf' }))
+//app.use(bodyParser.text());
 
 //X-Content-Type-Options
 app.use(helmet.noSniff());

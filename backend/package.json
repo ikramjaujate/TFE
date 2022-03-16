@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "argon2": "^0.28.4",
+    "buffer": "^6.0.3",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "expect-ct": "^1.0.0",
@@ -9,6 +10,7 @@
     "express-fileupload": "^1.2.1",
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
+    "jspdf-invoice-template-nodejs": "^1.0.3",
     "nodemon": "^2.0.15",
     "permissions-policy": "^0.2.0",
     "pg": "^8.7.3",

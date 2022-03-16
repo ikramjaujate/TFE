@@ -277,6 +277,21 @@
                     "field": "type",
                     "seqType": "Sequelize.ENUM('devis', 'facture')"
                 },
+                "isAccepted": {
+                    "allowNull": true,
+                    "field": "isAccepted",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "idPaid": {
+                    "allowNull": true,
+                    "field": "idPaid",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "notes": {
+                    "allowNull": true,
+                    "field": "notes",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -502,5 +517,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 6
 }

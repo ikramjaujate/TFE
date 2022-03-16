@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-07T14:54:09.427Z",
+    "created": "2022-03-14T09:32:18.407Z",
     "comment": ""
 };
 
@@ -541,6 +541,21 @@ var migrationCommands = [{
                     "type": Sequelize.ENUM('devis', 'facture'),
                     "field": "type",
                     "allowNull": false
+                },
+                "isAccepted": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isAccepted",
+                    "allowNull": true
+                },
+                "idPaid": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "idPaid",
+                    "allowNull": true
+                },
+                "notes": {
+                    "type": Sequelize.STRING,
+                    "field": "notes",
+                    "allowNull": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
