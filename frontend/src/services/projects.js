@@ -42,8 +42,40 @@ const UpdateProject = async (bodyForm) => {
     return response.json()
   }))
 }
+const GetProjectsByID = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/projects/${id}`, informations).then(response => {
+    return response.json()
+  }))
+
+}
+
+const GetDocumentsByProjectId = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/projects/${id}/documents`, informations).then(response => {
+    return response.json()
+  }))
+
+}
+
 export {
   GetProjects,
   CreateProject,
-  UpdateProject
+  UpdateProject,
+  GetProjectsByID,
+  GetDocumentsByProjectId
 }
