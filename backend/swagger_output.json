@@ -7,7 +7,10 @@
   },
   "servers": [
     {
-      "url": "http://127.0.0.1/api"
+      "url": "http://localhost:3001/api"
+    },
+    {
+      "url": "https://localhost:3001/api"
     }
   ],
   "paths": {
@@ -1101,6 +1104,43 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/documents": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Get all documents",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1109,14 +1149,6 @@
         "summary": "Create new quotation",
         "description": "Create new quotation linked to a project",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "Authorization",
             "in": "header",
@@ -1282,44 +1314,7 @@
         ]
       }
     },
-    "/documents": {
-      "get": {
-        "tags": [
-          "Documents"
-        ],
-        "summary": "Get all documents",
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/documents/{id}": {
+    "/documents/{id}/pdf": {
       "patch": {
         "tags": [
           "Documents"
@@ -1501,7 +1496,9 @@
             "bearerAuth": []
           }
         ]
-      },
+      }
+    },
+    "/documents/{id}": {
       "get": {
         "tags": [
           "Documents"

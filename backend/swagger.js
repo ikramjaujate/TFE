@@ -13,7 +13,7 @@ const doc = {
     },
     host: SWAGGER_HOST,
     basePath: "/api",
-    schemes: ['http'],
+    schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {

@@ -53,13 +53,16 @@ const {
     createDocuments, 
     uploadPdfDocument,
     getAllDocuments,
-    getDocumentById
+    getDocumentById,
+    updateStateDocument
 } = require('../controllers/documents.js');
 
 router.get('/documents',verifyToken,getAllDocuments)
-router.post('/projects/:id/documents',verifyToken,createDocuments)
-router.patch('/documents/:id',verifyToken,uploadPdfDocument)
 router.get('/documents/:id',verifyToken,getDocumentById)
+router.post('/documents',verifyToken,createDocuments)
+router.patch('/documents/:id',verifyToken,updateStateDocument)
+router.patch('/documents/:id/pdf',verifyToken,uploadPdfDocument)
+
 
 // ADDRESS
 const {createAddress,

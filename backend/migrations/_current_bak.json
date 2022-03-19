@@ -256,6 +256,11 @@
                     "field": "idDocument",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "title": {
+                    "allowNull": false,
+                    "field": "title",
+                    "seqType": "Sequelize.STRING"
+                },
                 "file": {
                     "allowNull": false,
                     "field": "file",
@@ -517,5 +522,5 @@
             "indexes": []
         }
     },
-    "revision": 5
+    "revision": 1
 }

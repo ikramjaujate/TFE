@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-14T09:32:18.407Z",
+    "created": "2022-03-19T11:36:36.424Z",
     "comment": ""
 };
 
@@ -520,6 +520,11 @@ var migrationCommands = [{
                     "field": "idDocument",
                     "autoIncrement": true,
                     "primaryKey": true
+                },
+                "title": {
+                    "type": Sequelize.STRING,
+                    "field": "title",
+                    "allowNull": false
                 },
                 "file": {
                     "type": Sequelize.BLOB,

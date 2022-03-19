@@ -39,7 +39,6 @@ const createDocuments = async (req, res) => {
         const buf = Buffer.from('hello world', 'utf8');
 
         let parameter = req.body
-        parameter['idProject'] = Number(req.params.id)
         parameter['file'] = buf
 
         const documents = await Document.create(parameter);
@@ -182,6 +181,66 @@ const uploadPdfDocument = async (req, res) => {
     }
 }
 
+const updateStateDocument = async (req, res) => {
+    // #swagger.tags = ['Documents']
+    /* 
+    #swagger.summary = 'Update document file'
+    #swagger.description = 'Update document file linked to a document'
+    #swagger.security = [{
+               "bearerAuth": []
+    }]
+    #swagger.responses[201] = {
+            description: 'Document to update',
+            schema:
+            { "documents" : [
+                {
+                    "file": {
+                    "type": "Buffer",
+                    "data": [37, 80, 68, 70]},
+                    idProject: 1,
+                    type: 'devis',
+                    notes: '/',
+                    isPaid: false,
+                    isAccepted: false,
+                    "createdAt": "2022-02-13T12:37:54.635Z",
+                    "updatedAt": "2022-02-13T12:37:54.635Z"
+                }
+            ]
+        }
+    }
+    
+    */
+
+    try {
+
+        validateUpdateBody(req.body)
+        const document = await Document.findOne({
+            where: {
+                idDocument: req.params.id
+            }
+        });
+        if (!document) {
+            throw new Error("No document")
+        };
+        await document.update(
+            {
+                isPaid: req.body.isPaid,
+                isAccepted: req.body.isAccepted
+
+            }
+
+        )
+        await document.save()
+
+        return res.status(200).json({ document });
+
+
+
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
 
 
 function validateUpdateBody(body) {
@@ -196,5 +255,6 @@ module.exports = {
     createDocuments,
     uploadPdfDocument,
     getAllDocuments,
-    getDocumentById
+    getDocumentById,
+    updateStateDocument
 }
