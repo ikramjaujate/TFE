@@ -47,8 +47,25 @@ const CreateDocuments = async (bodyForm) => {
     return response.json()
   }))
 }
+const SendDocument = async (bodyForm) => {
+
+  let informations = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+    body: JSON.stringify(bodyForm)
+  };
+  return await (fetch(`/api/sendDocument`, informations).then(response => {
+    console.log(response)
+    return response.json()
+  }))
+  
+}
 export {
   CreateDocuments,
   UploadPdfDocument,
-  UploadDocumentState
+  UploadDocumentState,
+  SendDocument
 }

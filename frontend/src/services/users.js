@@ -13,6 +13,20 @@ const GetClients = async () => {
 
 }
 
+const GetClientsWithProjects = async () => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/simple-users`, informations).then(response => {
+    return response.json()
+  }))
+
+}
 const GetClientByID = async (id) => {
 
   let informations = {
@@ -79,5 +93,6 @@ export {
   GetClients,
   UpdateUser,
   GetClientByID,
-  GetProjectsByClientID
+  GetProjectsByClientID,
+  GetClientsWithProjects
 }
