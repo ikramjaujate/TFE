@@ -7,7 +7,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import { ListBox } from 'primereact/listbox';
 import { Dropdown } from 'primereact/dropdown';
-
+import { GetClientsWithProjects } from '../../services/users';
 import { GetProjects } from '../../services/projects';
 
 import ClientProject from './CalendarClients';
@@ -15,66 +15,31 @@ const CalendarClient = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
   const [projects, setProjects] = useState([]);
-  
-  const getProjects = () => {
+  const [persons, setPersons] = useState([]);
+  const [companies, setCompanies] = useState([]);
+
+  const getPersons = () => {
     setLoading(true);
-    GetProjects().then(response => {
-      setProjects(response["projects"]);
+    GetClientsWithProjects().then(response => {
+      setPersons(response["simpleUsers"]);
     });
   }
   useEffect(() => {
-    projects.forEach(project => {
-     
-      if (project.idCompany == null) {
-        if(project.end_date != null){
-          project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
-        }
-        data.push({
-          id: project.idProject,
-          idPerson: project.Person.idPerson,
-          idCompany: null,
-          displayName: `${project.Person.firstName} ${project.Person.lastName}`,
-          type: 'p',
-          name: `${project.name}`,
-          status: project.status,
-          start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
-          end_date: project.end_date,
-          mobile: project.Person.mobile,
-          VAT_num: project.Person.VAT_num
-        })
-      }
-      else {
-       
-        if(project.end_date != null){
-          project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
-        }
-        data.push({
-          id: project.idProject,
-          idPerson: null,
-          idCompany: project.Company.idCompany,
-          displayName: `${project.Company.name}`,
-          type: 'c',
-          name: `${project.name}`,
-          status: project.status,
-          start_date: moment(project.start_date).utc().format('YYYY-MM-DD'),
-          end_date: project.end_date ,
-          mobile: project.Company.mobile,
-          VAT_num: project.Company.VAT_num
-        })
-      }
+    persons.forEach(person => {
+      data.push({
+        idPerson: person.idPerson,
+        type: 'p',
+        displayName: `${person.firstName} ${person.lastName}`
+      });
     });
     setData([...data]);
-    
-
     setLoading(false);
-  }, [projects])
-
+  }, [persons])
   useEffect(() => {
     // on page changes
-    getProjects();
-   
+    getPersons();
   }, [])
-  
+
   return (
     <>
       <div className="title">
