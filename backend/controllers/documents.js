@@ -1,5 +1,7 @@
 
-const { Document, Project } = require('../models');
+const { Document, Project, Person, Company } = require('../models');
+const nodemailer = require('nodemailer');
+const { EMAIL, WORD, OAUTH_CLIENTID, OAUTH_CLIENT_SECRET, OAUTH_REFRESH_TOKEN } = process.env;
 
 const Buffer = require('buffer').Buffer;
 
@@ -58,17 +60,19 @@ const getAllDocuments = async (req, res) => {
     #swagger.security = [{
                "bearerAuth": []
     }] */
-    
+
     try {
-        const documents = await Document.findAll({include : {
-            model : Project
-        }});
+        const documents = await Document.findAll({
+            include: {
+                model: Project
+            }
+        });
 
         return res.status(200).json({ documents });
     } catch (error) {
         return res.status(500).send(error.message);
     }
-    
+
 }
 
 const getDocumentById = async (req, res) => {
@@ -109,10 +113,10 @@ const getDocumentById = async (req, res) => {
         const { id } = req.params;
 
         const document = await Document.findAll({
-            where: {idDocument: id},
-            
+            where: { idDocument: id },
+
         });
-        
+
         if (document) {
             return res.status(200).json({ document });
         }
@@ -241,7 +245,86 @@ const updateStateDocument = async (req, res) => {
     }
 }
 
+const sendDocumentByEmail = async (req, res) => {
+    // #swagger.tags = ['Documents']
+    /* 
+    #swagger.summary = 'Send document'
+    #swagger.description = 'Send document linked to a project'
+    #swagger.security = [{
+               "bearerAuth": []
+    }]*/
+    try {
+        
+        const document = await Document.findOne({
+            where: {
+                idDocument: req.body.idDocument
+            }
+        });
+        let user = []
+        let displayName = ''
+        let emailTo = ''
+        if(req.body.idPerson){
+             user = await Person.findOne({
+                where: {
+                    idPerson: req.body.idPerson
+                }
+            });
+            displayName = `${user.firstName} ${user.lastName}`
+            emailTo =  `${user.email}`
+           
+        }else{
+            user = await Company.findOne({
+                where: {
+                    idCompany: req.body.idCompany
+                }
+            });
+            displayName = `${user.name}`
+            emailTo =  `${user.email}`
+        }
+        
+       
+       
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                type: "OAuth2",
+                user: EMAIL,
+                pass: WORD,
+                clientId: OAUTH_CLIENTID,
+                clientSecret: OAUTH_CLIENT_SECRET,
+                refreshToken: OAUTH_REFRESH_TOKEN
+            },
+        });
+        transporter.verify((err, success) => {
+            err
+                ? console.log(err)
+                : console.log(`=== Server is ready to take messages: ${success} ===`);
+        });
 
+        const mailOptions = {
+            to: `${emailTo}`,
+            subject: 'Quotation : ' + req.body.projectName ,
+            text: `Dear ${displayName}, \n \n You will in attachement the requested quote of your project. \n \n Kind regards, \n Master Services`,
+            attachments: [
+                {   
+                    filename: `quote-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,
+                    content: document.file
+                }
+            ]
+        };
+        transporter.sendMail(mailOptions, function (err, data) {
+            if (err) {
+                console.log("Error " + err);
+            } else {
+                console.log("Email sent successfully");
+            }
+        });
+        return res.status(201).json({ toto: 'toto' })
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+
+}
 
 function validateUpdateBody(body) {
     if (!body) {
@@ -256,5 +339,6 @@ module.exports = {
     uploadPdfDocument,
     getAllDocuments,
     getDocumentById,
-    updateStateDocument
+    updateStateDocument,
+    sendDocumentByEmail
 }

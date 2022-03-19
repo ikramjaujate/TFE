@@ -1,8 +1,10 @@
 const { Project, Person, Company, Address, Country, Document } = require('../models');
-const {projectTypes} = require('../consts/projectTypes')
+const { projectTypes } = require('../consts/projectTypes')
+
+
 
 const createProject = async (req, res) => {
-     // #swagger.tags = ['Project']
+    // #swagger.tags = ['Project']
     /* 
     #swagger.summary = 'Create new project'
     #swagger.description = 'Create new project linked to a client'
@@ -27,7 +29,7 @@ const createProject = async (req, res) => {
     */
 
     try {
-       
+
         const project = await Project.create(req.body);
 
         return res.status(201).json({
@@ -56,12 +58,12 @@ const getProjectById = async (req, res) => {
         const { id } = req.params;
 
         const project = await Project.findAll({
-            where: {idProject: id},
+            where: { idProject: id },
             include: [{
-                model: Person,  include: [{model: Address, include: [Country]}]
+                model: Person, include: [{ model: Address, include: [Country] }]
             },
             {
-                model: Company, include: [{model: Address, include: [Country]}]
+                model: Company, include: [{ model: Address, include: [Country] }]
             }]
         });
 
@@ -133,11 +135,11 @@ const getDocumentsByProjectId = async (req, res) => {
         const project = await Document.findAll({
 
             include: [{
-                model: Project,  where: {idProject: id},
-               }]
+                model: Project, where: { idProject: id },
+            }]
         });
         console.log(project)
-        
+
         if (project) {
             return res.status(200).json({ project });
         }
@@ -158,7 +160,7 @@ const updateProject = async (req, res) => {
 
     */
     try {
-        
+
         validateUpdateBody(req.body)
 
         const project = await Project.findOne({
@@ -166,19 +168,19 @@ const updateProject = async (req, res) => {
                 idProject: req.body.id
             }
         });
-        
-        
+
+
         if (!project) {
             throw new Error("Project not found")
         };
 
-        
+
         await project.update(
             {
                 name: req.body.name,
                 status: req.body.status,
-                start_date : req.body.start_date,
-                end_date : req.body.end_date
+                start_date: req.body.start_date,
+                end_date: req.body.end_date
 
             }
 
@@ -193,25 +195,25 @@ const updateProject = async (req, res) => {
 }
 
 
-function validateUpdateBody(body){
-    if(!body.id){
-        throw new Error ('No project id')
+function validateUpdateBody(body) {
+    if (!body.id) {
+        throw new Error('No project id')
     }
-    if(!body.name || body.name == ""){
-        throw new Error ('No name')
+    if (!body.name || body.name == "") {
+        throw new Error('No name')
     }
 
-    if(!body.status || !(projectTypes.find(s => {return s == body.status}))){
-        throw new Error ('No status or invalide status')
+    if (!body.status || !(projectTypes.find(s => { return s == body.status }))) {
+        throw new Error('No status or invalide status')
     }
-    if(!body.start_date){
-        throw new Error ('No start date')
+    if (!body.start_date) {
+        throw new Error('No start date')
     }
-    if(!body.end_date){
-        throw new Error ('No end date')
+    if (!body.end_date) {
+        throw new Error('No end date')
     }
-    if(new Date(body.start_date) > new Date(body.end_date) ){
-        throw new Error ('Invalide date')
+    if (new Date(body.start_date) > new Date(body.end_date)) {
+        throw new Error('Invalide date')
     }
 }
 

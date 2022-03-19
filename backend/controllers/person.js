@@ -1,6 +1,6 @@
 
-const { Person, Address, Country, Company, Project } = require('../models');
-
+const { Person, Address, Country, Company, Project, Sequelize } = require('../models');
+const Op = Sequelize.Op
 const createUser = async (req, res) => {
     // #swagger.tags = ['Users']
     /* 
@@ -109,7 +109,7 @@ const getAllUsers = async (req, res) => {
                 model: Address, include: [Country]
             }
         });
-        
+
 
         return res.status(200).json({ users });
     } catch (error) {
@@ -142,11 +142,11 @@ const getUserById = async (req, res) => {
             
         });*/
         const user = await Person.findAll({
-            where: {idPerson: id},
+            where: { idPerson: id },
             include: [{
-              model: Address, include: [Country]
-              
-             }]
+                model: Address, include: [Country]
+
+            }]
         });
 
         if (user) {
@@ -176,10 +176,10 @@ const getProjectByUserId = async (req, res) => {
         const { id } = req.params;
         console.log(id)
         const user = await Project.findAll({
-            where: {idPerson: id},
-            
+            where: { idPerson: id },
+
         });
-        
+
         if (user) {
             return res.status(200).json({ user });
         }
@@ -267,11 +267,11 @@ const updateUser = async (req, res) => {
                 throw new Error("No country")
             };
             userAddress.idCountry = existingCountry.idCountry
-            
-           /* await userAddress.update({
-                idCountry: existingCountry.idCountry
-            })
-            await userAddress.save()*/
+
+            /* await userAddress.update({
+                 idCountry: existingCountry.idCountry
+             })
+             await userAddress.save()*/
         }
         if (userAddress.street != req.body.street
             || userAddress.locality != req.body.locality
@@ -308,10 +308,51 @@ const updateUser = async (req, res) => {
     }
 }
 
+const getSimpleUsersWithProjects = async (req, res) => {
+    // #swagger.tags = ['Users']
+    /* 
+    #swagger.summary = 'Gets the projects using the users'
+    #swagger.description = 'Numeric ID of the project to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    */
+    try {
+
+        let users = await Person.findAll({
+
+            include: [{
+                model: Project
+
+            }],
+            attributes: ['idPerson', 'firstName', 'lastName']
+        });
+        let usersFiltered = users.filter(user => {
+            return (user.Projects.length != 0)
+        })
+        let simpleUsers = []
+        usersFiltered.forEach(user => {
+            simpleUsers.push( {
+                idPerson: user.idPerson,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+        })
+        //console.log(usersFiltered)
+
+        if (simpleUsers) {
+            return res.status(200).json({ simpleUsers });
+        }
+        return res.status(404).send('Project with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUser,
-    getProjectByUserId
+    getProjectByUserId,
+    getSimpleUsersWithProjects
 }

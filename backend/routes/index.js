@@ -5,7 +5,8 @@ const {
     getAllUsers,
     getUserById,
     updateUser,
-    getProjectByUserId
+    getProjectByUserId,
+    getSimpleUsersWithProjects
 } = require('../controllers/person.js');
 const router = Router();
 
@@ -13,11 +14,13 @@ const router = Router();
 const { login } = require('../controllers/login.js');
 router.post('/login', login)
 // USERS
-router.post('/users', verifyToken,createUser)
+router.get('/simple-users', verifyToken,getSimpleUsersWithProjects)
 router.get('/users',verifyToken, getAllUsers)
 router.get('/users/:id', verifyToken,getUserById)
-router.patch('/users', verifyToken,updateUser)
 router.get('/users/:id/projects', verifyToken,getProjectByUserId)
+router.post('/users', verifyToken,createUser)
+router.patch('/users', verifyToken,updateUser)
+
 
 // COMPANY
 const { getAllCompanies, 
@@ -28,10 +31,10 @@ const { getAllCompanies,
     
 } = require('../controllers/company.js');
 router.get('/company', verifyToken,getAllCompanies)
-router.post('/company', verifyToken,createCompany)
-router.put('/company', verifyToken,updateCompany)
 router.get('/company/:id', verifyToken,getCompanyById)
 router.get('/company/:id/projects', verifyToken,getProjectByCompanyId)
+router.post('/company', verifyToken,createCompany)
+router.put('/company', verifyToken,updateCompany)
 
 
 // PROJECT
@@ -43,10 +46,10 @@ const { createProject,
 } = require('../controllers/project.js');
 
 router.get('/projects',verifyToken,getAllProjects)
-router.post('/projects',verifyToken,createProject)
-router.patch('/projects',verifyToken,updateProject)
 router.get('/projects/:id', verifyToken,getProjectById)
 router.get('/projects/:id/documents',verifyToken,getDocumentsByProjectId)
+router.post('/projects',verifyToken,createProject)
+router.patch('/projects',verifyToken,updateProject)
 
 // DOCUMENTS
 const { 
@@ -54,12 +57,14 @@ const {
     uploadPdfDocument,
     getAllDocuments,
     getDocumentById,
-    updateStateDocument
+    updateStateDocument,
+    sendDocumentByEmail
 } = require('../controllers/documents.js');
 
 router.get('/documents',verifyToken,getAllDocuments)
 router.get('/documents/:id',verifyToken,getDocumentById)
 router.post('/documents',verifyToken,createDocuments)
+router.post('/sendDocument',verifyToken, sendDocumentByEmail)
 router.patch('/documents/:id',verifyToken,updateStateDocument)
 router.patch('/documents/:id/pdf',verifyToken,uploadPdfDocument)
 
