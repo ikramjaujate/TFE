@@ -62,3 +62,9 @@ span.customer-badge.status-yes{
     background: #5bd454;
     color: white;
 }
+
+.panel-header-right{
+    display: flex;
+    align-items: center;
+}
+

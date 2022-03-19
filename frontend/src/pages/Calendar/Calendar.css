@@ -55,3 +55,52 @@
 .rbc-header{
     color: var(--main-color)
 }
+
+.demo-app {
+    display: flex;
+    min-height: 100%;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+  
+  .demo-app-sidebar {
+    width: 300px;
+    line-height: 1.5;
+    background: #eaf9ff;
+    border-right: 1px solid #d3e2e8;
+  }
+  
+  .demo-app-sidebar-section {
+    padding: 2em;
+  }
+  
+  .demo-app-main {
+    flex-grow: 1;
+    padding: 2em;
+  }
+  
+  .fc{
+      width: 100%;
+      height: 53rem;
+  }
+  .fc-h-event .fc-event-title{
+      font-weight: 600;
+      font-size: 12px;
+  }
+  .fc.fc-theme-standard .fc-toolbar .fc-button:disabled{
+      background-color: white;
+      border-color: var(--main-color);
+      color: var(--main-color);
+      font-weight: 600;
+  }
+  .fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button{
+      background-color: var(--main-color);
+      border-color: var(--main-color);
+      color: white;
+  }
+  .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:hover{
+    background-color: white;
+    border-color: var(--main-color);
+    color: var(--main-color);
+    font-weight: 600;
+  }

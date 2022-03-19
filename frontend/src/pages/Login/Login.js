@@ -94,16 +94,16 @@ function Login() {
         <div className="field">
           <span className="p-input-icon-right">
             <i className="pi pi-envelope" />
-            <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid('email') })}>Email*</label>
-            <InputText id="email" name="email" value={username} onChange={(e) => setUsername(e.target.value)} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
+            
+            <InputText id="email" name="email" placeholder='Email*' value={username} onChange={(e) => setUsername(e.target.value)} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
           </span>
           {getFormErrorMessage('email')}
         </div>
 
         <div className="field">
           <span className="p-input-icon-right">
-            <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>Password*</label>
-            <Password id="password" feedback={false} name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask
+            
+            <Password id="password" placeholder='Password*' feedback={false} name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask
               className={classNames({ 'p-invalid': isFormFieldValid('password') })} />
           </span>
           {getFormErrorMessage('password')}

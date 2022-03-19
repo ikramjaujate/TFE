@@ -1,7 +1,9 @@
 
 import './AddQuotation.css'
 import '../../../shared/styles/form.scss';
+
 import React, { useState , useRef, useEffect} from "react";
+
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
@@ -15,7 +17,7 @@ import { GetProjectsByID } from '../../../services/projects';
 import { quotationTemplate } from '../../../shared/consts/quotationTemplate';
 import {CreateDocuments, UploadPdfDocument} from '../../../services/documents';
 
-const AddQuotation = (sendId, clientName) => {
+const AddQuotation = (sendId) => {
   const [name, setName] = useState("")
   const toast = useRef(null);
   const [notes, setNotes] = useState("/")
@@ -25,7 +27,7 @@ const AddQuotation = (sendId, clientName) => {
   const [quantity, setQuantity] = useState([])
   const [previewImg, setPreviewImg] = useState(null) 
   const [disable, setDisable] = useState(false)
-
+  const [fileName, setFileName] = useState('')
   const getProject = () => {
     
 
@@ -57,11 +59,7 @@ const AddQuotation = (sendId, clientName) => {
   const handleFormChange = (index, event) => {
 
     let data = [...quotation];
-
-
     data[index][event.target.name] = event.target.value;
-
-
     setQuotation(data);
     setDisable(true)
 
@@ -122,12 +120,14 @@ const AddQuotation = (sendId, clientName) => {
     console.log(pdfObject.blob)
     
     const bodyForm = {
+      'title' : fileName,
+      'idProject' : sendId.sendId,
       'type': 'devis',
       'isAccepted': false,
       'isPaid': false,
       'notes': notes
     }
-    CreateDocuments(sendId.sendId, bodyForm).then(response => {
+    CreateDocuments(bodyForm).then(response => {
       console.log(response)
       if (response.hasOwnProperty("documents")) {
         return response
@@ -157,6 +157,11 @@ const AddQuotation = (sendId, clientName) => {
   return (
     <>
       <Toast ref={toast} />
+      <div className="formgrid grid my-4">
+        <div className="p-inputgroup col-12">
+          <InputText name='title' value={fileName} onChange={event => setFileName(event.target.value)} placeholder='Document Title' />
+        </div>
+      </div>
       {quotation.map((quote, index) => {
 
         return (
