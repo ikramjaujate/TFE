@@ -84,11 +84,11 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
       throw new Error('Something went wrong.');
 
     }).then(response => {
-      toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New company has been created', life: 3000 });
+      toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New project has been created', life: 3000 });
       onHide("displayResponsive")
       refreshTable()
     }).catch(error => {
-      toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Company cannot be created', life: 3000 });
+      toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be created', life: 3000 });
     })
   }
 
