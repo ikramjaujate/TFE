@@ -14,7 +14,7 @@ services:
     networks:
       vps-ikram-network:
         ipv4_address: 192.168.10.10
-    command: bash -c "cd /var/www/backend && npm i && npm run db:migrate && npm run swagger-autogen"
+    command: bash -c "cd /var/www/backend && npm i && npm run db:reset && npm run swagger-autogen"
 
   db:
     image: postgres
