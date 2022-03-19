@@ -9,6 +9,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 
 import { GetProjectsByID, GetDocumentsByProjectId } from '../../../services/projects';
+import { SendDocument } from '../../../services/documents';
 import { Tooltip } from 'primereact/tooltip';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -140,9 +141,9 @@ const DetailsProjects = () => {
           throw new Error('Something went wrong.');
         }).then(response => {
         
-          toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New quotation has been created', life: 3000 });
+          toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation has been updated', life: 3000 });
         }).catch(error => {
-          toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be created', life: 3000 });
+          toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be updated', life: 3000 });
         })
       }
       
@@ -184,10 +185,35 @@ const DetailsProjects = () => {
 
     window.open(URL.createObjectURL(blob));
   }
+  const send = (rowData) => {
+    
+    const body = {
+      'idDocument' : rowData.idDocument,
+      'projectName' : rowData.Project.name,
+      'idPerson' : rowData.Project.idPerson,
+      'idCompany' : rowData.Project.idCompany,
+      'createdAt' : moment(rowData.createdAt).utc().format('YYYY-MM-DD')
+    }
+    
+    SendDocument(body).then(response => {
+
+      if (response.hasOwnProperty("toto")) {
+        return response
+      }
+      throw new Error('Something went wrong.');
+    }).then(response => {
+    
+      toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Document has been sent', life: 3000 });
+    }).catch(error => {
+      toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Document cannot be sent', life: 3000 });
+    })
+  }
   const informationClientTemplate = (rowData) => {
+    console.log(rowData)
     return (
       <React.Fragment>
-        <Button icon="pi pi-file-pdf" tooltip="" className="p-button-outlined p-button-info" onClick={() => openPdf(rowData)} />
+        <Button icon="pi pi-file-pdf" tooltip="" className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />
+        <Button icon="pi pi-envelope" tooltip="" className="p-button-outlined p-button-warning ml-2" onClick={() => send(rowData)} />
         <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
       </React.Fragment>
     );
@@ -295,7 +321,7 @@ const DetailsProjects = () => {
             <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
             <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => {return moment(rowData.createAt).utc().format('YYYY-MM-DD')}} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
             <Column field="isAccepted" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
-            <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }}></Column>
+            <Column body={informationClientTemplate} style={{ minWidth: '10rem' }} headerStyle={{ color: "#c9392f" }}></Column>
           </DataTable>
         </Panel>
         <Dialog modal header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New Quotation </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '90vw' }}   >
