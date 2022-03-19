@@ -47,7 +47,7 @@ const CalendarClient = () => {
         </h1>
       </div>
       <ClientProject dataClients={data} />
-      </>
+    </>
     
   )
 }
