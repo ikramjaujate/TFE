@@ -3,7 +3,7 @@ module.exports = {
       return queryInterface.bulkInsert('Project', [{
         name: 'Test',
         idPerson: 1,
-        status: 'Accepted',
+        status: 'Pre-Sale',
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -19,7 +19,7 @@ module.exports = {
     {
         name: "9-800 - Acoustical Treatment",
         idPerson: 2,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -35,7 +35,7 @@ module.exports = {
     {
         name: "14-700 - Turntables",
         idPerson: 4,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -51,7 +51,7 @@ module.exports = {
     {
         name: "1-520 - Construction Facilities",
         idPerson: 6,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -59,7 +59,7 @@ module.exports = {
     {
         name: "11-500 - Industrial and Process Equipment",
         idPerson: 7,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -75,7 +75,7 @@ module.exports = {
     {
         name: "13-010 - Air-Supported Structures",
         idPerson: 9,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -91,7 +91,7 @@ module.exports = {
     {
         name: "16 - Electrical",
         idPerson: 11,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -99,7 +99,7 @@ module.exports = {
     {
         name: "9-100 - Metal Support Assemblies",
         idPerson: 12,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -115,7 +115,7 @@ module.exports = {
     {
         name: "13-400 - Measurement and Control Instrumentation",
         idPerson: 14,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -131,7 +131,7 @@ module.exports = {
     {
         name: "10-300 - Fireplaces and Stoves",
         idPerson: 16,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -147,7 +147,7 @@ module.exports = {
     {
         name: "2-824 - Wire Fences and Gates",
         idPerson: 18,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -171,7 +171,7 @@ module.exports = {
     {
         name: "11-680 - Office Equipment",
         idPerson: 21,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -211,7 +211,7 @@ module.exports = {
     {
         name: "2-784 - Stone Unit Pavers",
         idPerson: 26,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -219,7 +219,7 @@ module.exports = {
     {
         name: "2-932 - PLants and Bulbs",
         idPerson: 27,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -235,7 +235,7 @@ module.exports = {
     {
         name: "2-782 - Brick Pavers",
         idPerson: 29,
-        status: "Accepted",
+        status: "Pre-Sale",
         start_date: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
