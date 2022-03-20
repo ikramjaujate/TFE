@@ -17,7 +17,7 @@ import { GetProjectsByID } from '../../../services/projects';
 import { quotationTemplate } from '../../../shared/consts/quotationTemplate';
 import {CreateDocuments, UploadPdfDocument} from '../../../services/documents';
 
-const AddQuotation = (sendId) => {
+const AddQuotation = ({sendId, refreshTable}) => {
   const [name, setName] = useState("")
   const toast = useRef(null);
   const [notes, setNotes] = useState("/")
@@ -30,8 +30,8 @@ const AddQuotation = (sendId) => {
   const [fileName, setFileName] = useState('')
   const getProject = () => {
     
-
-    GetProjectsByID(sendId.sendId).then(response => {
+    console.log(sendId)
+    GetProjectsByID(sendId).then(response => {
       if (response['project'][0].idCompany == null) {
         setName(`${response["project"][0].Person.firstName} ${response["project"][0].Person.lastName}`)
 
@@ -77,7 +77,7 @@ const AddQuotation = (sendId) => {
  
   const removeFields = (index) => {
     let data = [...quotation];
-    data.splice(index, 1)
+    data.pop()
     setQuotation(data)
   }
   const generate = () => {
@@ -121,7 +121,7 @@ const AddQuotation = (sendId) => {
     
     const bodyForm = {
       'title' : fileName,
-      'idProject' : sendId.sendId,
+      'idProject' : sendId,
       'type': 'devis',
       'isAccepted': false,
       'isPaid': false,
@@ -143,12 +143,14 @@ const AddQuotation = (sendId) => {
         }
         throw new Error('Something went wrong.');
       }).then(response => {
-      
+        refreshTable()
         toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New quotation has been created', life: 3000 });
       }).catch(error => {
+        console.log(error)
         toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be created', life: 3000 });
       })
     }).catch(error => {
+      console.log(error)
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be created', life: 3000 });
     })
     

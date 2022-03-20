@@ -93,9 +93,7 @@ const DetailsProjects = () => {
   };
 
   useEffect(() => {
-    setData([])
-    // on page changes
-    getProject();
+    refresh()
 
 
   }, [])
@@ -108,6 +106,11 @@ const DetailsProjects = () => {
   const onHide = (name) => {
     dialogFuncMap[`${name}`](false);
     setAdd(true)
+  }
+  const refresh = () => {
+    onHide('displayResponsive')
+    setData([])
+    getProject();
   }
 
   /*const statusBodyTemplateIsPaid = (rowData) => {
@@ -197,12 +200,12 @@ const DetailsProjects = () => {
     
     SendDocument(body).then(response => {
 
-      if (response.hasOwnProperty("toto")) {
+      if (response.hasOwnProperty("document")) {
         return response
       }
       throw new Error('Something went wrong.');
     }).then(response => {
-    
+      refresh()
       toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Document has been sent', life: 3000 });
     }).catch(error => {
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Document cannot be sent', life: 3000 });
@@ -213,7 +216,7 @@ const DetailsProjects = () => {
     return (
       <React.Fragment>
         <Button icon="pi pi-file-pdf" tooltip="" className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />
-        <Button icon="pi pi-envelope" tooltip="" className="p-button-outlined p-button-warning ml-2" onClick={() => send(rowData)} />
+        <Button icon="pi pi-envelope" tooltip="" className={` ${rowData.isEmailed ? "p-button-raised p-button-success" : " p-button-outlined p-button-warning" } ml-2 `} onClick={() => send(rowData)} />
         <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
       </React.Fragment>
     );
@@ -325,7 +328,7 @@ const DetailsProjects = () => {
           </DataTable>
         </Panel>
         <Dialog modal header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New Quotation </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '90vw' }}   >
-          <AddQuotation sendId={idProject} />
+          <AddQuotation sendId={idProject} refreshTable={refresh} />
         </Dialog>
 
         <Panel header="INVOICES" toggleable className='m-3'>
