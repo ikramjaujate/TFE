@@ -304,7 +304,7 @@ const sendDocumentByEmail = async (req, res) => {
         const mailOptions = {
             to: `${emailTo}`,
             subject: 'Quotation : ' + req.body.projectName ,
-            text: `Dear ${displayName}, \n \n You will in attachement the requested quote of your project. \n \n Kind regards, \n Master Services`,
+            text: `Dear ${displayName}, \n \n You will in attachment the requested quote of your project. \n \n Kind regards, \n Master Services`,
             attachments: [
                 {   
                     filename: `quote-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,
@@ -319,7 +319,17 @@ const sendDocumentByEmail = async (req, res) => {
                 console.log("Email sent successfully");
             }
         });
-        return res.status(201).json({ toto: 'toto' })
+
+        await document.update(
+            {
+                isEmailed: true
+
+            }
+
+        )
+        await document.save()
+
+        return res.status(200).json({ document });
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }
