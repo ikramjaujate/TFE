@@ -53,7 +53,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
   useEffect(() => {
     if (sendData) {
-      console.log(sendData)
+     
       setNumber(sendData.mobile)
       setVta(sendData.VAT_num)
       setEmail(sendData.email)
@@ -118,7 +118,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
       delete bodyForm.firstName
       delete bodyForm.lastName
       CreateNewCompany(bodyForm).then(response => {
-        console.log(response)
+        
         if (response.hasOwnProperty("companyCreated")) {
           return response
         }

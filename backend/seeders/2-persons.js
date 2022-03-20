@@ -3,7 +3,7 @@ module.exports = {
     return queryInterface.bulkInsert('Person', [{
       firstName: 'Ikram',
       lastName: 'Jaujate',
-      email: 'ikram.jaujate@gmail.com',
+      email: 'ikramjaujate@gmail.com',
       mobile: '+32 484 37 23 72',
       idAddress: 1,
       createdAt: new Date(),

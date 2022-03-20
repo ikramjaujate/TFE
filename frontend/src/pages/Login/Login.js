@@ -19,7 +19,7 @@ function Login() {
     event.preventDefault()
     usernameVerif()
     passwordVerif()
-    //console.log(username, password)        
+       
     if (username !== '' && password !== '') {
       let informations = {
         method: 'POST',
@@ -31,10 +31,10 @@ function Login() {
           return (response.json())
         }).then(token => {
           if (token && token.error) {
-            console.log(token.error);
+
             return
           }
-          console.log(token["data"]["token"])
+
 
           setErrorMsg(<p style={{ color: 'red' }}>{token.message}</p>)
           if (token["data"]["token"]) {

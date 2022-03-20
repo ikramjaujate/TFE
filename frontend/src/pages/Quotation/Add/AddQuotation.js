@@ -30,7 +30,6 @@ const AddQuotation = ({sendId, refreshTable}) => {
   const [fileName, setFileName] = useState('')
   const getProject = () => {
     
-    console.log(sendId)
     GetProjectsByID(sendId).then(response => {
       if (response['project'][0].idCompany == null) {
         setName(`${response["project"][0].Person.firstName} ${response["project"][0].Person.lastName}`)
@@ -95,7 +94,7 @@ const AddQuotation = ({sendId, refreshTable}) => {
 
     for(let i in quotation){
       const index = table.indexOf(quotation[i]);
-      console.log(quotation[i])
+
       let ajout = []
       for (let x in quotation[i]) {
          
@@ -117,8 +116,7 @@ const AddQuotation = ({sendId, refreshTable}) => {
     quotationTemplate.invoice.table = table
     
     const pdfObject = jsPDFInvoiceTemplate(quotationTemplate);
-    console.log(pdfObject.blob)
-    
+
     const bodyForm = {
       'title' : fileName,
       'idProject' : sendId,
@@ -128,7 +126,7 @@ const AddQuotation = ({sendId, refreshTable}) => {
       'notes': notes
     }
     CreateDocuments(bodyForm).then(response => {
-      console.log(response)
+      
       if (response.hasOwnProperty("documents")) {
         return response
       }
@@ -143,14 +141,16 @@ const AddQuotation = ({sendId, refreshTable}) => {
         }
         throw new Error('Something went wrong.');
       }).then(response => {
-        refreshTable()
         toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New quotation has been created', life: 3000 });
+        
+        refreshTable()
+
       }).catch(error => {
-        console.log(error)
+        
         toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be created', life: 3000 });
       })
     }).catch(error => {
-      console.log(error)
+      
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be created', life: 3000 });
     })
     

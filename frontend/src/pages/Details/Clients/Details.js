@@ -78,7 +78,7 @@ const Details = (clientType) => {
   const getClients = () => {
     if (clientType === 'c') {
       GetCompanyById(id).then(response => {
-        console.log(response["company"][0].VAT_num)
+        
         setCompanies(response["company"]);
         setVta(response["company"][0].VAT_num)
         setName(response["company"][0].name)
@@ -99,12 +99,12 @@ const Details = (clientType) => {
           
             response["company"][i].start_date = moment(response["company"][i].start_date).utc().format('YYYY-MM-DD')
           }
-          console.log(response["company"])
+         
           response["company"][0].start_date = moment(response["company"][0].start_date).utc().format('YYYY-MM-DD')
         
           setProjects(response["company"])}
         else{
-          console.log('toto')
+          
           setProjects(response["company"])
         }
       })
@@ -113,7 +113,7 @@ const Details = (clientType) => {
 
     } else {
       GetClientByID(id).then(response => {
-        console.log(response["user"][0])
+        
         setPerson(response["user"]);
         setVta(response["user"][0].VAT_num)
         setFirstName(response["user"][0].firstName)
@@ -151,6 +151,27 @@ const Details = (clientType) => {
     history.push(`/projects`)
 
 
+  }
+  const headerTemplateInfo = (options) => {
+    const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
+    return (
+      <div className='p-panel-header'>
+        <span className="p-panel-title">PROJECTS</span>
+        <div className='panel-header-right'>
+        <Button label="All Projects" icon="pi pi-arrow-right" className=" p-button-secondary" onClick={() => handleAllProjects()} />
+          <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
+            <span className={toggleIcon}></span>
+
+          </button>
+        </div>
+
+      </div>
+    )
+  }
+  const rowDetailsProject = (rowData) => {
+    return(
+      <Button Button icon="pi pi-info" className="p-button-outlined p-button-info" onClick={() => history.push(`/projects/${rowData.idProject}/detail`)} />
+    )
   }
 
 
@@ -345,17 +366,14 @@ const Details = (clientType) => {
           </div>
 
         }
-        <Panel header="PROJECTS" toggleable className='m-3'>
-          <div className='projects-link'>
-            <Button label="All Projects" icon="pi pi-arrow-right" className=" p-button-secondary" onClick={() => handleAllProjects()} />
-
-          </div>
+        <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>
 
           <DataTable paginatorTemplate={PaginatorTemplate} value={projects} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
             <Column field="idProject" style={{ textAlign: "center", width: '8rem', flexGrow: 1, flexBasis: '20px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
             <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
             <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
             <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
+            <Column style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={rowDetailsProject}  headerStyle={{ color: "#c9392f" }}></Column>
           </DataTable>
 
 

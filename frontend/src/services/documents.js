@@ -58,7 +58,7 @@ const SendDocument = async (bodyForm) => {
     body: JSON.stringify(bodyForm)
   };
   return await (fetch(`/api/sendDocument`, informations).then(response => {
-    console.log(response)
+    
     return response.json()
   }))
   

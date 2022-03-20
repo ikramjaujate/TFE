@@ -71,7 +71,7 @@ const DetailsProjects = () => {
       }
 
       GetDocumentsByProjectId(id).then(response => {
-        console.log(response['project'])
+        
         const data = response["project"].map(project => {
           return {
             idDocument: project.idDocument,
@@ -126,7 +126,7 @@ const DetailsProjects = () => {
   }
   const setRowIsAccepted = (e, rowData) => {
     const data = [...isAccepted];
-    console.log(data)
+    
     data.forEach(element => {
 
       if (element.idDocument == rowData.idDocument) {
@@ -137,7 +137,7 @@ const DetailsProjects = () => {
           isPaid : false
         }
         UploadDocumentState(element.idDocument, bodyForm).then(response => {
-          console.log(response)
+          
           if (response.hasOwnProperty("document")) {
             return response
           }
@@ -174,7 +174,7 @@ const DetailsProjects = () => {
 
   }
   const statusIsPaid = (rowData) => {
-    console.log(rowData.isPaid)
+    
 
     if (rowData.idPaid == 'No') {
       return <span>{rowData.idPaid}</span>;
@@ -212,7 +212,7 @@ const DetailsProjects = () => {
     })
   }
   const informationClientTemplate = (rowData) => {
-    console.log(rowData)
+    
     return (
       <React.Fragment>
         <Button icon="pi pi-file-pdf" tooltip="" className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />

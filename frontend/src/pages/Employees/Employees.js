@@ -2,7 +2,7 @@ import React from 'react';
 import { Fieldset } from 'primereact/fieldset';
 
 const Employees = (clientType) => {
-  console.log(clientType)
+
   return (
     <div>
       <div className="card">

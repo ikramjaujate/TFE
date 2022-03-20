@@ -62,8 +62,7 @@ const FormProject = ({ refreshTable, sendData }) => {
 
     if (sendData) {
       let displayName = (sendData.displayName).replace(/,/g, '');
-      console.log(displayName)
-      console.log(sendData)
+
       setName(sendData.name)
       setIdProject(sendData.id)
       setClientName(displayName)
@@ -80,7 +79,7 @@ const FormProject = ({ refreshTable, sendData }) => {
     }
 
   }, [sendData])
-  console.log(sendData)
+
 
   const handleClickUpdate = (e) => {
     e.preventDefault()
@@ -109,7 +108,7 @@ const FormProject = ({ refreshTable, sendData }) => {
   }
   const checkAvailableStatus = () => {
     if (!sendData) {
-      console.log('teee')
+
       setFilterStatus([...projectTypes])
       return
     }
@@ -141,7 +140,7 @@ const FormProject = ({ refreshTable, sendData }) => {
      
     }*/
 
-    console.log(filterStatus)
+
   }
 
 

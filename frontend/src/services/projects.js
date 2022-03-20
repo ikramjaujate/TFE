@@ -8,7 +8,7 @@ const GetProjects = async () => {
     },
   };
   return await (fetch(`/api/projects`, informations).then(response => {
-    console.log(response)
+    
     return response.json()
   }))
   
