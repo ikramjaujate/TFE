@@ -30,7 +30,9 @@ const ClientProject = (dataClients, getProject) => {
       projects.forEach(project => {
         project.start_date = moment(project.start_date).utc().format('YYYY-MM-DD')
         project.end_date = project.end_date ? moment(project.end_date).utc().format('YYYY-MM-DD') : moment(project.start_date).utc().format('YYYY-MM-DD')
-
+        if(project.status == 'Canceled'){
+          return;
+        }
         calendarEvents.push(
           {
             title: project.name,
@@ -51,7 +53,7 @@ const ClientProject = (dataClients, getProject) => {
   return (
     <>
       <div>
-        <div className='col-12 md:col-4 ml-3 mt-2' >
+        <div className='col-12 md:col-3 ml-3 mt-2' >
         
           <div className="p-inputgroup">
           <span className="p-inputgroup-addon">

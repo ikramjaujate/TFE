@@ -130,6 +130,9 @@ const Details = (clientType) => {
       GetProjectsByClientID(id).then(response => {
         for (let i in response["user"]) {
           response["user"][i].start_date = moment(response["user"][i].start_date).utc().format('YYYY-MM-DD')
+          if(response["user"][i].end_date){
+            response["user"][i].end_date = moment(response["user"][i].end_date).utc().format('YYYY-MM-DD')
+          }
         }
 
         setProjects(response["user"]);
@@ -158,7 +161,7 @@ const Details = (clientType) => {
       <div className='p-panel-header'>
         <span className="p-panel-title">PROJECTS</span>
         <div className='panel-header-right'>
-        <Button label="All Projects" icon="pi pi-arrow-right" className=" p-button-secondary" onClick={() => handleAllProjects()} />
+        <Button label="All Projects" icon="pi pi-arrow-right" className="p-button-raised p-button-info " onClick={() => handleAllProjects()} />
           <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
             <span className={toggleIcon}></span>
 
@@ -170,7 +173,7 @@ const Details = (clientType) => {
   }
   const rowDetailsProject = (rowData) => {
     return(
-      <Button Button icon="pi pi-info" className="p-button-outlined p-button-info" onClick={() => history.push(`/projects/${rowData.idProject}/detail`)} />
+      <Button  icon="pi pi-info" className="p-button-secondary" onClick={() => history.push(`/projects/${rowData.idProject}/detail`)} />
     )
   }
 
@@ -373,7 +376,9 @@ const Details = (clientType) => {
             <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
             <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
             <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
-            <Column style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={rowDetailsProject}  headerStyle={{ color: "#c9392f" }}></Column>
+            <Column field="end_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="End Date"  headerStyle={{ color: "#c9392f" }}></Column>
+            <Column className='last-col' style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={rowDetailsProject}  headerStyle={{ color: "#c9392f" }}></Column>
+          
           </DataTable>
 
 

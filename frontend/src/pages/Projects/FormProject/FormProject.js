@@ -20,25 +20,21 @@ import { Calendar } from 'primereact/calendar';
 import { max } from 'moment';
 import { faFlagCheckered, faInfo, faHourglassStart, faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UpdateProject } from '../../../services/projects';
+import { UpdateProject, GetPossibleStatuses } from '../../../services/projects';
 import { projectTypes } from '../../../shared/consts/projectTypes';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 const FormProject = ({ refreshTable, sendData }) => {
 
   const toast = useRef(null);
-  const [vta, setVta] = useState();
-  const [email, setEmail] = useState('');
   const [clientName, setClientName] = useState('');
   const [name, setName] = useState('');
   const [start_date, setStartDate] = useState('');
   const [end_date, setEndDate] = useState('');
-  const [number, setNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [locality, setLocality] = useState('');
-  const [country, setCountry] = useState('');
   const [isCompany, setIsCompany] = useState(false);
   const [status, setStatus] = useState("Pre-Sale")
   const [idProject, setIdProject] = useState(null)
+  const [visible, setVisible] = useState(false);
   let today = new Date();
   let maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
 
@@ -61,6 +57,7 @@ const FormProject = ({ refreshTable, sendData }) => {
   useEffect(() => {
 
     if (sendData) {
+
       let displayName = (sendData.displayName).replace(/,/g, '');
 
       setName(sendData.name)
@@ -80,18 +77,17 @@ const FormProject = ({ refreshTable, sendData }) => {
 
   }, [sendData])
 
+  const confirmCanceledStatus = (bodyForm) => {
+    confirmDialog({
+      message: 'Are you sure you want to cancel the project?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => { updateProjectStatus(bodyForm) },
+      reject: () => { }
+    });
+  };
 
-  const handleClickUpdate = (e) => {
-    e.preventDefault()
-
-    const bodyForm = {
-      'id': sendData.id,
-      'name': name,
-      'status': status,
-      'start_date': new Date(start_date),
-      'end_date': end_date ? new Date(end_date) : null
-    }
-
+  const updateProjectStatus = (bodyForm) => {
     UpdateProject(bodyForm).then(response => {
 
       if (response.hasOwnProperty("project")) {
@@ -106,39 +102,34 @@ const FormProject = ({ refreshTable, sendData }) => {
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be updated', life: 3000 });
     })
   }
+  const handleClickUpdate = (e) => {
+    e.preventDefault()
+
+    const bodyForm = {
+      'id': sendData.id,
+      'name': name,
+      'status': status,
+      'start_date': new Date(start_date),
+      'end_date': end_date ? new Date(end_date) : null
+    }
+    if (bodyForm.status == 'Canceled') {
+      confirmCanceledStatus(bodyForm)
+      return;
+    }
+
+    updateProjectStatus(bodyForm)
+  }
+
   const checkAvailableStatus = () => {
     if (!sendData) {
 
       setFilterStatus([...projectTypes])
       return
     }
-    /**
-     * Pre sale: ok
-     * Accepted : Devis avce isAccepted == True
-     * In progress
-     * Done : facture presenté avec isPaid == null/false
-     * Closed : facture avec isPaid == True
-     */
-    /*if(!(projectDocuments.type == 'Devis' && projectDocuments.isAccepted)){
-      setFilterStatus(projectTypes.filter(pt => {
-        
-        return pt == 'Pre-Sale'
-      }))
-     
-    }else{
-      setFilterStatus(projectTypes.filter(pt => {
-        
-        return (pt != 'Done' ||pt != 'Closed' )
-      }))
-    }
-
-    if(!(projectDevis && projectDevis.isAccepted)){
-      setFilterStatus(projectTypes.filter(pt => {
-        
-        return pt == 'Pre-Sale'
-      }))
-     
-    }*/
+    GetPossibleStatuses(sendData.id).then(response => {
+      setFilterStatus([...response["types"]])
+      console.log(response['types'])
+    })
 
 
   }
@@ -224,7 +215,7 @@ const FormProject = ({ refreshTable, sendData }) => {
           </div>
           <div className='btn-container-flex'>
             <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" disabled />
-            <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData} />
+            <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData || sendData?.status == "Canceled"} />
 
 
           </div>

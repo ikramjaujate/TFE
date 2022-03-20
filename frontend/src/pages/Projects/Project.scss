@@ -7,6 +7,11 @@ span.customer-badge.status-pre-sale{
     color: white;
 
 }
+span.customer-badge.status-canceled{
+    background: rgb(158, 8, 8);
+    color: white;
+
+}
 .select-day, button.p-button.p-component.p-datepicker-trigger.p-button-icon-only{
     background-color: var(--main-color);
     border: var(--main-color)
@@ -93,4 +98,9 @@ button.p-column-filter-menu-button.p-link.p-column-filter-menu-button-active {
 .p-datatable .p-sortable-column:focus {
     box-shadow: inset 0 0 0 0.15rem rgb(235, 235, 235);
     outline: 0 none;
+}
+.p-button.p-button-secondary:enabled:hover{
+    background: #bc0000;
+    color: white;
+    border-color: #bc0000;
 }

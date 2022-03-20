@@ -13,6 +13,21 @@ const GetProjects = async () => {
   }))
   
 }
+const GetPossibleStatuses = async (id) => {
+
+  let informations = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('access_token')
+    },
+  };
+  return await (fetch(`/api/projects/${id}/statuses`, informations).then(response => {
+    
+    return response.json()
+  }))
+  
+}
 
 const CreateProject = async (bodyForm) => {
 
@@ -78,5 +93,6 @@ export {
   CreateProject,
   UpdateProject,
   GetProjectsByID,
-  GetDocumentsByProjectId
+  GetDocumentsByProjectId,
+  GetPossibleStatuses
 }

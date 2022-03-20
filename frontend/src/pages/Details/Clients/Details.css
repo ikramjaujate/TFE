@@ -49,3 +49,7 @@
 .p-panel .p-panel-header .p-panel-title{
     color: var(--main-color);
 }
+.last-col{
+    display: flex;
+    justify-content: end;
+}

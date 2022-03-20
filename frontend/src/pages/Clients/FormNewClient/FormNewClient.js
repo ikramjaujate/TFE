@@ -100,6 +100,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     */
   const handleClick = (e) => {
     e.preventDefault()
+    
 
     const bodyForm = {
       'name': name,
@@ -151,6 +152,10 @@ const FormNewClient = ({ refreshTable, sendData }) => {
   }
   const handleClickUpdate = (e) => {
     e.preventDefault()
+    if (!email.match(/\w+[@]\w+\.\w+/)) {
+      toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Invalid email address', life: 3000 });
+      return;
+    }
 
     const bodyForm = {
       'name': name,
