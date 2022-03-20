@@ -16,7 +16,7 @@ const ClientProject = (dataClients, getProject) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [ok, setOk] = useState(false)
-  const[nameClient, setNameClient]= useState([])
+  const [nameClient, setNameClient] = useState([])
   const [calendarEvent, setCalendarEvent] = useState([])
   const [userProjects, setUserProjects] = useState([])
 
@@ -29,20 +29,21 @@ const ClientProject = (dataClients, getProject) => {
       let calendarEvents = []
       projects.forEach(project => {
         project.start_date = moment(project.start_date).utc().format('YYYY-MM-DD')
-        project.end_date = project.end_date ? moment(project.end_date).utc().format('YYYY-MM-DD') :  moment(project.start_date).utc().format('YYYY-MM-DD')
-        
+        project.end_date = project.end_date ? moment(project.end_date).utc().format('YYYY-MM-DD') : moment(project.start_date).utc().format('YYYY-MM-DD')
+
         calendarEvents.push(
-          { title: project.name,
+          {
+            title: project.name,
             start: project.start_date,
             end: project.end_date,
-            color: '#' + Math.floor(Math.random()*16777215).toString(16)
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16)
           }
         )
       })
       setCalendarEvent(calendarEvents)
-      
+
     })
-    
+
   }
 
 
@@ -50,12 +51,20 @@ const ClientProject = (dataClients, getProject) => {
   return (
     <>
       <div>
+        <div className='col-12 md:col-4 ml-3 mt-2' >
+        
+          <div className="p-inputgroup">
+          <span className="p-inputgroup-addon">
+              <i className='pi pi-search'></i>
+            </span>
+            <Dropdown value={valueClient} options={dataClients.dataClients} onChange={(e) => getUserProjects(e.value)} filter optionLabel="displayName" />
+          </div>
 
-        <Dropdown value={valueClient} options={dataClients.dataClients} onChange={(e) => getUserProjects(e.value)} filter optionLabel="displayName" />
-        <div className='demo-app-main'>
-      
+        </div>
+        <div className='demo-app-main mx-4 p-1'>
+
           <FullCalendar
-            plugins={[ dayGridPlugin ]}
+            plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             weekends={true}
             eventColor={'#c9392f'}
