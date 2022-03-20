@@ -82,7 +82,7 @@ const createCompany = async (req, res) => {
         const existingCountry = await Country.findOne({
             where: { nicename: country }
         });
-        console.log(existingCountry)
+        
 
         if (!existingCountry) {
             throw new Error("No country")
@@ -95,7 +95,7 @@ const createCompany = async (req, res) => {
         }
 
         const createAddress = await Address.create(address);
-        console.log(createAddress)
+        
 
         if (!createAddress) {
             throw new Error("Address couldn't be created")
@@ -117,11 +117,8 @@ const createCompany = async (req, res) => {
             mobile: req.body.mobile
         }
 
-        //console.log(company)
-        
-
         const companyCreated = await Company.create(company);
-        console.log(companyCreated)
+        
         if (!companyCreated) {
             throw new Error("Company couldn't be created")
         };
@@ -132,7 +129,7 @@ const createCompany = async (req, res) => {
         });
         
     } catch (error) {
-        console.log(error)
+        
         return res.status(500).json({ error: error.message })
     }
 }
@@ -249,7 +246,7 @@ const updateCompany = async (req, res) => {
 
         return res.status(200).json({ company });
     } catch (error) {
-        console.log(error)
+        
         return res.status(500).send(error.message);
     }
 }
@@ -270,15 +267,15 @@ const getProjectByCompanyId = async (req, res) => {
     */
     try {
         const { id } = req.params;
-        console.log(id)
+       
         const company = await Project.findAll({
             where: {idCompany: id},
             
         });
-        console.log(company)
+       
         
         if (company) {
-            console.log(company)
+            
             return res.status(200).json({ company });
         }
         return res.status(404).send('User with the specified ID does not exists');

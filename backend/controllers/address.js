@@ -7,7 +7,7 @@ const createAddress = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
-        console.log(req.body)
+        
         const address = await Address.create(req.body);
         
         return res.status(201).json({

@@ -138,7 +138,7 @@ const getDocumentsByProjectId = async (req, res) => {
                 model: Project, where: { idProject: id },
             }]
         });
-        console.log(project)
+
 
         if (project) {
             return res.status(200).json({ project });
@@ -189,11 +189,63 @@ const updateProject = async (req, res) => {
 
         return res.status(200).json({ project });
     } catch (error) {
-        console.log(error)
+
         return res.status(400).send(error.message);
     }
 }
 
+const getPossiblesStatuses = async (req, res) => {
+    // #swagger.tags = ['Project']
+    /* 
+    #swagger.summary = 'Get all possible statuses for a project'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
+    try {
+       
+        const documents = await Document.findAll({
+            where: { idProject: req.params.id }
+        });
+
+        if(!documents){
+            return res.status(200).json({ 'types':[...projectTypes.slice(0, 2), ...projectTypes.slice(-1)]  });
+        }
+        const paidInvoices = documents.filter(doc => {
+            return (doc.type == 'facture' && doc.isPaid)
+        })
+        
+        if (paidInvoices.length) {
+            
+            console.log('paidInvoices')
+            return res.status(200).json({ 'types': [...projectTypes.slice(-3), ...projectTypes.slice(-1)]  });
+        }
+
+        const unPaidInvoices = documents.filter(doc => {
+            
+            return (doc.type == 'facture' && !doc.isPaid)
+        })
+
+        if (unPaidInvoices.length) {
+            console.log('unPaidInvoices')
+            return res.status(200).json({ 'types': [...projectTypes.slice(-4, -2), ...projectTypes.slice(-1)]  });
+        }
+
+        const acceptedQuote = documents.filter(doc => {
+            return (doc.type == 'devis' && doc.isAccepted)
+        })
+
+        if (acceptedQuote.length) {
+            console.log('acceptedQuote')
+            
+            return res.status(200).json({ 'types':  [...projectTypes.slice(0, 3), ...projectTypes.slice(-1)] });
+        }
+
+        return res.status(200).json({ 'types': [...projectTypes.slice(0, 1), ...projectTypes.slice(-1)]  });
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 
 function validateUpdateBody(body) {
     if (!body.id) {
@@ -204,7 +256,7 @@ function validateUpdateBody(body) {
     }
 
     if (!body.status || !(projectTypes.find(s => { return s == body.status }))) {
-        throw new Error('No status or invalide status')
+        throw new Error('No status or invalid status')
     }
     if (!body.start_date) {
         throw new Error('No start date')
@@ -213,7 +265,7 @@ function validateUpdateBody(body) {
         throw new Error('No end date')
     }
     if (new Date(body.start_date) > new Date(body.end_date)) {
-        throw new Error('Invalide date')
+        throw new Error('Invalid date')
     }
 }
 
@@ -222,5 +274,6 @@ module.exports = {
     getAllProjects,
     updateProject,
     getDocumentsByProjectId,
-    getProjectById
+    getProjectById,
+    getPossiblesStatuses
 }

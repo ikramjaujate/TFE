@@ -158,7 +158,7 @@ const uploadPdfDocument = async (req, res) => {
     try {
 
         validateUpdateBody(req.body)
-        console.log(req.body)
+        
         const document = await Document.findOne({
             where: {
                 idDocument: req.params.id
@@ -335,6 +335,8 @@ const sendDocumentByEmail = async (req, res) => {
     }
 
 }
+
+
 
 function validateUpdateBody(body) {
     if (!body) {

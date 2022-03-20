@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
         const existingCountry = await Country.findOne({
             where: { nicename: country }
         });
-        console.log(existingCountry)
+      
 
         if (!existingCountry) {
             throw new Error("No country")
@@ -174,7 +174,7 @@ const getProjectByUserId = async (req, res) => {
     */
     try {
         const { id } = req.params;
-        console.log(id)
+       
         const user = await Project.findAll({
             where: { idPerson: id },
 
@@ -201,7 +201,7 @@ const updateUser = async (req, res) => {
     */
     try {
 
-        console.log(req.body)
+       
         const user = await Person.findOne({
             where: {
                 idPerson: req.body.id
@@ -303,7 +303,7 @@ const updateUser = async (req, res) => {
 
         return res.status(200).json({ user });
     } catch (error) {
-        console.log(error)
+        
         return res.status(500).send(error.message);
     }
 }
@@ -338,7 +338,7 @@ const getSimpleUsersWithProjects = async (req, res) => {
                 lastName: user.lastName
             })
         })
-        //console.log(usersFiltered)
+
 
         if (simpleUsers) {
             return res.status(200).json({ simpleUsers });
