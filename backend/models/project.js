@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     status: {
-      type: DataTypes.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
+      type: DataTypes.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed', 'Canceled'),
       allowNull: false
     },
     start_date : { 
@@ -55,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
     Project.belongsTo(models.Person, {
         foreignKey: 'idPerson',
         onDelete: 'CASCADE'
+      })
+      Project.hasMany(models.Document, {
+        foreignKey: 'idProject'
       })
   };
   return Project;
