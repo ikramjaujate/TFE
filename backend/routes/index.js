@@ -42,12 +42,14 @@ const { createProject,
     getAllProjects, 
     updateProject, 
     getProjectById ,
-    getDocumentsByProjectId
+    getDocumentsByProjectId,
+    getPossiblesStatuses
 } = require('../controllers/project.js');
 
 router.get('/projects',verifyToken,getAllProjects)
 router.get('/projects/:id', verifyToken,getProjectById)
 router.get('/projects/:id/documents',verifyToken,getDocumentsByProjectId)
+router.get('/projects/:id/statuses',verifyToken,getPossiblesStatuses)
 router.post('/projects',verifyToken,createProject)
 router.patch('/projects',verifyToken,updateProject)
 
