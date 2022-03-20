@@ -36,6 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     notes: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    isEmailed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
 
 
