@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-19T11:36:36.424Z",
+    "created": "2022-03-20T11:06:26.507Z",
     "comment": ""
 };
 
@@ -561,6 +561,12 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "field": "notes",
                     "allowNull": true
+                },
+                "isEmailed": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isEmailed",
+                    "defaultValue": false,
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
