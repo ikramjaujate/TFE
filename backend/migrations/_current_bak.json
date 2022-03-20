@@ -462,7 +462,7 @@
                 "status": {
                     "allowNull": false,
                     "field": "status",
-                    "seqType": "Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed')"
+                    "seqType": "Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed', 'Canceled')"
                 },
                 "start_date": {
                     "allowNull": false,
@@ -530,5 +530,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

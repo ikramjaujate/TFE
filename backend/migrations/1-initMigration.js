@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-20T11:06:26.507Z",
+    "created": "2022-03-20T18:13:58.507Z",
     "comment": ""
 };
 
@@ -379,7 +379,7 @@ var migrationCommands = [{
                     "validate": {}
                 },
                 "status": {
-                    "type": Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed'),
+                    "type": Sequelize.ENUM('Pre-Sale', 'Accepted', 'In Progress', 'Done', 'Closed', 'Canceled'),
                     "field": "status",
                     "allowNull": false
                 },
