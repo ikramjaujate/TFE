@@ -45,6 +45,9 @@ const App = () => {
   const onToggleMenu = () => {
     setMenuIsVisible(!menuIsVisible);
   }
+  const forcedCloseMenu = () => {
+    setMenuIsVisible(false)
+  }
 
   if (isLoggedIn()) {
     return (<Router>
@@ -54,7 +57,7 @@ const App = () => {
 
         <div className='main-section'>
           <div className={`side-menu ${menuIsVisible ? "" : "menu-is-hidden"}`}>
-            <SideMenuBar menu={menu}></SideMenuBar>
+            <SideMenuBar menu={menu} setMenuVisible={forcedCloseMenu}></SideMenuBar>
           </div>
           <div className={`main-content ${menuIsVisible ? "" : "menu-is-hidden-content"}`}>
             <PrivateRoute exact path="/" component={Home} menu={menu.slice(1)} />

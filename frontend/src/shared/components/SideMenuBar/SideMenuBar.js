@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const SideMenuBar = ({menu}) => {
+const SideMenuBar = ({menu, setMenuVisible}) => {
 
   return (
     <div className='menu-card'>
@@ -17,6 +17,7 @@ const SideMenuBar = ({menu}) => {
             className="router-link"
             activeClassName="router-link-active"
             to={item.to}
+            onClick={setMenuVisible}
             exact
           >
             <FontAwesomeIcon className='icon' icon={item.icon} />
