@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-20T18:13:58.507Z",
+    "created": "2022-03-25T13:15:45.382Z",
     "comment": ""
 };
 
@@ -95,9 +95,13 @@ var migrationCommands = [{
                     "field": "price"
                 },
                 "type": {
-                    "type": Sequelize.ENUM('static', 'consommable'),
+                    "type": Sequelize.ENUM('static', 'consumable'),
                     "field": "type",
                     "allowNull": false
+                },
+                "isBillable": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isBillable"
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,

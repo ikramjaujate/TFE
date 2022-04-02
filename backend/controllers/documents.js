@@ -304,7 +304,12 @@ const sendDocumentByEmail = async (req, res) => {
         const mailOptions = {
             to: `${emailTo}`,
             subject: 'Quotation : ' + req.body.projectName ,
-            text: `Dear ${displayName}, \n \n You will in attachment the requested quote of your project. \n \n Kind regards, \n Master Services`,
+            text: `Dear ${displayName}, 
+            \n \n Following your request for a quote for project ${req.body.projectName}, please find attached our proposal. This proposal considers all the remarks made during the different meetings. 
+            \n \n I would appreciate it if you would return this proposal with the mention "Accepted" followed by your signature and the date. 
+             \n Before any acceptance, I remain of course at your entire disposal for any further information.
+            \n \n Best regards,
+             \n Master Services`,
             attachments: [
                 {   
                     filename: `quote-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,

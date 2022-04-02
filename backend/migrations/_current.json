@@ -343,7 +343,11 @@
                 "type": {
                     "allowNull": false,
                     "field": "type",
-                    "seqType": "Sequelize.ENUM('static', 'consommable')"
+                    "seqType": "Sequelize.ENUM('static', 'consumable')"
+                },
+                "isBillable": {
+                    "field": "isBillable",
+                    "seqType": "Sequelize.BOOLEAN"
                 },
                 "createdAt": {
                     "allowNull": false,

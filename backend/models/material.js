@@ -16,9 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
     type : { 
-      type: DataTypes.ENUM('static', 'consommable'),
+      type: DataTypes.ENUM('static', 'consumable'),
       allowNull: false
-    }
+    },
+    isBillable: DataTypes.BOOLEAN
   }, {});
 
  
