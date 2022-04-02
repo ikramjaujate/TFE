@@ -36,7 +36,7 @@
 .projects-link {
     font-size: 13px;
     display:flex;
-    justify-content: end;
+    justify-content: flex-end;
     color:rgb(184, 76, 76);
 }
 
@@ -51,5 +51,5 @@
 }
 .last-col{
     display: flex;
-    justify-content: end;
+    justify-content:flex- end;
 }

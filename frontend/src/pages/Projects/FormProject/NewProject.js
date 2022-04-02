@@ -85,7 +85,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
 
     }).then(response => {
       toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New project has been created', life: 3000 });
-      onHide("displayResponsive")
+      onHide()
       refreshTable()
     }).catch(error => {
       toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be created', life: 3000 });
@@ -120,7 +120,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
           </div>
         </div>
       </div>
-      <Button label="No" icon="pi pi-times" onClick={() => onHide("displayResponsive")} className="p-button-text" />
+      <Button label="No" icon="pi pi-times" onClick={() => onHide()} className="p-button-text" />
       <Button label="Add" icon="pi pi-check" onClick={onCreate} className="p-button-add" autoFocus />
 
 

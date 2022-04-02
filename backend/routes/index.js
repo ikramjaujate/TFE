@@ -14,48 +14,48 @@ const router = Router();
 const { login } = require('../controllers/login.js');
 router.post('/login', login)
 // USERS
-router.get('/simple-users', verifyToken,getSimpleUsersWithProjects)
-router.get('/users',verifyToken, getAllUsers)
-router.get('/users/:id', verifyToken,getUserById)
-router.get('/users/:id/projects', verifyToken,getProjectByUserId)
-router.post('/users', verifyToken,createUser)
-router.patch('/users', verifyToken,updateUser)
+router.get('/simple-users', verifyToken, getSimpleUsersWithProjects)
+router.get('/users', verifyToken, getAllUsers)
+router.get('/users/:id', verifyToken, getUserById)
+router.get('/users/:id/projects', verifyToken, getProjectByUserId)
+router.post('/users', verifyToken, createUser)
+router.patch('/users', verifyToken, updateUser)
 
 
 // COMPANY
-const { getAllCompanies, 
-    createCompany, 
-    updateCompany, 
-    getCompanyById, 
+const { getAllCompanies,
+    createCompany,
+    updateCompany,
+    getCompanyById,
     getProjectByCompanyId
-    
+
 } = require('../controllers/company.js');
-router.get('/company', verifyToken,getAllCompanies)
-router.get('/company/:id', verifyToken,getCompanyById)
-router.get('/company/:id/projects', verifyToken,getProjectByCompanyId)
-router.post('/company', verifyToken,createCompany)
-router.put('/company', verifyToken,updateCompany)
+router.get('/company', verifyToken, getAllCompanies)
+router.get('/company/:id', verifyToken, getCompanyById)
+router.get('/company/:id/projects', verifyToken, getProjectByCompanyId)
+router.post('/company', verifyToken, createCompany)
+router.put('/company', verifyToken, updateCompany)
 
 
 // PROJECT
-const { createProject, 
-    getAllProjects, 
-    updateProject, 
-    getProjectById ,
+const { createProject,
+    getAllProjects,
+    updateProject,
+    getProjectById,
     getDocumentsByProjectId,
     getPossiblesStatuses
 } = require('../controllers/project.js');
 
-router.get('/projects',verifyToken,getAllProjects)
-router.get('/projects/:id', verifyToken,getProjectById)
-router.get('/projects/:id/documents',verifyToken,getDocumentsByProjectId)
-router.get('/projects/:id/statuses',verifyToken,getPossiblesStatuses)
-router.post('/projects',verifyToken,createProject)
-router.patch('/projects',verifyToken,updateProject)
+router.get('/projects', verifyToken, getAllProjects)
+router.get('/projects/:id', verifyToken, getProjectById)
+router.get('/projects/:id/documents', verifyToken, getDocumentsByProjectId)
+router.get('/projects/:id/statuses', verifyToken, getPossiblesStatuses)
+router.post('/projects', verifyToken, createProject)
+router.patch('/projects', verifyToken, updateProject)
 
 // DOCUMENTS
-const { 
-    createDocuments, 
+const {
+    createDocuments,
     uploadPdfDocument,
     getAllDocuments,
     getDocumentById,
@@ -63,25 +63,54 @@ const {
     sendDocumentByEmail
 } = require('../controllers/documents.js');
 
-router.get('/documents',verifyToken,getAllDocuments)
-router.get('/documents/:id',verifyToken,getDocumentById)
-router.post('/documents',verifyToken,createDocuments)
-router.post('/sendDocument',verifyToken, sendDocumentByEmail)
-router.patch('/documents/:id',verifyToken,updateStateDocument)
-router.patch('/documents/:id/pdf',verifyToken,uploadPdfDocument)
+router.get('/documents', verifyToken, getAllDocuments)
+router.get('/documents/:id', verifyToken, getDocumentById)
+router.post('/documents', verifyToken, createDocuments)
+router.post('/sendDocument', verifyToken, sendDocumentByEmail)
+router.patch('/documents/:id', verifyToken, updateStateDocument)
+router.patch('/documents/:id/pdf', verifyToken, uploadPdfDocument)
 
+// MATERIALS
+const {
+    getAllMaterials,
+    getMaterialById,
+    createMaterial,
+    updateMaterial,
+    removeMaterialById
+} = require('../controllers/material.js')
+
+router.get('/materials', verifyToken, getAllMaterials);
+router.get('/materials/:id', verifyToken, getMaterialById);
+router.post('/materials', verifyToken, createMaterial);
+router.patch('/materials', verifyToken, updateMaterial);
+router.delete('/materials/:id', verifyToken, removeMaterialById);
+
+// PROJECT-MATERIALS
+const {
+    getAllProjectMaterials,
+    getProjectMaterialById,
+    createProjectMaterial,
+    updateProjectMaterial,
+    removeProjectMaterialById
+} = require('../controllers/project-material.js')
+
+router.get('/project-materials', verifyToken, getAllProjectMaterials);
+router.get('/project-materials/:id', verifyToken, getProjectMaterialById);
+router.post('/project-materials', verifyToken, createProjectMaterial);
+router.patch('/project-materials', verifyToken, updateProjectMaterial);
+router.delete('/project-materials/:id', verifyToken, removeProjectMaterialById);
 
 // ADDRESS
-const {createAddress,
+const { createAddress,
     getAllAddress
 } = require('../controllers/address.js');
-router.get('/address', verifyToken,getAllAddress)
-router.post('/address', verifyToken,createAddress)
+router.get('/address', verifyToken, getAllAddress)
+router.post('/address', verifyToken, createAddress)
 
 // COUNTRY
-const { getAllCountries} = require('../controllers/country.js');
+const { getAllCountries } = require('../controllers/country.js');
 
-router.get('/countries',verifyToken,getAllCountries)
+router.get('/countries', verifyToken, getAllCountries)
 
 
 

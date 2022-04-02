@@ -6,15 +6,11 @@ import { Button } from 'primereact/button';
 import { GetProjects } from "../../services/projects";
 import { GetClients } from "../../services/users";
 import { GetCompanies } from "../../services/companies";
-import { Toolbar } from 'primereact/toolbar';
 import { useHistory } from 'react-router-dom';
 import { Tooltip } from 'primereact/tooltip';
 import moment from "moment";
 import './Project.scss'
 import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { SelectButton } from 'primereact/selectbutton';
 
 import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
 import FormProject from './FormProject/FormProject';
@@ -23,27 +19,24 @@ import NewProject from './FormProject/NewProject';
 const Projects = () => {
 
   const history = useHistory();
-  const [isCompany, setIsCompany] = useState(false);
-  const [displayResponsive, setDisplayResponsive] = useState(false);
+
   const [data, setData] = useState([]);
   const [personsDropdown, setPersonsDropdown] = useState([]);
   const [companiesDropdown, setCompaniesDropdown] = useState([]);
   const [dataClients, setDataClients] = useState([]);
+
+  const [displayDialog, setDisplayDialog] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [displayBasic, setDisplayBasic] = useState(false);
-  const [position, setPosition] = useState('center');
-  const [filters, setFilters] = useState({
+
+  const filters ={
     'displayName': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] }
-  });
-  const [activeIndex, setActiveIndex] = useState(0);
+  }
+  
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
-  const [typeSelected, setTypeSelected] = useState('p')
   const [projects, setProjects] = useState([]);
-  const [companies, setCompanies] = useState([]);
-  const [valueClient, setValueClient] = useState([])
-
   const [add, setAdd] = useState(false)
+
   const getProjects = () => {
     setLoading(true);
     GetProjects().then(response => {
@@ -153,25 +146,7 @@ const Projects = () => {
   const statusBodyTemplate = (rowData) => {
     return <span className={`customer-badge status-${rowData.status.toLowerCase()}`}>{rowData.status}</span>;
   }
-  const onHide = (name) => {
-    dialogFuncMap[`${name}`](false);
-    setAdd(true)
-  }
-
-
-  const dialogFuncMap = {
-    'displayResponsive': setDisplayResponsive
-  }
-
-
-  const onClick = (name, position) => {
-    dialogFuncMap[`${name}`](true);
-
-    if (position) {
-      setPosition(position);
-    }
-
-  }
+  
   const handleProject = (project) => {
 
     history.push(`/projects/${project.id}/detail`)
@@ -197,26 +172,20 @@ const Projects = () => {
 
 
   }
-  const options = [
-    { name: 'Person', value: false },
-    { name: 'Company', value: true }
-  ];
-
 
   return (
     <>
       <div className='title'>
         <h1 >PROJECTS</h1>
-        <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => onClick('displayResponsive')} />
+        <Button className='p-button-secondary-project' label="New Project" icon="pi pi-plus-circle" onClick={() => setDisplayDialog(true)} />
       </div>
 
-      <Dialog header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayResponsive} onHide={() => onHide('displayResponsive')} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
-        <NewProject dataClients={dataClients} onHide={onHide} refreshTable={refresh} />
+      <Dialog header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New project </span>} visible={displayDialog} onHide={() => setDisplayDialog(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '50%' }} >
+        <NewProject dataClients={dataClients} onHide={() => setDisplayDialog(false)} refreshTable={refresh} />
       </Dialog>
       <FormProject sendData={selectedClient} refreshTable={refresh}/>
 
       <div className="grid table-demo">
-
 
         <div className="col-12">
           <DataTable sortOrder="-1" sortField="end_date" filters={filters} globalFilterFields={['displayName']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>

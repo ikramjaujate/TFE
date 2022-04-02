@@ -1,73 +1,62 @@
-const GetCompanies = async () => {
+import { BASIC_HEADERS } from "../shared/consts/headers";
 
-  let informations = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', 
-      'Authorization': "Bearer " + localStorage.getItem('access_token') },
-  };
-  return await (fetch(`/api/company`, informations).then(response => {
-    return response.json()
-  }))
-      
+const GetCompanies = async () => {
+  return await (
+    fetch(`/api/company`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  );   
 }
 
 const CreateNewCompany = async (bodyForm) => {
-
-  let informations = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem('access_token')
-    },
-    body: JSON.stringify(bodyForm)
-  };
-  return await (fetch(`/api/company`, informations).then(response => {
-    return response.json()
-  }))
+  return await (
+    fetch(`/api/company`, {
+      method: 'POST',
+      headers: BASIC_HEADERS,
+      body: JSON.stringify(bodyForm)
+    }).then(response => {
+      return response.json()
+    })
+  );  
 }
 
 const GetCompanyById = async (id) => {
-
-  let informations = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem('access_token')
-    },
-  };
-  return await (fetch(`/api/company/${id}`, informations).then(response => {
-    return response.json()
-  }))
-
+  return await (
+    fetch(`/api/company/${id}`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  );
 }
+
 const GetProjectsByCompanyID = async (id) => {
-
-  let informations = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem('access_token')
-    },
-  };
-  return await (fetch(`/api/company/${id}/projects`, informations).then(response => {
-    return response.json()
-  }))
-
+  return await (
+    fetch(`/api/company/${id}/projects`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  );
 }
+
 const UpdateCompany = async (bodyForm) => {
-
-  let informations = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem('access_token')
-    },
-    body: JSON.stringify(bodyForm)
-  };
-  return await (fetch(`/api/company`, informations).then(response => {
-    return response.json()
-  }))
+  return await (
+    fetch(`/api/company`, {
+      method: 'PUT',
+      headers: BASIC_HEADERS,
+      body: JSON.stringify(bodyForm)
+    }).then(response => {
+      return response.json()
+    })
+  );  
 }
+
 export {
   GetCompanies,
   CreateNewCompany,

@@ -1,14 +1,14 @@
-const GetCountries = async () => {
+import { BASIC_HEADERS } from "../shared/consts/headers";
 
-  let informations = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', 
-      'Authorization': "Bearer " + localStorage.getItem('access_token') },
-  };
-  return await (fetch(`/api/countries`, informations).then(response => {
-    return response.json()
-      
-  }))
-      
+const GetCountries = async () => {
+  return await (
+    fetch(`/api/countries`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  );      
 }
+
 export default GetCountries
