@@ -1,0 +1,118 @@
+\documentclass[french, 11pt, a4paper]{article}
+
+%%%%% PACKAGES %%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage[bottom]{footmisc}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage[colorlinks,allcolors=blue, hidelinks]{hyperref}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
+\newcommand{\newpara}{\vskip 0.75cm}
+\newcommand{\newparasm}{\vskip 0.2cm}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\usepackage{enumitem,amssymb}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+
+\begin{document}
+\singlespacing
+
+%%%%% PAGE DE GARDE %%%%%
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=15cm]{img/ephec.jpg}~\\
+\textsc{Avenue du Ciseau, 15 \\ 1348 Ottignies-Louvain-la-Neuve} \\[1.5cm]
+
+{\huge \bfseries \begin{spacing}{1.25}
+  Développement \\ 
+  d’un système d’information \\
+  pour la société Master Services 
+  \\[2cm]
+  \end{spacing} 
+} 
+
+{\large 
+  Travail de fin d'études
+  \\[2cm]
+}
+
+{\LARGE 
+JAUJATE OULDKHALA Ikram
+}
+
+\vspace*{\fill}
+  
+\end{center}
+
+\begin{minipage}[t]{.5\textwidth}
+  \textsc{\large Rapporteur:\\Monsieur S. Buys}
+\end{minipage}
+\begin{minipage}[br]{.5\textwidth}
+  \textsc{\large Année académique 2021-2022}
+\end{minipage}  
+
+\end{titlepage}
+
+
+
+%%%%% TOC %%%%%
+\singlespacing
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{4}}
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+%%%%% CONTENU %%%%%
+\onehalfspacing
+
+\newpage
+\input{sections/contexte.tex}
+
+\newpage
+\input{sections/choix.tex}
+
+\newpage
+\input{sections/userstories.tex}
+
+\newpage
+\input{sections/developpement.tex}
+
+\newpage
+\input{sections/deploiment.tex}
+
+\newpage
+\input{sections/testing.tex}
+
+\newpage
+\input{sections/securite.tex}
+
+\newpage
+\input{sections/monitoring.tex}
+
+\newpage
+\input{sections/conclusion.tex}
+
+\newpage
+\input{sections/bibliographie.tex}
+
+
+\end{document}

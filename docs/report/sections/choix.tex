@@ -1,0 +1,122 @@
+\section{Choix méthodologique}
+
+\subsection{Méthodologie}
+
+Vu l'envergure du projet et de tâches techniques à accomplir, la méthodologie que j’ai choisie pour la réalisation de ce projet est méthodologie Agile.
+Spécifiquement j'ai décidé de travailler avec la méthode Scrum avec son organisation en sprints.
+
+Tout d'abord, j'ai pu définir avec le client les principales fonctionnalités à intégrer dans le projet. Ces fonctionnalités sont classées par ordre de priorité et du temps estimé à la réalisation des celles-ci.
+
+En outre, les principales fonctionnalités contenues dans le projet sont détaillées. S'agissant d'un projet de grande envergure, chacune des principales fonctionnalités a été divisée en petites user stories qui me permettront d'avoir un produit livrable au client à la fin de chaque sprint. Les sprints auront \textbf{une durée d’environ 2 semaines.}
+
+À la fin de chaque sprint, un délivrable correspondant aux tâches / user stories effectuées lors du sprint devra être présenté au client. Ce dernier devra alors vérifier et valider les différentes tâches effectuées.
+
+L'avantage de cette méthode est que, en cas d'erreurs et/ou non validation des tâches de la part du client, ces dernières pourront être revues et corrigées pour le prochain sprint.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/agile.png}
+  \caption{ \textit{L'implementation de la méthode Scrum} de Anna Pérez}
+  \label{agile}
+\end{figure}
+Pour l’organisation des tâches à effectuer pour chaque sprint, j’utiliserai l’outil Trello. Cet outil me permettra de diviser les tâches à effectuer pour chaque sprint, ce qui facilitera la visualisation de l’avancement du projet.
+
+Cette méthode de travail permet donc de ne pas définir certaines user stories qui ne seront peut-être jamais mises en place.
+
+\subsubsection{Gitflow}
+
+J'ai décidé de travailler avec le gitflow par branche qui me permettra d'avoir une division au niveau des fonctionnalités qui seront implémentées lors du projet.
+
+\begin{itemize}
+  \item une branche 'develop' qui correspond à la branche 'master' du 'github-flow'
+  \item les releases sont préparées sur une branche spécifique (fusion depuis la branche 'develop' jusqu'à ce que la release soit validée)
+  \item lorsqu'une release est prête, elle est fusionnée sur la branche 'master'
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/gitflow.png}
+  \caption{ \textit{Gitflow Strategy} de Atlassian}
+  \label{Gitflow}
+\end{figure}
+
+
+\subsection{Choix des technologies}
+
+\subsubsection{Frontend}
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/react.png}
+  \end{minipage}
+  \begin{minipage}{.7\textwidth}
+    
+    En ce qui concerne la technologie frontend, j'ai décidé d'utiliser React car elle me permet de créer des interfaces utilisateur ou des composants d'interface utilisateur rapides et interactifs pour les utilisateurs d'applications web et mobiles.
+    \begin{enumerate}
+      \item \textbf{DOM Virtuel}: Il permet de générer le DOM ("Document Object Model", structure des éléments qui sont générés dans le navigateur web lors du chargement d'une page) de manière dynamique, ce qui nous permet de visualiser les changements de données sans devoir recharger/render à nouveau la page entière, mais seulement le composant qui a été mis à jour.
+      \item \textbf{Grande communauté}: Il est soutenu par une large communauté, ce qui nous permet d'avoir un grand nombre de libraires disponibles.
+      \item \textbf{Composants réutilisables}: Elle est constituée de composants qui sont réutilisables, ce qui rend l'application plus évolutive et plus facile à maintenir car les erreurs se produisent dans la fonctionnalité du composant lui-même.
+    \end{enumerate}
+    Ces avantages permettent d'améliorer l'expérience de l'utilisateur lors de la navigation dans l'application web, la rapidité du chargement des pages et facilitent la maintenance de l'application.
+  \end{minipage}
+\end{figure}
+
+\subsubsection{Web Server}
+
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/caddy.png} 
+  \end{minipage} 
+  \begin{minipage}{.7\textwidth}
+    Au niveau du serveur web, mon choix se porte sur Caddy Server et ce pour plusieurs raisons
+    \begin{enumerate}
+      \item \textbf{Simple}: Possède une configuration très simple qui nous permettra de le mettre en place en quelques minutes.
+      \item \textbf{HTTPS par défaut}: Utilise Let's Encrypt pour mettre le site en HTTPS complet automatiquement, sans aucune configuration et le renouvellement des certificats SSL/TLS se réalise de manière automatique.
+      \item \textbf{Multiplateforme}: Il est multiplateforme et je serais en mesure d'exécuter Caddy directement par le biais de Docker, ce qui rendra sa mise en œuvre encore plus facile.
+    \end{enumerate}
+  \end{minipage} 
+\end{figure}
+
+\subsubsection{Backend}
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/node.png} 
+  \end{minipage}
+  \begin{minipage}{.7\textwidth}
+
+    Comme pour le frontend, le choix du backend est également essentiel. Dans ce cas, j'ai décidé de travailler avec Node.js et ce pour plusieurs raisons.
+    \begin{enumerate}
+      \item \textbf{Très rapide}: Les tâches courantes comme la lecture ou l’écriture dans la base de données sont exécutées rapidement et il capables de gérer des connexions simultanées à haut débit
+      \item \textbf{Grande communauté}: Il est soutenu par une large communauté, ce qui nous permet d'avoir un grand nombre de libraires disponibles.
+      \item \textbf{MVC}: Permet de travailler en MVC, ce qui permet une structure correcte du code.
+      \item \textbf{Asynchrone}: Étant un système asynchrone, il permet d’accélérer les applications web. Il est capable d'envoyer gros volumes de données sans bloquer le serveur qui reste ainsi disponible pour traiter d’autres tâches.
+      \item \textbf{compatible}: Permet un développement multiplateforme qui est axé sur tous les types d'appareils et de plateformes d'OS (iOS, Android, desktop et web). Le code est réutilisable et entièrement compatible avec tous les principaux systèmes d'exploitation, notamment Linux, Windows, ainsi que macOS, ce qui va nous permettre de rendre notre Web Application accessible depuis toutes les plateformes.
+    \end{enumerate}
+
+  \end{minipage}
+\end{figure}
+
+\subsubsection{Database}
+
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/tech/PostgreSql.png} 
+  \end{minipage} 
+  \begin{minipage}{.7\textwidth}
+    Mon choix pour la base de données est PostgreSQL pour plusieurs raisons :
+    \begin{enumerate}
+      \item \textbf{DB Relationnelle}: Puisque les données doivent être ordonnées et structurées et que des relations doivent exister entre les différentes données, il est essentiel d'utiliser une base de données SQL afin de garantir l'organisation de ces dernières
+      \item \textbf{SQL}: PostgreSQL utilise le langage SQL, qui est le langage le plus utilisé pour les bases de données relationnelles.
+      \item \textbf{Compatible}: PostgreSQL est entièrement compatible ACID. ACID est un acronyme pour Atomicité, Cohérence, Isolation et Durabilité. Il garantit donc que les transactions n'interfèrent pas entre elles. Cela garantit les informations contenues dans les bases de données et la pérennité des données dans le système.
+      \item \textbf{Hot-Standby}: Il dispose de l'option Hot-Standby qui permet aux utilisateurs d'accéder aux tables en mode lecture pendant que les processus de sauvegarde ou de maintenance sont en cours.
+
+    \end{enumerate}
+    PostgreSQL jouit d'une solide réputation en matière de fiabilité, de robustesse des fonctionnalités et des performances.
+  \end{minipage} 
+\end{figure}
+
+
+  
+\subsection{Autres}
+\subsubsection{API}
+\subsubsubsection{Documentation}
+\subsubsection{Linter}
