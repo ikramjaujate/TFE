@@ -140,7 +140,7 @@ const Details = (clientType) => {
       setData([...data]);
       setLoading(false);
     }
-    ;
+    
   }
   useEffect(() => {
     setData([])
