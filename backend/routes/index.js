@@ -43,11 +43,13 @@ const { createProject,
     updateProject,
     getProjectById,
     getDocumentsByProjectId,
-    getPossiblesStatuses
+    getPossiblesStatuses,
+    getProjectMaterialByProjectId
 } = require('../controllers/project.js');
 
 router.get('/projects', verifyToken, getAllProjects)
 router.get('/projects/:id', verifyToken, getProjectById)
+router.get('/projects/:id/project-materials', verifyToken, getProjectMaterialByProjectId)
 router.get('/projects/:id/documents', verifyToken, getDocumentsByProjectId)
 router.get('/projects/:id/statuses', verifyToken, getPossiblesStatuses)
 router.post('/projects', verifyToken, createProject)
@@ -91,12 +93,14 @@ const {
     getProjectMaterialById,
     createProjectMaterial,
     updateProjectMaterial,
-    removeProjectMaterialById
+    removeProjectMaterialById,
+    bulkUpdateProjectMaterial
 } = require('../controllers/project-material.js')
 
 router.get('/project-materials', verifyToken, getAllProjectMaterials);
 router.get('/project-materials/:id', verifyToken, getProjectMaterialById);
 router.post('/project-materials', verifyToken, createProjectMaterial);
+router.post('/bulk-project-materials', verifyToken, bulkUpdateProjectMaterial);
 router.patch('/project-materials', verifyToken, updateProjectMaterial);
 router.delete('/project-materials/:id', verifyToken, removeProjectMaterialById);
 

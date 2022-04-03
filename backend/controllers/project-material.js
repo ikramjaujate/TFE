@@ -58,6 +58,30 @@ const createProjectMaterial = async (req, res) => {
     }
 }
 
+const bulkUpdateProjectMaterial = async (req, res) => {
+    // #swagger.tags = ['Project_Materials']
+    /* 
+    #swagger.summary = 'Bulk update all project-materials for one project'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
+    try {
+        await Project_Materials.destroy({
+            where: { idProject: req.body.idProject }
+        })
+
+        const newProjectMaterials = await Project_Materials.bulkCreate(req.body.materials);
+
+        return res.status(201).json({
+            newProjectMaterials
+        });
+
+    } catch (error) {
+        console.log('error', error)
+        return res.status(400).json({ error: error.message })
+    }
+}
+
 const updateProjectMaterial = async (req, res) => {
     // #swagger.tags = ['Project_Materials']
     /* 
@@ -117,5 +141,6 @@ module.exports = {
     getProjectMaterialById,
     createProjectMaterial,
     updateProjectMaterial,
-    removeProjectMaterialById
+    removeProjectMaterialById,
+    bulkUpdateProjectMaterial
 }

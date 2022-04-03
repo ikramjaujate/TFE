@@ -1097,6 +1097,55 @@
         ]
       }
     },
+    "/projects/{id}/project-materials": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Gets the documents using the project ID",
+        "description": "Numeric ID of the project to get.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Project ID."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/projects/{id}/documents": {
       "get": {
         "tags": [
@@ -2646,6 +2695,57 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/bulk-project-materials": {
+      "post": {
+        "tags": [
+          "Project_Materials"
+        ],
+        "summary": "Bulk update all project-materials for one project",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idProject": {
+                    "example": "any"
+                  },
+                  "materials": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/address": {

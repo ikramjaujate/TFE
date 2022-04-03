@@ -1,4 +1,4 @@
-const { Project, Person, Company, Address, Country, Document } = require('../models');
+const { Project, Person, Company, Address, Country, Document, Project_Materials } = require('../models');
 const { projectTypes } = require('../consts/projectTypes')
 
 
@@ -39,6 +39,7 @@ const createProject = async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 }
+
 const getProjectById = async (req, res) => {
     // #swagger.tags = ['Project']
     /* 
@@ -247,6 +248,37 @@ const getPossiblesStatuses = async (req, res) => {
     }
 }
 
+const getProjectMaterialByProjectId = async (req, res) => {
+    // #swagger.tags = ['Project']
+    /* 
+    #swagger.summary = 'Get all project-materials by project id'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
+    try {
+        const { id } = req.params;
+
+        const project = await Project.findOne({
+            where: { idProject: id }
+        });
+
+        if(!project){
+            throw new Error("Project not found")
+        }
+
+        const projectMaterials = await Project_Materials.findAll({
+            where: { idProject: id }
+        });
+
+        if (projectMaterials) {
+            return res.status(200).json({ projectMaterials });
+        }
+        return res.status(404).send('Project with the specified ID does not exist');
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
 function validateUpdateBody(body) {
     if (!body.id) {
         throw new Error('No project id')
@@ -275,5 +307,6 @@ module.exports = {
     updateProject,
     getDocumentsByProjectId,
     getProjectById,
-    getPossiblesStatuses
+    getPossiblesStatuses,
+    getProjectMaterialByProjectId
 }
