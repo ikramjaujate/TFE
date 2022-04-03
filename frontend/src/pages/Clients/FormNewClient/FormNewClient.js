@@ -53,7 +53,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
   useEffect(() => {
     if (sendData) {
-     
+
       setNumber(sendData.mobile)
       setVta(sendData.VAT_num)
       setEmail(sendData.email)
@@ -89,18 +89,10 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     nameCountry.push(countries[i]["nicename"])
   }
 
-  /*
-    Tous les champs (company ou person) dans le formulaire en fonction des données 
-    qu'on reçoit on met l'un ou l'autre en disable
 
-
-    Par defaut c'est person
-    
-    
-    */
   const handleClick = (e) => {
     e.preventDefault()
-    
+
 
     const bodyForm = {
       'name': name,
@@ -119,7 +111,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
       delete bodyForm.firstName
       delete bodyForm.lastName
       CreateNewCompany(bodyForm).then(response => {
-        
+
         if (response.hasOwnProperty("companyCreated")) {
           return response
         }
@@ -213,9 +205,10 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     <>
       <Toast ref={toast} />
 
-      <Panel className="mt-2" header={ <span >
-        <i className="pi pi-user mr-2"></i>   <i className="pi pi-building mr-2"></i>
-                                    ADD CLIENT
+      <Panel className="mt-2" header={<span >
+        <i className="pi pi-user mr-2"></i>
+        <i className="pi pi-building mr-2"></i>
+        {!sendData ? 'ADD CLIENT' : 'EDIT CLIENT'}
       </span>} toggleable>
         <div className="grid p-fluid m-2">
           {!isCompany ?
