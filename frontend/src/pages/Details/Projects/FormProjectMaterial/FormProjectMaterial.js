@@ -1,10 +1,10 @@
 
 import '../../../../shared/styles/form.scss';
-
+import './FormProjectMaterial.css'
 import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { faBox  } from "@fortawesome/free-solid-svg-icons";
+import { faBox, faWarning, faCircleExclamation, faSearch  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from "primereact/button";
 import { Toast } from 'primereact/toast';
@@ -23,7 +23,6 @@ const FormProjectMaterial = () => {
     const [data, setData] = useState([]);
     const [projectMaterials, setProjectMaterials] = useState([])
     const [disable, setDisable] = useState(false)
-    const [fileName, setFileName] = useState('')
 
     const [projectMaterial, setProjectMaterial] = useState([
         {
@@ -36,26 +35,30 @@ const FormProjectMaterial = () => {
 
         projectService.GetProjectMaterialsByProjectId(id).then(res => {
             const projectMaterials = res['projectMaterials']
+            
+            
             if(!projectMaterials.length){
                 return;
             }
             setProjectMaterial(projectMaterials.map( pm => {
+                
                 return {
                     material: data.find(m => {
-                        console.log(m)
                         return m.idMaterial == pm.idMaterial
                     }),
                     quantity: pm.quantity
                 }
+                
+
             }))
-            console.log(res['projectMaterials'])
+
+
         })
     }
     const getMaterials = () => {
         
          materialsService.GetMaterials().then(res => {
             setData(res['materials']);
-            console.log()
         })
         
     }
@@ -68,11 +71,19 @@ const FormProjectMaterial = () => {
         getProjectMaterials();
     }, [data])
 
+    
 
 
     const handleFormChange = (index, event) => {
 
         let data = [...projectMaterial];
+        const existingProjMat = projectMaterial.find(pm => {
+            return pm.material.idMaterial == event.target.value?.idMaterial
+        })
+        if(existingProjMat){
+            toast.current.show({ severity: 'warn', summary: 'Warning Message', detail: 'You already selected this material', life: 3000 });
+            return;
+        }
         data[index][event.target.name] = event.target.value;
         setProjectMaterial(data);
         setDisable(true)
@@ -142,7 +153,7 @@ const FormProjectMaterial = () => {
                         <div className="formgrid grid mb-3 ml-2">
                             <div className="p-inputgroup col-7">
                                 <span className="p-inputgroup-addon">
-                                    <FontAwesomeIcon icon={faBox} />
+                                    <FontAwesomeIcon icon={faSearch} />
                                 </span>
                                 <Dropdown name="material" inputId="dropdown" value={projMat.material} options={data} optionLabel="name" onChange={event => handleFormChange(index, event)} placeholder="Material's name" />
 
@@ -155,10 +166,15 @@ const FormProjectMaterial = () => {
                                     placeholder="Quantity" />
                             </div>
 
+                            <div className="p-inputgroup col-1">
+                               {(projMat && (projMat?.quantity > projMat?.material?.quantity)) ?
+                                <FontAwesomeIcon icon={faWarning} className="warning-icon" />: 
+                                <span></span>
+                                }
+                            </div>
 
-
-                            <div className="p-inputgroup col-2">
-                                <Button icon="pi pi-minus" className="restfield p-button-raised p-button-rounded mt-1" onClick={event => removeFields(index, event)} />
+                            <div className="p-inputgroup col-1">
+                                <Button icon="pi pi-minus" className="restfield p-button-raised p-button-rounded m-auto" onClick={event => removeFields(index, event)} />
                             </div>
                         </div>
 

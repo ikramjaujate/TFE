@@ -3,6 +3,7 @@ import './AddQuotation.css'
 import '../../../shared/styles/form.scss';
 
 import React, { useState , useRef, useEffect} from "react";
+import { useParams } from "react-router-dom";
 
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
@@ -13,9 +14,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from "primereact/button";
 import jsPDFInvoiceTemplate, { OutputType, jsPDF } from "jspdf-invoice-template";
 import { Toast } from 'primereact/toast';
-import { GetProjectsByID } from '../../../services/projects';
 import { quotationTemplate } from '../../../shared/consts/quotationTemplate';
 import {CreateDocuments, UploadPdfDocument} from '../../../services/documents';
+import * as projectService from '../../../services/projects'
 
 const AddQuotation = ({sendId, refreshTable}) => {
   const [name, setName] = useState("")
@@ -28,9 +29,20 @@ const AddQuotation = ({sendId, refreshTable}) => {
   const [previewImg, setPreviewImg] = useState(null) 
   const [disable, setDisable] = useState(false)
   const [fileName, setFileName] = useState('')
+  const { id } = useParams();
+
+  const [projectMaterials, setProjectMaterials] = useState([])
+
+  const getProjectMaterials = () => {
+
+    projectService.GetProjectMaterialsByProjectId(id).then(res => {
+        setProjectMaterials(res['projectMaterials'])
+    })
+}
+
   const getProject = () => {
     
-    GetProjectsByID(sendId).then(response => {
+    projectService.GetProjectsByID(sendId).then(response => {
       if (response['project'][0].idCompany == null) {
         setName(`${response["project"][0].Person.firstName} ${response["project"][0].Person.lastName}`)
 
@@ -44,7 +56,9 @@ const AddQuotation = ({sendId, refreshTable}) => {
   }
   useEffect(() => {
     getProject()
+    getProjectMaterials()
   }, [])
+
   const [quotation, setQuotation] = useState([
     {
       title: '',
@@ -79,6 +93,7 @@ const AddQuotation = ({sendId, refreshTable}) => {
     data.pop()
     setQuotation(data)
   }
+
   const generate = () => {
 
     if(notes.length == 0){
@@ -91,30 +106,52 @@ const AddQuotation = ({sendId, refreshTable}) => {
     quotationTemplate.contact.name = name
     quotationTemplate.invoice.invDesc = notes
     quotationTemplate.invoice.title = title
+    let idx = 0
 
     for(let i in quotation){
       const index = table.indexOf(quotation[i]);
-
-      let ajout = []
+      let add = []
       for (let x in quotation[i]) {
          
-        ajout.push(quotation[i][x])
+        add.push(quotation[i][x])
         
       }
-      table[i]= ajout
+      idx += 1
+      table[i]= add
+    }
+    for(let i in projectMaterials){
+      if(!projectMaterials[i].Material.isBillable){
+        continue
+      }
+      table[idx] = [
+        projectMaterials[i].Material.name,
+        '',
+        projectMaterials[i].Material.price,
+        projectMaterials[i].quantity
+      ]
+      idx +=1
+
+      
     }
     
     for (let i = 0; i < table.length; i++) {
       table[i].push((Number(table[i][2]) * Number(table[i][3]) ).toFixed(2)); }
+
+    
     let total = 0
     for(let i = 0; i < table.length; i++){
       total += Number(table[i][4])
     }
+
     let withVta = ((total * 0.2) + total).toFixed(2)
+
     quotationTemplate.invoice.row2.col2 = String(total.toFixed(2))
     quotationTemplate.invoice.invTotal = String(withVta)
     quotationTemplate.invoice.table = table
-    
+    quotationTemplate.invoice.num = String(id)
+
+
+
     const pdfObject = jsPDFInvoiceTemplate(quotationTemplate);
 
     const bodyForm = {

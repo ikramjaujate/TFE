@@ -29,7 +29,7 @@ var quotationTemplate = {
 
   },
   invoice: {
-    label: "Invoice number : ",
+    label: "Project number ",
     num: 19,
     invDate: "Quotation date : " + new Date().toDateString(),
     headerBorder: true,
@@ -69,7 +69,7 @@ var quotationTemplate = {
     invCurrency: "(€)",
     row1: {
       col1: 'VAT:',
-      col2: '20',
+      col2: '21',
       col3: '%',
       style: {
         fontSize: 10 //optional, default 12

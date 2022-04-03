@@ -1,4 +1,4 @@
-const { Project, Person, Company, Address, Country, Document, Project_Materials } = require('../models');
+const { Project, Person, Company, Address, Country, Document, Project_Materials, Material } = require('../models');
 const { projectTypes } = require('../consts/projectTypes')
 
 
@@ -267,7 +267,8 @@ const getProjectMaterialByProjectId = async (req, res) => {
         }
 
         const projectMaterials = await Project_Materials.findAll({
-            where: { idProject: id }
+            where: { idProject: id },  include: [{
+                model: Material}]
         });
 
         if (projectMaterials) {
