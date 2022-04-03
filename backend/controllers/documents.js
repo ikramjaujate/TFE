@@ -2,7 +2,8 @@
 const { Document, Project, Person, Company } = require('../models');
 const nodemailer = require('nodemailer');
 const { EMAIL, WORD, OAUTH_CLIENTID, OAUTH_CLIENT_SECRET, OAUTH_REFRESH_TOKEN } = process.env;
-
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 const Buffer = require('buffer').Buffer;
 
 const createDocuments = async (req, res) => {
@@ -158,7 +159,7 @@ const uploadPdfDocument = async (req, res) => {
     try {
 
         validateUpdateBody(req.body)
-        
+
         const document = await Document.findOne({
             where: {
                 idDocument: req.params.id
@@ -254,7 +255,7 @@ const sendDocumentByEmail = async (req, res) => {
                "bearerAuth": []
     }]*/
     try {
-        
+
         const document = await Document.findOne({
             where: {
                 idDocument: req.body.idDocument
@@ -263,27 +264,35 @@ const sendDocumentByEmail = async (req, res) => {
         let user = []
         let displayName = ''
         let emailTo = ''
-        if(req.body.idPerson){
-             user = await Person.findOne({
+        if (req.body.idPerson) {
+            user = await Person.findOne({
                 where: {
                     idPerson: req.body.idPerson
                 }
             });
             displayName = `${user.firstName} ${user.lastName}`
-            emailTo =  `${user.email}`
-           
-        }else{
+            emailTo = `${user.email}`
+
+        } else {
             user = await Company.findOne({
                 where: {
                     idCompany: req.body.idCompany
                 }
             });
             displayName = `${user.name}`
-            emailTo =  `${user.email}`
+            emailTo = `${user.email}`
         }
-        
-       
-       
+
+        const oauth2Client = new OAuth2(
+            OAUTH_CLIENTID,
+            OAUTH_CLIENT_SECRET,
+            "https://developers.google.com/oauthplayground" // Redirect URL
+        );
+        oauth2Client.setCredentials({
+            refresh_token: OAUTH_REFRESH_TOKEN
+        });
+
+        const accessToken = oauth2Client.getAccessToken()
         let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -292,9 +301,11 @@ const sendDocumentByEmail = async (req, res) => {
                 pass: WORD,
                 clientId: OAUTH_CLIENTID,
                 clientSecret: OAUTH_CLIENT_SECRET,
-                refreshToken: OAUTH_REFRESH_TOKEN
+                refreshToken: OAUTH_REFRESH_TOKEN,
+                accessToken: accessToken
             },
         });
+        
         transporter.verify((err, success) => {
             err
                 ? console.log(err)
@@ -303,7 +314,7 @@ const sendDocumentByEmail = async (req, res) => {
 
         const mailOptions = {
             to: `${emailTo}`,
-            subject: 'Quotation : ' + req.body.projectName ,
+            subject: 'Quotation : ' + req.body.projectName,
             text: `Dear ${displayName}, 
             \n \n Following your request for a quote for project ${req.body.projectName}, please find attached our proposal. This proposal considers all the remarks made during the different meetings. 
             \n \n I would appreciate it if you would return this proposal with the mention "Accepted" followed by your signature and the date. 
@@ -311,7 +322,7 @@ const sendDocumentByEmail = async (req, res) => {
             \n \n Best regards,
              \n Master Services`,
             attachments: [
-                {   
+                {
                     filename: `quote-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,
                     content: document.file
                 }
