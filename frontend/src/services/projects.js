@@ -89,6 +89,17 @@ const GetProjectMaterialsByProjectId = async (id) => {
   ); 
 }
 
+const getSimpleProjectById = async (id) => {
+  return await (
+    fetch(`/api/simple-project/${id}`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  ); 
+}
+
 export {
   GetProjects,
   CreateProject,
@@ -97,5 +108,6 @@ export {
   GetDocumentsByProjectId,
   GetPossibleStatuses,
   UpdateProjectMaterials,
-  GetProjectMaterialsByProjectId
+  GetProjectMaterialsByProjectId,
+  getSimpleProjectById
 }

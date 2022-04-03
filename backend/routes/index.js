@@ -44,10 +44,12 @@ const { createProject,
     getProjectById,
     getDocumentsByProjectId,
     getPossiblesStatuses,
-    getProjectMaterialByProjectId
+    getProjectMaterialByProjectId,
+    getSimpleProject
 } = require('../controllers/project.js');
 
 router.get('/projects', verifyToken, getAllProjects)
+router.get('/simple-project/:id', verifyToken, getSimpleProject)
 router.get('/projects/:id', verifyToken, getProjectById)
 router.get('/projects/:id/project-materials', verifyToken, getProjectMaterialByProjectId)
 router.get('/projects/:id/documents', verifyToken, getDocumentsByProjectId)

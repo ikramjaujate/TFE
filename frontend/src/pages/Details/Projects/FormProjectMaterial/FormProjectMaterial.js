@@ -18,10 +18,10 @@ import { InputNumber } from 'primereact/inputnumber';
 const FormProjectMaterial = () => {
     const { id } = useParams();
 
-    const [name, setName] = useState("")
     const toast = useRef(null);
+    const [isDisabled, setIsDisabled] = useState(false)
     const [data, setData] = useState([]);
-    const [projectMaterials, setProjectMaterials] = useState([])
+    const [simpleProject, setSimpleProject] = useState(null)
     const [disable, setDisable] = useState(false)
 
     const [projectMaterial, setProjectMaterial] = useState([
@@ -63,10 +63,30 @@ const FormProjectMaterial = () => {
         
     }
 
+    const getSimpleProject = () => {
+        
+        projectService.getSimpleProjectById(id).then(res => {
+            setSimpleProject(res['project']);
+            
+       })
+       
+   }
+
     useEffect(() => {
         getMaterials();
+        getSimpleProject();
     }, [])
-    
+    useEffect(() => {
+        if(!simpleProject){
+            return;
+        }
+        if(['Canceled', 'Done'].includes(simpleProject.status)){
+            
+            setIsDisabled(true)
+        }else{
+            setIsDisabled(false)
+        }
+    }, [simpleProject])
     useEffect(() => {
         getProjectMaterials();
     }, [data])
@@ -152,17 +172,17 @@ const FormProjectMaterial = () => {
                     <div key={index}>
                         <div className="formgrid grid mb-3 ml-2">
                             <div className="p-inputgroup col-7">
-                                <span className="p-inputgroup-addon">
+                                <span className="p-inputgroup-addon" >
                                     <FontAwesomeIcon icon={faSearch} />
                                 </span>
-                                <Dropdown name="material" inputId="dropdown" value={projMat.material} options={data} optionLabel="name" onChange={event => handleFormChange(index, event)} placeholder="Material's name" />
+                                <Dropdown name="material" inputId="dropdown" value={projMat.material} options={data} optionLabel="name" onChange={event => handleFormChange(index, event)} disabled={isDisabled} placeholder="Material's name" />
 
                             </div>
                             <div className="p-inputgroup col-2">
                                 <span className="p-inputgroup-addon">
                                     <FontAwesomeIcon icon={faBox} />
                                 </span>
-                                <InputNumber name='quantity' value={projMat.quantity} onValueChange={event => handleFormChange(index, event)}
+                                <InputNumber name='quantity' value={projMat.quantity} onValueChange={event => handleFormChange(index, event)} disabled={isDisabled}
                                     placeholder="Quantity" />
                             </div>
 
@@ -174,7 +194,7 @@ const FormProjectMaterial = () => {
                             </div>
 
                             <div className="p-inputgroup col-1">
-                                <Button icon="pi pi-minus" className="restfield p-button-raised p-button-rounded m-auto" onClick={event => removeFields(index, event)} />
+                                <Button icon="pi pi-minus" className="restfield p-button-raised p-button-rounded m-auto" onClick={event => removeFields(index, event)} disabled={isDisabled} />
                             </div>
                         </div>
 
@@ -186,7 +206,7 @@ const FormProjectMaterial = () => {
 
             <div className='btn-container-flex'>
 
-                <Button icon="pi pi-plus" className="addfield p-button-raised p-button-rounded mr-2 ml-3" onClick={addFields} />
+                <Button icon="pi pi-plus" className="addfield p-button-raised p-button-rounded mr-2 ml-3" onClick={addFields} disabled={isDisabled} />
 
             </div>
 
@@ -196,7 +216,7 @@ const FormProjectMaterial = () => {
                 </div>
                 <div className='btn-container-flex '>
 
-                        <Button label="Update" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " autoFocus />
+                        <Button label="Update" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " disabled={isDisabled} autoFocus />
 
                 </div>
 

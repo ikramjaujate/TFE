@@ -76,6 +76,39 @@ const getProjectById = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+
+const getSimpleProject = async (req, res) => {
+    // #swagger.tags = ['Project']
+    /* 
+    #swagger.summary = 'Gets a project by ID'
+    #swagger.description = 'Numeric ID of the project to get.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'Project ID.',
+                required: true,
+                type: 'integer'
+            }
+    */
+    try {
+        const { id } = req.params;
+
+        const project = await Project.findOne({
+            where: { idProject: id },
+            
+            attributes: ['idProject', 'status']
+        });
+
+        if (project) {
+            return res.status(200).json({ project });
+        }
+        return res.status(404).send('Project with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
 const getAllProjects = async (req, res) => {
     // #swagger.tags = ['Project']
     /* 
@@ -309,5 +342,6 @@ module.exports = {
     getDocumentsByProjectId,
     getProjectById,
     getPossiblesStatuses,
-    getProjectMaterialByProjectId
+    getProjectMaterialByProjectId,
+    getSimpleProject
 }
