@@ -11,6 +11,33 @@ const GetMaterials = async () => {
   );
 }
 
+
+const CreateMaterial = async (bodyForm) => {
+  return await (
+    fetch(`/api/materials`, {
+      method: 'POST',
+      headers: BASIC_HEADERS,
+      body: JSON.stringify(bodyForm)
+    }).then(response => {
+      return response.json()
+    })
+  ); 
+}
+
+const UpdateMaterial = async (bodyForm) => {
+  return await (
+    fetch(`/api/materials`, {
+      method: 'PATCH',
+      headers: BASIC_HEADERS,
+      body: JSON.stringify(bodyForm)
+    }).then(response => {
+      return response.json()
+    })
+  ); 
+}
+
 export {
-  GetMaterials
+  GetMaterials,
+  CreateMaterial,
+  UpdateMaterial
 }

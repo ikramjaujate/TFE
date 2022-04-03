@@ -67,6 +67,27 @@ const GetDocumentsByProjectId = async (id) => {
     })
   ); 
 }
+const UpdateProjectMaterials = async (bodyForm) => {
+  return await (
+    fetch(`/api/bulk-project-materials`, {
+      method: 'POST',
+      headers: BASIC_HEADERS,
+      body: JSON.stringify(bodyForm)
+    }).then(response => {
+      return response.json()
+    })
+  ); 
+}
+const GetProjectMaterialsByProjectId = async (id) => {
+  return await (
+    fetch(`/api/projects/${id}/project-materials`, {
+      method: 'GET',
+      headers: BASIC_HEADERS
+    }).then(response => {
+      return response.json()
+    })
+  ); 
+}
 
 export {
   GetProjects,
@@ -74,5 +95,7 @@ export {
   UpdateProject,
   GetProjectsByID,
   GetDocumentsByProjectId,
-  GetPossibleStatuses
+  GetPossibleStatuses,
+  UpdateProjectMaterials,
+  GetProjectMaterialsByProjectId
 }

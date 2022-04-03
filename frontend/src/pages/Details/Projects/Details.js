@@ -18,6 +18,7 @@ import { UploadDocumentState } from '../../../services/documents';
 import { useHistory } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import AddQuotation from '../../Quotation/Add/AddQuotation';
+import FormProjectMaterial from './FormProjectMaterial/FormProjectMaterial';
 import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 import { Checkbox } from 'primereact/checkbox';
 
@@ -238,6 +239,23 @@ const DetailsProjects = () => {
       </div>
     )
   }
+
+  const headerMaterialsInfo = (options) => {
+    const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
+    return (
+      <div className='p-panel-header'>
+        <span className="p-panel-title">MATERIAL</span>
+        <div className='panel-header-right'>
+          <Button icon="pi pi-arrow-right" label='All materials' className="p-button-raised p-button-info " onClick={() => history.push(`/material`)} />
+          <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
+            <span className={toggleIcon}></span>
+
+          </button>
+        </div>
+
+      </div>
+    )
+  }
   return (
     <>
       <Toast ref={toast} />
@@ -313,7 +331,9 @@ const DetailsProjects = () => {
 
           </Panel>
         </div>
-
+        <Panel header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
+        <FormProjectMaterial/>
+        </Panel>
 
 
         <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>

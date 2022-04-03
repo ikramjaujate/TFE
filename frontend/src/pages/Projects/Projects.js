@@ -35,7 +35,7 @@ const Projects = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const [projects, setProjects] = useState([]);
-  const [add, setAdd] = useState(false)
+
 
   const getProjects = () => {
     setLoading(true);
