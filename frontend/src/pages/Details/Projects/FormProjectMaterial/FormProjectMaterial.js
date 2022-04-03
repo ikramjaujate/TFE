@@ -57,7 +57,7 @@ const FormProjectMaterial = () => {
     }
     const getMaterials = () => {
         
-         materialsService.GetMaterials().then(res => {
+        materialsService.GetMaterials().then(res => {
             setData(res['materials']);
         })
         
@@ -68,9 +68,9 @@ const FormProjectMaterial = () => {
         projectService.getSimpleProjectById(id).then(res => {
             setSimpleProject(res['project']);
             
-       })
+        })
        
-   }
+    }
 
     useEffect(() => {
         getMaterials();
@@ -187,9 +187,9 @@ const FormProjectMaterial = () => {
                             </div>
 
                             <div className="p-inputgroup col-1">
-                               {(projMat && (projMat?.quantity > projMat?.material?.quantity)) ?
-                                <FontAwesomeIcon icon={faWarning} className="warning-icon" />: 
-                                <span></span>
+                                {(projMat && (projMat?.quantity > projMat?.material?.quantity)) ?
+                                    <FontAwesomeIcon icon={faWarning} className="warning-icon" />: 
+                                    <span></span>
                                 }
                             </div>
 
@@ -216,7 +216,7 @@ const FormProjectMaterial = () => {
                 </div>
                 <div className='btn-container-flex '>
 
-                        <Button label="Update" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " disabled={isDisabled} autoFocus />
+                    <Button label="Update" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " disabled={isDisabled} autoFocus />
 
                 </div>
 

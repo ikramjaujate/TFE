@@ -15,7 +15,7 @@
     }
   },
   "rules": {
-    "indent": ["warn", 2],
+    "indent": ["warn", 4],
     "no-prototype-builtins": "off"
   }
 }

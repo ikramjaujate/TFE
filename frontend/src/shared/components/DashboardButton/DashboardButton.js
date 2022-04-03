@@ -6,18 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const DashboardButton = ({ item }) => {
 
-  return (
-    <NavLink
-      aria-label={item.label}
-      role="menuitem"
-      className="dashboard-card"
-      to={item.to}
-      exact
-    >
-      <FontAwesomeIcon className='icon' icon={item.icon} />
-      <span>{item.label}</span>
-    </NavLink>
-  );
+    return (
+        <NavLink
+            aria-label={item.label}
+            role="menuitem"
+            className="dashboard-card"
+            to={item.to}
+            exact
+        >
+            <FontAwesomeIcon className='icon' icon={item.icon} />
+            <span>{item.label}</span>
+        </NavLink>
+    );
 };
 
 export default DashboardButton;

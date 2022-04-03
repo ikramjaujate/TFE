@@ -5,17 +5,17 @@ import DashboardButton from '../../shared/components/DashboardButton/DashboardBu
 
 const Home = ({ props, data }) => {
 
-  return (
-    <div className='home'>
-      {data.menu.map(item => {
-        return (
-          <div key={item.label} className='card-container'>
-            <DashboardButton item={item}></DashboardButton>
-          </div>
-        )
-      })}
-    </div>
-  );
+    return (
+        <div className='home'>
+            {data.menu.map(item => {
+                return (
+                    <div key={item.label} className='card-container'>
+                        <DashboardButton item={item}></DashboardButton>
+                    </div>
+                )
+            })}
+        </div>
+    );
 };
 
 

@@ -97,7 +97,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
             setPrice(sendData.price)
         }
     
-      }, [sendData])
+    }, [sendData])
 
 
     return (
@@ -105,11 +105,11 @@ const FormMaterial = ({ refreshTable, sendData }) => {
             <Toast ref={toast} />
 
             <Panel className='mt-2' header={
-            <span >
-                <FontAwesomeIcon icon={faTools} className='mr-2' />
-                {!sendData ? 'ADD MATERIAL': 'EDIT MATERIAL'}
-            </span>
-        } toggleable>
+                <span >
+                    <FontAwesomeIcon icon={faTools} className='mr-2' />
+                    {!sendData ? 'ADD MATERIAL': 'EDIT MATERIAL'}
+                </span>
+            } toggleable>
                 <div className="grid p-fluid m-2">
 
                     <div className="col-12 md:col-4">

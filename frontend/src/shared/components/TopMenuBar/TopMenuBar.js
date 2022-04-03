@@ -4,24 +4,24 @@ import './TopMenuBar.scss'
 
 const TopMenuBar = ({onToggleMenu}) => {
 
-  const logOut = () => {
-    localStorage.removeItem('access_token');
-    window.location.reload();
-  }
+    const logOut = () => {
+        localStorage.removeItem('access_token');
+        window.location.reload();
+    }
 
-  return (
-    <div className="top-menu-bar">
+    return (
+        <div className="top-menu-bar">
 
-      <button type="button" className="menu-burger" onClick={onToggleMenu}>
-        <i className="pi pi-bars" />
-      </button>
+            <button type="button" className="menu-burger" onClick={onToggleMenu}>
+                <i className="pi pi-bars" />
+            </button>
 
-      <Link className="menu-sign-out" to="#" onClick={logOut}>
-        <i className="pi pi-sign-out" />
-      </Link>
+            <Link className="menu-sign-out" to="#" onClick={logOut}>
+                <i className="pi pi-sign-out" />
+            </Link>
 
-    </div>
-  );
+        </div>
+    );
 }
 
 export default TopMenuBar
