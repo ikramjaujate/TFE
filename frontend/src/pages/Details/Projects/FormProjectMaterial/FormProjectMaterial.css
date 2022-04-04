@@ -3,3 +3,25 @@
     color: orange;
     margin-top: 4px;
 }
+
+span.billable-badge.status-not{
+    background: rgb(55, 134, 123);
+    color: white;
+}
+
+span.billable-badge.status-billable{
+    background: rgb(190, 138, 173);
+    color: white;
+}
+.isBillable-section{
+    margin: auto auto;
+}
+.billable-badge {
+    
+    border-radius: var(--border-radius);
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}

@@ -34,11 +34,11 @@ const App = () => {
     const menu = [
         { label: 'Dashboard', icon: faHome, to: '/' },
         { label: 'Clients', icon: faAddressBook, to: '/clients' },
-        { label: 'Project', icon: faBook, to: '/projects' },
+        { label: 'Projects', icon: faBook, to: '/projects' },
         { label: 'Invoices', icon: faFileContract, to: '/invoices' },
         { label: 'Employees', icon: faHardHat, to: '/employees' },
         { label: 'Material', icon: faTools, to: '/material' },
-        { label: 'Devis', icon: faFileSignature, to: '/devis' },
+        { label: 'Quotations', icon: faFileSignature, to: '/quotation' },
         { label: 'Calendar', icon: faCalendar, to: '/calendar' }
     ];
 
@@ -69,7 +69,7 @@ const App = () => {
                         <PrivateRoute exact path="/invoices" component={Invoices} />
                         <PrivateRoute exact path="/employees" component={Employees} />
                         <PrivateRoute exact path="/material" component={Material} />
-                        <PrivateRoute exact path="/devis" component={Quotation} />
+                        <PrivateRoute exact path="/quotation" component={Quotation} />
                         <PrivateRoute exact path="/calendar" component={CalendarClient} />
                     </div>
                 </div>

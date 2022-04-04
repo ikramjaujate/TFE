@@ -244,7 +244,7 @@ const DetailsProjects = () => {
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
-                <span className="p-panel-title">MATERIAL</span>
+                <span className="p-panel-title">MATERIALS</span>
                 <div className='panel-header-right'>
                     <Button icon="pi pi-arrow-right" label='All materials' className="p-button-raised p-button-info " onClick={() => history.push(`/material`)} />
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>

@@ -13,7 +13,7 @@ import { Tooltip } from 'primereact/tooltip';
 import * as projectService from '../../../../services/projects'
 import * as materialsService from '../../../../services/materials'
 import { InputNumber } from 'primereact/inputnumber';
-
+import { InputText } from 'primereact/inputtext';
 
 const FormProjectMaterial = () => {
     const { id } = useParams();
@@ -159,7 +159,9 @@ const FormProjectMaterial = () => {
         return;
     }
 
-   
+   const isBillableTemplate = (rowData) => {
+    console.log(rowData)
+   }
 
     return (
         <>
@@ -171,12 +173,20 @@ const FormProjectMaterial = () => {
 
                     <div key={index}>
                         <div className="formgrid grid mb-3 ml-2">
-                            <div className="p-inputgroup col-7">
+                            <div className="p-inputgroup col-4">
                                 <span className="p-inputgroup-addon" >
                                     <FontAwesomeIcon icon={faSearch} />
                                 </span>
                                 <Dropdown name="material" inputId="dropdown" value={projMat.material} options={data} optionLabel="name" onChange={event => handleFormChange(index, event)} disabled={isDisabled} placeholder="Material's name" />
 
+                            </div>
+                            <div className="p-inputgroup col-2">
+                                <span className='isBillable-section'>
+                                    {projMat && (projMat?.material?.isBillable == true)?
+                                    <span class="billable-badge status-billable">Billable</span>
+                                    : <span class="billable-badge status-not">Not Billable</span>}
+                                </span>
+                                
                             </div>
                             <div className="p-inputgroup col-2">
                                 <span className="p-inputgroup-addon">
