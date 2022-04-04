@@ -80,7 +80,7 @@ const FormProjectMaterial = () => {
         if(!simpleProject){
             return;
         }
-        if(['Canceled', 'Done'].includes(simpleProject.status)){
+        if(['Canceled', 'Accepted', 'Done'].includes(simpleProject.status)){
             
             setIsDisabled(true)
         }else{
