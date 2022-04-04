@@ -53,6 +53,9 @@ const Material = () => {
     const priceTemplate = (rowData) => {
         return <span >{rowData.price.toFixed(2).replace('.', ',')} € </span>;
     }
+    const typeTemplate = (rowData) => {
+        return <span className={`type-badge ${rowData.type == 'consumable' ? 'consumable-badge' : 'static-badge'} `}>{rowData.type.toUpperCase()}</span>;
+    }
     return (
         <>
             <div className="title">
@@ -69,7 +72,7 @@ const Material = () => {
                     <DataTable sortOrder="-1" sortField="end_date" filters={filters} globalFilterFields={['name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedMaterial} onSelectionChange={e => setSelectedMaterial(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
                         <Column field="idMaterial" style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="name" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Label" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="type" style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Type" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column body={typeTemplate}style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Type" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={isBillableTemplate} style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Billable" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="quantity" style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Stock Q." headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={priceTemplate} field="price" style={{ width: '8rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Price/unit" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>

@@ -7,8 +7,18 @@ span.isBillable-badge.no-badge{
     color: white;
 
 }
+span.type-badge.consumable-badge{
+    background: rgb(76, 55, 134);
 
-.isBillable-badge {
+    
+    color: white;
+}
+
+span.type-badge.static-badge{
+    background: rgb(173, 184, 185);
+    color: white;
+}
+.isBillable-badge, .type-badge {
     border-radius: var(--border-radius);
     padding: 0.25em 0.5rem;
     text-transform: uppercase;
