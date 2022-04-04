@@ -130,3 +130,25 @@ button.p-button.p-component.p-button-add:hover {
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
   background: #00bc3f;
 }
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #00bc3f;
+  background: #00bc3f;
+  margin: 0 auto;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  border-color: #00bc3f;
+  background: #00bc3f;
+  color: #ffffff;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #c7fed0;
+  border-color: #00bc3f;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: #00bc3f;
+}

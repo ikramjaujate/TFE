@@ -68,3 +68,14 @@ span.customer-badge.status-yes{
     align-items: center;
 }
 
+.not-update{
+    background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.svg.svg-inline--fa.fa-lock-open{
+    background-color: #ca2828;
+}
+.update-selected{
+    background-color: rgba(27, 196, 49, 0.15) !important;
+    font-weight: bold;
+}

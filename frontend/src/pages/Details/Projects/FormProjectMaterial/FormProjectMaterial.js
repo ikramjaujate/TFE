@@ -183,8 +183,8 @@ const FormProjectMaterial = () => {
                             <div className="p-inputgroup col-2">
                                 <span className='isBillable-section'>
                                     {projMat && (projMat?.material?.isBillable == true)?
-                                    <span class="billable-badge status-billable">Billable</span>
-                                    : <span class="billable-badge status-not">Not Billable</span>}
+                                    <span className="billable-badge status-billable">Billable</span>
+                                    : <span className="billable-badge status-not">Not Billable</span>}
                                 </span>
                                 
                             </div>

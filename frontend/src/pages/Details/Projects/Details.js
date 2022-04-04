@@ -23,7 +23,7 @@ import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 import { Checkbox } from 'primereact/checkbox';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faFileSignature, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faFileSignature, faTools, faLock, faLockOpen} from "@fortawesome/free-solid-svg-icons";
 
 
 const DetailsProjects = () => {
@@ -54,6 +54,7 @@ const DetailsProjects = () => {
     const [position, setPosition] = useState('center');
     const [project, setProject] = useState([])
     const [isAccepted, setIsAccepted] = useState([])
+    const [documentAccepted, setDocumentAccepted] = useState(null)
 
     const getProject = () => {
 
@@ -78,6 +79,9 @@ const DetailsProjects = () => {
             GetDocumentsByProjectId(id).then(response => {
 
                 const data = response["project"].map(project => {
+                    if(project.isAccepted){
+                        setDocumentAccepted(project.idDocument)
+                    }
                     return {
                         idDocument: project.idDocument,
                         isAccepted: project.isAccepted
@@ -148,9 +152,12 @@ const DetailsProjects = () => {
                     }
                     throw new Error('Something went wrong.');
                 }).then(response => {
-                    //console.log(response.project.status)
+                    if(response.project.status != 'Accepted'){
+                        setDocumentAccepted(null)
+                    }
                     setStatus(response.project.status)
-                    toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation has been updated', life: 3000 });
+                    toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation state has been updated', life: 3000 });
+                    refresh()
                 }).catch(error => {
                     toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be updated', life: 3000 });
                 })
@@ -164,7 +171,12 @@ const DetailsProjects = () => {
 
     }
     const statusBodyTemplateIsAccepted = (rowData) => {
+        
+        if(documentAccepted && rowData.idDocument != documentAccepted){
+            return <Checkbox inputId="binary" className='my-checkbox' disabled/>
+        }
 
+        
         return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
         /*return <span className={`customer-badge status-${rowData.isAccepted.toLowerCase()}`}>{rowData.isAccepted}</span>;*/
     }
@@ -261,6 +273,23 @@ const DetailsProjects = () => {
             </div>
         )
     }
+    const rowClass = (data) => {
+        if(documentAccepted && data.idDocument != documentAccepted){
+            return {
+                'not-update': 'non'
+            }
+        }
+        if(documentAccepted && data.idDocument == documentAccepted){
+        return {
+            'update-selected': 'yes'
+        }}
+    }
+    const availableTemplate = (rowData) => {
+        if(documentAccepted && rowData.idDocument != documentAccepted){
+            return  <i className='pi pi-lock'></i>
+        }
+        return  <i className='pi pi-lock-open'></i>
+    }
     return (
         <>
             <Toast ref={toast} />
@@ -347,7 +376,8 @@ const DetailsProjects = () => {
                 <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>
 
 
-                    <DataTable paginatorTemplate={PaginatorTemplate} value={project} emptyMessage="No documents found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable paginatorTemplate={PaginatorTemplate} value={project} sortField="title" sortOrder={-1}  rowClassName={rowClass}  emptyMessage="No documents found."  selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <Column body={availableTemplate} ></Column>
                         <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
