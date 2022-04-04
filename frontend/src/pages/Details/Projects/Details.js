@@ -339,7 +339,7 @@ const DetailsProjects = () => {
                 <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>
         
 
-                    <DataTable sortField="title" paginatorTemplate={PaginatorTemplate} value={project} emptyMessage="No documents found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable  paginatorTemplate={PaginatorTemplate} value={project} emptyMessage="No documents found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
                         <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => {return moment(rowData.createAt).utc().format('YYYY-MM-DD')}} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
