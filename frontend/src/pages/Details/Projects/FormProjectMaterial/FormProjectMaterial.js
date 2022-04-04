@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from "primereact/button";
 import { Toast } from 'primereact/toast';
 import { Dropdown } from 'primereact/dropdown';
-
+import { Tooltip } from 'primereact/tooltip';
 import * as projectService from '../../../../services/projects'
 import * as materialsService from '../../../../services/materials'
 import { InputNumber } from 'primereact/inputnumber';
@@ -188,7 +188,9 @@ const FormProjectMaterial = () => {
 
                             <div className="p-inputgroup col-1">
                                 {(projMat && (projMat?.quantity > projMat?.material?.quantity)) ?
-                                    <FontAwesomeIcon icon={faWarning} className="warning-icon" />: 
+                                <div>
+                                <Tooltip target=".custom-target-icon" />
+                                    <FontAwesomeIcon icon={faWarning} tooltip="Yellow" className="warning-icon custom-target-icon" data-pr-tooltip="Quantity available exceeds" data-pr-position="right"  data-pr-my="left center-2"  /></div>: 
                                     <span></span>
                                 }
                             </div>
