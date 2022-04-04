@@ -1048,6 +1048,55 @@
         }
       }
     },
+    "/simple-project/{id}": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Gets a project by ID",
+        "description": "Numeric ID of the project to get.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Project ID."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/projects/{id}": {
       "get": {
         "tags": [
@@ -1102,8 +1151,8 @@
         "tags": [
           "Project"
         ],
-        "summary": "Gets the documents using the project ID",
-        "description": "Numeric ID of the project to get.",
+        "summary": "Get all project-materials by project id",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -1111,8 +1160,7 @@
             "required": true,
             "schema": {
               "type": "string"
-            },
-            "description": "Project ID."
+            }
           },
           {
             "name": "Authorization",
@@ -1134,9 +1182,6 @@
           },
           "404": {
             "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "security": [
