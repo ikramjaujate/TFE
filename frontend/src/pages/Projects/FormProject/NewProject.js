@@ -121,7 +121,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
                 </div>
             </div>
             <Button label="No" icon="pi pi-times" onClick={() => onHide()} className="p-button-text" />
-            <Button label="Add" icon="pi pi-check" onClick={onCreate} className="p-button-add" autoFocus />
+            <Button label="Add" icon="pi pi-plus" onClick={onCreate} className="p-button p-component p-button-success" autoFocus />
 
 
         </>

@@ -96,3 +96,33 @@ button.p-button.p-button-success, .p-buttonset.p-button-success > .p-button, .p-
 .my-dropdown{
   height: 2.8rem;
 }
+
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #fec7c7;
+  border-color: #bc0100;
+}
+
+.p-button.p-button-text:enabled:hover, .p-button.p-button-text:not(button):not(a):not(.p-disabled):hover {
+  background: rgba(241, 99, 99, 0.04);
+  color: #bc0100;
+  border-color: transparent;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: var(--main-color);
+  background: #ffeeee;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #fec7c7;
+  border-color: #bc0100;
+}
+
+button.p-button.p-component.p-button-add:hover {
+  background: white;
+  border-color: #00bc3f;
+}
