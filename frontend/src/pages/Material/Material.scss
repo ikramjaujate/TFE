@@ -1,19 +1,27 @@
 span.isBillable-badge.yes-badge {
     background: #5bd454;
+    width: 4rem;
+    text-align: center;
     color: white;
 }
 span.isBillable-badge.no-badge{
     background: rgb(8, 163, 190);
+    width: 4rem;
+    text-align: center;
     color: white;
 
 }
 span.type-badge.consumable-badge{
     background: rgb(76, 55, 134);
+    width: 9rem;
+    text-align: center;
     color: white;
 }
 
 span.type-badge.static-badge{
     background: rgb(173, 184, 185);
+    width: 9rem;
+    text-align: center;
     color: white;
 }
 .isBillable-badge, .type-badge {

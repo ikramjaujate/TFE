@@ -33,6 +33,39 @@ const getAllMaterials = async (req, res) => {
     }
 }
 
+const getStockStatus = async (req, res) => {
+    // #swagger.tags = ['Material']
+    /* 
+    #swagger.summary = 'Get all materials'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.responses[200] = {
+            description: 'Materials successfully obtained.',
+            schema:
+            { "materials" : [
+                {
+                    "idMaterial": 1,
+                    "name": "Brick Pavers",
+                    "quantity": 3,
+                    "price": 4.51,
+                    "type": "consumable",
+                    "isBillable": false,
+                    "createdAt": "2022-04-02T12:21:38.798Z",
+                    "updatedAt": "2022-04-02T12:21:38.798Z"
+                }
+            ]
+        }
+    }
+    */
+    try {
+        const materials = await Material.findAll();
+        return res.status(200).json({ materials });
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
 const getMaterialById = async (req, res) => {
     // #swagger.tags = ['Material']
     /* 
@@ -165,5 +198,6 @@ module.exports = {
     getMaterialById,
     createMaterial,
     updateMaterial,
-    removeMaterialById
+    removeMaterialById,
+    getStockStatus
 }

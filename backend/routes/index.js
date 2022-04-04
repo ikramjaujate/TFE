@@ -80,11 +80,13 @@ const {
     getMaterialById,
     createMaterial,
     updateMaterial,
-    removeMaterialById
+    removeMaterialById,
+    getStockStatus
 } = require('../controllers/material.js')
 
 router.get('/materials', verifyToken, getAllMaterials);
 router.get('/materials/:id', verifyToken, getMaterialById);
+router.get('/stock-status', verifyToken, getStockStatus);
 router.post('/materials', verifyToken, createMaterial);
 router.patch('/materials', verifyToken, updateMaterial);
 router.delete('/materials/:id', verifyToken, removeMaterialById);

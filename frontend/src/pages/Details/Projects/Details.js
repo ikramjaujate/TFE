@@ -369,7 +369,7 @@ const DetailsProjects = () => {
                     </Panel>
                 </div>
                 <Panel  header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
-                    <FormProjectMaterial />
+                    <FormProjectMaterial documentAccepted={documentAccepted} />
                 </Panel>
 
 

@@ -4,7 +4,11 @@
   align-items: center;
   height: var(--top-menu-height);
   padding: 0 2rem;
-
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 3000!important;
+  background-color: white;
   box-shadow: 0 3px 5px rgb(0 0 0 / 2%), 0 0 2px rgb(0 0 0 / 5%), 0 1px 4px rgb(0 0 0 / 8%);  
 
   .menu-burger {

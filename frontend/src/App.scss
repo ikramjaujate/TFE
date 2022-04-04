@@ -28,11 +28,12 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  margin-top: 5rem;
   .main-section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+   
 
     .main-content {
       width: calc(100% - var(--side-menu-width) - 2rem); 

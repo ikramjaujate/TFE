@@ -4,20 +4,19 @@
     margin-top: 4px;
 }
 
+
 span.billable-badge.status-not{
-    background: rgb(55, 134, 123);
+    background: rgb(14, 167, 167);
     color: white;
 }
-
 span.billable-badge.status-billable{
-    background: rgb(190, 138, 173);
+    background: rgb(14 62 159);
     color: white;
 }
 .isBillable-section{
     margin: auto auto;
 }
 .billable-badge {
-    
     border-radius: var(--border-radius);
     padding: 0.25em 0.5rem;
     text-transform: uppercase;

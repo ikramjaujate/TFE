@@ -15,7 +15,7 @@ import * as materialsService from '../../../../services/materials'
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 
-const FormProjectMaterial = () => {
+const FormProjectMaterial = ({documentAccepted}) => {
     const { id } = useParams();
 
     const toast = useRef(null);
@@ -62,6 +62,10 @@ const FormProjectMaterial = () => {
         })
         
     }
+    useEffect(() => {
+        getMaterials();
+        getSimpleProject();
+    }, [documentAccepted])
 
     const getSimpleProject = () => {
         
