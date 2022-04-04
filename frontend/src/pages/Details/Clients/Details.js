@@ -16,7 +16,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import moment from "moment";
 import { Route, useHistory } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBook, faBookOpen, faFileSignature, faTools } from "@fortawesome/free-solid-svg-icons";
 import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 
 const Details = (clientType) => {
@@ -78,7 +79,7 @@ const Details = (clientType) => {
     const getClients = () => {
         if (clientType === 'c') {
             GetCompanyById(id).then(response => {
-        
+
                 setCompanies(response["company"]);
                 setVta(response["company"][0].VAT_num)
                 setName(response["company"][0].name)
@@ -94,17 +95,18 @@ const Details = (clientType) => {
             })
             GetProjectsByCompanyID(id).then(response => {
 
-                if(response['company'].length !== 0){
+                if (response['company'].length !== 0) {
                     for (let i in response["company"]) {
-          
+
                         response["company"][i].start_date = moment(response["company"][i].start_date).utc().format('YYYY-MM-DD')
                     }
-         
+
                     response["company"][0].start_date = moment(response["company"][0].start_date).utc().format('YYYY-MM-DD')
-        
-                    setProjects(response["company"])}
-                else{
-          
+
+                    setProjects(response["company"])
+                }
+                else {
+
                     setProjects(response["company"])
                 }
             })
@@ -113,7 +115,7 @@ const Details = (clientType) => {
 
         } else {
             GetClientByID(id).then(response => {
-        
+
                 setPerson(response["user"]);
                 setVta(response["user"][0].VAT_num)
                 setFirstName(response["user"][0].firstName)
@@ -130,7 +132,7 @@ const Details = (clientType) => {
             GetProjectsByClientID(id).then(response => {
                 for (let i in response["user"]) {
                     response["user"][i].start_date = moment(response["user"][i].start_date).utc().format('YYYY-MM-DD')
-                    if(response["user"][i].end_date){
+                    if (response["user"][i].end_date) {
                         response["user"][i].end_date = moment(response["user"][i].end_date).utc().format('YYYY-MM-DD')
                     }
                 }
@@ -140,7 +142,7 @@ const Details = (clientType) => {
             setData([...data]);
             setLoading(false);
         }
-    
+
     }
     useEffect(() => {
         setData([])
@@ -159,7 +161,7 @@ const Details = (clientType) => {
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
-                <span className="p-panel-title">PROJECTS</span>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faBook} className='mr-2' />PROJECTS</span>
                 <div className='panel-header-right'>
                     <Button label="All Projects" icon="pi pi-arrow-right" className="p-button-raised p-button-info " onClick={() => handleAllProjects()} />
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
@@ -172,8 +174,8 @@ const Details = (clientType) => {
         )
     }
     const rowDetailsProject = (rowData) => {
-        return(
-            <Button  icon="pi pi-info" className="p-button-secondary" onClick={() => history.push(`/projects/${rowData.idProject}/detail`)} />
+        return (
+            <Button icon="pi pi-info" className="p-button-secondary" onClick={() => history.push(`/projects/${rowData.idProject}/detail`)} />
         )
     }
 
@@ -194,12 +196,15 @@ const Details = (clientType) => {
                 {clientType === 'c' ?
                     <div >
 
-                        <Panel header="INFORMATION" className='m-3'  >
+                        <Panel header={
+                            <span >
+                                <FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>
+                        } className='m-3'  >
                             <div className="grid p-fluid m-2">
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      ID : <span className='value-client'> {idCompany}</span>
+                                            ID : <span className='value-client'> {idCompany}</span>
                                         </span>
 
                                     </div>
@@ -207,7 +212,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Company's name : <span className='value-client'> {name}</span>
+                                            Company's name : <span className='value-client'> {name}</span>
                                         </span>
 
                                     </div>
@@ -218,7 +223,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Locality :  <span className='value-client'> {locality}</span>
+                                            Locality :  <span className='value-client'> {locality}</span>
                                         </span>
 
                                     </div>
@@ -226,22 +231,14 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Street :  <span className='value-client'> {street}</span>
+                                            Street :  <span className='value-client'> {street}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                                        </span>
-
-                                    </div>
-                                </div>
-                                <div className="col-12 md:col-3">
-                                    <div className="p-inputgroup">
-                                        <span className='title-span' >
-                      Postal Code :  <span className='value-client'> {postalCode}</span>
+                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
                                         </span>
 
                                     </div>
@@ -249,7 +246,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Mobile phone :  <span className='value-client'> {mobile}</span>
+                                            Postal Code :  <span className='value-client'> {postalCode}</span>
                                         </span>
 
                                     </div>
@@ -257,7 +254,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Email address :  <span className='value-client-email'> {email}</span>
+                                            Mobile phone :  <span className='value-client'> {mobile}</span>
                                         </span>
 
                                     </div>
@@ -265,7 +262,15 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      VAT :  <span className='value-client'> {vta}</span>
+                                            Email address :  <span className='value-client-email'> {email}</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div className="col-12 md:col-3">
+                                    <div className="p-inputgroup">
+                                        <span className='title-span' >
+                                            VAT :  <span className='value-client'> {vta}</span>
                                         </span>
 
                                     </div>
@@ -280,12 +285,15 @@ const Details = (clientType) => {
                     <div >
 
 
-                        <Panel header="INFORMATION" className='m-3'  >
+                        <Panel header={
+                            <span >
+                                <FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>
+                        } className='m-3'  >
                             <div className="grid p-fluid m-2">
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      ID : <span className='value-client'>{idPerson} </span>
+                                            ID : <span className='value-client'>{idPerson} </span>
                                         </span>
 
                                     </div>
@@ -293,7 +301,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      First Name : <span className='value-client'> {firstName}</span>
+                                            First Name : <span className='value-client'> {firstName}</span>
                                         </span>
 
                                     </div>
@@ -301,7 +309,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Last Name : <span className='value-client'> {lastName}</span>
+                                            Last Name : <span className='value-client'> {lastName}</span>
                                         </span>
 
                                     </div>
@@ -310,7 +318,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Locality :  <span className='value-client'> {locality}</span>
+                                            Locality :  <span className='value-client'> {locality}</span>
                                         </span>
 
                                     </div>
@@ -318,22 +326,14 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Street :  <span className='value-client'> {street}</span>
+                                            Street :  <span className='value-client'> {street}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                                        </span>
-
-                                    </div>
-                                </div>
-                                <div className="col-12 md:col-3">
-                                    <div className="p-inputgroup">
-                                        <span className='title-span' >
-                      Postal Code :  <span className='value-client'> {postalCode}</span>
+                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
                                         </span>
 
                                     </div>
@@ -341,7 +341,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Mobile phone :  <span className='value-client'> {mobile}</span>
+                                            Postal Code :  <span className='value-client'> {postalCode}</span>
                                         </span>
 
                                     </div>
@@ -349,7 +349,7 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      Email address :  <span className='value-client-email'> {email}</span>
+                                            Mobile phone :  <span className='value-client'> {mobile}</span>
                                         </span>
 
                                     </div>
@@ -357,7 +357,15 @@ const Details = (clientType) => {
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
-                      VAT :  <span className='value-client'> {vta}</span>
+                                            Email address :  <span className='value-client-email'> {email}</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div className="col-12 md:col-3">
+                                    <div className="p-inputgroup">
+                                        <span className='title-span' >
+                                            VAT :  <span className='value-client'> {vta}</span>
                                         </span>
 
                                     </div>
@@ -376,9 +384,9 @@ const Details = (clientType) => {
                         <Column field="name" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's Name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
-                        <Column field="end_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="End Date"  headerStyle={{ color: "#c9392f" }}></Column>
-                        <Column className='last-col' style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={rowDetailsProject}  headerStyle={{ color: "#c9392f" }}></Column>
-          
+                        <Column field="end_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="End Date" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column className='last-col' style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={rowDetailsProject} headerStyle={{ color: "#c9392f" }}></Column>
+
                     </DataTable>
 
 
@@ -393,9 +401,9 @@ const Details = (clientType) => {
                 </Panel>
                 <Panel header="INVOICES" toggleable className='m-3'>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </Panel>
             </div>
         </>

@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UpdateProject, GetPossibleStatuses } from '../../../services/projects';
 import { projectTypes } from '../../../shared/consts/projectTypes';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import moment from "moment";
 
 const FormProject = ({ refreshTable, sendData }) => {
 
@@ -66,7 +67,7 @@ const FormProject = ({ refreshTable, sendData }) => {
             setStartDate(new Date(sendData.start_date))
             setStatus(sendData.status)
 
-            setEndDate(sendData.end_date ? new Date(sendData.end_date) : null)
+            setEndDate(sendData.end_date ? new Date(sendData.end_date) : new Date())
             if (sendData.type == 'p') {
                 setIsCompany(false)
             } else {

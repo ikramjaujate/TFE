@@ -164,7 +164,11 @@ const Projects = () => {
 
     }
     const onRowSelect = (project) => {
+        
+        
         setSelectedRow(project);
+
+
 
         if (project) {
             setSelectedClient(project);

@@ -104,3 +104,8 @@ button.p-column-filter-menu-button.p-link.p-column-filter-menu-button-active {
     color: white;
     border-color: #bc0000;
 }
+
+.p-datepicker table td > span.p-highlight, .p-datepicker table td.p-datepicker-today > span.p-highlight {
+    color: #ca3838;
+    background: #ffeeee;
+}

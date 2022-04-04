@@ -22,6 +22,10 @@ import FormProjectMaterial from './FormProjectMaterial/FormProjectMaterial';
 import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 import { Checkbox } from 'primereact/checkbox';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookOpen, faFileSignature, faTools } from "@fortawesome/free-solid-svg-icons";
+
+
 const DetailsProjects = () => {
 
     const { id } = useParams();
@@ -54,7 +58,7 @@ const DetailsProjects = () => {
     const getProject = () => {
 
         GetProjectsByID(id).then(response => {
-      
+
             setName(response["project"][0].name);
             setIdProject(response["project"][0].idProject)
             setStatus(response["project"][0].status)
@@ -72,14 +76,14 @@ const DetailsProjects = () => {
             }
 
             GetDocumentsByProjectId(id).then(response => {
-        
+
                 const data = response["project"].map(project => {
                     return {
                         idDocument: project.idDocument,
                         isAccepted: project.isAccepted
                     }
                 })
-        
+
                 setIsAccepted(data)
 
                 setProject(response["project"]);
@@ -127,7 +131,7 @@ const DetailsProjects = () => {
     }
     const setRowIsAccepted = (e, rowData) => {
         const data = [...isAccepted];
-    
+
         data.forEach(element => {
 
             if (element.idDocument == rowData.idDocument) {
@@ -135,33 +139,34 @@ const DetailsProjects = () => {
 
                 const bodyForm = {
                     isAccepted: element.isAccepted,
-                    isPaid : false
+                    isPaid: false
                 }
                 UploadDocumentState(element.idDocument, bodyForm).then(response => {
-          
-                    if (response.hasOwnProperty("document")) {
+
+                    if (response.hasOwnProperty("project")) {
                         return response
                     }
                     throw new Error('Something went wrong.');
                 }).then(response => {
-        
+                    //console.log(response.project.status)
+                    setStatus(response.project.status)
                     toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation has been updated', life: 3000 });
                 }).catch(error => {
                     toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be updated', life: 3000 });
                 })
             }
-      
+
         });
-    
+
         setIsAccepted(data);
 
-   
+
 
     }
     const statusBodyTemplateIsAccepted = (rowData) => {
 
-        return <Checkbox inputId="binary" className='my-checkbox'  checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
-    /*return <span className={`customer-badge status-${rowData.isAccepted.toLowerCase()}`}>{rowData.isAccepted}</span>;*/
+        return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
+        /*return <span className={`customer-badge status-${rowData.isAccepted.toLowerCase()}`}>{rowData.isAccepted}</span>;*/
     }
     const dialogFuncMap = {
         'displayResponsive': setDisplayResponsive
@@ -175,7 +180,7 @@ const DetailsProjects = () => {
 
     }
     const statusIsPaid = (rowData) => {
-    
+
 
         if (rowData.idPaid == 'No') {
             return <span>{rowData.idPaid}</span>;
@@ -190,15 +195,15 @@ const DetailsProjects = () => {
         window.open(URL.createObjectURL(blob));
     }
     const send = (rowData) => {
-    
+
         const body = {
-            'idDocument' : rowData.idDocument,
-            'projectName' : rowData.Project.name,
-            'idPerson' : rowData.Project.idPerson,
-            'idCompany' : rowData.Project.idCompany,
-            'createdAt' : moment(rowData.createdAt).utc().format('YYYY-MM-DD')
+            'idDocument': rowData.idDocument,
+            'projectName': rowData.Project.name,
+            'idPerson': rowData.Project.idPerson,
+            'idCompany': rowData.Project.idCompany,
+            'createdAt': moment(rowData.createdAt).utc().format('YYYY-MM-DD')
         }
-    
+
         SendDocument(body).then(response => {
 
             if (response.hasOwnProperty("document")) {
@@ -213,11 +218,11 @@ const DetailsProjects = () => {
         })
     }
     const informationClientTemplate = (rowData) => {
-    
+
         return (
             <React.Fragment>
                 <Button icon="pi pi-file-pdf" tooltip="" className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />
-                <Button icon="pi pi-envelope" tooltip="" className={` ${rowData.isEmailed ? "p-button-raised p-button-success" : " p-button-outlined p-button-warning" } ml-2 `} onClick={() => send(rowData)} />
+                <Button icon="pi pi-envelope" tooltip="" className={` ${rowData.isEmailed ? "p-button-raised p-button-success" : " p-button-outlined p-button-warning"} ml-2 `} onClick={() => send(rowData)} />
                 <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
             </React.Fragment>
         );
@@ -227,7 +232,7 @@ const DetailsProjects = () => {
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
-                <span className="p-panel-title">QUOTATIONS</span>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faFileSignature} className='mr-2' />QUOTATIONS</span>
                 <div className='panel-header-right'>
                     <Button icon='pi pi-plus' label='Create quote' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsive')} />
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
@@ -244,7 +249,7 @@ const DetailsProjects = () => {
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
-                <span className="p-panel-title">MATERIALS</span>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faTools} className='mr-2' /> MATERIALS</span>
                 <div className='panel-header-right'>
                     <Button icon="pi pi-arrow-right" label='All materials' className="p-button-raised p-button-info " onClick={() => history.push(`/material`)} />
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
@@ -269,12 +274,15 @@ const DetailsProjects = () => {
 
                 <div >
 
-                    <Panel header="INFORMATION" className='m-3'  >
+                    <Panel header={
+                        <span >
+                            <FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>
+                        } className='m-3'  >
                         <div className="grid p-fluid m-2">
                             <div className="col-12 md:col-3">
                                 <div className="p-inputgroup">
                                     <span className='title-span' >
-                    ID : <span className='value-client'> {idProject}</span>
+                                        ID : <span className='value-client'> {idProject}</span>
                                     </span>
 
                                 </div>
@@ -282,7 +290,7 @@ const DetailsProjects = () => {
                             <div className="col-12 md:col-3">
                                 <div className="p-inputgroup">
                                     <span className='title-span' >
-                    Project's name : <span className='value-client'> {name}</span>
+                                        Project's name : <span className='value-client'> {name}</span>
                                     </span>
 
                                 </div>
@@ -293,7 +301,7 @@ const DetailsProjects = () => {
                             <div className="col-12 md:col-3">
                                 <div className="p-inputgroup">
                                     <span className='title-span' >
-                    Status :  <span className={`customer-badge status-${status.toLowerCase()}`}>{status}</span>
+                                        Status :  <span className={`customer-badge status-${status.toLowerCase()}`}>{status}</span>
                                     </span>
 
                                 </div>
@@ -301,14 +309,14 @@ const DetailsProjects = () => {
                             <div className="col-12 md:col-3">
                                 <div className="p-inputgroup">
                                     <span className='title-span' >
-                    Start Date :  <span className='value-client'> {startDate}</span>
+                                        Start Date :  <span className='value-client'> {startDate}</span>
                                     </span>
                                 </div>
                             </div>
                             <div className="col-12 md:col-3">
                                 <div className="p-inputgroup">
                                     <span className='title-span' >
-                    End Date : <span className='value-client'> {endDate}</span>
+                                        End Date : <span className='value-client'> {endDate}</span>
                                     </span>
 
                                 </div>
@@ -317,10 +325,10 @@ const DetailsProjects = () => {
                                 <div className="p-inputgroup">
                                     {isCompany ?
                                         <span className='title-span' >
-                      Client's name :  <NavLink to={`/clients/company/${idCompany}/detail`} style={{ textDecoration: 'none' }}><span className='value-client-email'>  {clientName}</span></NavLink>
+                                            Client's name :  <NavLink to={`/clients/company/${idCompany}/detail`} style={{ textDecoration: 'none' }}><span className='value-client-email'>  {clientName}</span></NavLink>
                                         </span>
                                         : <span className='title-span' >
-                      Client's name :  <NavLink to={`/clients/person/${idPerson}/detail`} style={{ textDecoration: 'none' }}><span className='value-client-email'>  {clientName}</span></NavLink>
+                                            Client's name :  <NavLink to={`/clients/person/${idPerson}/detail`} style={{ textDecoration: 'none' }}><span className='value-client-email'>  {clientName}</span></NavLink>
                                         </span>}
 
                                 </div>
@@ -331,18 +339,18 @@ const DetailsProjects = () => {
 
                     </Panel>
                 </div>
-                <Panel header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
-                    <FormProjectMaterial/>
+                <Panel  header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
+                    <FormProjectMaterial />
                 </Panel>
 
 
                 <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>
-        
 
-                    <DataTable  paginatorTemplate={PaginatorTemplate} value={project} emptyMessage="No documents found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+
+                    <DataTable paginatorTemplate={PaginatorTemplate} value={project} emptyMessage="No documents found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
                         <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
-                        <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => {return moment(rowData.createAt).utc().format('YYYY-MM-DD')}} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="isAccepted" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column body={informationClientTemplate} style={{ minWidth: '10rem' }} headerStyle={{ color: "#c9392f" }}></Column>
                     </DataTable>
@@ -353,9 +361,9 @@ const DetailsProjects = () => {
 
                 <Panel header="INVOICES" toggleable className='m-3'>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </Panel>
             </div>
         </>
