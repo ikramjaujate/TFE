@@ -233,13 +233,27 @@ const updateStateDocument = async (req, res) => {
                 isAccepted: req.body.isAccepted
 
             }
-
         )
         await document.save()
+        
+        const project = await Project.findOne({
+            where: {
+                idProject: document.idProject
+            }
+        });
+        
+        if (!project) {
+            throw new Error("Project not found")
+        };
 
-        return res.status(200).json({ document });
+        await project.update(
+            {
+                status: 'Accepted',
+            }
+        )
+        await project.save()
 
-
+        return res.status(200).json({ project });
 
     } catch (error) {
         return res.status(500).json({ error: error.message })
