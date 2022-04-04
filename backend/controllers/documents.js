@@ -234,6 +234,7 @@ const updateStateDocument = async (req, res) => {
 
             }
         )
+        console.log(req.body.isAccepted)
         await document.save()
         
         const project = await Project.findOne({
@@ -245,14 +246,28 @@ const updateStateDocument = async (req, res) => {
         if (!project) {
             throw new Error("Project not found")
         };
+        
+        
+        if(project.status == 'Pre-Sale' && req.body.isAccepted){
+            await project.update(
+                {
+                    status: 'Accepted',
+                }
+            )
+            await project.save()
+            
+        }
+        if(project.status == 'Accepted' && !req.body.isAccepted){
+            await project.update(
+                {
+                    status: 'Pre-Sale',
+                }
+            )
+            await project.save()
+            
+        }
 
-        await project.update(
-            {
-                status: 'Accepted',
-            }
-        )
-        await project.save()
-
+     
         return res.status(200).json({ project });
 
     } catch (error) {
