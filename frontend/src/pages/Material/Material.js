@@ -45,6 +45,7 @@ const Material = () => {
                 const matIdx = materialIds.indexOf(material.idMaterial);
                 if ( matIdx > -1) {
                     //material already exists
+                    console.log(material.Project_Material.Project.status)
                     if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
                         materials[matIdx]['available'] -= material.Project_Material.quantity;
                         materials[matIdx]['reserved'] += material.Project_Material.quantity;
@@ -52,14 +53,16 @@ const Material = () => {
                     continue;
                 } 
                 //material does not exist
-                if (!material.Project_Materials) {
+                if (!material.Project_Material) {
+                    
                     material['available'] = material.quantity;
                     material['reserved'] = 0;
-                    delete material.Project_Material;
+
                     materials.push(material);
                     materialIds.push(material.idMaterial)
                     continue;
                 }
+                console.log(material.Project_Material.Project.status)
                 if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
                     material['available'] = material.quantity - material.Project_Material.quantity;
                     material['reserved'] = material.Project_Material.quantity;
@@ -68,7 +71,6 @@ const Material = () => {
                     material['reserved'] = 0
                 }
 
-                delete material.Project_Material;
                 materials.push(material);
                 materialIds.push(material.idMaterial)
             }

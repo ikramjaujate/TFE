@@ -78,3 +78,14 @@ tr.not-available.p-selectable-row td.availableRow{
 span.p-button-icon.p-c.pi.pi-eye {
     margin-left: 0.88rem;
 }
+
+.p-button.p-button-help.p-button-outlined{
+    background-color: white;
+    color: #bc0000;
+    border: 1px solid;
+}
+.p-button.p-button-help.p-button-outlined:enabled:hover{
+    background-color: #bc0000;
+    color: white;
+    border: 1px solid;
+}
