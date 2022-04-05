@@ -36,8 +36,20 @@ const UpdateMaterial = async (bodyForm) => {
     ); 
 }
 
+
+const GetStockStatus = async () => {
+    return await (
+        fetch(`/api/stock-status`, {
+            method: 'GET',
+            headers: BASIC_HEADERS
+        }).then(res => {
+            return res.json()
+        })
+    );
+}
 export {
     GetMaterials,
     CreateMaterial,
-    UpdateMaterial
+    UpdateMaterial,
+    GetStockStatus
 }
