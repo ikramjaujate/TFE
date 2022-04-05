@@ -102,7 +102,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
 
     return (
         <>
-            <Toast ref={toast} />
+            <Toast ref={toast} baseZIndex={999999} />
 
             <Panel className='mt-2' header={
                 <span >
