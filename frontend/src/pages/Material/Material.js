@@ -62,7 +62,7 @@ const Material = () => {
                     materialIds.push(material.idMaterial)
                     continue;
                 }
-                console.log(material.Project_Material.Project.status)
+                
                 if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
                     material['available'] = material.quantity - material.Project_Material.quantity;
                     material['reserved'] = material.Project_Material.quantity;
