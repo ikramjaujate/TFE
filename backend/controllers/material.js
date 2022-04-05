@@ -1,4 +1,5 @@
-const { Material } = require('../models');
+const { Material, Project_Materials, Project } = require('../models');
+const { Op } = require("sequelize");
 
 const getAllMaterials = async (req, res) => {
     // #swagger.tags = ['Material']
@@ -36,7 +37,7 @@ const getAllMaterials = async (req, res) => {
 const getStockStatus = async (req, res) => {
     // #swagger.tags = ['Material']
     /* 
-    #swagger.summary = 'Get all materials'
+    #swagger.summary = 'Get status of materials '
     #swagger.security = [{
                "bearerAuth": []
     }] 
@@ -59,7 +60,30 @@ const getStockStatus = async (req, res) => {
     }
     */
     try {
-        const materials = await Material.findAll();
+        const materials = await Material.findAll({
+            include: [{
+                model: Project_Materials, include: [{
+                    model: Project, where: { status: { [Op.not]: 'Canceled'} }
+                }]
+            }]
+        });
+        let data = []
+        let duplicates = []
+        materials.forEach(mat => {
+            if(!(data.includes(mat.idMaterial))){
+                data.push(mat.idMaterial)
+            }else{
+                duplicates.push(mat.idMaterial)
+            }
+        })
+        let object = []
+        for(let i in duplicates){
+            object = await Project_Materials.findAll({
+                where: {idMaterial: duplicates[i]}
+            });
+        }
+
+        
         return res.status(200).json({ materials });
     } catch (error) {
         return res.status(400).send(error.message);
