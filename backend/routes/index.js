@@ -98,11 +98,13 @@ const {
     createProjectMaterial,
     updateProjectMaterial,
     removeProjectMaterialById,
-    bulkUpdateProjectMaterial
+    bulkUpdateProjectMaterial,
+    getProjectsByMaterialId
 } = require('../controllers/project-material.js')
 
 router.get('/project-materials', verifyToken, getAllProjectMaterials);
 router.get('/project-materials/:id', verifyToken, getProjectMaterialById);
+router.get('/project-materials/:id/projects', verifyToken, getProjectsByMaterialId);
 router.post('/project-materials', verifyToken, createProjectMaterial);
 router.post('/bulk-project-materials', verifyToken, bulkUpdateProjectMaterial);
 router.patch('/project-materials', verifyToken, updateProjectMaterial);

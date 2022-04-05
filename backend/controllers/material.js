@@ -63,7 +63,7 @@ const getStockStatus = async (req, res) => {
         const materials = await Material.findAll({
             include: [{
                 model: Project_Materials, include: [{
-                    model: Project, where: { status: { [Op.not]: 'Canceled'} }
+                    model: Project, where: { status: { [Op.not]: 'Canceled'} }, 
                 }]
             }]
         });

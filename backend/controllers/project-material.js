@@ -1,4 +1,4 @@
-const { Project_Materials } = require('../models');
+const { Project_Materials, Project } = require('../models');
 
 const getAllProjectMaterials = async (req, res) => {
     // #swagger.tags = ['Project_Materials']
@@ -32,6 +32,33 @@ const getProjectMaterialById = async (req, res) => {
         if (projectMaterial) {
             return res.status(200).json({ projectMaterial });
         }
+        return res.status(404).send('Project-material with the specified ID does not exist');
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
+const getProjectsByMaterialId = async (req, res) => {
+    // #swagger.tags = ['Project_Materials']
+    /* 
+    #swagger.summary = 'Get all projects-materials by material id'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
+    try {
+        const { id } = req.params;
+
+        const projectMaterial = await Project_Materials.findAll({
+            where: { idMaterial: id }, include: [{
+                model: Project
+            }]
+        });
+
+
+        if (projectMaterial) {
+            return res.status(200).json({ projectMaterial });
+        }
+        console.log(projectMaterial)
         return res.status(404).send('Project-material with the specified ID does not exist');
     } catch (error) {
         return res.status(400).send(error.message);
@@ -142,5 +169,6 @@ module.exports = {
     createProjectMaterial,
     updateProjectMaterial,
     removeProjectMaterialById,
-    bulkUpdateProjectMaterial
+    bulkUpdateProjectMaterial,
+    getProjectsByMaterialId
 }
