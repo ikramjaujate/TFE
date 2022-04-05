@@ -11,6 +11,16 @@ const GetMaterials = async () => {
     );
 }
 
+const GetMaterialById = async (id) => {
+    return await (
+        fetch(`/api/materials/${id}`, {
+            method: 'GET',
+            headers: BASIC_HEADERS
+        }).then(response => {
+            return response.json()
+        })
+    ); 
+}
 
 const CreateMaterial = async (bodyForm) => {
     return await (
@@ -51,5 +61,6 @@ export {
     GetMaterials,
     CreateMaterial,
     UpdateMaterial,
-    GetStockStatus
+    GetStockStatus,
+    GetMaterialById
 }

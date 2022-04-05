@@ -65,7 +65,7 @@ span.available-badge.notAvailable-badge{
     margin:0 auto;
 }
 tr.not-available.p-selectable-row td.availableRow{
-    background-color: rgba(255, 166, 0, 0.973);
+    /*background-color: rgba(255, 166, 0, 0.973);*/
 }
 .pi.pi-exclamation-triangle{
     color:rgba(255, 166, 0, 0.973)
@@ -75,3 +75,6 @@ tr.not-available.p-selectable-row td.availableRow{
     color: orange;
 }
 
+span.p-button-icon.p-c.pi.pi-eye {
+    margin-left: 0.88rem;
+}
