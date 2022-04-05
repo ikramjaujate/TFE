@@ -98,7 +98,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
 
     return (
         <>
-            <Toast ref={toast} />
+            <Toast ref={toast} baseZIndex={999999} />
             <div className="grid p-fluid m-2">
 
                 <div className='col-12 md:col-6'>

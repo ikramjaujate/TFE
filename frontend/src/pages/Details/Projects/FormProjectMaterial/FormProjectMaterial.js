@@ -169,7 +169,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
 
     return (
         <>
-            <Toast ref={toast} />
+            <Toast ref={toast} baseZIndex={999999} />
 
             {projectMaterial.map((projMat, index) => {
 

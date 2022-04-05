@@ -196,7 +196,7 @@ const AddQuotation = ({ sendId, refreshTable }) => {
 
     return (
         <>
-            <Toast ref={toast} />
+            <Toast ref={toast} baseZIndex={999999} />
             <div className="formgrid grid my-4">
                 <div className="p-inputgroup col-12">
                     <InputText name='title' value={fileName} onChange={event => setFileName(event.target.value)} placeholder='Document Title' />

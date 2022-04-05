@@ -292,7 +292,7 @@ const DetailsProjects = () => {
     }
     return (
         <>
-            <Toast ref={toast} />
+            <Toast ref={toast} baseZIndex={999999} />
             <div className='title'>
                 <h1 >DETAIL</h1>
             </div>
