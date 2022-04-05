@@ -49,6 +49,8 @@ const getStockStatus = async (req, res) => {
                     "idMaterial": 1,
                     "name": "Brick Pavers",
                     "quantity": 3,
+                    "reserved": 10,
+                    "available": -7,
                     "price": 4.51,
                     "type": "consumable",
                     "isBillable": false,
@@ -67,25 +69,11 @@ const getStockStatus = async (req, res) => {
                 }]
             }]
         });
-        let data = []
-        let duplicates = []
-        materials.forEach(mat => {
-            if(!(data.includes(mat.idMaterial))){
-                data.push(mat.idMaterial)
-            }else{
-                duplicates.push(mat.idMaterial)
-            }
-        })
-        let object = []
-        for(let i in duplicates){
-            object = await Project_Materials.findAll({
-                where: {idMaterial: duplicates[i]}
-            });
-        }
-
-        
+  
         return res.status(200).json({ materials });
+
     } catch (error) {
+        console.log(error)
         return res.status(400).send(error.message);
     }
 }

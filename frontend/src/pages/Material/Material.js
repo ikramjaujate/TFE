@@ -37,24 +37,43 @@ const Material = () => {
     const getMaterials = () => {
         setLoading(true);
         materialsService.GetStockStatus().then(res => {
-            console.log(res['materials'])
-            res['materials'].forEach(mat => {
-                if (mat.Project_Material) {
-                    if (['In Progress', 'Accepted'].includes(mat.Project_Material.Project.status)) {
-                        mat['reserved'] = mat.Project_Material.quantity
-                        mat['available'] = mat.quantity - mat.Project_Material.quantity
 
-                    } else {
-                        mat['reserved'] = 0
-                        mat['available'] = mat.quantity
+            const materialIds = []
+            const materials = []
+
+            for (let material of res['materials']) {
+                const matIdx = materialIds.indexOf(material.idMaterial);
+                if ( matIdx > -1) {
+                    //material already exists
+                    if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
+                        materials[matIdx]['available'] -= material.Project_Material.quantity;
+                        materials[matIdx]['reserved'] += material.Project_Material.quantity;
                     }
+                    continue;
+                } 
+                //material does not exist
+                if (!material.Project_Materials) {
+                    material['available'] = material.quantity;
+                    material['reserved'] = 0;
+                    delete material.Project_Material;
+                    materials.push(material);
+                    materialIds.push(material.idMaterial)
+                    continue;
+                }
+                if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
+                    material['available'] = material.quantity - material.Project_Material.quantity;
+                    material['reserved'] = material.Project_Material.quantity;
                 } else {
-                    mat['reserved'] = 0
-                    mat['available'] = mat.quantity
+                    material['available'] = material.quantity
+                    material['reserved'] = 0
                 }
 
-            })
-            setData(res['materials']);
+                delete material.Project_Material;
+                materials.push(material);
+                materialIds.push(material.idMaterial)
+            }
+
+            setData(materials);
         })
     }
 
