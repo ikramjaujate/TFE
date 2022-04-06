@@ -105,7 +105,7 @@ const getMaterialById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const material = await Material.findOne({
+        const material = await Material.findAll({
             where: { idMaterial: id }
         });
 
