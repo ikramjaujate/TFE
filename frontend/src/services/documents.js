@@ -12,6 +12,18 @@ const UploadPdfDocument = async (id, bodyForm) => {
     );
 }
 
+const GetAllQuotations = async () => {
+    return await (
+        fetch(`/api/quotations`, {
+            method: 'GET',
+            headers: BASIC_HEADERS
+        }).then(response => {
+            return response.json()
+        })
+    ); 
+}
+
+
 const UploadDocumentState = async (id, bodyForm) => {
     return await (
         fetch(`/api/documents/${id}`, {
@@ -52,5 +64,6 @@ export {
     CreateDocuments,
     UploadPdfDocument,
     UploadDocumentState,
-    SendDocument
+    SendDocument,
+    GetAllQuotations
 }
