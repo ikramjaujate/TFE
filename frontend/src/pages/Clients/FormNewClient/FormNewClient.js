@@ -8,6 +8,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Panel } from 'primereact/panel';
 import { SelectButton } from 'primereact/selectbutton';
+import { InputMask } from 'primereact/inputmask';
 
 import { CreateNewClient, UpdateUser } from '../../../services/users'
 import { CreateNewCompany, UpdateCompany } from '../../../services/companies'
@@ -54,7 +55,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     useEffect(() => {
         if (sendData) {
 
-            setNumber(sendData.mobile)
+            setNumber(sendData.mobile.replace(/\+/g,'' ))
             setVta(sendData.VAT_num)
             setEmail(sendData.email)
             setAddress(sendData["Address"].street)
@@ -198,7 +199,14 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         }
 
     }
-
+    const onPhoneNumberChange = (value) => {
+        value = value
+                .replace(/\+/g,'' )
+                .replace(/ /g,'' )
+                .replace(/(.{2})/g,'$1 ' )
+        console.log(value, 'b')
+        setNumber(value)
+    }
 
 
     return (
@@ -257,7 +265,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">VAT</span>
-                            <InputNumber value={vta} onValueChange={(e) => setVta(e.target.value)} showButtons mode="decimal" useGrouping={false} placeholder="VAT number" />
+                            <InputNumber value={vta} onValueChange={(e) => setVta(e.target.value)} mode="decimal" useGrouping={false} placeholder="VAT number" />
                         </div>
 
                     </div>
@@ -266,7 +274,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                             <span className="p-inputgroup-addon">
                                 <i className="pi pi-phone"></i>
                             </span>
-                            <InputText value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Phone Number" />
+                            <InputText value={number} onChange={(e) => onPhoneNumberChange(e.target.value)} placeholder="Phone Number" />
                             <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
                         </div>
                     </div>
