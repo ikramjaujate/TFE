@@ -208,6 +208,21 @@ const updateProject = async (req, res) => {
             throw new Error("Project not found")
         };
 
+        if(project.status == "Accepted" && req.body.status  == "Pre-Sale" ){
+            const documents = await Document.findAll({
+                where: {
+                    idProject: req.body.id, type: 'devis'
+                }
+            });
+            
+            documents.forEach(doc => {
+                
+                doc.isAccepted = false
+            });
+            
+            await Document.bulkCreate(JSON.parse(JSON.stringify(documents)), { updateOnDuplicate: ['isAccepted'] })
+            
+        }
 
         await project.update(
             {
@@ -223,7 +238,7 @@ const updateProject = async (req, res) => {
 
         return res.status(200).json({ project });
     } catch (error) {
-
+        console.log(error)
         return res.status(400).send(error.message);
     }
 }
