@@ -76,6 +76,59 @@ const getAllDocuments = async (req, res) => {
 
 }
 
+const getAllQuotations = async (req, res) => {
+    // #swagger.tags = ['Documents']
+    /* 
+    #swagger.summary = 'Gets all the documents where type is quotations'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'Document ID.',
+                required: true,
+                type: 'integer'
+            }
+    #swagger.responses[200] = {
+            description: 'The document to get.',
+            schema:
+            { "document" : [
+                {
+                    "file": {
+                    "type": "Buffer",
+                    "data": [37, 80, 68, 70]},
+                    idProject: 1,
+                    type: 'devis',
+                    notes: '/',
+                    isPaid: false,
+                    isAccepted: false,
+                    "createdAt": "2022-02-13T12:37:54.635Z",
+                    "updatedAt": "2022-02-13T12:37:54.635Z"
+                }
+            ]
+        }
+    }
+    */
+    try {
+        
+
+        const documents = await Document.findAll({
+            where: { type: 'devis' },
+            include : [{
+                model: Project
+            }]
+
+        });
+
+        if (documents) {
+            return res.status(200).json({ documents });
+        }
+        return res.status(404).send('Document with the specified ID does not exists');
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
 const getDocumentById = async (req, res) => {
     // #swagger.tags = ['Documents']
     /* 
@@ -397,5 +450,6 @@ module.exports = {
     getAllDocuments,
     getDocumentById,
     updateStateDocument,
-    sendDocumentByEmail
+    sendDocumentByEmail,
+    getAllQuotations
 }

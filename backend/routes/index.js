@@ -64,15 +64,18 @@ const {
     getAllDocuments,
     getDocumentById,
     updateStateDocument,
-    sendDocumentByEmail
+    sendDocumentByEmail,
+    getAllQuotations
 } = require('../controllers/documents.js');
 
 router.get('/documents', verifyToken, getAllDocuments)
 router.get('/documents/:id', verifyToken, getDocumentById)
+router.get('/quotations', verifyToken, getAllQuotations)
 router.post('/documents', verifyToken, createDocuments)
 router.post('/sendDocument', verifyToken, sendDocumentByEmail)
 router.patch('/documents/:id', verifyToken, updateStateDocument)
 router.patch('/documents/:id/pdf', verifyToken, uploadPdfDocument)
+
 
 // MATERIALS
 const {
