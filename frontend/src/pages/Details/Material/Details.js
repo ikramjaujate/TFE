@@ -191,7 +191,7 @@ const MaterialInformation = () => {
                                                     <h3>Attention</h3>
 
                                                     <span>There is  <span className='enough'>not enough</span> stock of this material. </span> <br />
-                                                    <span>If a project contains a material with insufficient quantity, the status of this material  <span className='enough'>cannot be updated</span>.</span><br />
+                                                    <span>If a project contains a material with insufficient quantity, the status of this project  <span className='enough'>cannot be updated</span>.</span><br />
                                                     <span>Please try to order more quantity for this material.</span>
                                                 </Tooltip>
                                                 <span className='value-client-notavailable ml-1  mr-2'> {available}</span>

@@ -1,5 +1,5 @@
 import '../../../shared/styles/form.scss';
-
+import '../Project.scss'
 import React, { useState, useEffect, useRef } from "react";
 import { Toast } from 'primereact/toast';
 import { Dropdown } from 'primereact/dropdown';
@@ -60,7 +60,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
         })
 
         if(!client){
-            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Company cannot be created', life: 3000 });
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Company cannot be created', sticky: true });
             return
         }
    
@@ -98,7 +98,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
 
     return (
         <>
-            <Toast ref={toast} baseZIndex={999999} />
+            <Toast style={{marginTop: '60px'}} ref={toast} baseZIndex={999999} />
             <div className="grid p-fluid m-2">
 
                 <div className='col-12 md:col-6'>
