@@ -29,6 +29,7 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 5rem;
+
   .main-section {
     display: flex;
     flex-direction: row;
@@ -47,9 +48,19 @@ html, body {
 
 }
 
+.menu-is-visible{
+  position: sticky;
+  top: calc(var(--top-menu-height) + 2rem);   
+
+}
 .menu-is-hidden {
-  width: 0 !important;
+  width: 0rem !important;
+  //display: none !important;
+
   overflow: hidden;
+  //transition: width var(--menu-transition-time)!important;
+  /*transition: width var(--menu-transition-time);*/
+  //visibility: hidden;
 }
 
 .menu-is-hidden-content {

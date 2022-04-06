@@ -56,7 +56,7 @@ const App = () => {
                 <TopMenuBar onToggleMenu={onToggleMenu}></TopMenuBar>
 
                 <div className='main-section'>
-                    <div className={`side-menu ${menuIsVisible ? "" : "menu-is-hidden"}`}>
+                    <div className={`side-menu ${menuIsVisible ? "menu-is-visible" : "menu-is-hidden"}`}>
                         <SideMenuBar menu={menu} setMenuVisible={forcedCloseMenu}></SideMenuBar>
                     </div>
                     <div className={`main-content ${menuIsVisible ? "" : "menu-is-hidden-content"}`}>
