@@ -24,13 +24,14 @@ const Details = (clientType) => {
 
     const { id } = useParams();
     const history = useHistory();
+    const location = useLocation();
     const persons = [
-        { label: 'Persons' }
+        { label: 'Persons', url: '/clients' },
     ];
     const company = [
-        { label: 'Company' }
+        { label: 'Company', url: '/clients' }
     ];
-
+    
 
     const homePerson = { icon: 'pi pi-user', url: '/clients' }
     const homeCompany = { icon: 'pi pi-building', url: '/clients' }
@@ -55,7 +56,7 @@ const Details = (clientType) => {
     const [selectedRow, setSelectedRow] = useState(null);
     const [selectedClient, setSelectedClient] = useState(null);
     const [projects, setProjects] = useState([])
-
+    
     const onUpload = () => {
 
     }

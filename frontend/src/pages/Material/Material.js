@@ -11,6 +11,7 @@ import { Dialog } from 'primereact/dialog';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Panel } from 'primereact/panel';
+import { useHistory, Redirect } from 'react-router-dom';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
 import FormMaterial from "./FormMaterial/FormMaterial";
@@ -21,6 +22,9 @@ import * as project_materialsService from '../../services/project_materials'
 import MaterialInformation from '../Details/Material/Details';
 
 const Material = () => {
+
+    const history = useHistory();
+
     const [data, setData] = useState([]);
     const [displayDialog, setDisplayDialog] = useState(false);
     const [selectedMaterial, setSelectedMaterial] = useState(null);
@@ -133,14 +137,11 @@ const Material = () => {
     }
 
     const informationMaterial = (material) => {
-        
-        setDisplayDialog(true)
-        setMaterialData(material)
-        if(material.Project_Material){
-            setProjectMaterialLinked(material.Project_Material.Project)
-        }else{
-            setProjectMaterialLinked([])
-        }
+
+        history.push({
+            pathname: `/material/${material.idMaterial}/detail`,
+            state: { data: material }
+        })
         
 
     }
@@ -168,7 +169,7 @@ const Material = () => {
             />
             <div className="grid table-demo">
                 <div className="col-12">
-                    <DataTable className='material-datatable mt-3' sortField="idMaterial" filters={filters} rowClassName={rowClass} globalFilterFields={['name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedMaterial} onSelectionChange={e => setSelectedMaterial(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable className='material-datatable mt-3' sortOrder="1"  sortField="idMaterial" filters={filters} rowClassName={rowClass} globalFilterFields={['name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedMaterial} onSelectionChange={e => setSelectedMaterial(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
                     
                         <Column field="idMaterial" style={{ width: '10rem' ,  flexGrow: 1, flexBasis: '14px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="name" style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Label" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
@@ -182,9 +183,7 @@ const Material = () => {
                         <Column body={buttonInformationTemplate} ></Column>
                     </DataTable>
 
-                    <Dialog className='dialog-material' showHeader={true} visible={displayDialog} onHide={() => setDisplayDialog(false)} breakpoints={{ '960px': '75vw' }} style={{ width: '90vw' }} >
-                        <MaterialInformation dataMaterial={materialData} projects={projectMaterialLinked}/>
-                    </Dialog>
+                  
 
                 </div>
             </div>

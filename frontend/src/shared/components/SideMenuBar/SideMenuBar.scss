@@ -4,7 +4,8 @@
   
   height: calc(100vh - var(--top-menu-height));
   transition: width var(--menu-transition-time);
-
+  //height: 100%;
+  /*position: fixed;*/
   margin-top: 1rem;
   
 

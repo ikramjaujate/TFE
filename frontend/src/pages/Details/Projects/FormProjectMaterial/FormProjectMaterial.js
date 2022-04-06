@@ -163,9 +163,12 @@ const FormProjectMaterial = ({documentAccepted}) => {
         return;
     }
 
-   const isBillableTemplate = (rowData) => {
-    console.log(rowData)
+   const tooltipTemplate = () => {
+    return(
+        <span>Quantity available exceeds</span>
+    )
    }
+   
 
     return (
         <>
@@ -203,8 +206,11 @@ const FormProjectMaterial = ({documentAccepted}) => {
                             <div className="p-inputgroup col-1">
                                 {(projMat && (projMat?.quantity > projMat?.material?.quantity)) ?
                                 <div>
-                                <Tooltip target=".custom-target-icon" />
-                                    <FontAwesomeIcon icon={faWarning} tooltip="Yellow" className="warning-icon custom-target-icon" data-pr-tooltip="Quantity available exceeds" data-pr-position="right"  data-pr-my="left center-2"  /></div>: 
+                                <Tooltip target=".custom-target-icon" >
+                                    
+                                <span>Quantity available exceeds</span>
+                                    </Tooltip>
+                                    <FontAwesomeIcon icon={faWarning} tooltip="Yellow" className="warning-icon custom-target-icon"  data-pr-position="right"  data-pr-my="left center-2"  /></div>: 
                                     <span></span>
                                 }
                             </div>

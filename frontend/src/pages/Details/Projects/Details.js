@@ -31,8 +31,10 @@ const DetailsProjects = () => {
     const { id } = useParams();
     const history = useHistory();
     const projects = [
-        { label: 'Projects' }
+        
+        { label: 'Projects',  url: '/projects' }
     ];
+    
     const toast = useRef(null);
 
     const homeProject = { icon: 'pi pi-book', url: '/projects' }

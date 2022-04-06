@@ -26,7 +26,7 @@ import Material from './pages/Material/Material';
 import Quotation from './pages/Quotation/Quotation';
 import DetailsProjects from './pages/Details/Projects/Details';
 import CalendarClient from './pages/Calendar/Calendar';
-
+import MaterialInformation from './pages/Details/Material/Details';
 const App = () => {
 
     const [menuIsVisible, setMenuIsVisible] = useState(false);
@@ -69,6 +69,7 @@ const App = () => {
                         <PrivateRoute exact path="/invoices" component={Invoices} />
                         <PrivateRoute exact path="/employees" component={Employees} />
                         <PrivateRoute exact path="/material" component={Material} />
+                        <PrivateRoute exact path="/material/:id/detail" component={MaterialInformation} />
                         <PrivateRoute exact path="/quotation" component={Quotation} />
                         <PrivateRoute exact path="/calendar" component={CalendarClient} />
                     </div>
