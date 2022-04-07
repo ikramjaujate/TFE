@@ -21,9 +21,10 @@ import AddQuotation from '../../Quotation/Add/AddQuotation';
 import FormProjectMaterial from './FormProjectMaterial/FormProjectMaterial';
 import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 import { Checkbox } from 'primereact/checkbox';
+import AddInvoice from '../../Invoices/Add/AddInvoice';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookOpen, faFileSignature, faTools, faLock, faLockOpen} from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen,faFileContract, faFileSignature, faTools, faLock, faLockOpen} from "@fortawesome/free-solid-svg-icons";
 
 
 const DetailsProjects = () => {
@@ -52,12 +53,14 @@ const DetailsProjects = () => {
     const [idPerson, setIdPerson] = useState()
     const [idCompany, setIdCompany] = useState()
     const [displayResponsive, setDisplayResponsive] = useState(false);
+    const [displayResponsiveInvoice, setDisplayResponsiveInvoice] = useState(false);
     const [add, setAdd] = useState(false)
     const [position, setPosition] = useState('center');
     const [project, setProject] = useState([])
     const [isAccepted, setIsAccepted] = useState([])
     const [documentAccepted, setDocumentAccepted] = useState(null)
-
+    const [invoicesData, setInvoicesData] = useState([])
+    const [valideQuotation, setValideQuotation] = useState(null)
     const getProject = () => {
 
         GetProjectsByID(id).then(response => {
@@ -91,8 +94,23 @@ const DetailsProjects = () => {
                 })
 
                 setIsAccepted(data)
+                const invoices = []
+                const quotations = []
 
-                setProject(response["project"]);
+                for(const document of response['project']){
+                    if(document.type == 'devis'){
+                        if(document.isAccepted){
+                            setValideQuotation(document)
+                        }
+                        quotations.push(document)
+                        continue
+                    }
+                    invoices.push(document)
+                }
+                
+                setInvoicesData(invoices)
+                setProject(quotations);
+                console.log(quotations)
             })
 
 
@@ -106,13 +124,9 @@ const DetailsProjects = () => {
     useEffect(() => {
         refresh()
 
-
     }, [])
     const handleAllProjects = () => {
-
         history.push(`/projects`)
-
-
     }
     const onHide = (name) => {
         dialogFuncMap[`${name}`](false);
@@ -120,13 +134,12 @@ const DetailsProjects = () => {
     }
     const refresh = () => {
         onHide('displayResponsive')
+        onHide('displayResponsiveInvoice')
         setData([])
+        setValideQuotation(null)
         getProject();
     }
 
-    /*const statusBodyTemplateIsPaid = (rowData) => {
-    return <span className={`customer-badge status-${rowData.isPaid.toLowerCase()}`}>{rowData.isPaid}</span>;
-  }*/
     const getRowIsAccepted = (rowData) => {
         if (rowData) {
             const rowIsAccepted = isAccepted.find(i => { return i.idDocument == rowData.idDocument })
@@ -177,13 +190,15 @@ const DetailsProjects = () => {
         if(documentAccepted && rowData.idDocument != documentAccepted){
             return <Checkbox inputId="binary" className='my-checkbox' disabled/>
         }
-
-        
-        return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
-        /*return <span className={`customer-badge status-${rowData.isAccepted.toLowerCase()}`}>{rowData.isAccepted}</span>;*/
+        const isDisabled = (
+            invoicesData.length > 0 || 
+            ['In Progress', 'Done', 'Closed'].includes(status)
+            )
+        return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} disabled={isDisabled} />
     }
     const dialogFuncMap = {
-        'displayResponsive': setDisplayResponsive
+        'displayResponsive': setDisplayResponsive,
+        'displayResponsiveInvoice' : setDisplayResponsiveInvoice
     }
     const onClick = (name, position) => {
         dialogFuncMap[`${name}`](true);
@@ -249,6 +264,23 @@ const DetailsProjects = () => {
                 <span className="p-panel-title">  <FontAwesomeIcon icon={faFileSignature} className='mr-2' />QUOTATIONS</span>
                 <div className='panel-header-right'>
                     <Button icon='pi pi-plus' label='Create quote' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsive')} />
+                    <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
+                        <span className={toggleIcon}></span>
+
+                    </button>
+                </div>
+
+            </div>
+        )
+    }
+
+    const headerInvoicesTemplateInfo = (options) => {
+        const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
+        return (
+            <div className='p-panel-header'>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faFileContract} className='mr-2' />INVOICES</span>
+                <div className='panel-header-right'>
+                    <Button icon='pi pi-plus' label='Create invoice' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsiveInvoice')} />
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
                         <span className={toggleIcon}></span>
 
@@ -391,12 +423,19 @@ const DetailsProjects = () => {
                     <AddQuotation sendId={idProject} refreshTable={refresh} />
                 </Dialog>
 
-                <Panel header="INVOICES" toggleable className='m-3'>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <Panel headerTemplate={headerInvoicesTemplateInfo} toggleable className='m-3'>
+                <DataTable paginatorTemplate={PaginatorTemplate} value={invoicesData} sortField="title" sortOrder={-1}  rowClassName={rowClass}  emptyMessage="No documents found."  selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <Column body={availableTemplate} ></Column>
+                        <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="isPaid" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column body={informationClientTemplate} style={{ minWidth: '10rem' }} headerStyle={{ color: "#c9392f" }}></Column>
+                    </DataTable>
                 </Panel>
+                <Dialog modal header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New Invoice </span>} visible={displayResponsiveInvoice} onHide={() => onHide('displayResponsiveInvoice')} breakpoints={{ '960px': '75vw' }} style={{ width: '90vw' }}   >
+                    <AddInvoice sendId={idProject} sendQuotation={valideQuotation} refreshTable={refresh} />
+                </Dialog>
             </div>
         </>
     )

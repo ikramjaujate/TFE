@@ -121,7 +121,13 @@ const AddQuotation = ({ sendId, refreshTable }) => {
         }
         for (let i in projectMaterials) {
             if (!projectMaterials[i].Material.isBillable) {
-                continue
+                projectMaterials[i].Material.price = 0
+                table[idx] = [
+                    projectMaterials[i].Material.name,
+                    '',
+                    projectMaterials[i].Material.price,
+                    projectMaterials[i].quantity
+                ]
             }
             table[idx] = [
                 projectMaterials[i].Material.name,
@@ -158,6 +164,7 @@ const AddQuotation = ({ sendId, refreshTable }) => {
         const bodyForm = {
             'title': fileName,
             'idProject': sendId,
+            'content': quotation,
             'type': 'devis',
             'isAccepted': false,
             'isPaid': false,

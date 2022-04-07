@@ -305,6 +305,11 @@
                     "field": "isEmailed",
                     "seqType": "Sequelize.BOOLEAN"
                 },
+                "content": {
+                    "allowNull": false,
+                    "field": "content",
+                    "seqType": "Sequelize.JSON"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -534,5 +539,5 @@
             "indexes": []
         }
     },
-    "revision": 15
+    "revision": 17
 }

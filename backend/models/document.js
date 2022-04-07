@@ -41,8 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
-    }
-
+    },
+    content: {
+      type: DataTypes.JSON,
+      allowNull: false
+    },
 
   }, {});
 

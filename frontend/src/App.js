@@ -34,11 +34,11 @@ const App = () => {
     const menu = [
         { label: 'Dashboard', icon: faHome, to: '/' },
         { label: 'Clients', icon: faAddressBook, to: '/clients' },
-        { label: 'Projects', icon: faBook, to: '/projects' },
-        { label: 'Invoices', icon: faFileContract, to: '/invoices' },
         { label: 'Employees', icon: faHardHat, to: '/employees' },
         { label: 'Material', icon: faTools, to: '/material' },
+        { label: 'Projects', icon: faBook, to: '/projects' },
         { label: 'Quotations', icon: faFileSignature, to: '/quotation' },
+        { label: 'Invoices', icon: faFileContract, to: '/invoices' },
         { label: 'Calendar', icon: faCalendar, to: '/calendar' }
     ];
 

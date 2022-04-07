@@ -373,8 +373,9 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                     </div>
                     <div className='btn-container'>
                         <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
-                        <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={handleClick} />
-                        <Button label="Update" icon="pi pi-save" className="p-button-warning " onClick={handleClickUpdate} disabled={!sendData} />
+                        <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={handleClick} disabled={sendData} />
+                        <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={handleClickUpdate} disabled={!sendData} />
+                        <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData} />
 
                     </div>
 

@@ -24,7 +24,10 @@
     color: #082a4c;
     text-decoration: underline;
 }
-
+.accepted-checkbox{
+    display: flex;
+    justify-content: center;
+}
 .value-client-email:hover{
     font-weight: 700;
     color: rgb(184, 76, 76);
