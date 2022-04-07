@@ -1,20 +1,26 @@
+import './Quotation.scss'
+
 import React, { useState, useEffect , useRef} from 'react';
+
+import { Link } from 'react-router-dom';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
-import { Toast } from 'primereact/toast';
 
+import { useHistory } from 'react-router-dom';
 import moment from "moment";
 
 import * as documentService from '../../services/documents'
 
 const Quotation = () => {
+    const history = useHistory();
+
     const [data, setData] = useState([]);
     const toast = useRef(null);
     const filters = {
-        'Project.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] }
+        'Project.name':  { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] }
     }
     const [loading, setLoading] = useState(true)
     const getQuotations = () => {
@@ -78,6 +84,25 @@ const Quotation = () => {
 
     }
 
+    const projectRedirectionTemplate = (rowData) => {
+        return (
+                
+            <Link className='svg' to={`/projects/${rowData.Project.idProject}/detail`} >{rowData.Project.name}</Link>
+            //<span>{rowData.Project.name}</span>
+           
+        )
+    }
+
+    const capitalizeFirstLetter = (rowData) => {
+        const quotationTitle =  rowData.title.charAt(0).toUpperCase() + rowData.title.slice(1);
+        console.log(quotationTitle)
+
+        
+        return (
+            <span>{quotationTitle}</span>
+        )
+
+    }
     return (
         <>
             <div className='title'>
@@ -86,11 +111,11 @@ const Quotation = () => {
 
             <div className="grid table-demo">
 
-                <div className="col-12">
-                    <DataTable sortOrder="1" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No quotations found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                <div className="col-12 my-table">
+                    <DataTable sortOrder="1" filterDisplay="menu" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No quotations found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
                         <Column field="idDocument" style={{ width: '10rem'}} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="title" style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Document's title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="Project.name" style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }} filterPlaceholder="Search by name"  filter sortable header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column body={capitalizeFirstLetter} style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Document's title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column body={projectRedirectionTemplate} filterField="Project.name"   style={{ width: '12rem', flexGrow: 1, flexBasis: '200px' }} filterPlaceholder="Search by name"  filter sortable header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }} body={statusBodyTemplate} sortable header="Status"  headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="createdAt" style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Date" headerStyle={{ color: "#c9392f" }}></Column>
