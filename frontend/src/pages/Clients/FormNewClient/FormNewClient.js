@@ -36,7 +36,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     ];
 
     const clearForm = () => {
-        setVta()
+        setVta('')
         setEmail('')
         setFirstname('')
         setName('')
@@ -56,7 +56,31 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         if (sendData) {
 
             setNumber(sendData.mobile.replace(/\+/g,'' ))
-            setVta(sendData.VAT_num)
+            if(sendData.VAT_num){
+                
+                
+                if(sendData.VAT_num && sendData["Address"]["Country"].nicename == "France"){
+                    setVta(sendData.VAT_num.replace(/^.{2}/g, 'FR'))
+                }else if(sendData.VAT_num && sendData["Address"]["Country"].nicename == "Luxembourg"){
+                    setVta(sendData.VAT_num.replace(/^.{2}/g, 'LU'))
+                }else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Netherlands"){
+                    setVta(sendData.VAT_num.replace(/^.{2}/g, 'NL'))
+                }else if(sendData.VAT_num  && sendData["Address"]["Country"].nicename == "Belgium"){
+                    setVta(sendData.VAT_num.replace(/^.{2}/g, 'BE'))
+                }
+            }
+            else{
+                setVta('')
+            }
+            /*if(sendData.VAT_num){
+                console.log('toto')
+
+                setVta(sendData.VTA_num)
+            }else{
+                console.log('nooo')
+                setVta('toto')
+            }*/
+            
             setEmail(sendData.email)
             setAddress(sendData["Address"].street)
             setLocality(sendData["Address"].locality)
@@ -162,6 +186,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
             'postalCode': postalCode,
             'country': country
         }
+        
         if (isCompany) {
             delete bodyForm.firstName
             delete bodyForm.lastName
@@ -208,7 +233,27 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         setNumber(value)
     }
 
+    const vtaChange = (value) => {
 
+        if(!country){
+            if(!isNaN(value)){
+                Number(value)
+            }
+            
+            value = value
+            .replace(/ /g,'' )
+            .replace(/([a-zA-z]{2})/g,'$1 ' )
+            setVta(value)
+        }
+
+        if(country){
+            value = value
+            .replace(/ /g,'' )
+            .replace(/([a-zA-z]{2})/g,'$1 ' )
+            setVta(value)
+        }
+        
+    }
     return (
         <>
             <Toast ref={toast} baseZIndex={999999} />
@@ -265,7 +310,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">VAT</span>
-                            <InputNumber value={vta} onValueChange={(e) => setVta(e.target.value)} mode="decimal" useGrouping={false} placeholder="VAT number" />
+                            <InputText value={vta} onChange={(e) => vtaChange(e.target.value)}  placeholder="VAT number" />
                         </div>
 
                     </div>

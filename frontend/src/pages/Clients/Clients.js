@@ -51,7 +51,17 @@ const Clients = () => {
 
     useEffect(() => {
         persons.forEach(person => {
-            person.VAT_num = person.VAT_num ? Number(person.VAT_num?.split(' ')[1]) : null
+            person.VAT_num = person.VAT_num ? person.VAT_num: null
+            //console.log(person.VAT_num.substring(0,3))
+            if(person.VAT_num && person.Address.Country.nicename == "France"){
+                person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'FR')
+            }else if(person.VAT_num && person.Address.Country.nicename == "Luxembourg"){
+                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'LU')
+            }else if (person.VAT_num && person.Address.Country.nicename == "Netherlands"){
+                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'NL')
+            }else if(person.VAT_num  && person.Address.Country.nicename == "Belgium"){
+                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'BE')
+            }
             data.push({
                 id: person.idPerson,
                 type: 'p',
@@ -69,7 +79,17 @@ const Clients = () => {
 
     useEffect(() => {
         companies.forEach(company => {
-            company.VAT_num = company.VAT_num ? Number(company.VAT_num?.split(' ')[1]) : null
+            company.VAT_num = company.VAT_num ? company.VAT_num : null
+            
+            if(company.VAT_num && company.Address.Country.nicename == "France" && company.VAT_num[0,2] != 'FR'){
+                company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'FR')
+            }else if(company.VAT_num && company.Address.Country.nicename == "Luxembourg"){
+                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'LU')
+            }else if (company.VAT_num && company.Address.Country.nicename == "Netherlands"){
+                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'NL')
+            }else if(company.VAT_num  && company.Address.Country.nicename == "Belgium"){
+                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'BE')
+            }
             data.push({
                 id: company.idCompany,
                 type: 'c',
@@ -196,7 +216,7 @@ const Clients = () => {
                         <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{  color: "#c9392f" }}></Column>
                         <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{  color: "#c9392f" }}></Column>
                         <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT" dataType="numeric" headerStyle={{  color: "#c9392f" }}></Column>
+                        <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT"  headerStyle={{  color: "#c9392f" }}></Column>
                         <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', color: "#c9392f" }} body={countryTemplate}  ></Column>
                         <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{  color: "#c9392f" }}></Column>
