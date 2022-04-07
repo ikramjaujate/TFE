@@ -37,10 +37,7 @@ const getCompanyById = async (req, res) => {
     */
     try {
         const { id } = req.params;
-        /*const user = await Person.findOne({
-            where: { idPerson: id },
-            
-        });*/
+        
         const company = await Company.findAll({
             where: {idCompany: id},
             include: [{
@@ -100,14 +97,6 @@ const createCompany = async (req, res) => {
         if (!createAddress) {
             throw new Error("Address couldn't be created")
         };
-        /*if(req.body.vta){
-            if(country == "Belgium"){
-                req.body.vta = 'BE ' + String(req.body.vta)
-            }else{
-                req.body.vta = 'FR ' + String(req.body.vta)
-            }
-           
-        }*/
        
         const company = {
             idAddress: createAddress.idAddress,
@@ -162,15 +151,6 @@ const updateCompany = async (req, res) => {
             }
         });
         
-        /*if (req.body.vta) {
-            if (req.body.country == "Belgium") {
-                req.body.vta = 'BE ' + String(req.body.vta)
-            } else {
-                req.body.vta = 'FR ' + String(req.body.vta)
-            }
-
-        }*/
-
         if (existingEmail && company.idCompany !== existingEmail.idCompany) {
             throw new Error("Email already taken")
         }
@@ -212,10 +192,6 @@ const updateCompany = async (req, res) => {
             };
             companyAddress.idCountry = existingCountry.idCountry
             
-           /* await companyAddress.update({
-                idCountry: existingCountry.idCountry
-            })
-            await companyAddress.save()*/
         }
         if (companyAddress.street != req.body.street
             || companyAddress.locality != req.body.locality
