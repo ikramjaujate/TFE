@@ -40,6 +40,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
             if(!projectMaterials.length){
                 return;
             }
+            
             setProjectMaterial(projectMaterials.map( pm => {
                 
                 return {
@@ -51,6 +52,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
                 
 
             }))
+           
 
 
         })

@@ -7,8 +7,8 @@ var quotationTemplate = {
     orientationLandscape: false,
     compress: true,
     logo: {
-        src: "../../logo.png",
-        width: 24, //aspect ratio = width/height
+        src: "../../logo-quotation.png",
+        width: 77, //aspect ratio = width/height
         height: 24,
         margin: {
             top: 0, //negative or positive num, from the current position
@@ -16,12 +16,13 @@ var quotationTemplate = {
         }
     },
     business: {
-        name: "Master Services",
+        name: "MasterServices",
         address: "Koning Albertstraat 124, 1600 Sint-Pieters-Leeuw, Belgium",
         phone: "(+32) 479 03 32 48",
         email: "info@masterservices.com",
         email_1: "BE 0849.720.889",
         website: "www.masterservices.be",
+        
     },
     contact: {
         name: "Ikram Jaujate",

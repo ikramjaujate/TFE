@@ -24,7 +24,7 @@ import { UpdateProject, GetPossibleStatuses } from '../../../services/projects';
 import { projectTypes } from '../../../shared/consts/projectTypes';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import moment from "moment";
-
+import * as projectService from '../../../services/projects'
 const FormProject = ({ refreshTable, sendData }) => {
 
     const toast = useRef(null);
@@ -36,8 +36,52 @@ const FormProject = ({ refreshTable, sendData }) => {
     const [status, setStatus] = useState("Pre-Sale")
     const [idProject, setIdProject] = useState(null)
     const [visible, setVisible] = useState(false);
+    const [data, setData] = useState([]);
+    
+    const [notAvailable, setNotAvailable] = useState(false)
+
+    const [projectMaterial, setProjectMaterial] = useState([
+        {
+            material: {},
+            quantity: 0
+        }
+    ])
+
     let today = new Date();
     let maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+
+
+
+    const getProjectMaterials = () => {
+
+        projectService.GetProjectMaterialsByProjectId(sendData.id).then(res => {
+            const projectMaterials = res['projectMaterials']
+            
+            if(!projectMaterials.length){
+                return;
+            }
+            
+            setProjectMaterial(projectMaterials.map( pm => {
+                
+                return {
+                    material: data.find(m => {
+                        return m.idMaterial == pm.idMaterial
+                    }),
+                    quantity: pm.quantity
+                }
+                    
+            }))
+
+            for(const pm of projectMaterials){
+                if(pm.quantity > pm.Material.quantity){
+                    setNotAvailable(true)
+                    break;
+                }
+            }
+
+        })
+    }
+    
 
 
     const clearForm = () => {
@@ -74,6 +118,7 @@ const FormProject = ({ refreshTable, sendData }) => {
                 setIsCompany(true)
             }
             checkAvailableStatus()
+            getProjectMaterials()
         }
 
     }, [sendData])
@@ -81,6 +126,16 @@ const FormProject = ({ refreshTable, sendData }) => {
     const confirmCanceledStatus = (bodyForm) => {
         confirmDialog({
             message: 'Are you sure you want to cancel the project?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => { updateProjectStatus(bodyForm) },
+            reject: () => { }
+        });
+    };
+
+    const confirmProgressStatus = (bodyForm) => {
+        confirmDialog({
+            message: 'There is not enough stock available to fullfil. Are you sure you want to continue ?',
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => { updateProjectStatus(bodyForm) },
@@ -118,6 +173,11 @@ const FormProject = ({ refreshTable, sendData }) => {
             return;
         }
 
+        if(bodyForm.status == 'In Progress' && notAvailable){
+            confirmProgressStatus(bodyForm)
+            return;
+        }
+
         updateProjectStatus(bodyForm)
     }
 
@@ -134,11 +194,6 @@ const FormProject = ({ refreshTable, sendData }) => {
 
 
     }
-
-
-
-
-
 
     return (
         <>

@@ -1,7 +1,7 @@
 import './Details.css'
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation, useParams, NavLink } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import moment from "moment";
 
 import { faBookOpen, faBook, faWarning } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +14,7 @@ import { Column } from 'primereact/column';
 import { Panel } from 'primereact/panel';
 import { DataTable } from 'primereact/datatable';
 import { useHistory } from 'react-router-dom';
-import { Card } from 'primereact/card';
+
 
 import * as project_materialsService from '../../../services/project_materials'
 
@@ -213,7 +213,6 @@ const MaterialInformation = () => {
                         <DataTable loading={loading} value={projectsMaterials} emptyMessage="No projects linked found." className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
 
                             <Column field='Project.name' header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-
                             <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
                             <Column field="Project.start_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={(rowData) => { return moment(rowData.Project.start_date).utc().format('YYYY-MM-DD') }} sortable header="Start Date" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
                             <Column field="Project.end_date" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} body={endDateTemplate} sortable header="End Date" headerStyle={{ color: "#c9392f" }}></Column>
@@ -222,9 +221,6 @@ const MaterialInformation = () => {
                         </DataTable>
                     </Panel>
                 </div>
-                <Card>
-                    Content
-                </Card>
 
             </div>
         </>
