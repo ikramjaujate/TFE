@@ -45,15 +45,7 @@ const createUser = async (req, res) => {
         if (!createAddress) {
             throw new Error("Address couldn't be created")
         };
-        //TODO : correction des vta en focntions des iso des countries
-        if (req.body.vta) {
-            if (country == "Belgium") {
-                req.body.vta = 'BE ' + String(req.body.vta)
-            } else {
-                req.body.vta = 'FR ' + String(req.body.vta)
-            }
 
-        }
         const person = {
             idAddress: createAddress.idAddress,
             firstName: req.body.firstName,
@@ -218,14 +210,14 @@ const updateUser = async (req, res) => {
             }
         });
 
-        if (req.body.vta) {
+        /*if (req.body.vta) {
             if (req.body.country == "Belgium") {
                 req.body.vta = 'BE ' + String(req.body.vta)
             } else {
                 req.body.vta = 'FR ' + String(req.body.vta)
             }
 
-        }
+        }*/
 
         if (existingEmail && user.idPerson !== existingEmail.idPerson) {
             throw new Error("Email already taken")
