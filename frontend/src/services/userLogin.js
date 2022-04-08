@@ -22,7 +22,20 @@ const CreateNewUser = async (bodyForm) => {
         })
     );
 }
+
+const UpdateUserLogin = async (bodyForm) => {
+    return await (
+        fetch(`/api/users`, {
+            method: 'PATCH',
+            headers: BASIC_HEADERS,
+            body: JSON.stringify(bodyForm)
+        }).then(response => {
+            return response.json()
+        })
+    );
+}
 export {
     GetUsers,
-    CreateNewUser
+    CreateNewUser,
+    UpdateUserLogin
 }

@@ -16,11 +16,14 @@ const { login } = require('../controllers/login.js');
 router.post('/login', login)
 
 //USER
-const {getAllUsersLogin,
-    createUserLogin
+const {
+    getAllUsersLogin,
+    createUserLogin,
+    updateUserLogin
 } = require('../controllers/users.js')
 router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev']), getAllUsersLogin)
 router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev']),createUserLogin)
+router.patch('/users', verifyToken, checkRoleAuth(['admin', 'dev']),updateUserLogin)
 
 // PERSONS
 router.get('/simple-persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)

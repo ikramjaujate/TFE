@@ -211,15 +211,6 @@ const updateUser = async (req, res) => {
             }
         });
 
-        /*if (req.body.vta) {
-            if (req.body.country == "Belgium") {
-                req.body.vta = 'BE ' + String(req.body.vta)
-            } else {
-                req.body.vta = 'FR ' + String(req.body.vta)
-            }
-
-        }*/
-
         if (existingEmail && user.idPerson !== existingEmail.idPerson) {
             throw new Error("Email already taken")
         }

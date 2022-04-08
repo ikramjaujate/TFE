@@ -60,6 +60,7 @@ const FormUser = ({ refreshTable, sendData }) => {
             roleCreate = 'sec'
         }
 
+        
         const bodyForm = {
             firstName: firstName,
             lastName: lastName,
@@ -81,6 +82,46 @@ const FormUser = ({ refreshTable, sendData }) => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'New user cannot be created', life: 3000 });
         })
         
+    }
+
+    const onUpdateUser = (e) => {
+        e.preventDefault()
+        let roleCreate = ''
+        if(role == 'Developer'){
+            roleCreate = 'dev'
+        }else if(role == 'Administrator'){
+            roleCreate = 'admin'
+        }else if (role == 'Secretary'){
+            roleCreate = 'sec'
+        }
+
+        let newPassword = password
+        if(!password){
+            newPassword = sendData.password
+        }
+        console.log(newPassword)
+
+        
+        const bodyForm = {
+            id: sendData.id,
+            email: email,
+            password: newPassword,
+            role: roleCreate
+        }
+
+        userLoginService.UpdateUserLogin(bodyForm).then(response => {
+
+            if (response.hasOwnProperty("user")) {
+                return response
+            }
+            throw new Error('Something went wrong.');
+
+        }).then(response => {
+            toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Project has been updated', life: 3000 });
+            clearForm()
+        }).catch(error => {
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be updated', life: 3000 });
+        })
     }
 
     return (<>
@@ -154,7 +195,7 @@ const FormUser = ({ refreshTable, sendData }) => {
                     <div className='btn-container'>
                        
                         <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={onAddUser} disabled={sendData} />
-                        <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={() => {console.log('deletion')}} disabled={!sendData} />
+                        <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={onUpdateUser} disabled={!sendData} />
                         <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData} />
 
                     </div>
