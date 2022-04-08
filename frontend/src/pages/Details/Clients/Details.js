@@ -134,15 +134,20 @@ const Details = (clientType) => {
                 setPerson(response["user"]);
                 if(response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "France"){
                     response["user"][0].VAT_num = response["user"][0].VAT_num.replace(/^.{2}/g, 'FR')
+                    setVta(response["user"][0].VAT_num)
                 }else if( response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Luxembourg"){
                     response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'LU')
+                    setVta(response["user"][0].VAT_num)
                 }else if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Netherlands"){
                     response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'NL')
+                    setVta(response["user"][0].VAT_num)
                 }else if(response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Belgium"){
                     response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'BE')
+                    setVta(response["user"][0].VAT_num)
                 }else{
                     setVta(response["user"][0].VAT_num)
                 }
+                
                 setFirstName(response["user"][0].firstName)
                 setLastName(response["user"][0].lastName)
                 setEmail(response["user"][0].email)

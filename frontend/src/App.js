@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Redirect, Route, NavLink } from 'react-router-dom';
-import { faTools, faUser,faAddressBook, faCalendar,faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
+import { faTools, faUsers,faAddressBook, faCalendar,faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
 
 import PrivateRoute from './shared/components/PrivateRoute';
 import { isLoggedIn } from './core/auth';
@@ -27,6 +27,8 @@ import Quotation from './pages/Quotation/Quotation';
 import DetailsProjects from './pages/Details/Projects/Details';
 import CalendarClient from './pages/Calendar/Calendar';
 import MaterialInformation from './pages/Details/Material/Details';
+import Users from './pages/Users/Users';
+
 const App = () => {
 
     const [menuIsVisible, setMenuIsVisible] = useState(false);
@@ -40,7 +42,7 @@ const App = () => {
         { label: 'Quotations', icon: faFileSignature, to: '/quotation' },
         { label: 'Invoices', icon: faFileContract, to: '/invoices' },
         { label: 'Calendar', icon: faCalendar, to: '/calendar' },
-        { label: 'Users', icon: faUser, to: '/users' , isLast: true}
+        { label: 'Users', icon: faUsers, to: '/users' , isLast: true}
     ];
 
     const onToggleMenu = () => {
@@ -78,6 +80,7 @@ const App = () => {
                         <PrivateRoute exact path="/material/:id/detail" component={MaterialInformation} />
                         <PrivateRoute exact path="/quotation" component={Quotation} />
                         <PrivateRoute exact path="/calendar" component={CalendarClient} />
+                        <PrivateRoute exact path="/users" component={Users} />
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@ import { BASIC_HEADERS } from "../shared/consts/headers";
 
 const GetClients = async () => {
     return await (
-        fetch(`/api/users`, {
+        fetch(`/api/persons`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(response => {
@@ -13,7 +13,7 @@ const GetClients = async () => {
 
 const GetClientsWithProjects = async () => {
     return await (
-        fetch(`/api/simple-users`, {
+        fetch(`/api/simple-persons`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(response => {
@@ -24,7 +24,7 @@ const GetClientsWithProjects = async () => {
 }
 const GetClientByID = async (id) => {
     return await (
-        fetch(`/api/users/${id}`, {
+        fetch(`/api/persons/${id}`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(response => {
@@ -37,7 +37,7 @@ const GetClientByID = async (id) => {
 
 const GetProjectsByClientID = async (id) => {
     return await (
-        fetch(`/api/users/${id}/projects`, {
+        fetch(`/api/persons/${id}/projects`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(response => {
@@ -49,7 +49,7 @@ const GetProjectsByClientID = async (id) => {
 
 const CreateNewClient = async (bodyForm) => {
     return await (
-        fetch(`/api/users`, {
+        fetch(`/api/persons`, {
             method: 'POST',
             headers: BASIC_HEADERS,
             body: JSON.stringify(bodyForm)
@@ -61,7 +61,7 @@ const CreateNewClient = async (bodyForm) => {
 
 const UpdateUser = async (bodyForm) => {
     return await (
-        fetch(`/api/users`, {
+        fetch(`/api/persons`, {
             method: 'PATCH',
             headers: BASIC_HEADERS,
             body: JSON.stringify(bodyForm)
