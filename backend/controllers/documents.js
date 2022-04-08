@@ -111,7 +111,6 @@ const getAllQuotations = async (req, res) => {
     */
     try {
         
-
         const documents = await Document.findAll({
             where: { type: 'devis' },
             include : [{
