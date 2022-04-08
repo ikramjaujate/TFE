@@ -2,10 +2,10 @@
 const { Person, Address, Country, Company, Project, Sequelize } = require('../models');
 const Op = Sequelize.Op
 const createUser = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Creates a new user'
-    #swagger.description = 'The user to create.'
+    #swagger.summary = 'Creates a new person'
+    #swagger.description = 'The person to create.'
     #swagger.parameters['parameter_name'] = {
                 in: 'body',
                 description: 'Some description...',
@@ -69,17 +69,17 @@ const createUser = async (req, res) => {
     }
 }
 const getAllUsers = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Get all users'
-    #swagger.description = 'Get all the users without using ID'
+    #swagger.summary = 'Get all Person'
+    #swagger.description = 'Get all the person without using ID'
     #swagger.security = [{
                "bearerAuth": []
     }]
     #swagger.responses[200] = {
-            description: 'User successfully obtained.',
+            description: 'Person successfully obtained.',
             schema:
-            { "users" : [
+            { "person" : [
                 {
                     firstName: 'Jhon',
                     lastname: "Doe",
@@ -113,10 +113,10 @@ const getAllUsers = async (req, res) => {
 
 
 const getUserById = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Gets a user by ID'
-    #swagger.description = 'Numeric ID of the user to get.'
+    #swagger.summary = 'Gets a person by ID'
+    #swagger.description = 'Numeric ID of the person to get.'
     #swagger.security = [{
                "bearerAuth": []
     }] 
@@ -133,6 +133,7 @@ const getUserById = async (req, res) => {
             where: { idPerson: id },
             
         });*/
+        console.log()
         const user = await Person.findAll({
             where: { idPerson: id },
             include: [{
@@ -150,16 +151,16 @@ const getUserById = async (req, res) => {
     }
 }
 const getProjectByUserId = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Gets the project using the user ID'
-    #swagger.description = 'Numeric ID of the user to get.'
+    #swagger.summary = 'Gets the project using the person ID'
+    #swagger.description = 'Numeric ID of the person to get.'
     #swagger.security = [{
                "bearerAuth": []
     }] 
     #swagger.parameters['id'] = {
                 in: 'path',
-                description: 'User ID.',
+                description: 'Person ID.',
                 required: true,
                 type: 'integer'
             }
@@ -182,10 +183,10 @@ const getProjectByUserId = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Update user'
-    #swagger.description = 'Updating the user .'
+    #swagger.summary = 'Update person'
+    #swagger.description = 'Updating the person .'
     #swagger.security = [{
                "bearerAuth": []
     }] 
@@ -301,9 +302,9 @@ const updateUser = async (req, res) => {
 }
 
 const getSimpleUsersWithProjects = async (req, res) => {
-    // #swagger.tags = ['Users']
+    // #swagger.tags = ['Person']
     /* 
-    #swagger.summary = 'Gets the projects using the users'
+    #swagger.summary = 'Gets the projects using the persons'
     #swagger.description = 'Numeric ID of the project to get.'
     #swagger.security = [{
                "bearerAuth": []

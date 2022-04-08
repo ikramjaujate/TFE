@@ -49,12 +49,12 @@
         }
       }
     },
-    "/simple-users": {
+    "/simple-persons": {
       "get": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Gets the projects using the users",
+        "summary": "Gets the projects using the persons",
         "description": "Numeric ID of the project to get.",
         "parameters": [
           {
@@ -89,13 +89,13 @@
         ]
       }
     },
-    "/users": {
+    "/persons": {
       "get": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Get all users",
-        "description": "Get all the users without using ID",
+        "summary": "Get all Person",
+        "description": "Get all the person without using ID",
         "parameters": [
           {
             "name": "Authorization",
@@ -107,13 +107,13 @@
         ],
         "responses": {
           "200": {
-            "description": "User successfully obtained.",
+            "description": "Person successfully obtained.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "users": {
+                    "person": {
                       "type": "array",
                       "items": {
                         "type": "object",
@@ -163,7 +163,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "users": {
+                    "person": {
                       "type": "array",
                       "items": {
                         "type": "object",
@@ -229,10 +229,10 @@
       },
       "post": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Creates a new user",
-        "description": "The user to create.",
+        "summary": "Creates a new person",
+        "description": "The person to create.",
         "parameters": [
           {
             "name": "Authorization",
@@ -302,10 +302,10 @@
       },
       "patch": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Update user",
-        "description": "Updating the user .",
+        "summary": "Update person",
+        "description": "Updating the person .",
         "parameters": [
           {
             "name": "Authorization",
@@ -380,13 +380,13 @@
         }
       }
     },
-    "/users/{id}": {
+    "/persons/{id}": {
       "get": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Gets a user by ID",
-        "description": "Numeric ID of the user to get.",
+        "summary": "Gets a person by ID",
+        "description": "Numeric ID of the person to get.",
         "parameters": [
           {
             "name": "id",
@@ -429,13 +429,13 @@
         ]
       }
     },
-    "/users/{id}/projects": {
+    "/persons/{id}/projects": {
       "get": {
         "tags": [
-          "Users"
+          "Person"
         ],
-        "summary": "Gets the project using the user ID",
-        "description": "Numeric ID of the user to get.",
+        "summary": "Gets the project using the person ID",
+        "description": "Numeric ID of the person to get.",
         "parameters": [
           {
             "name": "id",
@@ -444,7 +444,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "User ID."
+            "description": "Person ID."
           },
           {
             "name": "Authorization",

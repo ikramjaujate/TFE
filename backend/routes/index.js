@@ -14,13 +14,21 @@ const router = Router();
 //LOGIN
 const { login } = require('../controllers/login.js');
 router.post('/login', login)
-// USERS
-router.get('/simple-users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
-router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']), getAllUsers)
-router.get('/users/:id',verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getUserById)
-router.get('/users/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByUserId)
-router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createUser)
-router.patch('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateUser)
+
+//USER
+const {getAllUsersLogin,
+    createUserLogin
+} = require('../controllers/users.js')
+router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev']), getAllUsersLogin)
+router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev']),createUserLogin)
+
+// PERSONS
+router.get('/simple-persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
+router.get('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']), getAllUsers)
+router.get('/persons/:id',verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getUserById)
+router.get('/persons/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByUserId)
+router.post('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createUser)
+router.patch('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateUser)
 
 
 // COMPANY
