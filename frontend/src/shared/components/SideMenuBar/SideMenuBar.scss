@@ -14,13 +14,13 @@
     margin-top: 0.2rem;
     margin-left: 1rem;
     padding: 1rem 0;
-    //position: fixed;
-    //width: 16rem;
-    //width: 14%;
     border-radius: 12px;
     box-shadow: 0 3px 5px rgb(0 0 0 / 2%), 0 0 2px rgb(0 0 0 / 5%), 0 1px 4px rgb(0 0 0 / 8%);
     font-weight: 600;
     background-color: white;
+
+    
+    
     .router-link {
       font-size: 17px;
       color: var(--main-color);
@@ -37,6 +37,7 @@
       flex-direction: row;
       flex-wrap: nowrap;
       
+
       * {
         margin: auto 0.5rem;
       }
@@ -45,6 +46,11 @@
         min-width: 2rem;
         margin-right: 0;
       }
+    }
+
+    .menu-bottom{
+      border: 1px solid var(--main-color);
+      margin-top: auto;
     }
 
     .router-link:hover {

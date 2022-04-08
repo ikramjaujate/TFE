@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Redirect, Route, NavLink } from 'react-router-dom';
-import { faTools, faAddressBook, faCalendar,faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
+import { faTools, faUser,faAddressBook, faCalendar,faHome, faBook, faFileContract, faHardHat, faFileSignature } from "@fortawesome/free-solid-svg-icons";
 
 import PrivateRoute from './shared/components/PrivateRoute';
 import { isLoggedIn } from './core/auth';
@@ -39,7 +39,8 @@ const App = () => {
         { label: 'Projects', icon: faBook, to: '/projects' },
         { label: 'Quotations', icon: faFileSignature, to: '/quotation' },
         { label: 'Invoices', icon: faFileContract, to: '/invoices' },
-        { label: 'Calendar', icon: faCalendar, to: '/calendar' }
+        { label: 'Calendar', icon: faCalendar, to: '/calendar' },
+        { label: 'Users', icon: faUser, to: '/users' , isLast: true}
     ];
 
     const onToggleMenu = () => {
@@ -50,6 +51,10 @@ const App = () => {
     }
 
     if (isLoggedIn()) {
+        
+        if(localStorage.getItem('role') == 'sec'){
+            menu.pop()
+        }
         return (<Router>
             <div className="main-window">
 
@@ -59,6 +64,7 @@ const App = () => {
                     <div className={`side-menu ${menuIsVisible ? "menu-is-visible" : "menu-is-hidden"}`}>
                         <SideMenuBar menu={menu} setMenuVisible={forcedCloseMenu}></SideMenuBar>
                     </div>
+
                     <div className={`main-content ${menuIsVisible ? "" : "menu-is-hidden-content"}`}>
                         <PrivateRoute exact path="/" component={Home} menu={menu.slice(1)} />
                         <PrivateRoute exact path="/clients" component={Clients} />

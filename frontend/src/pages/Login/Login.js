@@ -37,8 +37,11 @@ function Login() {
 
 
                     setErrorMsg(<p style={{ color: 'red' }}>{token.message}</p>)
+                    console.log(token)
                     if (token["data"]["token"]) {
+                        
                         localStorage.setItem('access_token', token["data"]["token"]);
+                        localStorage.setItem('role', token["data"]["role"]);
                         //localStorage.setItem('id', token.id)
 
                         if (localStorage.getItem("access_token") !== null && localStorage.getItem("access_token") !== "undefined") {

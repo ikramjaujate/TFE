@@ -10,11 +10,16 @@ const SideMenuBar = ({menu, setMenuVisible}) => {
         <div className='menu-card'>
             {menu.map(item => {
                 return (
+                    <>
+                    {item.isLast? 
+                    <hr className='menu-bottom'>
+                    </hr>: 
+                    <></>}
                     <NavLink
                         key={item.label}
                         aria-label={item.label}
                         role="menuitem"
-                        className="router-link"
+                        className={`router-link`}
                         activeClassName="router-link-active"
                         to={item.to}
                         onClick={setMenuVisible}
@@ -23,6 +28,7 @@ const SideMenuBar = ({menu, setMenuVisible}) => {
                         <FontAwesomeIcon className='icon' icon={item.icon} />
                         <span>{item.label}</span>
                     </NavLink>
+                    </>
                 )
             })}
         </div>
