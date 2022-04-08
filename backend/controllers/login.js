@@ -17,9 +17,9 @@ const login = async (req, res) => {
         const validPassword = await argon2.verify(passwordHash, password)
         
         if (!validPassword) return res.status(401).json({error: "Invalid Credentials"});
-        
+        const role = user.role
         const token = jwt.sign(
-            { user_id: username },
+            { user_id: username, role: user.role},
             process.env.TOKEN_SECRET,
             {
               expiresIn: "10000h",
@@ -29,7 +29,7 @@ const login = async (req, res) => {
         
         res.header('Authorization', token).json({
             error: null,
-            data: {token}
+            data: {token :token, role : role}
         })
         return res;
 

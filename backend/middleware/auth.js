@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-// middleware to validate token (rutas protegidas)
+
 const verifyToken = (req, res, next) => {
 
     const token = req.header('Authorization').split("Bearer")[1].trim();
@@ -10,10 +10,22 @@ const verifyToken = (req, res, next) => {
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET)
         req.user = verified
-        next() // continuamos
+        next()
     } catch (error) {
         res.status(400).json({error: 'Invalid token'})
     }
 }
 
-module.exports = verifyToken;
+const verifyAccess = async() => {
+    try{
+        console.log(req.header('Authorization').split("Bearer")[1].trim())
+        const token = req.header('Authorization').split("Bearer")[1].trim()
+        return jwt.verify(token, process.env.TOKEN_SECRET)
+    }catch(e){
+        return null
+    }
+}
+module.exports = {
+    verifyToken, 
+    verifyAccess
+};

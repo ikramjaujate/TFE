@@ -279,9 +279,6 @@
                   "postalCode": {
                     "example": "any"
                   },
-                  "vta": {
-                    "example": "any"
-                  },
                   "firstName": {
                     "example": "any"
                   },
@@ -289,6 +286,9 @@
                     "example": "any"
                   },
                   "email": {
+                    "example": "any"
+                  },
+                  "vta": {
                     "example": "any"
                   },
                   "mobile": {
@@ -566,13 +566,13 @@
                   "postalCode": {
                     "example": "any"
                   },
-                  "vta": {
-                    "example": "any"
-                  },
                   "name": {
                     "example": "any"
                   },
                   "email": {
+                    "example": "any"
+                  },
+                  "vta": {
                     "example": "any"
                   },
                   "mobile": {
@@ -1029,10 +1029,10 @@
                   "id": {
                     "example": "any"
                   },
-                  "name": {
+                  "status": {
                     "example": "any"
                   },
-                  "status": {
+                  "name": {
                     "example": "any"
                   },
                   "start_date": {
@@ -1877,6 +1877,191 @@
         }
       }
     },
+    "/quotations": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Gets all the documents where type is quotations",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Document ID.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The document to get.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "document": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "file": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "Buffer"
+                              },
+                              "data": {
+                                "type": "array",
+                                "example": [
+                                  37,
+                                  80,
+                                  68,
+                                  70
+                                ],
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "idProject": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "devis"
+                          },
+                          "notes": {
+                            "type": "string",
+                            "example": "/"
+                          },
+                          "isPaid": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "isAccepted": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "document": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "file": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "example": "Buffer"
+                              },
+                              "data": {
+                                "type": "array",
+                                "example": [
+                                  37,
+                                  80,
+                                  68,
+                                  70
+                                ],
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "idProject": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "devis"
+                          },
+                          "notes": {
+                            "type": "string",
+                            "example": "/"
+                          },
+                          "isPaid": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "isAccepted": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-02-13T12:37:54.635Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/sendDocument": {
       "post": {
         "tags": [
@@ -2545,6 +2730,158 @@
         ]
       }
     },
+    "/stock-status": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Get status of materials ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials successfully obtained.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "reserved": {
+                            "type": "number",
+                            "example": 10
+                          },
+                          "available": {
+                            "type": "number",
+                            "example": -7
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "reserved": {
+                            "type": "number",
+                            "example": 10
+                          },
+                          "available": {
+                            "type": "number",
+                            "example": -7
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/project-materials": {
       "get": {
         "tags": [
@@ -2733,6 +3070,51 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/project-materials/{id}/projects": {
+      "get": {
+        "tags": [
+          "Project_Materials"
+        ],
+        "summary": "Get all projects-materials by material id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           }
         },
         "security": [

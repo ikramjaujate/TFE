@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const verifyToken = require('../middleware/auth.js');
+const {verifyToken}= require('../middleware/auth.js');
+const checkRoleAuth = require('../middleware/roleAuth.js');
 const {
     createUser,
     getAllUsers,
@@ -14,12 +15,12 @@ const router = Router();
 const { login } = require('../controllers/login.js');
 router.post('/login', login)
 // USERS
-router.get('/simple-users', verifyToken, getSimpleUsersWithProjects)
-router.get('/users', verifyToken, getAllUsers)
-router.get('/users/:id', verifyToken, getUserById)
-router.get('/users/:id/projects', verifyToken, getProjectByUserId)
-router.post('/users', verifyToken, createUser)
-router.patch('/users', verifyToken, updateUser)
+router.get('/simple-users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
+router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']), getAllUsers)
+router.get('/users/:id',verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getUserById)
+router.get('/users/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByUserId)
+router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createUser)
+router.patch('/users', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateUser)
 
 
 // COMPANY
@@ -30,11 +31,11 @@ const { getAllCompanies,
     getProjectByCompanyId
 
 } = require('../controllers/company.js');
-router.get('/company', verifyToken, getAllCompanies)
-router.get('/company/:id', verifyToken, getCompanyById)
-router.get('/company/:id/projects', verifyToken, getProjectByCompanyId)
-router.post('/company', verifyToken, createCompany)
-router.put('/company', verifyToken, updateCompany)
+router.get('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllCompanies)
+router.get('/company/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getCompanyById)
+router.get('/company/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByCompanyId)
+router.post('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createCompany)
+router.put('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateCompany)
 
 
 // PROJECT
@@ -48,14 +49,14 @@ const { createProject,
     getSimpleProject
 } = require('../controllers/project.js');
 
-router.get('/projects', verifyToken, getAllProjects)
-router.get('/simple-project/:id', verifyToken, getSimpleProject)
-router.get('/projects/:id', verifyToken, getProjectById)
-router.get('/projects/:id/project-materials', verifyToken, getProjectMaterialByProjectId)
-router.get('/projects/:id/documents', verifyToken, getDocumentsByProjectId)
-router.get('/projects/:id/statuses', verifyToken, getPossiblesStatuses)
-router.post('/projects', verifyToken, createProject)
-router.patch('/projects', verifyToken, updateProject)
+router.get('/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllProjects)
+router.get('/simple-project/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleProject)
+router.get('/projects/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectById)
+router.get('/projects/:id/project-materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectMaterialByProjectId)
+router.get('/projects/:id/documents', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getDocumentsByProjectId)
+router.get('/projects/:id/statuses', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getPossiblesStatuses)
+router.post('/projects', verifyToken, checkRoleAuth(['admin', 'dev']),createProject)
+router.patch('/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateProject)
 
 // DOCUMENTS
 const {
@@ -68,13 +69,13 @@ const {
     getAllQuotations
 } = require('../controllers/documents.js');
 
-router.get('/documents', verifyToken, getAllDocuments)
-router.get('/documents/:id', verifyToken, getDocumentById)
-router.get('/quotations', verifyToken, getAllQuotations)
-router.post('/documents', verifyToken, createDocuments)
-router.post('/sendDocument', verifyToken, sendDocumentByEmail)
-router.patch('/documents/:id', verifyToken, updateStateDocument)
-router.patch('/documents/:id/pdf', verifyToken, uploadPdfDocument)
+router.get('/documents', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getAllDocuments)
+router.get('/documents/:id', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getDocumentById)
+router.get('/quotations', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getAllQuotations)
+router.post('/documents', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createDocuments)
+router.post('/sendDocument', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),sendDocumentByEmail)
+router.patch('/documents/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateStateDocument)
+router.patch('/documents/:id/pdf', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), uploadPdfDocument)
 
 
 // MATERIALS
@@ -87,12 +88,12 @@ const {
     getStockStatus
 } = require('../controllers/material.js')
 
-router.get('/materials', verifyToken, getAllMaterials);
-router.get('/materials/:id', verifyToken, getMaterialById);
-router.get('/stock-status', verifyToken, getStockStatus);
-router.post('/materials', verifyToken, createMaterial);
-router.patch('/materials', verifyToken, updateMaterial);
-router.delete('/materials/:id', verifyToken, removeMaterialById);
+router.get('/materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllMaterials);
+router.get('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getMaterialById);
+router.get('/stock-status', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getStockStatus);
+router.post('/materials', verifyToken,checkRoleAuth(['admin', 'dev']), createMaterial);
+router.patch('/materials', verifyToken, checkRoleAuth(['admin', 'dev']),updateMaterial);
+router.delete('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev']),removeMaterialById);
 
 // PROJECT-MATERIALS
 const {
@@ -105,25 +106,26 @@ const {
     getProjectsByMaterialId
 } = require('../controllers/project-material.js')
 
-router.get('/project-materials', verifyToken, getAllProjectMaterials);
-router.get('/project-materials/:id', verifyToken, getProjectMaterialById);
-router.get('/project-materials/:id/projects', verifyToken, getProjectsByMaterialId);
-router.post('/project-materials', verifyToken, createProjectMaterial);
-router.post('/bulk-project-materials', verifyToken, bulkUpdateProjectMaterial);
-router.patch('/project-materials', verifyToken, updateProjectMaterial);
-router.delete('/project-materials/:id', verifyToken, removeProjectMaterialById);
+router.get('/project-materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllProjectMaterials);
+router.get('/project-materials/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectMaterialById);
+router.get('/project-materials/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectsByMaterialId);
+router.post('/project-materials', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), createProjectMaterial);
+router.post('/bulk-project-materials', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), bulkUpdateProjectMaterial);
+router.patch('/project-materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateProjectMaterial);
+router.delete('/project-materials/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),removeProjectMaterialById);
 
 // ADDRESS
-const { createAddress,
+const { 
+    createAddress,
     getAllAddress
 } = require('../controllers/address.js');
-router.get('/address', verifyToken, getAllAddress)
-router.post('/address', verifyToken, createAddress)
+router.get('/address', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllAddress)
+router.post('/address', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createAddress)
 
 // COUNTRY
 const { getAllCountries } = require('../controllers/country.js');
 
-router.get('/countries', verifyToken, getAllCountries)
+router.get('/countries', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllCountries)
 
 
 
