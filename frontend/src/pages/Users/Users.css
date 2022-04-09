@@ -1,0 +1,8 @@
+.current-account{
+    color: rgba(216, 24, 24, 0.53)!important;
+    
+}
+
+.current-account.p-highlight{
+    color: white!important;
+}

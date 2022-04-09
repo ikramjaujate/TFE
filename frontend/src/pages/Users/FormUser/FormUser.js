@@ -2,17 +2,15 @@ import '../../../shared/styles/form.scss';
 
 import React, { useState, useEffect, useRef } from "react";
 import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Panel } from 'primereact/panel';
-import { SelectButton } from 'primereact/selectbutton';
-import { InputMask } from 'primereact/inputmask';
 import { faKey, faUserGroup, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Password } from 'primereact/password';
 
+import jwt_decode from "jwt-decode";
 import * as userLoginService from '../../../services/userLogin'
 
 const FormUser = ({ refreshTable, sendData }) => {
@@ -24,6 +22,7 @@ const FormUser = ({ refreshTable, sendData }) => {
     const [filterRole, setFilterRole] = useState(['Developer', 'Administrator', 'Secretary'])
     const [firstName, setFirstname] = useState('')
     const [lastName, setLastname] = useState('')
+    const [currentAccount, setCurrentAccount ] = useState(null)
 
     const clearForm = () => {
         setEmail('')
@@ -35,8 +34,11 @@ const FormUser = ({ refreshTable, sendData }) => {
     }
 
     useEffect(() => {
+        setCurrentAccount(jwt_decode(localStorage.getItem('access_token')).user_id)
         if (sendData) {
             setEmail(sendData.email)
+            setFirstname(sendData.firstName)
+            setLastname(sendData.lastName)
             if(sendData.role == 'dev'){
                 setRole('Developer')
             }else if(sendData.role == 'admin'){
@@ -47,6 +49,7 @@ const FormUser = ({ refreshTable, sendData }) => {
             }
            
         }
+        console.log(jwt_decode(localStorage.getItem('access_token')).user_id)
     },[sendData])
 
     const onAddUser = (e) => {
@@ -104,6 +107,8 @@ const FormUser = ({ refreshTable, sendData }) => {
         
         const bodyForm = {
             id: sendData.id,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             password: newPassword,
             role: roleCreate
@@ -132,8 +137,7 @@ const FormUser = ({ refreshTable, sendData }) => {
             {!sendData ? 'ADD USER' : 'EDIT USER'}
         </span>} toggleable>
         <div className="grid p-fluid m-2">
-            {!sendData ?
-            <>
+
              <div className="col-12 md:col-4">
                     <div className="p-inputgroup">
                         <span className="p-inputgroup-addon">
@@ -144,18 +148,8 @@ const FormUser = ({ refreshTable, sendData }) => {
                     </div>
 
                 </div>
-                <div className="col-12 md:col-4">
-                    <div className="p-inputgroup">
-                        <span className="p-inputgroup-addon">
-                            <i className="pi pi-user"></i>
-                        </span>
-                        <InputText value={lastName} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
-                        <span className="p-inputgroup-addon" > <i className="pi pi-flag-fill"></i></span>
-                    </div>
+                
 
-                </div>
-            </>: <></>
-            }
            
 
                 <div className="col-12 md:col-4">
@@ -179,6 +173,17 @@ const FormUser = ({ refreshTable, sendData }) => {
 
                 </div>
                 <div className="col-12 md:col-4">
+                    <div className="p-inputgroup">
+                        <span className="p-inputgroup-addon">
+                            <i className="pi pi-user"></i>
+                        </span>
+                        <InputText value={lastName} onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" />
+                        <span className="p-inputgroup-addon" > <i className="pi pi-flag-fill"></i></span>
+                    </div>
+
+                </div>
+                <div className="col-12 md:col-4"></div>
+                <div className="col-12 md:col-4">
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">
                             <FontAwesomeIcon icon={faUserGroup} />
@@ -196,7 +201,7 @@ const FormUser = ({ refreshTable, sendData }) => {
                        
                         <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={onAddUser} disabled={sendData} />
                         <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={onUpdateUser} disabled={!sendData} />
-                        <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData} />
+                        <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData || sendData?.email == jwt_decode(localStorage.getItem('access_token')).user_id} />
 
                     </div>
 
