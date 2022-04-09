@@ -1988,7 +1988,9 @@ module.exports = {
       idAddress: 200,
       createdAt: new Date(),
       updatedAt: new Date()
-    }
+    },
+    
+    
     ], {});
   },
   down: (queryInterface, Sequelize) => {
