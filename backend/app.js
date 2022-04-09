@@ -1,7 +1,8 @@
 "use strict";
 
 const express = require("express");
-const fileUpload = require('express-fileupload');
+
+
 //const {Client} = require("pg");
 const env = process.env.NODE_ENV || 'development';
 const config = require( "./config/database.config.js" )[ env ];
@@ -33,6 +34,7 @@ app.use(bodyParser.raw({ limit: '1gb', type: 'application/pdf' }))
 app.use(helmet.noSniff());
 
 
+
 //X-Frame-Options
  app.use(
   helmet.frameguard({
@@ -52,6 +54,7 @@ app.use(
 
  //X-Powered-By
 app.use(helmet.hidePoweredBy());
+
 
 //Strict-Transport-Security
 app.use(

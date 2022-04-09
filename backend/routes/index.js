@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const {verifyToken}= require('../middleware/auth.js');
 const checkRoleAuth = require('../middleware/roleAuth.js');
+
+
+
 const {
     createUser,
     getAllUsers,
@@ -26,7 +29,7 @@ router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev']),createUserLog
 router.patch('/users', verifyToken, checkRoleAuth(['admin', 'dev']),updateUserLogin)
 
 // PERSONS
-router.get('/simple-persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
+router.get('/simple-persons', verifyToken,  checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
 router.get('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']), getAllUsers)
 router.get('/persons/:id',verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getUserById)
 router.get('/persons/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByUserId)

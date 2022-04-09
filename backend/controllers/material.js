@@ -1,5 +1,6 @@
 const { Material, Project_Materials, Project } = require('../models');
 const { Op } = require("sequelize");
+const redisClient = require("./redis");
 
 const getAllMaterials = async (req, res) => {
     // #swagger.tags = ['Material']
@@ -27,8 +28,19 @@ const getAllMaterials = async (req, res) => {
     }
     */
     try {
-        const materials = await Material.findAll();
-        return res.status(200).json({ materials });
+        let value =  await redisClient.get("materials")
+        
+        if(!value){
+
+            const materials = await Material.findAll();
+            
+            await redisClient.setEx("materials", 3600, JSON.stringify(materials));
+            return res.status(200).json( {materials });
+        }
+        
+        const materials = JSON.parse(value)
+        return res.status(200).json( {materials} );
+        
     } catch (error) {
         return res.status(400).send(error.message);
     }
@@ -170,6 +182,10 @@ const updateMaterial = async (req, res) => {
         material.update(req.body);
         await material.save();
 
+        let value = await redisClient.get('materials')
+        if(value){
+            redisClient.del('materials')
+        }
         return res.status(201).json({
             material,
         });

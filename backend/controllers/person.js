@@ -102,7 +102,7 @@ const getAllUsers = async (req, res) => {
     */
    try {
         
-        const value =  await redisClient.get("users")
+        let value =  await redisClient.get("users")
         
         if(!value){
 
@@ -111,13 +111,12 @@ const getAllUsers = async (req, res) => {
                     model: Address, include: [Country]
                 }
             });
-            console.log('par ici')
-            await redisClient.setEx("users", 3600, JSON.stringify(users));
+            
+            redisClient.setEx("users", 3600, JSON.stringify(users));
             return res.status(200).json( {users });
         }
         
         const users = JSON.parse(value)
-        console.log('value existe')
         return res.status(200).json( {users} );
 
 
@@ -303,6 +302,10 @@ const updateUser = async (req, res) => {
 
         )
         await user.save()
+        let value = await redisClient.get('users')
+        if(value){
+            redisClient.del('users')
+        }
 
         return res.status(200).json({ user });
     } catch (error) {
