@@ -1,6 +1,11 @@
 
 const { Person, Address, Country, Company, Project, Sequelize } = require('../models');
 const Op = Sequelize.Op
+const util = require('util');
+
+const redisClient = require("./redis");
+
+
 const createUser = async (req, res) => {
     // #swagger.tags = ['Person']
     /* 
@@ -95,15 +100,29 @@ const getAllUsers = async (req, res) => {
     }
     
     */
-    try {
-        const users = await Person.findAll({
-            include: {
-                model: Address, include: [Country]
-            }
-        });
+   try {
+        
+        const value =  await redisClient.get("users")
+        
+        if(!value){
+
+            const users =  await Person.findAll({
+                include: {
+                    model: Address, include: [Country]
+                }
+            });
+            console.log('par ici')
+            await redisClient.setEx("users", 3600, JSON.stringify(users));
+            return res.status(200).json( {users });
+        }
+        
+        const users = JSON.parse(value)
+        console.log('value existe')
+        return res.status(200).json( {users} );
 
 
-        return res.status(200).json({ users });
+        
+        
     } catch (error) {
         return res.status(500).send(error.message);
     }
