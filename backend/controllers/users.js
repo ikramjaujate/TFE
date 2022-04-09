@@ -109,6 +109,8 @@ const updateUserLogin = async (req, res) => {
             const passwordHash = await argon2.hash(req.body.password)
             await user.update(
                 {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
                     email: req.body.email,
                     role: req.body.role,
                     password : passwordHash
@@ -119,8 +121,10 @@ const updateUserLogin = async (req, res) => {
 
         await user.update(
             {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
                 email: req.body.email,
-                role: req.body.role,
+                role: req.body.role
             }
 
         )
