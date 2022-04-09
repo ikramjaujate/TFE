@@ -173,7 +173,7 @@ const FormUser = ({ refreshTable, sendData }) => {
                         <span className="p-inputgroup-addon">
                         <FontAwesomeIcon icon={faKey} />
                         </span>
-                        <Password id="password" placeholder='Password' feedback={false} name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask  />
+                        <Password id="password" placeholder='New password' feedback={false} name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask  />
                         <span className="p-inputgroup-addon" > <i className="pi pi-flag-fill"></i></span>
                     </div>
 
