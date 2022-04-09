@@ -236,6 +236,8 @@ const updateProject = async (req, res) => {
         )
         await project.save()
 
+        //TODO: SI PROJET PASSE A UN ETAT DONE, MISE A JOUR DU MATERIAL
+
         return res.status(200).json({ project });
     } catch (error) {
         console.log(error)

@@ -151,7 +151,11 @@ const createMaterial = async (req, res) => {
     try {
 
         const newMaterial = await Material.create(req.body);
-
+        
+        let value = await redisClient.get('materials')
+        if(value){
+            redisClient.del('materials')
+        }
         return res.status(201).json({
             newMaterial
         });
@@ -213,6 +217,10 @@ const removeMaterialById = async (req, res) => {
         });
 
         await material.destroy();
+        let value = await redisClient.get('materials')
+        if(value){
+            redisClient.del('materials')
+        }
         return res.status(200).json({
             id,
         });

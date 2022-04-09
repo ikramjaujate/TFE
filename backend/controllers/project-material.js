@@ -1,4 +1,5 @@
 const { Project_Materials, Project } = require('../models');
+const redisClient = require("./redis");
 
 const getAllProjectMaterials = async (req, res) => {
     // #swagger.tags = ['Project_Materials']
@@ -76,6 +77,10 @@ const createProjectMaterial = async (req, res) => {
 
         const newProjectMaterial = await Project_Materials.create(req.body);
 
+        let value = await redisClient.get('materials')
+        if(value){
+            redisClient.del('materials')
+        }
         return res.status(201).json({
             newProjectMaterial
         });

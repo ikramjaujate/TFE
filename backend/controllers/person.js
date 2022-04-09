@@ -65,7 +65,10 @@ const createUser = async (req, res) => {
         if (!user) {
             throw new Error("User couldn't be created")
         };
-
+        let value = await redisClient.get('users')
+        if(value){
+            redisClient.del('users')
+        }
         return res.status(201).json({
             user
         });
@@ -127,8 +130,6 @@ const getAllUsers = async (req, res) => {
     }
 
 }
-
-
 
 const getUserById = async (req, res) => {
     // #swagger.tags = ['Person']
