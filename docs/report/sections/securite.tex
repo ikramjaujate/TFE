@@ -7,7 +7,13 @@
 \subsubsection{En-têtes HTTPS}
 
 \subsection{Web Server}
-\subsubsection{SSH}
+\subsubsection{Configuration de base}
+Lors de la location d'un VPS au près d'un fournisseur, il est essentiel de le configurer. Dans un premier temps, j'ai créer un utilisateur dédié pour mon application et supprimer l'utilisateur reçu lors de la location.
+Par la suite, j'ai reconfigurer le service SSH afin de interdir la connexion par mot de passe, d'interdir la connexion en tant que root et d'autoriser la connexion par clé publique/privé.
+
+De plus, afin de sécuriser le VPS contre les attaques par brute forces sur le port part défaut de SSH (port 22), j'ai reconfigurer celui-ci sur le port 3333.
+
+
 \subsubsection{Firewall}
 \subsubsection{Reverse-proxy}
 

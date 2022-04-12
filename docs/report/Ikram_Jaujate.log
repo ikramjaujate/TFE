@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.10.16)  2 APR 2022 19:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.10.16)  12 APR 2022 17:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -605,7 +605,7 @@ LaTeX Info: Redefining \nameref on input line 35.
 \@outlinefile=\write4
 \openout4 = `Ikram_Jaujate.out'.
 
-<img/ephec.jpg, id=199, 1927.2pt x 832.10875pt>
+<img/ephec.jpg, id=232, 1927.2pt x 832.10875pt>
 File: img/ephec.jpg Graphic file (type jpg)
 <use img/ephec.jpg>
 Package pdftex.def Info: img/ephec.jpg  used on input line 43.
@@ -627,65 +627,99 @@ Overfull \hbox (19.42162pt too wide) in paragraph at lines 67--73
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/ikramjaujate/Desktop/TFE/docs/report/img/ephec.jpg>] (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.tocpdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.50 ...umberline {9}Bibliographie}{14}{section.9}
+l.51 ...guration de base}{15}{subsubsection.7.3.1}
                                                   % [1])
 \tf@toc=\write5
 \openout5 = `Ikram_Jaujate.toc'.
 
  [2] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/contexte.tex) [3] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/choix.tex
-<img/agile.png, id=275, 2007.5pt x 787.94376pt>
+<img/agile.png, id=315, 2007.5pt x 787.94376pt>
 File: img/agile.png Graphic file (type png)
 <use img/agile.png>
 Package pdftex.def Info: img/agile.png  used on input line 18.
 (pdftex.def)             Requested size: 362.77264pt x 142.38884pt.
-<img/gitflow.png, id=277, 1760.5775pt x 830.10126pt>
+ [4 </Users/ikramjaujate/Desktop/TFE/docs/report/img/agile.png>]
+<img/gitflow.png, id=324, 1760.5775pt x 830.10126pt>
 File: img/gitflow.png Graphic file (type png)
 <use img/gitflow.png>
-Package pdftex.def Info: img/gitflow.png  used on input line 38.
+Package pdftex.def Info: img/gitflow.png  used on input line 44.
 (pdftex.def)             Requested size: 362.77264pt x 171.04584pt.
- [4 </Users/ikramjaujate/Desktop/TFE/docs/report/img/agile.png>]
-<img/react.png, id=285, 392.46625pt x 322.20375pt>
+<img/react.png, id=325, 392.46625pt x 322.20375pt>
 File: img/react.png Graphic file (type png)
 <use img/react.png>
-Package pdftex.def Info: img/react.png  used on input line 49.
+Package pdftex.def Info: img/react.png  used on input line 55.
 (pdftex.def)             Requested size: 108.8329pt x 89.34622pt.
 
-Overfull \hbox (2.4216pt too wide) in paragraph at lines 48--61
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 54--67
 []$[]$ $[]$ 
  []
 
-<img/caddy.png, id=286, 1003.75pt x 251.94125pt>
+<img/caddy.png, id=326, 1003.75pt x 251.94125pt>
 File: img/caddy.png Graphic file (type png)
 <use img/caddy.png>
-Package pdftex.def Info: img/caddy.png  used on input line 67.
+Package pdftex.def Info: img/caddy.png  used on input line 73.
 (pdftex.def)             Requested size: 108.8329pt x 27.31381pt.
 
-Overfull \hbox (2.4216pt too wide) in paragraph at lines 66--77
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 72--83
 []$[]$ $[]$ 
  []
 
 [5 </Users/ikramjaujate/Desktop/TFE/docs/report/img/gitflow.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/react.png>]
-<img/node.png, id=297, 1005.49565pt x 285.15228pt>
+<img/node.png, id=338, 1005.49565pt x 285.15228pt>
 File: img/node.png Graphic file (type png)
 <use img/node.png>
-Package pdftex.def Info: img/node.png  used on input line 82.
+Package pdftex.def Info: img/node.png  used on input line 88.
 (pdftex.def)             Requested size: 108.8329pt x 30.86212pt.
 
-Overfull \hbox (2.4216pt too wide) in paragraph at lines 81--96
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 87--102
 []$[]$ $[]$ 
  []
 
-<img/tech/PostgreSql.png, id=298, 401.5pt x 184.69pt>
-File: img/tech/PostgreSql.png Graphic file (type png)
-<use img/tech/PostgreSql.png>
-Package pdftex.def Info: img/tech/PostgreSql.png  used on input line 102.
+<img/PostgreSql.png, id=339, 401.5pt x 184.69pt>
+File: img/PostgreSql.png Graphic file (type png)
+<use img/PostgreSql.png>
+Package pdftex.def Info: img/PostgreSql.png  used on input line 108.
 (pdftex.def)             Requested size: 108.8329pt x 50.0614pt.
 
-Overfull \hbox (2.4216pt too wide) in paragraph at lines 101--115
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 107--121
 []$[]$ $[]$ 
  []
 
-[6 </Users/ikramjaujate/Desktop/TFE/docs/report/img/caddy.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/node.png>]) [7 </Users/ikramjaujate/Desktop/TFE/docs/report/img/tech/PostgreSql.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/userstories.tex) [8] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/developpement.tex) (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/deploiment.tex) [9] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/testing.tex) [10] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/securite.tex) [11] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/monitoring.tex) [12] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/conclusion.tex) [13] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/bibliographie.tex
+[6 </Users/ikramjaujate/Desktop/TFE/docs/report/img/caddy.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/node.png>] [7 </Users/ikramjaujate/Desktop/TFE/docs/report/img/PostgreSql.png>]
+<img/docApi.png, id=364, 1130.2225pt x 783.42688pt>
+File: img/docApi.png Graphic file (type png)
+<use img/docApi.png>
+Package pdftex.def Info: img/docApi.png  used on input line 138.
+(pdftex.def)             Requested size: 362.77264pt x 251.45483pt.
+) [8 </Users/ikramjaujate/Desktop/TFE/docs/report/img/docApi.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/userstories.tex [9]) [10] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/developpement.tex) (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/deploiment.tex) [11] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/testing.tex) [12] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/optimisation.tex
+<img/redis.png, id=390, 1104.125pt x 761.84625pt>
+File: img/redis.png Graphic file (type png)
+<use img/redis.png>
+Package pdftex.def Info: img/redis.png  used on input line 6.
+(pdftex.def)             Requested size: 145.11053pt x 100.12459pt.
+
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 5--16
+[]$[]$ $[]$ 
+ []
+
+<img/sans-redis.png, id=391, 449.68pt x 129.48375pt>
+File: img/sans-redis.png Graphic file (type png)
+<use img/sans-redis.png>
+Package pdftex.def Info: img/sans-redis.png  used on input line 26.
+(pdftex.def)             Requested size: 483.69687pt x 139.28516pt.
+[13 </Users/ikramjaujate/Desktop/TFE/docs/report/img/redis.png>]
+<img/avec-redis.png, id=397, 448.67625pt x 152.57pt>
+File: img/avec-redis.png Graphic file (type png)
+<use img/avec-redis.png>
+Package pdftex.def Info: img/avec-redis.png  used on input line 34.
+(pdftex.def)             Requested size: 483.69687pt x 164.48447pt.
+) [14 </Users/ikramjaujate/Desktop/TFE/docs/report/img/sans-redis.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/avec-redis.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/securite.tex) [15] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/monitoring.tex
+<img/uptime.png, id=410, 1089.06876pt x 746.28813pt>
+File: img/uptime.png Graphic file (type png)
+<use img/uptime.png>
+Package pdftex.def Info: img/uptime.png  used on input line 8.
+(pdftex.def)             Requested size: 483.69687pt x 331.45378pt.
+) [16 </Users/ikramjaujate/Desktop/TFE/docs/report/img/uptime.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/conclusion.tex) [17] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/bibliographie.tex
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
@@ -709,7 +743,7 @@ Overfull \hbox (121.3009pt too wide) in paragraph at lines 64--66
 []$\T1/cmtt/m/n/10.95 https : / / stackoverflow . com / questions / 6560447 / can-[]i-[]use-[]return-[]value-[]of-[]insert-[]returning-[]in-[]another-[]insert$[] 
  []
 
-[14pdfTeX warning (ext4): destination with the same identifier (name{cite.User-Story}) has been already used, duplicate ignored
+[18pdfTeX warning (ext4): destination with the same identifier (name{cite.User-Story}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
 l.66 
@@ -721,30 +755,30 @@ l.66
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
 l.66 
-     ]) [15pdfTeX warning (ext4): destination with the same identifier (name{cite.PostgreSQL}) has been already used, duplicate ignored
+     ]) [19pdfTeX warning (ext4): destination with the same identifier (name{cite.PostgreSQL}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.118 \end{document}
+l.121 \end{document}
                     ] (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Ikram_Jaujate.out' has not changed.
-(rerunfilecheck)             Checksum: F8D23C4727C64DD123B78F3A7C2D6DFD;5981.
+(rerunfilecheck)             Checksum: 886A6861EB6C2EC21A0CF881AAA7A191;7301.
  ) 
 Here is how much of TeX's memory you used:
- 23055 strings out of 478994
- 408954 string characters out of 5858183
- 714626 words of memory out of 5000000
- 40001 multiletter control sequences out of 15000+600000
- 418075 words of font info for 60 fonts, out of 8000000 for 9000
+ 23118 strings out of 478994
+ 410048 string characters out of 5858183
+ 715810 words of memory out of 5000000
+ 40041 multiletter control sequences out of 15000+600000
+ 418435 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,8n,89p,537b,560s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on /Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.pdf (16 pages, 815870 bytes).
+ 87i,8n,89p,537b,576s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on /Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.pdf (20 pages, 1141684 bytes).
 PDF statistics:
- 446 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
- 93 named destinations out of 1000 (max. 500000)
- 432 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 530 PDF objects out of 1000 (max. 8388607)
+ 467 compressed objects within 5 object streams
+ 109 named destinations out of 1000 (max. 500000)
+ 521 words of extra memory for PDF output out of 10000 (max. 10000000)
 
