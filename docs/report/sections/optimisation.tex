@@ -7,9 +7,9 @@
     \end{minipage}
     \begin{minipage}{.7\textwidth}
 Redis est une base de données NoSQL mais elle n'est pas très similaire aux autres bases de données NoSQL. Cela est dû au fait que Redis ne fonctionne pas vraiment avec des tables, mais toutes les données dans Redis sont stockées dans des paires clé-valeur. 
-Il y a donc une clé ayant un nom et une valeur appelée Kyle, ce qui rend Redis similaire à un objet json géant
-L'objectif n'est pas de stocker un ensemble de données structurées, mais simplement de stocker une paire clé-valeur individuelle à partir de laquelle nous pouvons accéder aux données.
-Il est important de noter que Redis fonctionne en utilisant la mémoire RAM de la machine sur laquelle il tourne. Cela signifie qu'il est extrêmement rapide.
+Il y a donc une clé ayant un nom et une valeur appelée Kyle.
+L'objectif n'est donc pas de stocker un ensemble de données structurées, mais simplement de stocker une paire clé-valeur individuelle à partir de laquelle nous pouvons accéder aux données.
+Il est important de noter que Redis fonctionne en utilisant la mémoire RAM de la machine sur laquelle il tourne, cela signifie qu'il est extrêmement rapide.
 \newpara
 Dans le cas où nous devons accéder à des informations qui prennent beaucoup de temps à charger, par exemple une quantité de données assez importante provenant de la base de données, nous pouvons utiliser Redis pour stocker ces valeurs pendant une durée définie. Ainsi, lorsque nous devrons accéder à cette même information, la réponse sera beaucoup plus rapide puisque l'information sera déjà chargée.
 \end{minipage}
