@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+
+  stagging-app:
+    image: node:16
+    container_name: stagging-app
+    depends_on:
+      - "stagging-db"
+      - "stagging-redis"
+    restart: unless-stopped
+    volumes:
+      - ./www/backend:/var/www/backend
+    networks:
+      vps-ikram-network:
+        ipv4_address: 192.168.10.40
+    command: bash -c "cd /var/www/backend && npm i && npm run db:reset && npm run swagger-autogen"
+
+  stagging-db:
+    image: postgres
+    container_name: stagging-database
+    restart: always
+    environment:
+        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
+    logging:
+      options:
+        max-size: 10m
+        max-file: '3'
+    networks:
+      vps-ikram-network:
+        ipv4_address: 192.168.10.41
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  stagging-redis:
+    image: 'bitnami/redis:latest'
+    container_name: stagging-redis
+    mem_limit: 256m
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      vps-ikram-network:
+        ipv4_address: 192.168.10.42
+
+networks:
+  vps-ikram-network:
+    external: true
+   

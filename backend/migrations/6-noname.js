@@ -5,34 +5,57 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
- * changeColumn "idCompany" on table "Project"
+ * addColumn "phone" to table "Company"
+ * addColumn "website" to table "Company"
+ * changeColumn "mobile" on table "Company"
  * changeColumn "idPerson" on table "Project"
+ * changeColumn "idCompany" on table "Project"
  *
  **/
 
 var info = {
     "revision": 6,
     "name": "noname",
-    "created": "2022-04-04T08:36:05.432Z",
+    "created": "2022-04-12T11:02:38.764Z",
     "comment": ""
 };
 
 var migrationCommands = [{
+        fn: "addColumn",
+        params: [
+            "Company",
+            "phone",
+            {
+                "type": Sequelize.STRING,
+                "field": "phone",
+                "unique": false,
+                "allowNull": true
+            }
+        ]
+    },
+    {
+        fn: "addColumn",
+        params: [
+            "Company",
+            "website",
+            {
+                "type": Sequelize.STRING,
+                "field": "website",
+                "unique": false,
+                "allowNull": true
+            }
+        ]
+    },
+    {
         fn: "changeColumn",
         params: [
-            "Project",
-            "idCompany",
+            "Company",
+            "mobile",
             {
-                "type": Sequelize.INTEGER,
-                "onUpdate": "CASCADE",
-                "onDelete": "CASCADE",
-                "references": {
-                    "model": "Company",
-                    "key": "idCompany"
-                },
-                "allowNull": true,
-                "field": "idCompany",
-                "validate": {}
+                "type": Sequelize.STRING,
+                "field": "mobile",
+                "unique": false,
+                "allowNull": true
             }
         ]
     },
@@ -51,6 +74,25 @@ var migrationCommands = [{
                 },
                 "allowNull": true,
                 "field": "idPerson",
+                "validate": {}
+            }
+        ]
+    },
+    {
+        fn: "changeColumn",
+        params: [
+            "Project",
+            "idCompany",
+            {
+                "type": Sequelize.INTEGER,
+                "onUpdate": "CASCADE",
+                "onDelete": "CASCADE",
+                "references": {
+                    "model": "Company",
+                    "key": "idCompany"
+                },
+                "allowNull": true,
+                "field": "idCompany",
                 "validate": {}
             }
         ]

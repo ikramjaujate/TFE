@@ -1,5 +1,6 @@
 .private
 .env
+*.env
 .vscode
 *.DS_store
 *.DS_Store

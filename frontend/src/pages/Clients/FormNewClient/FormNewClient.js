@@ -54,8 +54,12 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
     useEffect(() => {
         if (sendData) {
+            if(sendData.mobile){
 
-            setNumber(sendData.mobile.replace(/\+/g,'' ))
+                setNumber(sendData.mobile.replace(/\+/g,'' ))
+            }else{
+                setNumber('')
+            }
             if(sendData.VAT_num){
                 
                 
@@ -64,6 +68,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                 }else if(sendData.VAT_num && sendData["Address"]["Country"].nicename == "Luxembourg"){
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'LU'))
                 }else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Netherlands"){
+                    
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'NL'))
                 }else if(sendData.VAT_num  && sendData["Address"]["Country"].nicename == "Belgium"){
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'BE'))
@@ -72,15 +77,8 @@ const FormNewClient = ({ refreshTable, sendData }) => {
             else{
                 setVta('')
             }
-            /*if(sendData.VAT_num){
-                console.log('toto')
+           
 
-                setVta(sendData.VTA_num)
-            }else{
-                console.log('nooo')
-                setVta('toto')
-            }*/
-            
             setEmail(sendData.email)
             setAddress(sendData["Address"].street)
             setLocality(sendData["Address"].locality)

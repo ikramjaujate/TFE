@@ -1825,7 +1825,8 @@ module.exports = {
       idCountry: 1,
       createdAt: new Date(),
       updatedAt: new Date()
-    }
+    },
+    
     ], {});
   },
   down: (queryInterface, Sequelize) => {

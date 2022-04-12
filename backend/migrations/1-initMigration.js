@@ -21,7 +21,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-03-25T13:15:45.382Z",
+    "created": "2022-04-12T08:21:37.459Z",
     "comment": ""
 };
 
@@ -254,6 +254,11 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "field": "mobile",
                     "allowNull": false
+                },
+                "phone": {
+                    "type": Sequelize.STRING,
+                    "field": "phone",
+                    "allowNull": true
                 },
                 "idAddress": {
                     "type": Sequelize.INTEGER,
@@ -570,6 +575,11 @@ var migrationCommands = [{
                     "type": Sequelize.BOOLEAN,
                     "field": "isEmailed",
                     "defaultValue": false,
+                    "allowNull": false
+                },
+                "content": {
+                    "type": Sequelize.JSON,
+                    "field": "content",
                     "allowNull": false
                 },
                 "createdAt": {

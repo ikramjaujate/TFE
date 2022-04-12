@@ -29,7 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     mobile: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      unique: false
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: false
+    },
+    website: {
+      type: DataTypes.STRING,
+      allowNull: true,
       unique: false
     }
   }, {});

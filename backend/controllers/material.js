@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const redisClient = require("./redis");
 
 const getAllMaterials = async (req, res) => {
+    console.log('toto')
     // #swagger.tags = ['Material']
     /* 
     #swagger.summary = 'Get all materials'
@@ -28,7 +29,7 @@ const getAllMaterials = async (req, res) => {
     }
     */
     try {
-        let value =  await redisClient.get("materials")
+        
         
         if(!value){
 
@@ -74,14 +75,21 @@ const getStockStatus = async (req, res) => {
     }
     */
     try {
-        const materials = await Material.findAll({
-            include: [{
-                model: Project_Materials, include: [{
-                    model: Project, where: { status: { [Op.not]: 'Canceled'} }, 
+        let value =  await redisClient.get("materials")
+        
+        if(!value){
+
+            const materials = await Material.findAll({
+                include: [{
+                    model: Project_Materials, include: [{
+                        model: Project, where: { status: { [Op.not]: 'Canceled'} }, 
+                    }]
                 }]
-            }]
-        });
-  
+            });
+            await redisClient.setEx("materials", 3600, JSON.stringify(materials));
+            return res.status(200).json( {materials });
+        }
+        const materials = JSON.parse(value)
         return res.status(200).json({ materials });
 
     } catch (error) {

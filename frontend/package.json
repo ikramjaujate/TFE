@@ -17,6 +17,8 @@
         "axios": "^0.26.1",
         "chart.js": "3.3.2",
         "classnames": "^2.2.6",
+        "dexie": "^3.2.1",
+        "dexie-encrypted": "^2.0.0",
         "jspdf": "^2.5.1",
         "jspdf-invoice-template": "^1.4.2",
         "jwt-decode": "^3.1.2",

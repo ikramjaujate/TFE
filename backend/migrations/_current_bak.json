@@ -187,9 +187,21 @@
                     "seqType": "Sequelize.STRING"
                 },
                 "mobile": {
-                    "allowNull": false,
+                    "allowNull": true,
                     "unique": false,
                     "field": "mobile",
+                    "seqType": "Sequelize.STRING"
+                },
+                "phone": {
+                    "allowNull": true,
+                    "unique": false,
+                    "field": "phone",
+                    "seqType": "Sequelize.STRING"
+                },
+                "website": {
+                    "allowNull": true,
+                    "unique": false,
+                    "field": "website",
                     "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
@@ -406,6 +418,11 @@
                     "field": "mobile",
                     "seqType": "Sequelize.STRING"
                 },
+                "phone": {
+                    "allowNull": true,
+                    "field": "phone",
+                    "seqType": "Sequelize.STRING"
+                },
                 "idAddress": {
                     "allowNull": false,
                     "field": "idAddress",
@@ -539,5 +556,5 @@
             "indexes": []
         }
     },
-    "revision": 26
+    "revision": 10
 }
