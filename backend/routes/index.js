@@ -99,7 +99,8 @@ const {
     createMaterial,
     updateMaterial,
     removeMaterialById,
-    getStockStatus
+    getStockStatus,
+    getDataWasUpdated
 } = require('../controllers/material.js')
 
 router.get('/materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllMaterials);
@@ -108,6 +109,7 @@ router.get('/stock-status', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), 
 router.post('/materials', verifyToken,checkRoleAuth(['admin', 'dev']), createMaterial);
 router.patch('/materials', verifyToken, checkRoleAuth(['admin', 'dev']),updateMaterial);
 router.delete('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev']),removeMaterialById);
+router.get('/material-was-updated', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getDataWasUpdated)
 
 // PROJECT-MATERIALS
 const {

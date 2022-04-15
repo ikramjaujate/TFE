@@ -3,7 +3,7 @@ module.exports = {
       return queryInterface.bulkInsert('Company', [
     {
         name: "Schowalter, Zemlak and Dietrich",
-        email: "ccrud0@istockphoto.com@gmail.com",
+        email: "ccrud0@istockphoto.com",
         VAT_num: "BE 3449344151",
         mobile: "+32 310647384",
         phone: null,
@@ -14,7 +14,7 @@ module.exports = {
      },
      {
         name: "Cruickshank, Davis and Kemmer",
-        email: "ccrud1@163.com@gmail.com",
+        email: "ccrud1@163.com",
         VAT_num: "BE 4578664648",
         mobile: null,
         phone: null,
@@ -25,7 +25,7 @@ module.exports = {
      },
      {
         name: "Swaniawski-Hartmann",
-        email: "ccrud2@dot.gov@gmail.com",
+        email: "ccrud2@dot.gov",
         VAT_num: "BE 2023448380",
         mobile: "+32 263828182",
         phone: null,
@@ -36,7 +36,7 @@ module.exports = {
      },
      {
         name: "Dooley LLC",
-        email: "ccrud3@tinypic.com@gmail.com",
+        email: "ccrud3@tinypic.com",
         VAT_num: "BE 2870089698",
         mobile: null,
         phone: "+32 179099422",
@@ -47,7 +47,7 @@ module.exports = {
      },
      {
         name: "Keebler-Rohan",
-        email: "ccrud4@epa.gov@gmail.com",
+        email: "ccrud4@epa.gov",
         VAT_num: "BE 4319139698",
         mobile: null,
         phone: null,
@@ -58,7 +58,7 @@ module.exports = {
      },
      {
         name: "Koch-Gulgowski",
-        email: "ccrud5@zimbio.com@gmail.com",
+        email: "ccrud5@zimbio.com",
         VAT_num: "BE 1051492266",
         mobile: null,
         phone: null,
@@ -69,7 +69,7 @@ module.exports = {
      },
      {
         name: "Kassulke Group",
-        email: "ccrud6@mit.edu@gmail.com",
+        email: "ccrud6@mit.edu",
         VAT_num: "BE 7820369471",
         mobile: null,
         phone: null,
@@ -80,7 +80,7 @@ module.exports = {
      },
      {
         name: "Wehner LLC",
-        email: "ccrud7@godaddy.com@gmail.com",
+        email: "ccrud7@godaddy.com",
         VAT_num: "BE 2020765227",
         mobile: "+32 275364657",
         phone: null,
@@ -91,7 +91,7 @@ module.exports = {
      },
      {
         name: "Dach-VonRueden",
-        email: "ccrud8@icq.com@gmail.com",
+        email: "ccrud8@icq.com",
         VAT_num: "BE 8191087834",
         mobile: null,
         phone: null,
@@ -102,7 +102,7 @@ module.exports = {
      },
      {
         name: "Lehner-Prohaska",
-        email: "ccrud9@forbes.com@gmail.com",
+        email: "ccrud9@forbes.com",
         VAT_num: "BE 2751945757",
         mobile: null,
         phone: null,
@@ -113,7 +113,7 @@ module.exports = {
      },
      {
         name: "Stoltenberg, Jones and VonRueden",
-        email: "ccruda@com.com@gmail.com",
+        email: "ccruda@com.com",
         VAT_num: "BE 7068803196",
         mobile: "+32 349274488",
         phone: "+32 312603118",
@@ -124,7 +124,7 @@ module.exports = {
      },
      {
         name: "Koch, Dietrich and Turner",
-        email: "ccrudb@epa.gov@gmail.com",
+        email: "ccrudb@epa.gov",
         VAT_num: "BE 2997368058",
         mobile: null,
         phone: null,
@@ -135,7 +135,7 @@ module.exports = {
      },
      {
         name: "Watsica, Howe and Rosenbaum",
-        email: "ccrudc@cam.ac.uk@gmail.com",
+        email: "ccrudc@cam.ac.uk",
         VAT_num: "BE 3813276734",
         mobile: "+32 108748207",
         phone: "+32 288924640",
@@ -146,7 +146,7 @@ module.exports = {
      },
      {
         name: "Franecki-Lubowitz",
-        email: "ccrudd@soundcloud.com@gmail.com",
+        email: "ccrudd@soundcloud.com",
         VAT_num: "BE 3942463822",
         mobile: null,
         phone: null,
@@ -157,7 +157,7 @@ module.exports = {
      },
      {
         name: "DuBuque Group",
-        email: "ccrude@house.gov@gmail.com",
+        email: "ccrude@house.gov",
         VAT_num: "BE 8347607331",
         mobile: null,
         phone: null,
@@ -168,7 +168,7 @@ module.exports = {
      },
      {
         name: "Emmerich Group",
-        email: "ccrudf@myspace.com@gmail.com",
+        email: "ccrudf@myspace.com",
         VAT_num: "BE 4290949830",
         mobile: null,
         phone: null,
@@ -179,7 +179,7 @@ module.exports = {
      },
      {
         name: "Jaskolski, Marquardt and Kunde",
-        email: "ccrudg@amazon.co.jp@gmail.com",
+        email: "ccrudg@amazon.co.jp",
         VAT_num: "BE 7555229247",
         mobile: "+32 101193444",
         phone: null,
@@ -190,7 +190,7 @@ module.exports = {
      },
      {
         name: "Toy-Jaskolski",
-        email: "ccrudh@homestead.com@gmail.com",
+        email: "ccrudh@homestead.com",
         VAT_num: "BE 7992947664",
         mobile: "+32 232617324",
         phone: null,
@@ -201,7 +201,7 @@ module.exports = {
      },
      {
         name: "Denesik, Kunde and Stehr",
-        email: "ccrudi@geocities.jp@gmail.com",
+        email: "ccrudi@geocities.jp",
         VAT_num: "BE 6430851484",
         mobile: null,
         phone: null,
@@ -212,7 +212,7 @@ module.exports = {
      },
      {
         name: "Medhurst LLC",
-        email: "ccrudj@vimeo.com@gmail.com",
+        email: "ccrudj@vimeo.com",
         VAT_num: "BE 9293636456",
         mobile: null,
         phone: "+32 527779014",
@@ -223,7 +223,7 @@ module.exports = {
      },
      {
         name: "Schuster, Rath and Bartoletti",
-        email: "ccrudk@cisco.com@gmail.com",
+        email: "ccrudk@cisco.com",
         VAT_num: "BE 1058648214",
         mobile: null,
         phone: "+32 548801711",
@@ -234,7 +234,7 @@ module.exports = {
      },
      {
         name: "Kovacek and Sons",
-        email: "ccrudl@addthis.com@gmail.com",
+        email: "ccrudl@addthis.com",
         VAT_num: "BE 8877886548",
         mobile: null,
         phone: "+32 496464797",
@@ -245,7 +245,7 @@ module.exports = {
      },
      {
         name: "Murphy, Howe and O'Connell",
-        email: "ccrudm@wordpress.org@gmail.com",
+        email: "ccrudm@wordpress.org",
         VAT_num: "BE 9231842607",
         mobile: "+32 397523908",
         phone: null,
@@ -256,7 +256,7 @@ module.exports = {
      },
      {
         name: "Kovacek, Altenwerth and Treutel",
-        email: "ccrudn@wired.com@gmail.com",
+        email: "ccrudn@wired.com",
         VAT_num: "BE 7540017565",
         mobile: "+32 348865250",
         phone: null,
@@ -267,7 +267,7 @@ module.exports = {
      },
      {
         name: "Marks Group",
-        email: "ccrudo@scribd.com@gmail.com",
+        email: "ccrudo@scribd.com",
         VAT_num: "BE 9829937259",
         mobile: null,
         phone: null,
@@ -278,7 +278,7 @@ module.exports = {
      },
      {
         name: "Gleason-Torphy",
-        email: "ccrudp@quantcast.com@gmail.com",
+        email: "ccrudp@quantcast.com",
         VAT_num: "BE 3526124565",
         mobile: null,
         phone: null,
@@ -289,7 +289,7 @@ module.exports = {
      },
      {
         name: "Keebler-Streich",
-        email: "ccrudq@google.nl@gmail.com",
+        email: "ccrudq@google.nl",
         VAT_num: "BE 2512906614",
         mobile: null,
         phone: null,
@@ -300,7 +300,7 @@ module.exports = {
      },
      {
         name: "Cassin-Nikolaus",
-        email: "ccrudr@imageshack.us@gmail.com",
+        email: "ccrudr@imageshack.us",
         VAT_num: "BE 3882325678",
         mobile: null,
         phone: null,
@@ -311,7 +311,7 @@ module.exports = {
      },
      {
         name: "Leuschke-Braun",
-        email: "ccruds@salon.com@gmail.com",
+        email: "ccruds@salon.com",
         VAT_num: "BE 8281644428",
         mobile: "+32 247881479",
         phone: "+32 244023214",
@@ -322,7 +322,7 @@ module.exports = {
      },
      {
         name: "Ankunding, Corkery and Zulauf",
-        email: "ccrudt@multiply.com@gmail.com",
+        email: "ccrudt@multiply.com",
         VAT_num: "BE 1752192576",
         mobile: "+32 224211189",
         phone: null,
@@ -333,7 +333,7 @@ module.exports = {
      },
      {
         name: "Carter, Lind and Heaney",
-        email: "ccrudu@shareasale.com@gmail.com",
+        email: "ccrudu@shareasale.com",
         VAT_num: "BE 6331816231",
         mobile: "+32 370286489",
         phone: null,
@@ -344,7 +344,7 @@ module.exports = {
      },
      {
         name: "Hilpert, Wiegand and Keeling",
-        email: "ccrudv@4shared.com@gmail.com",
+        email: "ccrudv@4shared.com",
         VAT_num: "BE 8483828006",
         mobile: "+32 442082321",
         phone: null,
@@ -355,7 +355,7 @@ module.exports = {
      },
      {
         name: "Schultz, Schuster and Nicolas",
-        email: "ccrudw@yellowpages.com@gmail.com",
+        email: "ccrudw@yellowpages.com",
         VAT_num: "BE 4892845068",
         mobile: null,
         phone: null,
@@ -366,7 +366,7 @@ module.exports = {
      },
      {
         name: "Harris LLC",
-        email: "ccrudx@technorati.com@gmail.com",
+        email: "ccrudx@technorati.com",
         VAT_num: "BE 3582097419",
         mobile: null,
         phone: "+32 458790726",
@@ -377,7 +377,7 @@ module.exports = {
      },
      {
         name: "Mills, Watsica and Welch",
-        email: "ccrudy@java.com@gmail.com",
+        email: "ccrudy@java.com",
         VAT_num: "BE 1309243064",
         mobile: "+32 181333393",
         phone: "+32 129472818",
@@ -388,7 +388,7 @@ module.exports = {
      },
      {
         name: "Hudson-Huel",
-        email: "ccrudz@jiathis.com@gmail.com",
+        email: "ccrudz@jiathis.com",
         VAT_num: "BE 6628724073",
         mobile: null,
         phone: null,
@@ -399,7 +399,7 @@ module.exports = {
      },
      {
         name: "Mayert and Sons",
-        email: "ccrud10@comsenz.com@gmail.com",
+        email: "ccrud10@comsenz.com",
         VAT_num: "BE 9035867763",
         mobile: null,
         phone: "+32 544491348",
@@ -410,7 +410,7 @@ module.exports = {
      },
      {
         name: "Powlowski Group",
-        email: "ccrud11@walmart.com@gmail.com",
+        email: "ccrud11@walmart.com",
         VAT_num: "BE 5360700767",
         mobile: null,
         phone: null,
@@ -421,7 +421,7 @@ module.exports = {
      },
      {
         name: "Larkin-Pfannerstill",
-        email: "ccrud12@purevolume.com@gmail.com",
+        email: "ccrud12@purevolume.com",
         VAT_num: "BE 8976377828",
         mobile: null,
         phone: "+32 531678730",
@@ -432,7 +432,7 @@ module.exports = {
      },
      {
         name: "Barton Group",
-        email: "ccrud13@tinyurl.com@gmail.com",
+        email: "ccrud13@tinyurl.com",
         VAT_num: "BE 8244532475",
         mobile: null,
         phone: null,
@@ -443,7 +443,7 @@ module.exports = {
      },
      {
         name: "Bins-Wuckert",
-        email: "ccrud14@opensource.org@gmail.com",
+        email: "ccrud14@opensource.org",
         VAT_num: "BE 5100766012",
         mobile: null,
         phone: null,
@@ -454,7 +454,7 @@ module.exports = {
      },
      {
         name: "Wisoky-Littel",
-        email: "ccrud15@google.fr@gmail.com",
+        email: "ccrud15@google.fr",
         VAT_num: "BE 6318673482",
         mobile: "+32 425805543",
         phone: null,
@@ -465,7 +465,7 @@ module.exports = {
      },
      {
         name: "Botsford, Streich and Padberg",
-        email: "ccrud16@webmd.com@gmail.com",
+        email: "ccrud16@webmd.com",
         VAT_num: "BE 1569678327",
         mobile: null,
         phone: null,
@@ -476,7 +476,7 @@ module.exports = {
      },
      {
         name: "Waelchi-Corwin",
-        email: "ccrud17@ftc.gov@gmail.com",
+        email: "ccrud17@ftc.gov",
         VAT_num: "BE 1113026608",
         mobile: "+32 443862883",
         phone: null,
@@ -487,7 +487,7 @@ module.exports = {
      },
      {
         name: "Ferry, Dickinson and Boyle",
-        email: "ccrud18@digg.com@gmail.com",
+        email: "ccrud18@digg.com",
         VAT_num: "BE 4587074635",
         mobile: "+32 264183507",
         phone: null,
@@ -498,7 +498,7 @@ module.exports = {
      },
      {
         name: "Goyette, Durgan and Padberg",
-        email: "ccrud19@fda.gov@gmail.com",
+        email: "ccrud19@fda.gov",
         VAT_num: "BE 3564373696",
         mobile: "+32 590168588",
         phone: null,
@@ -509,7 +509,7 @@ module.exports = {
      },
      {
         name: "Gaylord Inc",
-        email: "ccrud1a@booking.com@gmail.com",
+        email: "ccrud1a@booking.com",
         VAT_num: "BE 7155142137",
         mobile: "+32 439497930",
         phone: null,
@@ -520,7 +520,7 @@ module.exports = {
      },
      {
         name: "Connelly Inc",
-        email: "ccrud1b@wordpress.org@gmail.com",
+        email: "ccrud1b@wordpress.org",
         VAT_num: "BE 1657680440",
         mobile: null,
         phone: "+32 574966141",

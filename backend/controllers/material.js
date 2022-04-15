@@ -29,7 +29,7 @@ const getAllMaterials = async (req, res) => {
     }
     */
     try {
-        
+        let value =  await redisClient.get("materials")
         
         if(!value){
 
@@ -87,9 +87,11 @@ const getStockStatus = async (req, res) => {
                 }]
             });
             await redisClient.setEx("materials", 3600, JSON.stringify(materials));
+            await redisClient.setEx('materialsUpdated', 3600, false)
             return res.status(200).json( {materials });
         }
         const materials = JSON.parse(value)
+        await redisClient.setEx('materialsUpdated', 3600, false)
         return res.status(200).json({ materials });
 
     } catch (error) {
@@ -164,6 +166,8 @@ const createMaterial = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
+        await redisClient.setEx('materialsUpdated', 3600, true)
+
         return res.status(201).json({
             newMaterial
         });
@@ -198,6 +202,7 @@ const updateMaterial = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
+        await redisClient.setEx('materialsUpdated', 3600, true)
         return res.status(201).json({
             material,
         });
@@ -229,9 +234,30 @@ const removeMaterialById = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
+        await redisClient.setEx('materialsUpdated', 3600, true)
         return res.status(200).json({
             id,
         });
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+
+const getDataWasUpdated = async (req, res) => {
+    // #swagger.tags = ['Material']
+    /* 
+    #swagger.summary = 'Data was updated'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] */
+    try {
+        let value = JSON.parse(await redisClient.get('materialsUpdated'))
+        if(value){
+            return res.status(200).send({'result' : true})
+        }
+        
+        
+        return res.status(200).send({'result' : false});
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -243,5 +269,6 @@ module.exports = {
     createMaterial,
     updateMaterial,
     removeMaterialById,
-    getStockStatus
+    getStockStatus,
+    getDataWasUpdated
 }
