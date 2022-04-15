@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.10.16)  12 APR 2022 17:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.10.16)  15 APR 2022 11:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -506,33 +506,33 @@ LaTeX Warning: Label `PostgreSQL' multiply defined.
 )
 \openout1 = `Ikram_Jaujate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Info: Redefining \degres on input line 35.
-LaTeX Info: Redefining \dots on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Info: Redefining \degres on input line 38.
+LaTeX Info: Redefining \dots on input line 38.
 Package french.ldf Info: Setting StandardItemizeEnv=true for
 (french.ldf)             compatibility with enumitem package,
-(french.ldf)             reported on input line 35.
+(french.ldf)             reported on input line 38.
 Package french.ldf Info: Setting StandardEnumerateEnv=true for
 (french.ldf)             compatibility with enumitem package,
-(french.ldf)             reported on input line 35.
-LaTeX Info: Redefining \up on input line 35.
+(french.ldf)             reported on input line 38.
+LaTeX Info: Redefining \up on input line 38.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -588,7 +588,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@lstlisting=\count318
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring OFF on input line 38.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -598,27 +598,27 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count319
 )
-LaTeX Info: Redefining \ref on input line 35.
-LaTeX Info: Redefining \pageref on input line 35.
-LaTeX Info: Redefining \nameref on input line 35.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
  (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.out) (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.out)
 \@outlinefile=\write4
 \openout4 = `Ikram_Jaujate.out'.
 
-<img/ephec.jpg, id=232, 1927.2pt x 832.10875pt>
+<img/ephec.jpg, id=236, 1927.2pt x 832.10875pt>
 File: img/ephec.jpg Graphic file (type jpg)
 <use img/ephec.jpg>
-Package pdftex.def Info: img/ephec.jpg  used on input line 43.
+Package pdftex.def Info: img/ephec.jpg  used on input line 46.
 (pdftex.def)             Requested size: 426.79134pt x 184.27069pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 72.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 72.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (19.42162pt too wide) in paragraph at lines 67--73
+Overfull \hbox (19.42162pt too wide) in paragraph at lines 71--77
 [][] $[]$ 
  []
 
@@ -627,24 +627,24 @@ Overfull \hbox (19.42162pt too wide) in paragraph at lines 67--73
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/ikramjaujate/Desktop/TFE/docs/report/img/ephec.jpg>] (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.tocpdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.51 ...guration de base}{15}{subsubsection.7.3.1}
+l.51 ...rline {7.3}Web Server}{15}{subsection.7.3}
                                                   % [1])
 \tf@toc=\write5
 \openout5 = `Ikram_Jaujate.toc'.
 
  [2] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/contexte.tex) [3] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/choix.tex
-<img/agile.png, id=315, 2007.5pt x 787.94376pt>
+<img/agile.png, id=320, 2007.5pt x 787.94376pt>
 File: img/agile.png Graphic file (type png)
 <use img/agile.png>
 Package pdftex.def Info: img/agile.png  used on input line 18.
 (pdftex.def)             Requested size: 362.77264pt x 142.38884pt.
  [4 </Users/ikramjaujate/Desktop/TFE/docs/report/img/agile.png>]
-<img/gitflow.png, id=324, 1760.5775pt x 830.10126pt>
+<img/gitflow.png, id=329, 1760.5775pt x 830.10126pt>
 File: img/gitflow.png Graphic file (type png)
 <use img/gitflow.png>
 Package pdftex.def Info: img/gitflow.png  used on input line 44.
 (pdftex.def)             Requested size: 362.77264pt x 171.04584pt.
-<img/react.png, id=325, 392.46625pt x 322.20375pt>
+<img/react.png, id=330, 392.46625pt x 322.20375pt>
 File: img/react.png Graphic file (type png)
 <use img/react.png>
 Package pdftex.def Info: img/react.png  used on input line 55.
@@ -654,7 +654,7 @@ Overfull \hbox (2.4216pt too wide) in paragraph at lines 54--67
 []$[]$ $[]$ 
  []
 
-<img/caddy.png, id=326, 1003.75pt x 251.94125pt>
+<img/caddy.png, id=331, 1003.75pt x 251.94125pt>
 File: img/caddy.png Graphic file (type png)
 <use img/caddy.png>
 Package pdftex.def Info: img/caddy.png  used on input line 73.
@@ -665,7 +665,7 @@ Overfull \hbox (2.4216pt too wide) in paragraph at lines 72--83
  []
 
 [5 </Users/ikramjaujate/Desktop/TFE/docs/report/img/gitflow.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/react.png>]
-<img/node.png, id=338, 1005.49565pt x 285.15228pt>
+<img/node.png, id=343, 1005.49565pt x 285.15228pt>
 File: img/node.png Graphic file (type png)
 <use img/node.png>
 Package pdftex.def Info: img/node.png  used on input line 88.
@@ -675,7 +675,7 @@ Overfull \hbox (2.4216pt too wide) in paragraph at lines 87--102
 []$[]$ $[]$ 
  []
 
-<img/PostgreSql.png, id=339, 401.5pt x 184.69pt>
+<img/PostgreSql.png, id=344, 401.5pt x 184.69pt>
 File: img/PostgreSql.png Graphic file (type png)
 <use img/PostgreSql.png>
 Package pdftex.def Info: img/PostgreSql.png  used on input line 108.
@@ -686,35 +686,35 @@ Overfull \hbox (2.4216pt too wide) in paragraph at lines 107--121
  []
 
 [6 </Users/ikramjaujate/Desktop/TFE/docs/report/img/caddy.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/node.png>] [7 </Users/ikramjaujate/Desktop/TFE/docs/report/img/PostgreSql.png>]
-<img/docApi.png, id=364, 1130.2225pt x 783.42688pt>
+<img/docApi.png, id=369, 1130.2225pt x 783.42688pt>
 File: img/docApi.png Graphic file (type png)
 <use img/docApi.png>
 Package pdftex.def Info: img/docApi.png  used on input line 138.
 (pdftex.def)             Requested size: 362.77264pt x 251.45483pt.
 ) [8 </Users/ikramjaujate/Desktop/TFE/docs/report/img/docApi.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/userstories.tex [9]) [10] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/developpement.tex) (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/deploiment.tex) [11] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/testing.tex) [12] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/optimisation.tex
-<img/redis.png, id=390, 1104.125pt x 761.84625pt>
+<img/redis.png, id=395, 1104.125pt x 761.84625pt>
 File: img/redis.png Graphic file (type png)
 <use img/redis.png>
-Package pdftex.def Info: img/redis.png  used on input line 6.
+Package pdftex.def Info: img/redis.png  used on input line 10.
 (pdftex.def)             Requested size: 145.11053pt x 100.12459pt.
 
-Overfull \hbox (2.4216pt too wide) in paragraph at lines 5--16
+Overfull \hbox (2.4216pt too wide) in paragraph at lines 9--20
 []$[]$ $[]$ 
  []
 
-<img/sans-redis.png, id=391, 449.68pt x 129.48375pt>
+<img/sans-redis.png, id=396, 449.68pt x 129.48375pt>
 File: img/sans-redis.png Graphic file (type png)
 <use img/sans-redis.png>
-Package pdftex.def Info: img/sans-redis.png  used on input line 26.
+Package pdftex.def Info: img/sans-redis.png  used on input line 30.
 (pdftex.def)             Requested size: 483.69687pt x 139.28516pt.
 [13 </Users/ikramjaujate/Desktop/TFE/docs/report/img/redis.png>]
-<img/avec-redis.png, id=397, 448.67625pt x 152.57pt>
+<img/avec-redis.png, id=402, 448.67625pt x 152.57pt>
 File: img/avec-redis.png Graphic file (type png)
 <use img/avec-redis.png>
-Package pdftex.def Info: img/avec-redis.png  used on input line 34.
+Package pdftex.def Info: img/avec-redis.png  used on input line 38.
 (pdftex.def)             Requested size: 483.69687pt x 164.48447pt.
 ) [14 </Users/ikramjaujate/Desktop/TFE/docs/report/img/sans-redis.png> </Users/ikramjaujate/Desktop/TFE/docs/report/img/avec-redis.png>] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/securite.tex) [15] (/Users/ikramjaujate/Desktop/TFE/docs/report/sections/monitoring.tex
-<img/uptime.png, id=410, 1089.06876pt x 746.28813pt>
+<img/uptime.png, id=415, 1089.06876pt x 746.28813pt>
 File: img/uptime.png Graphic file (type png)
 <use img/uptime.png>
 Package pdftex.def Info: img/uptime.png  used on input line 8.
@@ -758,27 +758,27 @@ l.66
      ]) [19pdfTeX warning (ext4): destination with the same identifier (name{cite.PostgreSQL}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.121 \end{document}
+l.125 \end{document}
                     ] (/Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `Ikram_Jaujate.out' has not changed.
-(rerunfilecheck)             Checksum: 886A6861EB6C2EC21A0CF881AAA7A191;7301.
+(rerunfilecheck)             Checksum: 1973E041D197401EC5268102845B6CCE;7485.
  ) 
 Here is how much of TeX's memory you used:
- 23118 strings out of 478994
- 410048 string characters out of 5858183
- 715810 words of memory out of 5000000
- 40041 multiletter control sequences out of 15000+600000
+ 23121 strings out of 478994
+ 410087 string characters out of 5858183
+ 715821 words of memory out of 5000000
+ 40043 multiletter control sequences out of 15000+600000
  418435 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,8n,89p,537b,576s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,9n,89p,537b,576s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on /Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.pdf (20 pages, 1141674 bytes).
+Output written on /Users/ikramjaujate/Desktop/TFE/docs/report/Ikram_Jaujate.pdf (20 pages, 1143792 bytes).
 PDF statistics:
- 530 PDF objects out of 1000 (max. 8388607)
- 467 compressed objects within 5 object streams
- 109 named destinations out of 1000 (max. 500000)
- 521 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 535 PDF objects out of 1000 (max. 8388607)
+ 472 compressed objects within 5 object streams
+ 110 named destinations out of 1000 (max. 500000)
+ 529 words of extra memory for PDF output out of 10000 (max. 10000000)
 

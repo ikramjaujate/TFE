@@ -1,6 +1,10 @@
 \section{Optimisation}
 \subsection{Caching}
-\subsubsection{Redis}
+Le caching est une zone de stockage dans laquelle une quantité d'information est sauvegardée pendant une durée de temps détéerminée afin de la rendre accessible et reutilisable très rapidement. En d'autres termes, elle nous permet de réutiliser efficacement les informations qui ont été préalablement stockées.
+Pour améliorer la temps de latence de l'application, deux type de caching ont été mis en place.
+
+\subsection{Caching Backend}
+Tout d'abord, le caching backend a été utilisé avec l'aide de Redis, mais avant tout, il est nécessaire de comprendre ce qu'est Redis et l'objectif avec l'utilisation de celui-ci.
 \begin{figure}[H]
     \begin{minipage}{.3\textwidth}
       \includegraphics[width=1\linewidth]{img/redis.png}
@@ -15,7 +19,7 @@ Dans le cas où nous devons accéder à des informations qui prennent beaucoup d
 \end{minipage}
 \end{figure}
 \subsubsection{Analyse des résultats}
-Le temps de chargement des données sur certaines de mes API était assez important et je devais trouver une solution pour le réduire. 
+Le temps de chargement des données sur certaines de mes endpoints était assez important et je devais trouver une solution pour le réduire. 
 Afin d'améliorer le temps de chargement des données, j'ai décidé d'utiliser Redis. 
 Pour tester Redis, j'ai décidé de récuperer tous les clients se trouvant dans ma base de données, ce qui correspond à, environ, 1400 clients.
 
@@ -27,7 +31,7 @@ Dans la figure ci-dessous, nous pouvons voir que le temps de réponse de la requ
     \caption{Temps de réponse sans Redis}
     \label{Sans-Redis}
   \end{figure}
-\subsubsubsection{Avec utilisation de Redis}
+\subsubsubsubsection{Avec utilisation de Redis}
 La même requête a été faite mais cette fois avec Redis. Dans la figure 5, la première requête, sans Redis, dure une seconde, ce qui est assez conséquant. Les requêtes suivantes utilisant Redis diminuent considérablement en obtenant une moyenne de 204ms.
 \begin{figure}[H]
     \centering
@@ -37,3 +41,4 @@ La même requête a été faite mais cette fois avec Redis. Dans la figure 5, la
 \end{figure}
 La performance obtenue en utilisant redis a augmenté d'un 58,8\%.
 
+\subsection{Caching Frontend}
