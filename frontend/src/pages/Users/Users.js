@@ -5,8 +5,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import jwt_decode from "jwt-decode";
 import FormUser from './FormUser/FormUser';
-import Dexie from 'dexie';
-import encrypt from 'dexie-encrypted';
 
 
 

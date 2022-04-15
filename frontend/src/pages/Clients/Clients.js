@@ -38,6 +38,7 @@ const Clients = () => {
     const getPersons = () => {
         setLoading(true);
         GetClients().then(response => {
+            console.log(response["users"])
             setPersons(response["users"]);
         });
     }
@@ -52,6 +53,7 @@ const Clients = () => {
     useEffect(() => {
         persons.forEach(person => {
             person.VAT_num = person.VAT_num ? person.VAT_num: null
+            person.phone = person.phone ? person.phone: null
             //console.log(person.VAT_num.substring(0,3))
             if(person.VAT_num && person.Address.Country.nicename == "France"){
                 person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'FR')
@@ -69,6 +71,7 @@ const Clients = () => {
                 email: person.email,
                 VAT_num: person.VAT_num,
                 mobile: person.mobile,
+                phone: person.phone,
                 address: `${person.Address.street}, ${person.Address.postal_code} ${person.Address.locality}, ${person.Address.Country.nicename}`,
                 iso: person.Address.Country.iso
             });
@@ -80,7 +83,7 @@ const Clients = () => {
     useEffect(() => {
         companies.forEach(company => {
             company.VAT_num = company.VAT_num ? company.VAT_num : null
-            
+            company.phone = company.phone ? company.phone: null
             if(company.VAT_num && company.Address.Country.nicename == "France" && company.VAT_num[0,2] != 'FR'){
                 company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'FR')
             }else if(company.VAT_num && company.Address.Country.nicename == "Luxembourg"){
@@ -97,6 +100,7 @@ const Clients = () => {
                 email: company.email,
                 VAT_num: company.VAT_num,
                 mobile: company.mobile,
+                phone: company.phone,
                 address: `${company.Address.street}, ${company.Address.postal_code} ${company.Address.locality}, ${company.Address.Country.nicename}`,
                 iso: company.Address.Country.iso
             });
@@ -218,6 +222,7 @@ const Clients = () => {
                         <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT"  headerStyle={{  color: "#c9392f" }}></Column>
                         <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column field="phone" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Phone" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', color: "#c9392f" }} body={countryTemplate}  ></Column>
                         <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{  color: "#c9392f" }}></Column>
                     </DataTable>

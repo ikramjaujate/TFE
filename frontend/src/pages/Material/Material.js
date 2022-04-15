@@ -20,16 +20,14 @@ import * as materialsService from '../../services/materials'
 import * as project_materialsService from '../../services/project_materials'
 
 import MaterialInformation from '../Details/Material/Details';
+import Dexie from 'dexie';
 
 const Material = () => {
 
     const history = useHistory();
 
     const [data, setData] = useState([]);
-    const [displayDialog, setDisplayDialog] = useState(false);
     const [selectedMaterial, setSelectedMaterial] = useState(null);
-    const [materialInformation, setMaterialInformation] = useState(null);
-    const [projectMaterialLinked, setProjectMaterialLinked]= useState([])
     const [loading, setLoading] = useState(true);
 
     const [materialData, setMaterialData] = useState({})
@@ -48,8 +46,7 @@ const Material = () => {
             for (let material of res['materials']) {
                 const matIdx = materialIds.indexOf(material.idMaterial);
                 if ( matIdx > -1) {
-                    //material already exists
-                    console.log(material.Project_Material.Project.status)
+
                     if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
                         materials[matIdx]['available'] -= material.Project_Material.quantity;
                         materials[matIdx]['reserved'] += material.Project_Material.quantity;
@@ -85,13 +82,15 @@ const Material = () => {
 
     useEffect(() => {
         refresh();
+        
     }, [])
 
     useEffect(() => {
         setLoading(false);
     }, [data])
 
-    const refresh = () => {
+    const refresh = async() => {
+        
         setData([]);
         getMaterials();
         setSelectedMaterial(null);
@@ -154,6 +153,7 @@ const Material = () => {
         );
     }
 
+    
 
 
     return (

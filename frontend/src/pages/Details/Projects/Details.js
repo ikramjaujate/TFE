@@ -61,6 +61,7 @@ const DetailsProjects = () => {
     const [documentAccepted, setDocumentAccepted] = useState(null)
     const [invoicesData, setInvoicesData] = useState([])
     const [valideQuotation, setValideQuotation] = useState(null)
+    const[isDisabled, setIsDisabled] = useState(true)
     const getProject = () => {
 
         GetProjectsByID(id).then(response => {
@@ -123,6 +124,11 @@ const DetailsProjects = () => {
 
     useEffect(() => {
         refresh()
+        if(['Done', 'In Progress', 'Closed'].includes(status)){
+
+            setIsDisabled(false)
+        }
+        setIsDisabled(true)
 
     }, [])
     const handleAllProjects = () => {
@@ -275,12 +281,13 @@ const DetailsProjects = () => {
     }
 
     const headerInvoicesTemplateInfo = (options) => {
+        console.log(status)
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
                 <span className="p-panel-title">  <FontAwesomeIcon icon={faFileContract} className='mr-2' />INVOICES</span>
                 <div className='panel-header-right'>
-                    <Button icon='pi pi-plus' label='Create invoice' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsiveInvoice')} />
+                    <Button icon='pi pi-plus' label='Create invoice' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsiveInvoice')} disabled={isDisabled}/>
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
                         <span className={toggleIcon}></span>
 
