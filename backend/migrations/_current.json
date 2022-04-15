@@ -1,5 +1,64 @@
 {
     "tables": {
+        "Materials_Update": {
+            "tableName": "Materials_Update",
+            "schema": {
+                "idMatUpt": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idMatUpt",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idMaterial": {
+                    "allowNull": false,
+                    "field": "idMaterial",
+                    "references": {
+                        "model": "Material",
+                        "key": "idMaterial"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idUserLogin": {
+                    "allowNull": false,
+                    "field": "idUserLogin",
+                    "references": {
+                        "model": "userLogin",
+                        "key": "idUserLogin"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "reason": {
+                    "allowNull": false,
+                    "field": "reason",
+                    "seqType": "Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss')"
+                },
+                "quantity": {
+                    "allowNull": false,
+                    "field": "quantity",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "notes": {
+                    "allowNull": true,
+                    "field": "notes",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "Person_Company": {
             "tableName": "Person_Company",
             "schema": {
@@ -515,11 +574,10 @@
         "userLogin": {
             "tableName": "userLogin",
             "schema": {
-                "id": {
-                    "allowNull": false,
+                "idUserLogin": {
                     "primaryKey": true,
                     "autoIncrement": true,
-                    "field": "id",
+                    "field": "idUserLogin",
                     "seqType": "Sequelize.INTEGER"
                 },
                 "firstName": {
@@ -556,5 +614,5 @@
             "indexes": []
         }
     },
-    "revision": 11
+    "revision": 2
 }

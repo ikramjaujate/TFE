@@ -8,6 +8,7 @@ var Sequelize = require('sequelize');
  * createTable "Country", deps: []
  * createTable "Material", deps: []
  * createTable "userLogin", deps: []
+ * createTable "Materials_Update", deps: [Material, userLogin]
  * createTable "Address", deps: [Country]
  * createTable "Person", deps: [Address]
  * createTable "Company", deps: [Address]
@@ -21,7 +22,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-04-12T08:21:37.459Z",
+    "created": "2022-04-15T11:31:57.049Z",
     "comment": ""
 };
 
@@ -122,12 +123,11 @@ var migrationCommands = [{
         params: [
             "userLogin",
             {
-                "id": {
+                "idUserLogin": {
                     "type": Sequelize.INTEGER,
-                    "field": "id",
+                    "field": "idUserLogin",
                     "autoIncrement": true,
-                    "primaryKey": true,
-                    "allowNull": false
+                    "primaryKey": true
                 },
                 "firstName": {
                     "type": Sequelize.STRING,
@@ -148,6 +148,68 @@ var migrationCommands = [{
                 "role": {
                     "type": Sequelize.ENUM('dev', 'admin', 'sec'),
                     "field": "role"
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "Materials_Update",
+            {
+                "idMatUpt": {
+                    "type": Sequelize.INTEGER,
+                    "field": "idMatUpt",
+                    "autoIncrement": true,
+                    "primaryKey": true
+                },
+                "idMaterial": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Material",
+                        "key": "idMaterial"
+                    },
+                    "field": "idMaterial",
+                    "allowNull": false
+                },
+                "idUserLogin": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "userLogin",
+                        "key": "idUserLogin"
+                    },
+                    "field": "idUserLogin",
+                    "allowNull": false
+                },
+                "reason": {
+                    "type": Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss'),
+                    "field": "reason",
+                    "allowNull": false
+                },
+                "quantity": {
+                    "type": Sequelize.INTEGER,
+                    "field": "quantity",
+                    "allowNull": false
+                },
+                "notes": {
+                    "type": Sequelize.STRING,
+                    "field": "notes",
+                    "allowNull": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -331,7 +393,19 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "field": "mobile",
                     "unique": false,
-                    "allowNull": false
+                    "allowNull": true
+                },
+                "phone": {
+                    "type": Sequelize.STRING,
+                    "field": "phone",
+                    "unique": false,
+                    "allowNull": true
+                },
+                "website": {
+                    "type": Sequelize.STRING,
+                    "field": "website",
+                    "unique": false,
+                    "allowNull": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
