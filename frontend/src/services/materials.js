@@ -4,7 +4,7 @@ import Dexie from 'dexie';
 const db = new Dexie('MyDatabase');
 
 db.version(1).stores({
-    cache: '++id, key'
+    cache: '++id, key, lastUpdatedAt'
 });
 
 const GetMaterials = async () => {
@@ -21,7 +21,7 @@ const GetMaterials = async () => {
 
 const GetMaterialWasUpdated = async () => {
     return await (
-        fetch(`/api/material-was-updated`, {
+        fetch(`/api/materials/last-updated-at`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(res => {
@@ -67,24 +67,37 @@ const UpdateMaterial = async (bodyForm) => {
 }
 
 const GetStockStatus = async () => {
-    const stockHasBeenUpdated = await GetMaterialWasUpdated().then(res => {
-        return res.result
-    })
-    if(!stockHasBeenUpdated){
+
+    const [stockLastUpdatedAt, cacheMaterials] = await Promise.all([
+         GetMaterialWasUpdated().then(res => {
+            return new Date(res.lastUpdatedAt)
+        }),
+        db.cache.where('key').equals('materials').first()
+    ])
+
+    let cacheLastUpdatedAt = new Date('1900-01-01')
+
+    if(cacheMaterials && cacheMaterials.lastUpdatedAt ){
+        cacheLastUpdatedAt = new Date(cacheMaterials.lastUpdatedAt)
+    }
+
+    console.log(stockLastUpdatedAt)
+    console.log(cacheLastUpdatedAt)
+    if(stockLastUpdatedAt < cacheLastUpdatedAt){
         const cache = await db.cache.where('key').equals('materials').first()
         if(cache){
             return cache.data
         }    
     }
     return await (
-        fetch(`/api/stock-status`, {
+        fetch(`/api/materials/stock-status`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(async(res) => {
             const data = await res.json()
-            console.log(data)
+            
             await db.cache.where('key').equals('materials').delete()
-            db.cache.add({key: 'materials', data: data})
+            db.cache.add({key: 'materials', data: data, lastUpdatedAt: new Date()})
 
             return data
         })
