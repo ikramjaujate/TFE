@@ -104,12 +104,12 @@ const {
 } = require('../controllers/material.js')
 
 router.get('/materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllMaterials);
+router.get('/materials/last-updated-at', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getDataWasUpdated)
+router.get('/materials/stock-status', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getStockStatus);
 router.get('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getMaterialById);
-router.get('/stock-status', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getStockStatus);
 router.post('/materials', verifyToken,checkRoleAuth(['admin', 'dev']), createMaterial);
 router.patch('/materials', verifyToken, checkRoleAuth(['admin', 'dev']),updateMaterial);
 router.delete('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev']),removeMaterialById);
-router.get('/material-was-updated', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getDataWasUpdated)
 
 // PROJECT-MATERIALS
 const {

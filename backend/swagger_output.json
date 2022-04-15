@@ -2711,6 +2711,192 @@
         }
       }
     },
+    "/materials/last-updated-at": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Data was updated",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/materials/stock-status": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Get status of materials ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials successfully obtained.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "reserved": {
+                            "type": "number",
+                            "example": 10
+                          },
+                          "available": {
+                            "type": "number",
+                            "example": -7
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "reserved": {
+                            "type": "number",
+                            "example": 10
+                          },
+                          "available": {
+                            "type": "number",
+                            "example": -7
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/materials/{id}": {
       "get": {
         "tags": [
@@ -2877,158 +3063,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/stock-status": {
-      "get": {
-        "tags": [
-          "Material"
-        ],
-        "summary": "Get status of materials ",
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Materials successfully obtained.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "materials": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "idMaterial": {
-                            "type": "number",
-                            "example": 1
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Brick Pavers"
-                          },
-                          "quantity": {
-                            "type": "number",
-                            "example": 3
-                          },
-                          "reserved": {
-                            "type": "number",
-                            "example": 10
-                          },
-                          "available": {
-                            "type": "number",
-                            "example": -7
-                          },
-                          "price": {
-                            "type": "number",
-                            "example": 4.51
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "consumable"
-                          },
-                          "isBillable": {
-                            "type": "boolean",
-                            "example": false
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "example": "2022-04-02T12:21:38.798Z"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "example": "2022-04-02T12:21:38.798Z"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "materials": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "idMaterial": {
-                            "type": "number",
-                            "example": 1
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Brick Pavers"
-                          },
-                          "quantity": {
-                            "type": "number",
-                            "example": 3
-                          },
-                          "reserved": {
-                            "type": "number",
-                            "example": 10
-                          },
-                          "available": {
-                            "type": "number",
-                            "example": -7
-                          },
-                          "price": {
-                            "type": "number",
-                            "example": 4.51
-                          },
-                          "type": {
-                            "type": "string",
-                            "example": "consumable"
-                          },
-                          "isBillable": {
-                            "type": "boolean",
-                            "example": false
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "example": "2022-04-02T12:21:38.798Z"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "example": "2022-04-02T12:21:38.798Z"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
           },
           "400": {
             "description": "Bad Request"

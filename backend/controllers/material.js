@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const redisClient = require("./redis");
 
 const getAllMaterials = async (req, res) => {
-    console.log('toto')
+    
     // #swagger.tags = ['Material']
     /* 
     #swagger.summary = 'Get all materials'
@@ -87,11 +87,11 @@ const getStockStatus = async (req, res) => {
                 }]
             });
             await redisClient.setEx("materials", 3600, JSON.stringify(materials));
-            await redisClient.setEx('materialsUpdated', 3600, false)
+            
             return res.status(200).json( {materials });
         }
         const materials = JSON.parse(value)
-        await redisClient.setEx('materialsUpdated', 3600, false)
+        
         return res.status(200).json({ materials });
 
     } catch (error) {
@@ -166,7 +166,7 @@ const createMaterial = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
-        await redisClient.setEx('materialsUpdated', 3600, true)
+        await redisClient.setEx('materials-last-updated-at', 3600, new Date().toJSON())
 
         return res.status(201).json({
             newMaterial
@@ -202,7 +202,7 @@ const updateMaterial = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
-        await redisClient.setEx('materialsUpdated', 3600, true)
+        await redisClient.setEx('materials-last-updated-at', 3600, new Date().toJSON())
         return res.status(201).json({
             material,
         });
@@ -234,7 +234,7 @@ const removeMaterialById = async (req, res) => {
         if(value){
             redisClient.del('materials')
         }
-        await redisClient.setEx('materialsUpdated', 3600, true)
+        await redisClient.setEx('materials-last-updated-at', 3600, new Date().toJSON())
         return res.status(200).json({
             id,
         });
@@ -251,13 +251,14 @@ const getDataWasUpdated = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
-        let value = JSON.parse(await redisClient.get('materialsUpdated'))
-        if(value){
-            return res.status(200).send({'result' : true})
+
+        const value = await redisClient.get('materials-last-updated-at')
+        console.log(value)
+        if(value == null || value == undefined){
+            return res.status(200).send({'lastUpdatedAt' : new Date('1900-01-01').toJSON()});
         }
         
-        
-        return res.status(200).send({'result' : false});
+        return res.status(200).send({'lastUpdatedAt' : value})
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
