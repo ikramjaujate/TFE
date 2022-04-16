@@ -20,3 +20,29 @@ De plus, afin de sécuriser le VPS contre les attaques par brute forces sur le p
 \subsection{Autres}
 \subsubsection{Libraries}
 
+Un projet de cette envergure nécessite l'installation de plusieurs dépendances. Lorsque qu'une vulnerabilité a été découverte au niveau d'une des dépendances, il faut absolument réaliser une mise à jour dans les plus brefs délais.
+C'est pourquoi l'utilisation d'un outil tel que \textbf{Dependabot} est nécessaire.
+
+Dependabot est un outil intégré à github qui analyse de manière régulière les dépendances utilisées dans le projet afin de détecter d'éventuelles vulnérabilités. S'il en trouve une, cet outil envoie une alerte avec le niveau de danger qu'que la dépendance représente. Mais le plus intéressant, c'est qu'en plus des alertes, Dependabot crée une pull-request qu'il suffit d'accepter pour maintenir la dépendance à jour.
+
+
+
+  \begin{figure}[H]
+    \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{img/depe.png}
+    \caption{Pull-Request crée par Dependabot}
+    \label{fig:figura1}
+    \end{minipage}
+    \hspace{0.3cm}
+    \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=1\linewidth]{img/alerts.png}
+    \caption{Alertes générées par Dependabot}
+    \label{fig:figura2}
+    \end{minipage}
+    \end{figure}
+
+
+
+

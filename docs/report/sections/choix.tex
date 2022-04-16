@@ -21,18 +21,16 @@ L'avantage de cette organisation est que, en cas d'erreurs et/ou non validation 
 \end{figure}
 
 \subsubsection{Outils}
-Afin d'optimiser les tâches à effectuer pour chaque sprint et d'améliorer ma performance au travail, plusieurs outils ont été utilisés dans l'objectif de faciliter la visualisation de l’avancement du projet.
+Afin d'optimiser les tâches à effectuer pour chaque sprint et d'améliorer ma performance de travail, plusieurs outils ont été utilisés dans l'objectif de faciliter la visualisation de l’avancement du projet.
 \begin{itemize}
-  \item \textbf{Trello}: Tableau à organiser rapidement les user stories.
+  \item \textbf{Trello}: Tableau permettant d'organiser les différentes tâches et user stories de manière optimale.
   \item \textbf{Clockify}: Outil de suivi des heures travaillées sur le projet.
-  \item \textbf{SQLDbm}: Outil permettant la création de mon schéma de base de données .
+  \item \textbf{SqlDBM}: Outil permettant la création de mon schéma de base de données.
 \end{itemize}
-
-Cette méthode de travail permet donc de ne pas définir certaines user stories qui ne seront peut-être jamais mises en place.
 
 \subsubsection{Gitflow}
 
-J'ai décidé de travailler avec le gitflow par branche, ce qui me permettra d'avoir une division au niveau des fonctionnalités qui seront implémentées lors du projet.
+J'ai décidé de travailler avec le gitflow par branche, ce qui permet d'avoir une division au niveau des fonctionnalités qui seront implémentées lors du projet.
 
 \begin{itemize}
   \item Une branche 'develop' qui correspond à la branche 'master' du 'github-flow'
@@ -56,11 +54,11 @@ J'ai décidé de travailler avec le gitflow par branche, ce qui me permettra d'a
   \end{minipage}
   \begin{minipage}{.7\textwidth}
     
-    En ce qui concerne la technologie frontend, j'ai décidé d'utiliser React car elle me permet de créer des interfaces utilisateur ou des composants d'interface utilisateur rapides et interactifs pour les utilisateurs d'applications web et mobiles.
+    En ce qui concerne la technologie frontend, React permet de créer des interfaces utilisateur ou des composants d'interface utilisateur rapides et interactifs pour les utilisateurs d'applications web et mobiles.
     \begin{enumerate}
       \item \textbf{DOM Virtuel}: Il permet de générer le DOM ("Document Object Model", structure des éléments qui sont générés dans le navigateur web lors du chargement d'une page) de manière dynamique, ce qui nous permet de visualiser les changements de données sans devoir recharger à nouveau la page entière, mais seulement le composant qui a été mis à jour.
       \item \textbf{Grande communauté}: Il est soutenu par une large communauté, ce qui nous permet d'avoir un grand nombre de libraires disponibles.
-      \item \textbf{Composants réutilisables}: React est constitué de composants qui sont réutilisables, ce qui rend l'application plus évolutive et plus facile à maintenir car les erreurs se produisent dans la fonctionnalité du composant lui-même.
+      \item \textbf{Composants réutilisables}: React est constitué de composants qui sont réutilisables, ce qui rend l'application plus portable et plus facile à maintenir.
     \end{enumerate}
     Ces avantages permettent d'améliorer l'expérience de l'utilisateur lors de la navigation dans l'application web, la rapidité du chargement des pages et facilitent la maintenance de l'application.
   \end{minipage}
@@ -123,15 +121,14 @@ J'ai décidé de travailler avec le gitflow par branche, ce qui me permettra d'a
 
   
 \subsection{Autres}
-\subsubsection{API Documentation}
+\subsubsection{Documentation API}
 
-Les API, \textit{Application Programming Interfaces}, sont la partie non visible d'une application. Ils permettent aux applications de communiquer entre elles, et constituent donc une base essentielle pour un projet de cette envergure.
 
-Mais pour pouvoir utiliser ces API de manière correcte, il est nécessaire d'avoir d'une bonne documentation. La documentation des API sont basées sur des instructions claires sur le fonctionnement d'une API, les méthodes que celle-ci utilise et le type de valeur qu'elle renvoie.
-Par conséquent, une documentation détaillée de l'API est nécessaire pour pouvoir résoudre les difficultés que l'utilisateur pourrait rencontrer.
+L'API (\textit{Application Programming Interfaces}) est le backbone\footnote{\textit{Élement structurelle indispendsable au bon fonctionnement de l'application. Ceci répresente le coeur de l'application.}} d'une application. Elle permet l'interaction d'un utilisateur ou d'une application avec le système d'information sur base d'endpoints.
+Pour pouvoir utiliser l'API de manière efficace, il est nécessaire d'avoir une bonne documentation. Cette documentation doit pouvoir exprimé de manière claire l'action de chaque endpoint sur le système d'information. Dès lors on y retrouvera les méthodes telles que GET, CREATE, UPDATE, DELETE, les informations rélatives aux données nécessaires pour le bon déroulement de la requête ainsi qu'un exemple et/ou le format du résultat attendu.
 \newpage
-Pour pouvoir réaliser cette documentation, il existe un grand nombre de technologies qui peuvent être utilisées. Dans mon cas, j'ai décidé d'utiliser \textbf{Swagger}, car c'est l'outil open-source le plus complet.
-Swagger permet à tout le monde, même s'ils ont peu de connaissances en développement, de comprendre l'objectif de l'API, ainsi que de créer automatiquement la documentation et dans laquelle nous pouvons directement exécuter l'API. Dans la figure ci-dessous vous pourrez voir un exemple de la documentation pour ce projet.
+Pour pouvoir réaliser cette documentation, il existe un grand nombre de technologies qui permettent de la créer et de la générer automatiquement. Dans mon cas, j'ai décidé d'utiliser \textbf{Swagger}. Celui-ci s'intègre parfaitement avec NodeJS / ExpressJS, il permet d'autogénerer en grande partie la documentation sur base de mes endpoints et il est open-source.
+La documentation générée par Swagger est facile à comprendre et permet de tester directement l'API sans devoir passée par un outil supplémentaire tel que Postman.
 
 \begin{figure}[H]
   \centering
