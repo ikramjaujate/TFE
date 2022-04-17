@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true
     },
-    idPaid: {
+    isPaid: {
       type: DataTypes.BOOLEAN,
       allowNull: true
     },
