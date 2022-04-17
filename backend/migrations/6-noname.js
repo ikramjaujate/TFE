@@ -5,19 +5,37 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
+ * removeColumn "idPaid" from table "Document"
+ * addColumn "isPaid" to table "Document"
  * changeColumn "idCompany" on table "Project"
  * changeColumn "idPerson" on table "Project"
  *
  **/
 
 var info = {
-    "revision": 2,
+    "revision": 6,
     "name": "noname",
-    "created": "2022-04-16T12:10:18.813Z",
+    "created": "2022-04-16T13:20:29.755Z",
     "comment": ""
 };
 
 var migrationCommands = [{
+        fn: "removeColumn",
+        params: ["Document", "idPaid"]
+    },
+    {
+        fn: "addColumn",
+        params: [
+            "Document",
+            "isPaid",
+            {
+                "type": Sequelize.BOOLEAN,
+                "field": "isPaid",
+                "allowNull": true
+            }
+        ]
+    },
+    {
         fn: "changeColumn",
         params: [
             "Project",

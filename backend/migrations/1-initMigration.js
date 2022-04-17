@@ -22,7 +22,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-04-15T11:31:57.049Z",
+    "created": "2022-04-16T12:10:14.363Z",
     "comment": ""
 };
 
@@ -197,7 +197,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "reason": {
-                    "type": Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss'),
+                    "type": Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss', 'project'),
                     "field": "reason",
                     "allowNull": false
                 },

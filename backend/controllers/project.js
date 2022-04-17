@@ -1,7 +1,7 @@
-const { Project, Person, Company, Address, Country, Document, Project_Materials, Material } = require('../models');
+const { Project, Person, Company, Address, Country, Document, Project_Materials, Material, Materials_Update, userLogin } = require('../models');
 const { projectTypes } = require('../consts/projectTypes')
-
-
+const redisClient = require("./redis");
+const jwt_decode = require('jwt-decode');
 
 const createProject = async (req, res) => {
     // #swagger.tags = ['Project']
@@ -97,7 +97,7 @@ const getSimpleProject = async (req, res) => {
 
         const project = await Project.findOne({
             where: { idProject: id },
-            
+
             attributes: ['idProject', 'status']
         });
 
@@ -208,20 +208,20 @@ const updateProject = async (req, res) => {
             throw new Error("Project not found")
         };
 
-        if(project.status == "Accepted" && req.body.status  == "Pre-Sale" ){
+        if (project.status == "Accepted" && req.body.status == "Pre-Sale") {
             const documents = await Document.findAll({
                 where: {
                     idProject: req.body.id, type: 'devis'
                 }
             });
-            
+
             documents.forEach(doc => {
-                
+
                 doc.isAccepted = false
             });
-            
+
             await Document.bulkCreate(JSON.parse(JSON.stringify(documents)), { updateOnDuplicate: ['isAccepted'] })
-            
+
         }
 
         await project.update(
@@ -235,8 +235,56 @@ const updateProject = async (req, res) => {
 
         )
         await project.save()
-
         //TODO: SI PROJET PASSE A UN ETAT DONE, MISE A JOUR DU MATERIAL
+        
+        if (project.status == "Done") {
+            const token = req.header('Authorization').split("Bearer")[1].trim();
+            const decode = jwt_decode(token).user_id
+            
+            const user =  await userLogin.findOne({
+                where: {
+                    email: decode
+                }
+            });
+            
+            const materials = await Project_Materials.findAll({
+                where: {
+                    idProject: req.body.id
+                }
+            });
+            
+            materials.forEach(async(mat) => {
+                console.log(mat)
+                let material = await Material.findOne({
+                    where: {
+                        idMaterial: mat.idMaterial
+                    }
+                    
+                })
+                let newQuantity = material.quantity - mat.quantity
+
+                await Materials_Update.create({
+                    idMaterial: mat.idMaterial,
+                    idUserLogin: user.idUserLogin,
+                    reason: 'project',
+                    notes: 'Project reason',
+                    quantity: material.quantity - mat.quantity
+                });
+
+                
+                //TODO:Si projet passe à un etat done, on soustrait mais si il revient à un état in progress il faut revenir à la valeur initiale
+                await material.update(
+                    {
+                        quantity: newQuantity
+                    }
+                )
+
+                await material.save()
+                redisClient.del('materials')
+
+                
+            });
+        }
 
         return res.status(200).json({ project });
     } catch (error) {
@@ -253,32 +301,33 @@ const getPossiblesStatuses = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
-       
+
         const documents = await Document.findAll({
             where: { idProject: req.params.id }
         });
 
-        if(!documents){
-            return res.status(200).json({ 'types':[...projectTypes.slice(0, 2), ...projectTypes.slice(-1)]  });
+        if (!documents) {
+            return res.status(200).json({ 'types': [...projectTypes.slice(0, 2), ...projectTypes.slice(-1)] });
         }
         const paidInvoices = documents.filter(doc => {
             return (doc.type == 'facture' && doc.isPaid)
         })
-        
+
         if (paidInvoices.length) {
-            
+
             console.log('paidInvoices')
-            return res.status(200).json({ 'types': [...projectTypes.slice(-3), ...projectTypes.slice(-1)]  });
+            
+            return res.status(200).json({ 'types': [...projectTypes.slice(-3)] });
         }
 
         const unPaidInvoices = documents.filter(doc => {
-            
+
             return (doc.type == 'facture' && !doc.isPaid)
         })
 
         if (unPaidInvoices.length) {
             console.log('unPaidInvoices')
-            return res.status(200).json({ 'types': [...projectTypes.slice(-4, -2), ...projectTypes.slice(-1)]  });
+            return res.status(200).json({ 'types': [...projectTypes.slice(-4, -2), ...projectTypes.slice(-1)] });
         }
 
         const acceptedQuote = documents.filter(doc => {
@@ -287,11 +336,11 @@ const getPossiblesStatuses = async (req, res) => {
 
         if (acceptedQuote.length) {
             console.log('acceptedQuote')
-            
-            return res.status(200).json({ 'types':  [...projectTypes.slice(0, 3), ...projectTypes.slice(-1)] });
+
+            return res.status(200).json({ 'types': [...projectTypes.slice(0, 3), ...projectTypes.slice(-1)] });
         }
 
-        return res.status(200).json({ 'types': [...projectTypes.slice(0, 1), ...projectTypes.slice(-1)]  });
+        return res.status(200).json({ 'types': [...projectTypes.slice(0, 1), ...projectTypes.slice(-1)] });
 
     } catch (error) {
         return res.status(500).send(error.message);
@@ -312,13 +361,14 @@ const getProjectMaterialByProjectId = async (req, res) => {
             where: { idProject: id }
         });
 
-        if(!project){
+        if (!project) {
             throw new Error("Project not found")
         }
 
         const projectMaterials = await Project_Materials.findAll({
-            where: { idProject: id },  include: [{
-                model: Material}]
+            where: { idProject: id }, include: [{
+                model: Material
+            }]
         });
 
         if (projectMaterials) {

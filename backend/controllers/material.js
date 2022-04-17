@@ -1,6 +1,7 @@
-const { Material, Project_Materials, Project } = require('../models');
+const { Material, Project_Materials, Project, Materials_Update, userLogin } = require('../models');
 const { Op } = require("sequelize");
 const redisClient = require("./redis");
+const jwt_decode = require('jwt-decode');
 
 const getAllMaterials = async (req, res) => {
     
@@ -185,6 +186,32 @@ const updateMaterial = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
+        const token = req.header('Authorization').split("Bearer")[1].trim();
+        const reason = req.body.reason
+        const notes = req.body.notes
+
+        const decode = jwt_decode(token).user_id
+        
+        const user =  await userLogin.findOne({
+            where: {
+                email: decode
+            }
+        });
+
+        if(req.body.quantityChanges != req.body.quantity){
+            await Materials_Update.create({
+                idMaterial: req.body.id,
+                idUserLogin: user.idUserLogin,
+                reason: reason,
+                notes: notes,
+                quantity: req.body.quantityChanges
+            });
+        }
+
+        delete req.body.quantityChanges
+        delete req.body.reason
+        delete req.body.notes
+
         const material = await Material.findOne({
             where: {
                 idMaterial: req.body.id
@@ -195,6 +222,8 @@ const updateMaterial = async (req, res) => {
             throw new Error("No material");
         }
 
+
+        
         material.update(req.body);
         await material.save();
 
@@ -203,6 +232,7 @@ const updateMaterial = async (req, res) => {
             redisClient.del('materials')
         }
         await redisClient.setEx('materials-last-updated-at', 3600, new Date().toJSON())
+
         return res.status(201).json({
             material,
         });
@@ -264,6 +294,47 @@ const getDataWasUpdated = async (req, res) => {
     }
 }
 
+const getMaterialChanges = async (req, res) => {
+    
+    // #swagger.tags = ['Material']
+    /* 
+    #swagger.summary = 'Get all materials changes'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+    #swagger.responses[200] = {
+            description: 'Materials successfully obtained.',
+            schema:
+            { "materials" : [
+                {
+                    "idMaterial": 1,
+                    "name": "Brick Pavers",
+                    "quantity": 3,
+                    "price": 4.51,
+                    "type": "consumable",
+                    "isBillable": false,
+                    "createdAt": "2022-04-02T12:21:38.798Z",
+                    "updatedAt": "2022-04-02T12:21:38.798Z"
+                }
+            ]
+        }
+    }
+    */
+    try {
+        const { id } = req.params;
+
+        const changes = await Materials_Update.findAll({
+            where: { idMaterial: id}, include: [userLogin]
+        })
+        
+        
+        return res.status(200).send( changes);
+        
+    } catch (error) {
+        return res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getAllMaterials,
     getMaterialById,
@@ -271,5 +342,6 @@ module.exports = {
     updateMaterial,
     removeMaterialById,
     getStockStatus,
-    getDataWasUpdated
+    getDataWasUpdated,
+    getMaterialChanges
 }

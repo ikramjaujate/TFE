@@ -34,7 +34,7 @@
                 "reason": {
                     "allowNull": false,
                     "field": "reason",
-                    "seqType": "Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss')"
+                    "seqType": "Sequelize.ENUM('inventory', 're-stock', 'defect', 'loss', 'project')"
                 },
                 "quantity": {
                     "allowNull": false,
@@ -358,9 +358,9 @@
                     "field": "isAccepted",
                     "seqType": "Sequelize.BOOLEAN"
                 },
-                "idPaid": {
+                "isPaid": {
                     "allowNull": true,
-                    "field": "idPaid",
+                    "field": "isPaid",
                     "seqType": "Sequelize.BOOLEAN"
                 },
                 "notes": {
@@ -614,5 +614,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 17
 }
