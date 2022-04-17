@@ -12,9 +12,9 @@ CYAN="\033[36m";    CYAN_BG="\033[46m";
 
 #--------------------
 #--------------------
-echo -e "\n🚀 Starting Deployement procedure for$GREEN MasterServices Application: \n"$RESET 
+echo -e "\n🚀 Starting Deployement procedure for $MAGENTA_BG"MasterServices Application$RESET: \n"$RESET 
 
-echo -e $BLUE"1. 🗃  Creating temp app folder :"$RESET
+echo -e "1. 🗃  Creating temp app folder :"$RESET
 
 cd ..
 mkdir ./Application
@@ -44,4 +44,4 @@ echo "✓ Delete sucessfully."
 cp docker/docker-compose.yml ./Application/
 
 
-echo -e "✅  "$GREEN_BG"DONE$RESET : App successfully deployed"
+echo -e "✅  "$GREEN_BG"DONE$RESET : App successfully built"
