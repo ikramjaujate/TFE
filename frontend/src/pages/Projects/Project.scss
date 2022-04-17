@@ -7,6 +7,15 @@ span.customer-badge.status-pre-sale{
     color: white;
 
 }
+span.customer-badge.status-done{
+    background: rgb(158, 3, 99);
+    color: white;
+}
+span.customer-badge.status-closed{
+    background: rgb(5, 92, 192);
+    color: white;
+
+}
 span.customer-badge.status-in.progress{
     background: rgb(11, 163, 168);
     color: white;

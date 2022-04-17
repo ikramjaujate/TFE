@@ -8,9 +8,7 @@ import GetCountries from "../../../services/countries";
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
 import { Toast } from 'primereact/toast';
-import { GetClients, CreateNewClient, UpdateUser } from '../../../services/users'
-import { CreateNewCompany, UpdateCompany } from '../../../services/companies'
-import Clients from '../../../pages/Clients/Clients';
+import Dexie from 'dexie';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
 import { Ripple } from 'primereact/ripple';
@@ -133,6 +131,16 @@ const FormProject = ({ refreshTable, sendData }) => {
         });
     };
 
+    const confirmChangeDate = (bodyForm) => {
+        confirmDialog({
+            message: "The end date of the project does not match today's date, are you sure you want to continue ?",
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => { updateProjectStatus(bodyForm) },
+            reject: () => { }
+        });
+    };
+
     const confirmProgressStatus = (bodyForm) => {
         confirmDialog({
             message: 'There is not enough stock available to fullfil. Are you sure you want to continue ?',
@@ -154,6 +162,7 @@ const FormProject = ({ refreshTable, sendData }) => {
         }).then(response => {
             toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Project has been updated', life: 3000 });
             clearForm()
+            Dexie.delete('MyDatabase');
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be updated', life: 3000 });
         })
@@ -171,6 +180,16 @@ const FormProject = ({ refreshTable, sendData }) => {
         if (bodyForm.status == 'Canceled') {
             confirmCanceledStatus(bodyForm)
             return;
+        }
+        
+        if(bodyForm.status == 'Done'){
+            
+            const formDate = bodyForm.end_date.toISOString().split('T')[0]
+            const date= (new Date()).toISOString().split('T')[0]
+            if(formDate != date){
+                confirmChangeDate(bodyForm)
+                return;
+            }
         }
 
         if(bodyForm.status == 'In Progress' && notAvailable){
@@ -248,7 +267,7 @@ const FormProject = ({ refreshTable, sendData }) => {
                                 <FontAwesomeIcon icon={faInfo} />
                             </span>
                             <Dropdown className='my-dropdown' value={status} options={filterStatus} onChange={(e) => setStatus(e.value)} />
-                            {/*<InputText value={status} onChange={(e) => setStatus(e.target.value)} placeholder="Start Date" disabled />*/}
+                           
                         </div>
                     </div>
                     <div className="col-12 md:col-4">
