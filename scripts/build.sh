@@ -12,7 +12,7 @@ CYAN="\033[36m";    CYAN_BG="\033[46m";
 
 #--------------------
 #--------------------
-echo -e "\n🚀 Starting Deployement procedure for $MAGENTA_BG"MasterServices Application$RESET: \n"$RESET 
+echo -e "\n🚀 Starting Deployement procedure for "$MAGENTA_BG"MasterServices Application$RESET: \n"$RESET 
 
 echo -e "1. 🗃  Creating temp app folder :"$RESET
 
