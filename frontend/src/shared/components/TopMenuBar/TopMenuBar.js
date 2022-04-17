@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './TopMenuBar.scss'
-
+import Dexie from 'dexie';
 const TopMenuBar = ({onToggleMenu}) => {
 
     const logOut = () => {
         localStorage.removeItem('access_token');
+        Dexie.delete('MyDatabase');
         window.location.reload();
     }
 

@@ -14,9 +14,9 @@ const SideMenuBar = ({menu, setMenuVisible}) => {
                     {item.isLast? 
                     <hr className='menu-bottom'>
                     </hr>: 
-                    <></>}
+                    <span></span>}
                     <NavLink
-                        key={item.label}
+                        
                         aria-label={item.label}
                         role="menuitem"
                         className={`router-link`}
