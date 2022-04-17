@@ -42,17 +42,19 @@ const Material = () => {
 
             const materialIds = []
             const materials = []
-
             for (let material of res['materials']) {
+               
                 const matIdx = materialIds.indexOf(material.idMaterial);
                 if ( matIdx > -1) {
-
+                    
                     if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
                         materials[matIdx]['available'] -= material.Project_Material.quantity;
                         materials[matIdx]['reserved'] += material.Project_Material.quantity;
+                        console.log(materials[matIdx]['available'])
                     }
                     continue;
                 } 
+                
                 //material does not exist
                 if (!material.Project_Material) {
                     
@@ -65,11 +67,14 @@ const Material = () => {
                 }
                 
                 if (['In Progress', 'Accepted'].includes(material.Project_Material.Project.status)) {
+                   
                     material['available'] = material.quantity - material.Project_Material.quantity;
                     material['reserved'] = material.Project_Material.quantity;
+                    console.log(material)
                 } else {
                     material['available'] = material.quantity
                     material['reserved'] = 0
+                    console.log(material)
                 }
 
                 materials.push(material);

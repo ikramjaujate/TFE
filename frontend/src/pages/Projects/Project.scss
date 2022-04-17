@@ -1,30 +1,51 @@
 span.customer-badge.status-accepted {
     background: #5bd454;
     color: white;
+    width: 8rem;
+    text-align: center;
 }
 span.customer-badge.status-pre-sale{
     background: #aaa;
     color: white;
+    width: 8rem;
+    text-align: center;
 
 }
 span.customer-badge.status-done{
     background: rgb(158, 3, 99);
     color: white;
+    width: 8rem;
+    text-align: center;
 }
 span.customer-badge.status-closed{
     background: rgb(5, 92, 192);
     color: white;
+    width: 8rem;
+    text-align: center;
 
 }
 span.customer-badge.status-in.progress{
     background: rgb(11, 163, 168);
     color: white;
+    width: 8rem;
+    text-align: center;
 }
 span.customer-badge.status-canceled{
     background: rgb(158, 8, 8);
     color: white;
+    width: 8rem;
+    text-align: center;
 
 }
+.customer-badge {
+    border-radius: var(--border-radius);
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
 .select-day, button.p-button.p-component.p-datepicker-trigger.p-button-icon-only{
     background-color: var(--main-color);
     border: var(--main-color)

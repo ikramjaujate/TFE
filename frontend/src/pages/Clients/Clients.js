@@ -54,7 +54,7 @@ const Clients = () => {
         persons.forEach(person => {
             person.VAT_num = person.VAT_num ? person.VAT_num: null
             person.phone = person.phone ? person.phone: null
-            //console.log(person.VAT_num.substring(0,3))
+           
             if(person.VAT_num && person.Address.Country.nicename == "France"){
                 person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'FR')
             }else if(person.VAT_num && person.Address.Country.nicename == "Luxembourg"){

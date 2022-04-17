@@ -60,7 +60,7 @@ const MaterialInformation = () => {
     const getMaterialsHistory = () => {
         
         materialsService.GetMaterialChanges(id).then(res => {
-            console.log(res)
+            
 
                 setChanges(res)
 
@@ -163,6 +163,18 @@ const MaterialInformation = () => {
     const nameUser = (rowData) => {
         return <span>{rowData.userLogin.firstName} {rowData.userLogin.lastName} </span>
     }
+    const rowClass = (rowData) => {
+        if (rowData.available < 0) {
+            return {
+                'not-available': 'no'
+            }
+        }
+        if (rowData.available > 0) {
+            return {
+                'yes-available': 'yes'
+            }
+        }
+    }
     return (
         <>
             <Toast ref={toast} baseZIndex={999999} />
@@ -255,12 +267,12 @@ const MaterialInformation = () => {
                         </div>
                     </Panel>
                     <Panel headerTemplate={headerMaterialChangesTemplateInfo} toggleable className='mx-3'>
-                        <DataTable value={changes} emptyMessage="No history linked found." className="transaction-datatable mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20}>
-                        <Column field='createdAt' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} body={(rowData) => { return moment(rowData.createdAt).utc().format('YYYY-MM-DD') }}  sortable header="Transaction Date"  headerStyle={{ color: "#c9392f" }}></Column>    
-                            <Column body={nameUser} style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Name"  headerStyle={{ color: "#c9392f" }}></Column>    
-                            <Column field='reason' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  header="Reason"  headerStyle={{ color: "#c9392f" }}></Column>
-                            <Column body={quantityChangesTemplate} style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Quantity changes"  headerStyle={{ color: "#c9392f" }}></Column>
-                            <Column field='notes' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  header="Notes"  headerStyle={{ color: "#c9392f" }}></Column>
+                        <DataTable value={changes} emptyMessage="No history found." className="transaction-datatable mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20}>
+                        <Column field='createdAt' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} body={(rowData) => { return moment(rowData.createdAt).utc().format('YYYY-MM-DD') }}  sortable header="Transaction Date"  headerStyle={{ color: "#c9392f" }}></Column>    
+                            <Column body={nameUser} style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} className='name'  sortable header="Name"  headerStyle={{ color: "#c9392f" }}></Column>    
+                            <Column field='reason' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }}  header="Reason"  headerStyle={{ color: "#c9392f" }}></Column>
+                            <Column body={quantityChangesTemplate} style={{ width: '10rem' }} sortable header="Quantity changes"  headerStyle={{ color: "#c9392f" }}></Column>
+                            <Column field='notes' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }}  header="Notes"  headerStyle={{ color: "#c9392f" }}></Column>
                         
                         </DataTable>
 

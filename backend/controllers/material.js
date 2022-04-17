@@ -186,6 +186,7 @@ const updateMaterial = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
+        
         const token = req.header('Authorization').split("Bearer")[1].trim();
         const reason = req.body.reason
         const notes = req.body.notes
@@ -197,8 +198,11 @@ const updateMaterial = async (req, res) => {
                 email: decode
             }
         });
-
-        if(req.body.quantityChanges != req.body.quantity){
+        
+        console.log(req.body.quantityChanges)
+        console.log(req.body.quantity)
+        if(req.body.quantityChanges != 0){
+            console.log('toto')
             await Materials_Update.create({
                 idMaterial: req.body.id,
                 idUserLogin: user.idUserLogin,
@@ -207,11 +211,11 @@ const updateMaterial = async (req, res) => {
                 quantity: req.body.quantityChanges
             });
         }
-
+        
         delete req.body.quantityChanges
         delete req.body.reason
         delete req.body.notes
-
+        
         const material = await Material.findOne({
             where: {
                 idMaterial: req.body.id

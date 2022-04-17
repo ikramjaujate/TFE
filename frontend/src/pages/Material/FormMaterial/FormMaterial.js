@@ -67,6 +67,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
     }
 
     const updateMaterial = () => {
+        console.log('test')
         const bodyForm = {
             'id': sendData.idMaterial,
             'name': name,

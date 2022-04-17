@@ -81,9 +81,10 @@ const updateUserLogin = async (req, res) => {
     */
     try {
 
+        console.log(req.body.email)
         const user = await userLogin.findOne({
             where: {
-                id: req.body.id
+                email: req.body.email
             }
         });
 

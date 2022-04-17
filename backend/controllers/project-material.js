@@ -122,13 +122,14 @@ const updateProjectMaterial = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
+        
         const projectMaterial = await Project_Materials.findOne({
             where: {
                 idProjMat: req.body.id
             }
         });
 
-        if (!mateprojectMaterialrial) {
+        if (!projectMaterial) {
             throw new Error("No material");
         }
 

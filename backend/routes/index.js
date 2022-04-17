@@ -107,10 +107,10 @@ const {
 router.get('/materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllMaterials);
 router.get('/materials/last-updated-at', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getDataWasUpdated)
 router.get('/materials/stock-status', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getStockStatus);
-router.get('/material-history/:id', verifyToken,checkRoleAuth(['admin', 'dev']), getMaterialChanges)
+router.get('/material-history/:id', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getMaterialChanges)
 router.get('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getMaterialById);
 router.post('/materials', verifyToken,checkRoleAuth(['admin', 'dev']), createMaterial);
-router.patch('/materials', verifyToken, checkRoleAuth(['admin', 'dev']),updateMaterial);
+router.patch('/materials', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateMaterial);
 router.delete('/materials/:id', verifyToken, checkRoleAuth(['admin', 'dev']),removeMaterialById);
 
 // PROJECT-MATERIALS

@@ -14,6 +14,7 @@ import * as projectService from '../../../../services/projects'
 import * as materialsService from '../../../../services/materials'
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
+import Dexie from 'dexie';
 
 const FormProjectMaterial = ({documentAccepted}) => {
     const { id } = useParams();
@@ -155,9 +156,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
             throw new Error('Something went wrong.');
 
         }).then(response => {
-            console.log(response)
             toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New materials has been added to the project', life: 3000 });
-
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Materials could not be added to the project', life: 3000 });
         })
