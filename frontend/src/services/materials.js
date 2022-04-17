@@ -3,14 +3,25 @@ import Dexie from 'dexie';
 
 const db = new Dexie('MyDatabase');
 
+
 db.version(1).stores({
     cache: '++id, key, lastUpdatedAt'
 });
 
 const GetMaterials = async () => {
-    console.log('tto')
+    
     return await (
         fetch(`/api/materials`, {
+            method: 'GET',
+            headers: BASIC_HEADERS
+        }).then(res => {
+            return res.json()
+        })
+    );
+}
+const GetMaterialChanges = async (id) => {
+    return await (
+        fetch(`/api/material-history/${id}`, {
             method: 'GET',
             headers: BASIC_HEADERS
         }).then(res => {
@@ -109,5 +120,6 @@ export {
     UpdateMaterial,
     GetStockStatus,
     GetMaterialById,
-    GetMaterialWasUpdated
+    GetMaterialWasUpdated,
+    GetMaterialChanges
 }
