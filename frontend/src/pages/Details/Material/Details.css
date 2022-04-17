@@ -105,3 +105,19 @@ background-color: #2C2F33;
     width: 4rem;
     color: white;
 }
+
+span.negative-quantity{
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+span.positive-quantity{
+    color:#5bd454;
+    font-weight: bold;
+}
+
+.transaction-datatable td span {
+    text-align: center;
+    display: block;
+    margin:0 auto;
+}

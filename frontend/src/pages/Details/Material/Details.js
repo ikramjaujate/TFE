@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useParams } from "react-router-dom";
 import moment from "moment";
 
-import { faBookOpen, faBook, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faBook, faWarning, faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
@@ -15,7 +15,7 @@ import { Panel } from 'primereact/panel';
 import { DataTable } from 'primereact/datatable';
 import { useHistory } from 'react-router-dom';
 
-
+import * as materialsService from '../../../services/materials'
 import * as project_materialsService from '../../../services/project_materials'
 
 
@@ -41,6 +41,9 @@ const MaterialInformation = () => {
 
     const [projectsMaterials, setProjectsMaterials] = useState([])
     const [data, setData] = useState([]);
+
+    const [changes, setChanges] = useState([])
+
     const getProjectsMaterials = () => {
         setLoading(true)
         project_materialsService.GetProjectByMaterialId(id).then(res => {
@@ -54,24 +57,40 @@ const MaterialInformation = () => {
         setLoading(false);
     }
 
+    const getMaterialsHistory = () => {
+        
+        materialsService.GetMaterialChanges(id).then(res => {
+            console.log(res)
+
+                setChanges(res)
+
+            //console.log(res)
+            //setChanges(res.changes)
+        })
+        
+    }
 
     const refresh = () => {
         getProjectsMaterials();
+        getMaterialsHistory();
     }
     useEffect(() => {
         if (location.state) {
             setName(location.state.data.name)
             setType(location.state.data.type)
-
+            
             setPrice(location.state.data.price)
             setQty(location.state.data.quantity)
             setAvailable(location.state.data.available)
             setReserved(location.state.data.reserved)
             setData(location.state.data)
+            
         }
+        setChanges([])
         setProjectsMaterials([])
         setLoading(true)
         refresh()
+        
 
     }, [])
     const handleAllProjects = () => {
@@ -88,6 +107,22 @@ const MaterialInformation = () => {
                 <span className="p-panel-title">  <FontAwesomeIcon icon={faBook} className='mr-2' />PROJECTS</span>
                 <div className='panel-header-right'>
                     <Button label="All Projects" icon="pi pi-arrow-right" className="p-button-raised p-button-info " onClick={() => handleAllProjects()} />
+                    <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
+                        <span className={toggleIcon}></span>
+
+                    </button>
+                </div>
+
+            </div>
+        )
+    }
+    const headerMaterialChangesTemplateInfo = (options) => {
+        const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
+        return (
+            <div className='p-panel-header'>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faClockRotateLeft} className='mr-2' />HISTORY</span>
+                <div className='panel-header-right'>
+                   
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
                         <span className={toggleIcon}></span>
 
@@ -117,6 +152,17 @@ const MaterialInformation = () => {
 
         return moment(rowData.Project.end_date).utc().format('YYYY-MM-DD')
     }
+    const quantityChangesTemplate = (rowData) => {
+        if(rowData.quantity < 0){
+
+            return <span className='negative-quantity' >{rowData.quantity}</span>
+        }
+        return <span className='positive-quantity' >{rowData.quantity}</span>
+    }
+
+    const nameUser = (rowData) => {
+        return <span>{rowData.userLogin.firstName} {rowData.userLogin.lastName} </span>
+    }
     return (
         <>
             <Toast ref={toast} baseZIndex={999999} />
@@ -129,7 +175,7 @@ const MaterialInformation = () => {
                 <BreadCrumb model={materials} home={homeMaterials} />
 
                 <div >
-                    <Panel header={<span ><FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>} className='m-3'>
+                    <Panel header={<span ><FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>} className='m-2'>
                         <div className="grid p-fluid m-2">
                             <div className="col-16 md:col-4">
                                 <div className="p-inputgroup">
@@ -208,9 +254,20 @@ const MaterialInformation = () => {
 
                         </div>
                     </Panel>
+                    <Panel headerTemplate={headerMaterialChangesTemplateInfo} toggleable className='mx-3'>
+                        <DataTable value={changes} emptyMessage="No history linked found." className="transaction-datatable mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20}>
+                        <Column field='createdAt' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} body={(rowData) => { return moment(rowData.createdAt).utc().format('YYYY-MM-DD') }}  sortable header="Transaction Date"  headerStyle={{ color: "#c9392f" }}></Column>    
+                            <Column body={nameUser} style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Name"  headerStyle={{ color: "#c9392f" }}></Column>    
+                            <Column field='reason' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  header="Reason"  headerStyle={{ color: "#c9392f" }}></Column>
+                            <Column body={quantityChangesTemplate} style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Quantity changes"  headerStyle={{ color: "#c9392f" }}></Column>
+                            <Column field='notes' style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }}  header="Notes"  headerStyle={{ color: "#c9392f" }}></Column>
+                        
+                        </DataTable>
+
+                    </Panel>
                     <Panel headerTemplate={headerTemplateInfo} toggleable className='m-3'>
 
-                        <DataTable loading={loading} value={projectsMaterials} emptyMessage="No projects linked found." className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <DataTable loading={loading} value={projectsMaterials} emptyMessage="No projects linked found." className="mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
 
                             <Column field='Project.name' header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                             <Column style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} body={statusBodyTemplate} sortable header="Status" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
