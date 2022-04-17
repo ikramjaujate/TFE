@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     idUserLogin : { 
         type: DataTypes.INTEGER,
         allowNull: false
-      },
+    },
     reason : { 
-      type: DataTypes.ENUM('inventory', 're-stock', 'defect', 'loss'),
+      type: DataTypes.ENUM('inventory', 're-stock', 'defect', 'loss', 'project'),
       allowNull: false
     },
     quantity : { 
