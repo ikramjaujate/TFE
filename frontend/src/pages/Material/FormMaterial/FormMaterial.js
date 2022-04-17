@@ -10,18 +10,26 @@ import { Toast } from 'primereact/toast';
 import { Panel } from 'primereact/panel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTools, faInfo, faHourglassStart, faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
+import { Dialog } from 'primereact/dialog';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 import * as materialsService from '../../../services/materials'
+import { rangesOverlap } from 'dexie';
 
 const FormMaterial = ({ refreshTable, sendData }) => {
+
     const toast = useRef(null);
     const [name, setName] = useState('')
     const [type, setType] = useState('')
     const [isBillable, setIsBillable] = useState(true)
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0.00)
+    const [reason, setReason] = useState(null)
+    const [notes, setNotes] = useState(null)
+    const [quantityDialog, setQuantityDialog] = useState(false)
 
     const typeChoices = ['consumable', 'static']
+    const reasonChoices = ['inventory', 're-stock', 'defect', 'loss']
 
     const clearForm = () => {
         setName('')
@@ -40,8 +48,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
             'isBillable': isBillable,
             'quantity': quantity,
             'price': price,
-            'type': type,
-
+            'type': type
         }
 
         materialsService.CreateMaterial(bodyForm).then(response => {
@@ -58,18 +65,18 @@ const FormMaterial = ({ refreshTable, sendData }) => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Material cannot be created', life: 3000 });
         })
     }
-    const onUpdateMaterial = (e) => {
-        e.preventDefault()
 
-
+    const updateMaterial = () => {
         const bodyForm = {
-            'id' : sendData.idMaterial,
+            'id': sendData.idMaterial,
             'name': name,
             'isBillable': isBillable,
             'quantity': quantity,
             'price': price,
             'type': type,
-
+            'reason': reason,
+            'notes': notes,
+            'quantityChanges' : quantity - sendData.quantity
         }
 
         materialsService.UpdateMaterial(bodyForm).then(response => {
@@ -81,25 +88,47 @@ const FormMaterial = ({ refreshTable, sendData }) => {
 
         }).then(response => {
             toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Material has been updated', life: 3000 });
+            setQuantityDialog(false)
             clearForm()
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Material cannot be updated', life: 3000 });
         })
     }
 
+    const onUpdateMaterial = (e) => {
+        e.preventDefault()
+
+        if (sendData.quantity == quantity) {
+            updateMaterial()
+            return;
+        }
+
+        setQuantityDialog(true)
+        
+
+
+    }
+
+    const onQuantityDialogCancel = () => {
+        setQuantityDialog(false)
+        setQuantity(sendData.quantity)
+        setReason(null)
+    }
     useEffect(() => {
         if (sendData) {
-         
+
             setName(sendData.name)
             setType(sendData.type)
             setIsBillable(sendData.isBillable)
             setQuantity(sendData.quantity)
             setPrice(sendData.price)
         }
-    
+
     }, [sendData])
 
-
+    const selected = (option, props) => {
+        setReason(option)
+    }
     return (
         <>
             <Toast ref={toast} baseZIndex={999999} />
@@ -107,7 +136,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
             <Panel className='mt-2' header={
                 <span >
                     <FontAwesomeIcon icon={faTools} className='mr-2' />
-                    {!sendData ? 'ADD MATERIAL': 'EDIT MATERIAL'}
+                    {!sendData ? 'ADD MATERIAL' : 'EDIT MATERIAL'}
                 </span>
             } toggleable>
                 <div className="grid p-fluid m-2">
@@ -186,6 +215,32 @@ const FormMaterial = ({ refreshTable, sendData }) => {
 
 
             </Panel>
+
+            <Dialog header="Reason for quantity changes" visible={quantityDialog} style={{ width: '50vw' }} onHide={() => setQuantityDialog(false)}>
+                <div className="grid p-fluid m-2">
+
+                    <div className='col-12 md:col-12'>
+                        <div className="p-inputgroup">
+                            <span className="p-inputgroup-addon">
+            <i className='pi pi-info'></i>
+                            </span>
+                            <Dropdown className='my-dropdown' value={reason}  options={reasonChoices} onChange={(e) => setReason(e.value)} placeholder="Reasons" />
+                        </div>
+
+                    </div>
+
+
+                    <div className='col-12 md:col-12'>
+                        <span className='mr-2 mt-4'>Notes</span>
+                        <InputTextarea id="notes" className='mt-2' value={notes} onChange={event => setNotes(event.target.value)} required rows={3} cols={20} />
+
+
+
+                    </div>
+                </div>
+                <Button label='Add' className="p-button p-component p-button-success" onClick={updateMaterial} />
+                <Button label='Cancel' className="p-button-text" onClick={onQuantityDialogCancel} />
+            </Dialog>
 
 
         </>
