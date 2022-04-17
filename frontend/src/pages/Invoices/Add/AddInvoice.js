@@ -198,7 +198,7 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
             'idProject': sendId,
             'type': 'facture',
             'content' : invoiceData,
-            'isAccepted': false,
+            'isAccepted': null,
             'isPaid': false,
             'notes': notes
         }
