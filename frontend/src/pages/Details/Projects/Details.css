@@ -79,3 +79,9 @@ span.customer-badge.status-yes{
     background-color: rgba(27, 196, 49, 0.15) !important;
     font-weight: bold;
 }
+
+.information-panel{
+    display: flex;
+    flex-direction: row;
+
+}

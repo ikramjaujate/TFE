@@ -86,7 +86,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
         if(!simpleProject){
             return;
         }
-        if(['Canceled', 'Accepted', 'Done', 'In Progress'].includes(simpleProject.status)){
+        if(['Canceled', 'Accepted', 'Done', 'In Progress', 'Closed'].includes(simpleProject.status)){
             
             setIsDisabled(true)
         }else{
