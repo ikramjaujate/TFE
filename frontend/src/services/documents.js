@@ -1,3 +1,4 @@
+import Dexie from "dexie";
 import { BASIC_HEADERS, PDF_HEADERS } from "../shared/consts/headers";
 
 const UploadPdfDocument = async (id, bodyForm) => {

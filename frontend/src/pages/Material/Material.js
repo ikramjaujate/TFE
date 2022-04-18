@@ -43,7 +43,7 @@ const Material = () => {
             const materialIds = []
             const materials = []
             for (let material of res['materials']) {
-               
+            console.log(material)
                 const matIdx = materialIds.indexOf(material.idMaterial);
                 if ( matIdx > -1) {
                     

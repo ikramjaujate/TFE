@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const { EMAIL, WORD, OAUTH_CLIENTID, OAUTH_CLIENT_SECRET, OAUTH_REFRESH_TOKEN } = process.env;
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+const redisClient = require("./redis");
 const Buffer = require('buffer').Buffer;
 
 const createDocuments = async (req, res) => {
@@ -318,7 +319,13 @@ const updateStateDocument = async (req, res) => {
             await project.save()
             
         }
+        let value = await redisClient.get('materials')
+        if(value){
+            
+            await redisClient.del('materials')
+        }
 
+        await redisClient.setEx('materials-last-updated-at', 3600, new Date().toJSON())
      
         return res.status(200).json({ project });
 

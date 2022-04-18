@@ -1,9 +1,9 @@
 describe('Login tests', () => {
     it("login", () => {
         cy.visit('/')
-        cy.get('input').get('#email').type('secretaire@masterservices.com')
+        cy.get('input').get('#email').type('admin@masterservices.com')
         cy.get('input').get('#password').type('ikramjaujate')
-        cy.contains('button','Login').click()
+        cy.contains('button','Login').click({force: true })
     })
 
 })
@@ -11,9 +11,9 @@ describe('Login tests', () => {
 describe('Client page', () => {
     it("client", () => {
         cy.get(`[aria-label="Clients"]`).click({ multiple: true, force: true })
-        cy.get('input[placeholder*="First Name"]').type('toto')
-        cy.get('input[placeholder*="Last Name"]').type('toto')
-        cy.get('input[placeholder*="Email"]').type('tes@toto.com')
+        cy.get('input[placeholder*="First Name"]').type('Martin')
+        cy.get('input[placeholder*="Last Name"]').type('Pistache')
+        cy.get('input[placeholder*="Email"]').type('tes@tomartinto.com')
         cy.get('input[placeholder*="Phone Number"]').type('+32 488 45 35 60')
         cy.get('input[placeholder*="Street"]').type('Rue Test')
         cy.get('input[placeholder*="Locality"]').type('Brussels')

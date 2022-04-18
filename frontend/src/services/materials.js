@@ -92,8 +92,8 @@ const GetStockStatus = async () => {
         cacheLastUpdatedAt = new Date(cacheMaterials.lastUpdatedAt)
     }
 
-    console.log(stockLastUpdatedAt)
-    console.log(cacheLastUpdatedAt)
+    console.log('stock: ',stockLastUpdatedAt)
+    console.log('cache: ',cacheLastUpdatedAt)
     if(stockLastUpdatedAt < cacheLastUpdatedAt){
         const cache = await db.cache.where('key').equals('materials').first()
         if(cache){

@@ -30,17 +30,9 @@ const getAllMaterials = async (req, res) => {
     }
     */
     try {
-        let value =  await redisClient.get("materials")
+       
         
-        if(!value){
-
-            const materials = await Material.findAll();
-            
-            await redisClient.setEx("materials", 3600, JSON.stringify(materials));
-            return res.status(200).json( {materials });
-        }
-        
-        const materials = JSON.parse(value)
+        const materials = await Material.findAll();
         return res.status(200).json( {materials} );
         
     } catch (error) {
@@ -77,7 +69,7 @@ const getStockStatus = async (req, res) => {
     */
     try {
         let value =  await redisClient.get("materials")
-        
+
         if(!value){
 
             const materials = await Material.findAll({
@@ -91,6 +83,7 @@ const getStockStatus = async (req, res) => {
             
             return res.status(200).json( {materials });
         }
+
         const materials = JSON.parse(value)
         
         return res.status(200).json({ materials });
@@ -287,7 +280,7 @@ const getDataWasUpdated = async (req, res) => {
     try {
 
         const value = await redisClient.get('materials-last-updated-at')
-        console.log(value)
+
         if(value == null || value == undefined){
             return res.status(200).send({'lastUpdatedAt' : new Date('1900-01-01').toJSON()});
         }
