@@ -43,7 +43,7 @@ const DetailsProjects = () => {
     const homeProject = { icon: 'pi pi-book', url: '/projects' }
     const [data, setData] = useState([]);
 
-
+    const[currentContent, setCurrentContent] = useState([])
     const [name, setName] = useState('');
     const [idProject, setIdProject] = useState('');
     const [status, setStatus] = useState('');
@@ -110,9 +110,10 @@ const DetailsProjects = () => {
             }
             
             GetDocumentsByProjectId(id).then(response => {
-
+                
                 const data = response["project"].map(project => {
                     if (project.isAccepted) {
+                        setCurrentContent(project.content)
                         setDocumentAccepted(project.idDocument)
                     }
                     return {
@@ -129,7 +130,7 @@ const DetailsProjects = () => {
                         isPaid: project.isPaid
                     }
                 })
-                console.log(dataInvoice)
+                
                 setIsPaid(dataInvoice)
                 setIsAccepted(data)
                 const invoices = []
@@ -201,7 +202,10 @@ const DetailsProjects = () => {
 
             if (element.idDocument == rowData.idDocument) {
                 element.isAccepted = e.checked
-
+                if(element.isAccepted){
+                    setCurrentContent(rowData.content)
+                }
+              
                 const bodyForm = {
                     isAccepted: element.isAccepted,
                     isPaid: false
@@ -216,6 +220,7 @@ const DetailsProjects = () => {
                     if (response.project.status != 'Accepted') {
                         setDocumentAccepted(null)
                     }
+                    
                     setStatus(response.project.status)
                     toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation state has been updated', life: 3000 });
                     refresh()
@@ -239,10 +244,7 @@ const DetailsProjects = () => {
             if (element.idDocument == rowData.idDocument) {
                 element.isPaid = e.checked
 
-
-
                 const bodyForm = {
-
                     isPaid: element.isPaid
                 }
                 UploadDocumentState(element.idDocument, bodyForm).then(response => {
@@ -274,10 +276,11 @@ const DetailsProjects = () => {
 
         if (documentAccepted && rowData.idDocument != documentAccepted && rowData.type == "devis") {
             return <Checkbox inputId="binary" className='my-checkbox' disabled />
+        }else if (rowData.type == "devis" && (['In Progress', 'Done', 'Closed', 'Canceled']).includes(status) ) {
+            return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} disabled />
         } else if (rowData.type == "devis") {
             return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
-        }
-    }
+        }}
 
     const statusBodyTemplateIsPaid = (rowData) => {
 
@@ -333,6 +336,7 @@ const DetailsProjects = () => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Document cannot be sent', life: 3000 });
         })
     }
+    
     const informationClientTemplate = (rowData) => {
 
         return (
@@ -546,7 +550,7 @@ setChartData({
                     </Panel>
                 </div>
                 <Panel header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
-                    <FormProjectMaterial documentAccepted={documentAccepted} />
+                    <FormProjectMaterial currentContent={currentContent} documentAccepted={documentAccepted} />
                 </Panel>
 
 

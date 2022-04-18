@@ -119,7 +119,12 @@ const AddQuotation = ({ sendId, refreshTable }) => {
             idx += 1
             table[i] = add
         }
+        const data = [...quotation]
         for (let i in projectMaterials) {
+
+            data.push(projectMaterials[i])
+            
+
             if (!projectMaterials[i].Material.isBillable) {
                 projectMaterials[i].Material.price = 0
                 table[idx] = [
@@ -160,11 +165,11 @@ const AddQuotation = ({ sendId, refreshTable }) => {
 
 
         const pdfObject = jsPDFInvoiceTemplate(quotationTemplate);
-
+        
         const bodyForm = {
             'title': fileName,
             'idProject': sendId,
-            'content': quotation,
+            'content': data,
             'type': 'devis',
             'isAccepted': false,
             'isPaid': false,

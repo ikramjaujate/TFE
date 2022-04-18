@@ -85,3 +85,12 @@ span.customer-badge.status-yes{
     flex-direction: row;
 
 }
+
+button.p-button.p-component.p-button-outlined.p-button-warning.ml-2.p-button-icon-only{
+    background-color: white;
+}
+
+button.p-button.p-component.p-button-outlined.p-button-info.ml-2.p-button-icon-only{
+    background-color: #12afed;
+    color: white
+}

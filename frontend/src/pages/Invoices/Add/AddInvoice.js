@@ -118,7 +118,7 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
             setNotes('/')
             quotationTemplate.invoice.invDesc = notes
         }
-        console.log(projectMaterials)
+        
         quotationTemplate.logo.src = "../../logo-invoice.png"
         let table = [Array.from(Array(invoiceData.length).keys())]
 
@@ -127,12 +127,16 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
         quotationTemplate.invoice.title = title
         let idx = 0
 
-        for (let i in invoiceData) {
-            const index = table.indexOf(invoiceData[i]);
+        const data = invoiceData.filter(pm =>{
+            return !pm.idMaterial
+        })
+        for (let i in data) {
+           
+            const index = table.indexOf(data[i]);
             let add = []
-            for (let x in invoiceData[i]) {
+            for (let x in data[i]) {
 
-                add.push(invoiceData[i][x])
+                add.push(data[i][x])
 
             }
             idx += 1
@@ -175,7 +179,7 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
         quotationTemplate.invoice.invTotal = String(withVta)
         quotationTemplate.invoice.table = table
         quotationTemplate.invoice.num = String(id)
-        console.log(project)
+        
         if(project.status == 'Accepted'){
             project.status = 'In Progress'
             const proj = {
@@ -189,19 +193,18 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
             updateProjectStatus(proj)
         }
 
-        
-
         const pdfObject = jsPDFInvoiceTemplate(quotationTemplate);
-
+        
         const bodyForm = {
             'title': fileName,
             'idProject': sendId,
             'type': 'facture',
-            'content' : invoiceData,
+            'content' : data,
             'isAccepted': null,
             'isPaid': false,
             'notes': notes
         }
+        
 
         
         CreateDocuments(bodyForm).then(response => {

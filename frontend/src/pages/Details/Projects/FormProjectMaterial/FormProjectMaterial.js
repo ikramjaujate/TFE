@@ -16,7 +16,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import Dexie from 'dexie';
 
-const FormProjectMaterial = ({documentAccepted}) => {
+const FormProjectMaterial = ({currentContent,documentAccepted}) => {
     const { id } = useParams();
 
     const toast = useRef(null);
@@ -61,14 +61,15 @@ const FormProjectMaterial = ({documentAccepted}) => {
     const getMaterials = () => {
         
         materialsService.GetMaterials().then(res => {
+           
             setData(res['materials']);
         })
         
     }
-    useEffect(() => {
+    /*useEffect(() => {
         getMaterials();
         getSimpleProject();
-    }, [documentAccepted])
+    }, [documentAccepted])*/
 
     const getSimpleProject = () => {
         
@@ -79,8 +80,40 @@ const FormProjectMaterial = ({documentAccepted}) => {
        
     }
 
+    useEffect(() =>{
+        /**
+         * supprime tout formulaire + reajout tout dans current content
+         */
+        if(currentContent.length){
+           
+            /*setProjectMaterial([
+                {
+                    material: {},
+                    quantity: 0
+                }
+            ])*/
+            const projectMaterials = []
+            for(let projMat of currentContent){
+                if(projMat.idMaterial){
+                    projectMaterials.push({
+                        material: data.find(m => {
+                            return m.idMaterial == projMat.idMaterial
+                        }),
+                        quantity: projMat.quantity
+                    })
+                }
+            }
+           
+            setProjectMaterial(projectMaterials)
+        }else{
+            getMaterials()
+            getSimpleProject();
+        }
+        
+
+    },[currentContent])
     useEffect(() => {
-        getMaterials();
+        
         getSimpleProject();
     }, [])
     useEffect(() => {
@@ -160,7 +193,7 @@ const FormProjectMaterial = ({documentAccepted}) => {
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Materials could not be added to the project', life: 3000 });
         })
-        console.log(bodyForm)
+       
         return;
     }
 
