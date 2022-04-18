@@ -319,7 +319,7 @@ const getMaterialChanges = async (req, res) => {
     */
     try {
         const { id } = req.params;
-
+        
         const changes = await Materials_Update.findAll({
             where: { idMaterial: id}, include: [userLogin]
         })

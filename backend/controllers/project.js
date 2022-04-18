@@ -268,7 +268,7 @@ const updateProject = async (req, res) => {
                     idUserLogin: user.idUserLogin,
                     reason: 'project',
                     notes: 'Project reason',
-                    quantity: material.quantity - mat.quantity
+                    quantity: 0 - mat.quantity
                 });
 
                 

@@ -40,6 +40,7 @@ const createDocuments = async (req, res) => {
 
     try {
 
+        console.log(req.body)
         const buf = Buffer.from('hello world', 'utf8');
 
         let parameter = req.body
