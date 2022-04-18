@@ -271,8 +271,6 @@ const updateProject = async (req, res) => {
                     quantity: 0 - mat.quantity
                 });
 
-                
-                //TODO:Si projet passe à un etat done, on soustrait mais si il revient à un état in progress il faut revenir à la valeur initiale
                 await material.update(
                     {
                         quantity: newQuantity

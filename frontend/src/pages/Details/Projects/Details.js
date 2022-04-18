@@ -121,8 +121,11 @@ const DetailsProjects = () => {
                         isAccepted: project.isAccepted
                     }
                 })
-                const dataInvoice = response["project"].map(project => {
+                const dataInvoice = response["project"].filter(project => {
+                    return project.type == 'facture' 
+                }).map(project => {
                     if (project.isPaid) {
+                        
                         setDocumentPaid(project.idDocument)
                     }
                     return {
@@ -148,6 +151,7 @@ const DetailsProjects = () => {
                 }
 
                 setInvoicesData(invoices)
+                console.log(invoices)
                 setProject(quotations);
 
             })
@@ -255,7 +259,7 @@ const DetailsProjects = () => {
                     throw new Error('Something went wrong.');
                 }).then(response => {
                     if (response.project.status != 'Accepted') {
-                        setDocumentAccepted(null)
+                        setDocumentPaid(null)
                     }
                     setStatus(response.project.status)
                     toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation state has been updated', life: 3000 });
@@ -581,7 +585,7 @@ setChartData({
                     </DataTable>
                 </Panel>
                 <Dialog modal header={<span style={{ color: "#bc0000" }}><i className="pi pi-plus mr-2"></i> New Invoice </span>} visible={displayResponsiveInvoice} onHide={() => onHide('displayResponsiveInvoice')} breakpoints={{ '960px': '75vw' }} style={{ width: '90vw' }}   >
-                    <AddInvoice sendId={idProject} sendQuotation={valideQuotation} refreshTable={refresh} />
+                    <AddInvoice sendId={idProject} documentPaid={documentPaid} sendQuotation={valideQuotation} refreshTable={refresh} />
                 </Dialog>
             </div>
         </>

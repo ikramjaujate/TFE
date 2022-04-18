@@ -18,7 +18,7 @@ import { quotationTemplate } from '../../../shared/consts/quotationTemplate';
 import { CreateDocuments, UploadPdfDocument } from '../../../services/documents';
 import * as projectService from '../../../services/projects'
 
-const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
+const AddInvoice = ({ sendId, refreshTable, sendQuotation, documentPaid }) => {
     const [name, setName] = useState("")
     const toast = useRef(null);
     const [notes, setNotes] = useState("/")
@@ -143,6 +143,9 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation }) => {
             table[i] = add
         }
         for (let i in projectMaterials) {
+            if(documentPaid){
+                break
+            }
             if (!projectMaterials[i].Material.isBillable) {
                 projectMaterials[i].Material.price = 0
                 table[idx] = [
