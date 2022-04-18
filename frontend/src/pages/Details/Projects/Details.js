@@ -480,7 +480,7 @@ setChartData({
                             <FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>
                     } className='m-3 '  >
                         <div className='information-panel'>
-                        <div style={ !endDate  ? {width: "100%"}: { width: '80%' } }>
+                        <div style={ !endDate || (['Closed', 'Done']).includes(status) ? {width: "100%"}: { width: '80%' } }>
 
 
                             <div className="grid p-fluid m-2">
@@ -546,7 +546,7 @@ setChartData({
                             </div>
                         </div>
 
-                        <div  style={ !endDate  ? {width: "0%"} :{width: "18%"}}>
+                        <div  style={ !endDate || (['Closed', 'Done']).includes(status)  ? {width: "0%"} :{width: "18%"}}>
                             <Chart type="pie" data={chartData} options={lightOptions} style={{ position: 'relative', width: '70%' }} />
                         </div>
                         </div>
