@@ -22,7 +22,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "initMigration",
-    "created": "2022-04-16T12:10:14.363Z",
+    "created": "2022-04-26T11:14:51.710Z",
     "comment": ""
 };
 
@@ -333,6 +333,11 @@ var migrationCommands = [{
                     "field": "idAddress",
                     "allowNull": false
                 },
+                "isActive": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isActive",
+                    "allowNull": false
+                },
                 "createdAt": {
                     "type": Sequelize.DATE,
                     "field": "createdAt",
@@ -406,6 +411,11 @@ var migrationCommands = [{
                     "field": "website",
                     "unique": false,
                     "allowNull": true
+                },
+                "isActive": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "isActive",
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -635,9 +645,9 @@ var migrationCommands = [{
                     "field": "isAccepted",
                     "allowNull": true
                 },
-                "idPaid": {
+                "isPaid": {
                     "type": Sequelize.BOOLEAN,
-                    "field": "idPaid",
+                    "field": "isPaid",
                     "allowNull": true
                 },
                 "notes": {

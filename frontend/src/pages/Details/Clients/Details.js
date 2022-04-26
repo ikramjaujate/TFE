@@ -17,7 +17,7 @@ import { Column } from 'primereact/column';
 import moment from "moment";
 import { Route, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook, faBookOpen, faFileSignature, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faBookOpen, faFileSignature, faFileContract } from "@fortawesome/free-solid-svg-icons";
 import PaginatorTemplate from "../../../shared/components/PaginatorTemplate";
 import { GetProjectsByID, GetDocumentsByProjectId } from '../../../services/projects';
 import { Checkbox } from 'primereact/checkbox';
@@ -61,7 +61,7 @@ const Details = (clientType) => {
     const [project, setProject] = useState([])
     const [isAccepted, setIsAccepted] = useState([])
     const [documentAccepted, setDocumentAccepted] = useState(null)
-
+    const [factures, setFactures] = useState([])
     const onUpload = () => {
 
     }
@@ -161,6 +161,7 @@ const Details = (clientType) => {
             })
             GetProjectsByClientID(id).then(async(response) => {
                 const projectDocuments = []
+                const facturesDocument = []
                 for (let i in response["user"]) {
                     response["user"][i].start_date = moment(response["user"][i].start_date).utc().format('YYYY-MM-DD')
                     if (response["user"][i].end_date) {
@@ -176,6 +177,8 @@ const Details = (clientType) => {
                             if(document.type == "devis"){
                                 
                                 projectDocuments.push(document)
+                            }else if(document.type == "facture"){
+                                facturesDocument.push(document)
                             }
                         }
                         
@@ -185,7 +188,7 @@ const Details = (clientType) => {
                 }
                 
                 setProjects(response["user"]);
-                
+                setFactures(facturesDocument)
                 console.log(projectDocuments)
                 setProject(projectDocuments);
             })
@@ -247,10 +250,34 @@ const Details = (clientType) => {
             </div>
         )
     }
+    const headerInvoiceTemplateInfo = (options) => {
+        const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
+        return (
+            <div className='p-panel-header'>
+                <span className="p-panel-title">  <FontAwesomeIcon icon={faFileContract} className='mr-2' />INVOICES</span>
+                <div className='panel-header-right'>
+                    <Button label="All Invoices" icon="pi pi-arrow-right" className="p-button-raised p-button-info " onClick={() => history.push(`/invoices`)} />
+                    <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
+                        <span className={toggleIcon}></span>
+
+                    </button>
+                </div>
+
+            </div>
+        )
+    }
     const getRowIsAccepted = (rowData) => {
         if (rowData) {
             console.log(rowData.isAccepted)
             return rowData.isAccepted ? rowData.isAccepted : false
+        }
+        return false
+
+    }
+    const getRowIsPaid = (rowData) => {
+        if (rowData) {
+            console.log(rowData.isPaid)
+            return rowData.isPaid ? rowData.isPaid : false
         }
         return false
 
@@ -265,7 +292,10 @@ const Details = (clientType) => {
         }
         return  <i className='pi pi-lock-open'></i>
     }
+    const statusBodyTemplateIsPaid = (rowData) => {
 
+        return <Checkbox inputId="invoice" className='invoice-check' checked={getRowIsPaid(rowData)} disabled />
+    }
     return (
         <>
             <div className='title'>
@@ -483,11 +513,16 @@ const Details = (clientType) => {
                         <Column field="isAccepted" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} className='accepted-checkbox'  body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
                     </DataTable>
                 </Panel>
-                <Panel header="INVOICES" toggleable className='m-3'>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <Panel headerTemplate={headerInvoiceTemplateInfo} toggleable className='m-3'>
+                <DataTable paginatorTemplate={PaginatorTemplate} value={factures} sortField="createdAt" sortOrder={-1}   emptyMessage="No documents found."  selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <Column field="idDocument" style={{ width: '12rem', flexGrow: 1, flexBasis: '50px'}} header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Invoice title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        <Column field="project_name" style={{ width: '12rem', flexGrow: 1,flexBasis: '200px' }} sortable header="Project's name" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="isPaid" className='accepted' style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={statusBodyTemplateIsPaid} sortable header="Paid" headerStyle={{ color: "#c9392f" }}></Column>
+
+                    </DataTable>
                 </Panel>
             </div>
         </>

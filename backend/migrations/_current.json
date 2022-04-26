@@ -263,6 +263,11 @@
                     "field": "website",
                     "seqType": "Sequelize.STRING"
                 },
+                "isActive": {
+                    "allowNull": false,
+                    "field": "isActive",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -493,6 +498,11 @@
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "isActive": {
+                    "allowNull": false,
+                    "field": "isActive",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -614,5 +624,5 @@
             "indexes": []
         }
     },
-    "revision": 20
+    "revision": 3
 }

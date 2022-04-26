@@ -7,7 +7,7 @@ module.exports = {
       mobile: '+32 488 37 96 72',
       phone: null,
       website: "www.masterservices.be",
-      idAddress: 3,
+      idAddress: 3,isActive: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

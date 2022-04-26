@@ -41,7 +41,12 @@ module.exports = (sequelize, DataTypes) => {
     idAddress : { 
       type: DataTypes.INTEGER, 
       allowNull: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN, 
+      allowNull: false
     }
+
   }, {});
   
   Person.associate = function (models) {

@@ -4,10 +4,10 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Company = sequelize.define('Company', {
-    idCompany : {
+    idCompany: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true 
+      autoIncrement: true
     },
     idAddress: DataTypes.INTEGER,
     name: {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     email: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     VAT_num: {
-      type:DataTypes.STRING,  
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
@@ -42,8 +42,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       unique: false
     }
+    ,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   }, {});
-  
+
   /*Company.associate = function (models) {
     // associations can be defined here
     

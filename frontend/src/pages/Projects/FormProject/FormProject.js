@@ -150,6 +150,15 @@ const FormProject = ({ refreshTable, sendData }) => {
             reject: () => { }
         });
     };
+    const confirmClosedStatus = (bodyForm) => {
+        confirmDialog({
+            message: 'The project cannot be further modified. Are you sure you want to continue?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => { updateProjectStatus(bodyForm) },
+            reject: () => { }
+        });
+    };
 
     const updateProjectStatus = (bodyForm) => {
         UpdateProject(bodyForm).then(response => {
@@ -179,6 +188,10 @@ const FormProject = ({ refreshTable, sendData }) => {
         }
         if (bodyForm.status == 'Canceled') {
             confirmCanceledStatus(bodyForm)
+            return;
+        }
+        if (bodyForm.status == 'Closed') {
+            confirmClosedStatus(bodyForm)
             return;
         }
         

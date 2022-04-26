@@ -353,12 +353,16 @@ const DetailsProjects = () => {
 
     }
     const headerTemplateInfo = (options) => {
+        let disable = false
+        if (['Done', 'In Progress', 'Closed', 'Canceled'].includes(status)) {
+            disable = true
+        }
         const toggleIcon = options.collapsed ? 'pi pi-plus' : 'pi pi-minus';
         return (
             <div className='p-panel-header'>
                 <span className="p-panel-title">  <FontAwesomeIcon icon={faFileSignature} className='mr-2' />QUOTATIONS</span>
                 <div className='panel-header-right'>
-                    <Button icon='pi pi-plus' label='Create quote' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsive')} />
+                    <Button icon='pi pi-plus' label='Create quote' className="p-button-raised p-button-info " onClick={() => onClick('displayResponsive')} disabled={disable}/>
                     <button className={`${options.togglerClassName} ml-2`} onClick={options.onTogglerClick}>
                         <span className={toggleIcon}></span>
 

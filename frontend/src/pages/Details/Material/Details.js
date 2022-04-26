@@ -270,7 +270,7 @@ const MaterialInformation = () => {
                         <DataTable value={changes} emptyMessage="No history found." className="transaction-datatable mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20}>
                         <Column field='createdAt' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} body={(rowData) => { return moment(rowData.createdAt).utc().format('YYYY-MM-DD') }}  sortable header="Transaction Date"  headerStyle={{ color: "#c9392f" }}></Column>    
                             <Column body={nameUser} style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} className='name'  sortable header="Name"  headerStyle={{ color: "#c9392f" }}></Column>    
-                            <Column field='reason' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }}  header="Reason"  headerStyle={{ color: "#c9392f" }}></Column>
+                            <Column field='reason' className='reason-style' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} body={(rowData) => { return rowData.reason.toUpperCase() }}  header="Reason"  headerStyle={{ color: "#c9392f" }}></Column>
                             <Column body={quantityChangesTemplate} style={{ width: '10rem' }} sortable header="Quantity changes"  headerStyle={{ color: "#c9392f" }}></Column>
                             <Column field='notes' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }}  header="Notes"  headerStyle={{ color: "#c9392f" }}></Column>
                         
