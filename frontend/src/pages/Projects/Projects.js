@@ -19,7 +19,7 @@ import NewProject from './FormProject/NewProject';
 const Projects = () => {
 
     const history = useHistory();
-
+    const [showDisabledUser, setShowDisabledUser] = useState(false)
     const [data, setData] = useState([]);
     const [personsDropdown, setPersonsDropdown] = useState([]);
     const [companiesDropdown, setCompaniesDropdown] = useState([]);
@@ -53,8 +53,14 @@ const Projects = () => {
 
     useEffect(() => {
         projects.forEach(project => {
-     
+            
+            
+           
             if (project.idCompany == null) {
+                if (!project.Person?.isActive ) {
+                
+                    return;
+                }
                 if(project.end_date != null){
                     project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
                 }
@@ -73,7 +79,9 @@ const Projects = () => {
                 })
             }
             else {
-       
+                if (!project.Company?.isActive ) {
+                    return;
+                }
                 if(project.end_date != null){
                     project.end_date = moment(project.end_date).utc().format('YYYY-MM-DD')
                 }

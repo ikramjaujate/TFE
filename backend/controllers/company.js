@@ -1,4 +1,5 @@
 const {Company, Address, Country, Person, Project} = require('../models');
+const { Op } = require("sequelize");
 const getAllCompanies = async (req, res) => {
     // #swagger.tags = ['Company']
     /* 
@@ -226,6 +227,56 @@ const updateCompany = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+const deleteCompany = async (req, res) => {
+    // #swagger.tags = ['Company']
+    /* 
+    #swagger.summary = 'Delete company'
+    #swagger.description = 'Delete the company .'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+
+    */
+    try {
+
+       
+        const company = await Company.findOne({
+            where: {
+                idCompany: req.body.id
+            }
+        });
+        
+        if (!company) {
+            throw new Error("No company")
+        };
+        
+        
+        const projectUser = await Project.findAll({
+            where: {
+                idCompany: req.body.id,  status: { [Op.notIn]: ['Canceled', 'Pre-Sale', 'Closed']}
+            }
+        });
+        
+        if(projectUser.length){
+            throw new Error("This user cannot be removed because it is linked to one or more projects.")
+        }
+        
+        await company.update(
+            {
+                isActive: req.body.isActive
+            }
+
+        )
+        await company.save()
+        
+        
+
+        return res.status(200).json({ company });
+    } catch (error) {
+        
+        return res.status(500).send(error.message);
+    }
+}
 const getProjectByCompanyId = async (req, res) => {
     // #swagger.tags = ['Company']
     /* 
@@ -265,5 +316,6 @@ module.exports = {
     createCompany,
     updateCompany,
     getCompanyById,
-    getProjectByCompanyId
+    getProjectByCompanyId,
+    deleteCompany
 }

@@ -187,7 +187,7 @@ const MaterialInformation = () => {
                 <BreadCrumb model={materials} home={homeMaterials} />
 
                 <div >
-                    <Panel header={<span ><FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>} className='m-2'>
+                    <Panel header={<span ><FontAwesomeIcon icon={faBookOpen} className='mr-2' /> INFORMATION </span>} className='m-3'>
                         <div className="grid p-fluid m-2">
                             <div className="col-16 md:col-4">
                                 <div className="p-inputgroup">
@@ -266,7 +266,7 @@ const MaterialInformation = () => {
 
                         </div>
                     </Panel>
-                    <Panel headerTemplate={headerMaterialChangesTemplateInfo} toggleable className='mx-3'>
+                    <Panel headerTemplate={headerMaterialChangesTemplateInfo} toggleable className='m-3'>
                         <DataTable value={changes} emptyMessage="No history found." className="transaction-datatable mt-1" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20}>
                         <Column field='createdAt' style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} body={(rowData) => { return moment(rowData.createdAt).utc().format('YYYY-MM-DD') }}  sortable header="Transaction Date"  headerStyle={{ color: "#c9392f" }}></Column>    
                             <Column body={nameUser} style={{ width: '10rem',  flexGrow: 1, flexBasis: '14px'  }} className='name'  sortable header="Name"  headerStyle={{ color: "#c9392f" }}></Column>    

@@ -71,12 +71,23 @@ const UpdateUser = async (bodyForm) => {
     );
 }
 
-
+const DeleteUser = async (bodyForm) => {
+    return await (
+        fetch(`/api/persons`, {
+            method: 'DELETE',
+            headers: BASIC_HEADERS,
+            body: JSON.stringify(bodyForm)
+        }).then(response => {
+            return response.json()
+        })
+    );
+}
 export {
     CreateNewClient,
     GetClients,
     UpdateUser,
     GetClientByID,
     GetProjectsByClientID,
-    GetClientsWithProjects
+    GetClientsWithProjects,
+    DeleteUser
 }

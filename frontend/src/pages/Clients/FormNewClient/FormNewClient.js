@@ -9,9 +9,10 @@ import { Toast } from 'primereact/toast';
 import { Panel } from 'primereact/panel';
 import { SelectButton } from 'primereact/selectbutton';
 import { InputMask } from 'primereact/inputmask';
-
-import { CreateNewClient, UpdateUser } from '../../../services/users'
-import { CreateNewCompany, UpdateCompany } from '../../../services/companies'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock, faLockOpen, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { CreateNewClient, UpdateUser, DeleteUser } from '../../../services/users'
+import { CreateNewCompany, UpdateCompany, DeleteCompany } from '../../../services/companies'
 import GetCountries from "../../../services/countries";
 
 const FormNewClient = ({ refreshTable, sendData }) => {
@@ -30,11 +31,12 @@ const FormNewClient = ({ refreshTable, sendData }) => {
     const [countries, setCountries] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
     const [isCompany, setIsCompany] = useState(false);
+    const [isActive, setIsActive] = useState(true)
     const options = [
         { name: 'Person', value: false },
         { name: 'Company', value: true }
     ];
-
+    const [clientDelete, setClientDelete] = useState(false)
     const clearForm = () => {
         setVta('')
         setEmail('')
@@ -54,35 +56,35 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
     useEffect(() => {
         if (sendData) {
-            if(sendData.mobile){
+            if (sendData.mobile) {
 
-                setNumber(sendData.mobile.replace(/\+/g,'' ))
-            }else{
+                setNumber(sendData.mobile.replace(/\+/g, ''))
+            } else {
                 setNumber('')
             }
-            if(sendData.VAT_num){
-                
-                
-                if(sendData.VAT_num && sendData["Address"]["Country"].nicename == "France"){
+            if (sendData.VAT_num) {
+
+
+                if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "France") {
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'FR'))
-                }else if(sendData.VAT_num && sendData["Address"]["Country"].nicename == "Luxembourg"){
+                } else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Luxembourg") {
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'LU'))
-                }else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Netherlands"){
-                    
+                } else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Netherlands") {
+
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'NL'))
-                }else if(sendData.VAT_num  && sendData["Address"]["Country"].nicename == "Belgium"){
+                } else if (sendData.VAT_num && sendData["Address"]["Country"].nicename == "Belgium") {
                     setVta(sendData.VAT_num.replace(/^.{2}/g, 'BE'))
                 }
             }
-            else{
+            else {
                 setVta('')
             }
-           
 
+            console.log(sendData.isActive)
             setEmail(sendData.email)
             setAddress(sendData["Address"].street)
             setLocality(sendData["Address"].locality)
-            setPostalCode(sendData["Address"].postal_code)
+            setPostalCode(parseInt(sendData["Address"].postal_code))
             setCountry(sendData["Address"]["Country"].nicename)
             if (sendData.name) {
                 setFirstname(null)
@@ -126,7 +128,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
             'mobile': number,
             'street': address,
             'locality': locality,
-            'postalCode': postalCode,
+            'postalCode': parseInt(postalCode),
             'country': country
         }
         if (isCompany) {
@@ -184,7 +186,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
             'postalCode': postalCode,
             'country': country
         }
-        
+
         if (isCompany) {
             delete bodyForm.firstName
             delete bodyForm.lastName
@@ -222,35 +224,86 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         }
 
     }
+    const handleClickDelete = (e, isDisabled) => {
+
+        e.preventDefault()
+        if (!email.match(/\w+[@]\w+\.\w+/)) {
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Invalid email address', life: 3000 });
+            return;
+        }
+
+
+
+        const bodyForm = {
+
+            'isActive': isDisabled,
+
+        }
+
+        if (isCompany) {
+
+            bodyForm["id"] = sendData.idCompany
+            DeleteCompany(bodyForm).then(response => {
+
+                if (response.hasOwnProperty("company")) {
+                    return response
+                }
+                throw new Error('Something went wrong.');
+
+            }).then(response => {
+                toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Client has been updated', life: 3000 });
+                clearForm()
+            }).catch(error => {
+                toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'This client cannot be removed because it is linked to one or more projects.', life: 5000 });
+            })
+
+        } else {
+
+            bodyForm["id"] = sendData.idPerson
+            DeleteUser(bodyForm).then(response => {
+
+                if (response.hasOwnProperty("user")) {
+                    return response
+                }
+                throw new Error('Something went wrong.');
+
+            }).then(response => {
+                toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Client has been updated', life: 3000 });
+                clearForm()
+            }).catch(error => {
+                toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'This client cannot be disabled because it is linked to one or more ongoing projects.', life: 5000 });
+            })
+        }
+    }
     const onPhoneNumberChange = (value) => {
         value = value
-                .replace(/\+/g,'' )
-                .replace(/ /g,'' )
-                .replace(/(.{2})/g,'$1 ' )
-        console.log(value, 'b')
+            .replace(/\+/g, '')
+            .replace(/ /g, '')
+            .replace(/(.{2})/g, '$1 ')
+
         setNumber(value)
     }
 
     const vtaChange = (value) => {
 
-        if(!country){
-            if(!isNaN(value)){
+        if (!country) {
+            if (!isNaN(value)) {
                 Number(value)
             }
-            
+
             value = value
-            .replace(/ /g,'' )
-            .replace(/([a-zA-z]{2})/g,'$1 ' )
+                .replace(/ /g, '')
+                .replace(/([a-zA-z]{2})/g, '$1 ')
             setVta(value)
         }
 
-        if(country){
+        if (country) {
             value = value
-            .replace(/ /g,'' )
-            .replace(/([a-zA-z]{2})/g,'$1 ' )
+                .replace(/ /g, '')
+                .replace(/([a-zA-z]{2})/g, '$1 ')
             setVta(value)
         }
-        
+
     }
     return (
         <>
@@ -308,7 +361,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
 
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">VAT</span>
-                            <InputText value={vta} onChange={(e) => vtaChange(e.target.value)}  placeholder="VAT number" />
+                            <InputText value={vta} onChange={(e) => vtaChange(e.target.value)} placeholder="VAT number" />
                         </div>
 
                     </div>
@@ -373,7 +426,15 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                         <SelectButton value={isCompany} options={options} className=" mr-2" onChange={(e) => setIsCompany(e.value)} optionLabel="name" />
                         <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={handleClick} disabled={sendData} />
                         <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={handleClickUpdate} disabled={!sendData} />
-                        <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData} />
+                        {sendData?.isActive ?
+                            <Button className="p-button-help  " onClick={(e) => { handleClickDelete(e, false) }} disabled={!sendData}>
+                                <FontAwesomeIcon icon={faLock} />
+                            </Button> :
+                            <Button className="p-button-help " onClick={(e) => { handleClickDelete(e, true) }} disabled={!sendData}>
+                                <FontAwesomeIcon icon={faLockOpen} />
+                            </Button>
+                        }
+
 
                     </div>
 

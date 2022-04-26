@@ -1794,7 +1794,7 @@ module.exports = {
     {
       street: "59792 Schurz Pass",
       locality: "Gio Linh",
-      postal_code: "1180",
+      postal_code: 1180,
       idCountry: 2,
       createdAt: new Date(),
       updatedAt: new Date()

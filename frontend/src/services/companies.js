@@ -48,7 +48,7 @@ const GetProjectsByCompanyID = async (id) => {
 const UpdateCompany = async (bodyForm) => {
     return await (
         fetch(`/api/company`, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: BASIC_HEADERS,
             body: JSON.stringify(bodyForm)
         }).then(response => {
@@ -56,11 +56,22 @@ const UpdateCompany = async (bodyForm) => {
         })
     );  
 }
-
+const DeleteCompany = async (bodyForm) => {
+    return await (
+        fetch(`/api/company`, {
+            method: 'DELETE',
+            headers: BASIC_HEADERS,
+            body: JSON.stringify(bodyForm)
+        }).then(response => {
+            return response.json()
+        })
+    );  
+}
 export {
     GetCompanies,
     CreateNewCompany,
     UpdateCompany,
     GetCompanyById,
-    GetProjectsByCompanyID
+    GetProjectsByCompanyID,
+    DeleteCompany
 }

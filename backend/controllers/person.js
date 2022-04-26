@@ -1,6 +1,6 @@
 
 const { Person, Address, Country, Company, Project, Sequelize } = require('../models');
-const Op = Sequelize.Op
+const { Op } = require("sequelize");
 const util = require('util');
 
 const redisClient = require("./redis");
@@ -315,6 +315,59 @@ const updateUser = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    // #swagger.tags = ['Person']
+    /* 
+    #swagger.summary = 'Delete person'
+    #swagger.description = 'Delete the person .'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+
+    */
+    try {
+
+       
+        const user = await Person.findOne({
+            where: {
+                idPerson: req.body.id
+            }
+        });
+
+
+        if (!user) {
+            throw new Error("No user")
+        };
+        
+        const projectUser = await Project.findAll({
+            where: {
+                idPerson: req.body.id, status: { [Op.notIn]: ['Canceled', 'Pre-Sale', 'Closed']}
+            }
+        });
+        
+        if(projectUser.length){
+            
+            throw new Error("Cannot disable this user because this one is linked to one or more projects")
+        }
+        
+        await user.update(
+            {
+                isActive: req.body.isActive
+            }
+
+        )
+        await user.save()
+        let value = await redisClient.get('users')
+        if(value){
+            redisClient.del('users')
+        }
+
+        return res.status(200).json({ user });
+    } catch (error) {
+        
+        return res.status(500).send(error.message);
+    }
+}
 const getSimpleUsersWithProjects = async (req, res) => {
     // #swagger.tags = ['Person']
     /* 
@@ -361,5 +414,6 @@ module.exports = {
     getUserById,
     updateUser,
     getProjectByUserId,
-    getSimpleUsersWithProjects
+    getSimpleUsersWithProjects,
+    deleteUser
 }

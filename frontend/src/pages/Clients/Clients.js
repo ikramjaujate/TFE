@@ -9,7 +9,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserLock, faEye, faEyeSlash, faUser } from "@fortawesome/free-solid-svg-icons";
 import FormNewClient from "./FormNewClient/FormNewClient";
 import PaginatorTemplate from "../../shared/components/PaginatorTemplate";
 
@@ -31,7 +32,7 @@ const Clients = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [selectedRow, setSelectedRow] = useState(null);
     const [selectedClient, setSelectedClient] = useState(null);
-
+    const [showDisabledUser, setShowDisabledUser] = useState(false)
     const [persons, setPersons] = useState([]);
     const [companies, setCompanies] = useState([]);
 
@@ -52,27 +53,32 @@ const Clients = () => {
 
     useEffect(() => {
         persons.forEach(person => {
-            person.VAT_num = person.VAT_num ? person.VAT_num: null
-            person.phone = person.phone ? person.phone: null
-           
-            if(person.VAT_num && person.Address.Country.nicename == "France"){
+            if (!person.isActive && !showDisabledUser) {
+                console.log(`${person.firstName} ${person.lastName}`)
+                return;
+            }
+            person.VAT_num = person.VAT_num ? person.VAT_num : null
+            person.phone = person.phone ? person.phone : null
+
+            if (person.VAT_num && person.Address.Country.nicename == "France") {
                 person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'FR')
-            }else if(person.VAT_num && person.Address.Country.nicename == "Luxembourg"){
-                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'LU')
-            }else if (person.VAT_num && person.Address.Country.nicename == "Netherlands"){
-                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'NL')
-            }else if(person.VAT_num  && person.Address.Country.nicename == "Belgium"){
-                person.VAT_num =person.VAT_num.replace(/^.{2}/g, 'BE')
+            } else if (person.VAT_num && person.Address.Country.nicename == "Luxembourg") {
+                person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'LU')
+            } else if (person.VAT_num && person.Address.Country.nicename == "Netherlands") {
+                person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'NL')
+            } else if (person.VAT_num && person.Address.Country.nicename == "Belgium") {
+                person.VAT_num = person.VAT_num.replace(/^.{2}/g, 'BE')
             }
             data.push({
                 id: person.idPerson,
                 type: 'p',
+                isActive: person.isActive,
                 displayName: `${person.firstName} ${person.lastName}`,
                 email: person.email,
                 VAT_num: person.VAT_num,
                 mobile: person.mobile,
                 phone: person.phone,
-                address: `${person.Address.street}, ${person.Address.postal_code} ${person.Address.locality}, ${person.Address.Country.nicename}`,
+                address: `${person.Address.street}, ${parseInt(person.Address.postal_code)} ${person.Address.locality}, ${person.Address.Country.nicename}`,
                 iso: person.Address.Country.iso
             });
         });
@@ -82,26 +88,31 @@ const Clients = () => {
 
     useEffect(() => {
         companies.forEach(company => {
+            if (!company.isActive && !showDisabledUser) {
+                console.log(`${company.name}`)
+                return;
+            }
             company.VAT_num = company.VAT_num ? company.VAT_num : null
-            company.phone = company.phone ? company.phone: null
-            if(company.VAT_num && company.Address.Country.nicename == "France" && company.VAT_num[0,2] != 'FR'){
+            company.phone = company.phone ? company.phone : null
+            if (company.VAT_num && company.Address.Country.nicename == "France" && company.VAT_num[0, 2] != 'FR') {
                 company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'FR')
-            }else if(company.VAT_num && company.Address.Country.nicename == "Luxembourg"){
-                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'LU')
-            }else if (company.VAT_num && company.Address.Country.nicename == "Netherlands"){
-                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'NL')
-            }else if(company.VAT_num  && company.Address.Country.nicename == "Belgium"){
-                company.VAT_num =company.VAT_num.replace(/^.{2}/g, 'BE')
+            } else if (company.VAT_num && company.Address.Country.nicename == "Luxembourg") {
+                company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'LU')
+            } else if (company.VAT_num && company.Address.Country.nicename == "Netherlands") {
+                company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'NL')
+            } else if (company.VAT_num && company.Address.Country.nicename == "Belgium") {
+                company.VAT_num = company.VAT_num.replace(/^.{2}/g, 'BE')
             }
             data.push({
                 id: company.idCompany,
                 type: 'c',
+                isActive: company.isActive,
                 displayName: company.name,
                 email: company.email,
                 VAT_num: company.VAT_num,
                 mobile: company.mobile,
                 phone: company.phone,
-                address: `${company.Address.street}, ${company.Address.postal_code} ${company.Address.locality}, ${company.Address.Country.nicename}`,
+                address: `${company.Address.street}, ${parseInt(company.Address.postal_code)} ${company.Address.locality}, ${company.Address.Country.nicename}`,
                 iso: company.Address.Country.iso
             });
         });
@@ -110,7 +121,7 @@ const Clients = () => {
     }, [companies])
 
     useEffect(() => {
-    // on page changes
+        // on page changes
         refresh();
     }, [])
 
@@ -178,34 +189,61 @@ const Clients = () => {
     const handleClient = (client) => {
         if (client.type == 'c') {
             history.push({
-                pathname:`/clients/company/${client.id}/detail`,
+                pathname: `/clients/company/${client.id}/detail`,
                 state: { data: client }
             })
         } else {
             history.push({
-                pathname:`/clients/person/${client.id}/detail`,
+                pathname: `/clients/person/${client.id}/detail`,
                 state: { data: client }
             })
         }
 
     }
+
     const informationClientTemplate = (rowData) => {
         return (
             <React.Fragment>
-                <Button icon="pi pi-info" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }}  onClick={() => handleClient(rowData)} />
-                <Tooltip target=".logo" mouseTrack mouseTrackLeft={10}/>
+                <Button icon="pi pi-info" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} onClick={() => handleClient(rowData)} />
+                <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
             </React.Fragment>
         );
 
     }
 
+    const disableClientsTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button className="button-user p-button-raised p-button-info" onClick={() => { setShowDisabledUser(!showDisabledUser); refresh() }} >
+                    {showDisabledUser ? <FontAwesomeIcon className="button-user-icon" icon={faEye} /> : <FontAwesomeIcon className="button-user-icon" icon={faEyeSlash} />}
+                    <FontAwesomeIcon className="" icon={faUserLock} />
+                </Button>
+
+            </React.Fragment>
+        );
+
+    }
+
+    const rowClass = (data) => {
+        
+        if (!data.isActive) {
+            return {
+                'no-active': 'non'
+            }
+        }
+        if (data.isActive) {
+            return {
+                'active': 'yes'
+            }
+        }
+    }
 
     return (
         <>
             <div className='title'>
                 <h1 >CLIENTS</h1>
             </div>
-     
+
             <div className="grid table-demo">
                 <div className="col-12">
                     <FormNewClient
@@ -216,15 +254,16 @@ const Clients = () => {
                 </div>
 
                 <div className="col-12">
-                    <DataTable sortOrder="1" sortField='id' paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-                        <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{  color: "#c9392f" }}></Column>
-                        <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{  color: "#c9392f" }}></Column>
+                    <DataTable sortOrder="1" rowClassName={rowClass} sortField='id' paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT"  headerStyle={{  color: "#c9392f" }}></Column>
+                        <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="phone" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Phone" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', color: "#c9392f" }} body={countryTemplate}  ></Column>
-                        <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{  color: "#c9392f" }}></Column>
+                        <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }} header={disableClientsTemplate}> </Column>
+
                     </DataTable>
 
                 </div>

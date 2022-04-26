@@ -9,6 +9,7 @@ const {
     getAllUsers,
     getUserById,
     updateUser,
+    deleteUser,
     getProjectByUserId,
     getSimpleUsersWithProjects
 } = require('../controllers/person.js');
@@ -22,7 +23,8 @@ router.post('/login', login)
 const {
     getAllUsersLogin,
     createUserLogin,
-    updateUserLogin
+    updateUserLogin,
+    
 } = require('../controllers/users.js')
 router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev']), getAllUsersLogin)
 router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev']),createUserLogin)
@@ -35,22 +37,23 @@ router.get('/persons/:id',verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),ge
 router.get('/persons/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByUserId)
 router.post('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createUser)
 router.patch('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateUser)
-
+router.delete('/persons', verifyToken, checkRoleAuth(['admin', 'dev']),deleteUser)
 
 // COMPANY
 const { getAllCompanies,
     createCompany,
     updateCompany,
     getCompanyById,
-    getProjectByCompanyId
+    getProjectByCompanyId,
+    deleteCompany
 
 } = require('../controllers/company.js');
 router.get('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getAllCompanies)
 router.get('/company/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getCompanyById)
 router.get('/company/:id/projects', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),getProjectByCompanyId)
 router.post('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createCompany)
-router.put('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateCompany)
-
+router.patch('/company', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateCompany)
+router.delete('/company', verifyToken, checkRoleAuth(['admin', 'dev']),deleteCompany)
 
 // PROJECT
 const { createProject,

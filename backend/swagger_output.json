@@ -186,9 +186,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "id": {
-                    "example": "any"
-                  },
                   "email": {
                     "example": "any"
                   },
@@ -540,6 +537,58 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Person"
+        ],
+        "summary": "Delete person",
+        "description": "Delete the person .",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "isActive": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/persons/{id}": {
@@ -814,6 +863,58 @@
                     "example": "any"
                   },
                   "mobile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Delete company",
+        "description": "Delete the company .",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "isActive": {
                     "example": "any"
                   }
                 }
@@ -2701,6 +2802,18 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "reason": {
+                    "example": "any"
+                  },
+                  "notes": {
+                    "example": "any"
+                  },
+                  "quantityChanges": {
+                    "example": "any"
+                  },
+                  "quantity": {
+                    "example": "any"
+                  },
                   "id": {
                     "example": "any"
                   }
@@ -2851,6 +2964,150 @@
                           "available": {
                             "type": "number",
                             "example": -7
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/material-history/{id}": {
+      "get": {
+        "tags": [
+          "Material"
+        ],
+        "summary": "Get all materials changes",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Materials successfully obtained.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
+                          },
+                          "price": {
+                            "type": "number",
+                            "example": 4.51
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "consumable"
+                          },
+                          "isBillable": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2022-04-02T12:21:38.798Z"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "materials": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "idMaterial": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Brick Pavers"
+                          },
+                          "quantity": {
+                            "type": "number",
+                            "example": 3
                           },
                           "price": {
                             "type": "number",
