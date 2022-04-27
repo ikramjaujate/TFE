@@ -202,7 +202,11 @@ const Clients = () => {
     }
 
     const informationClientTemplate = (rowData) => {
+        if(!rowData.isActive){
+            return  <Button icon="pi pi-info" className=" p-button-secondary" disabled />
+        }
         return (
+            
             <React.Fragment>
                 <Button icon="pi pi-info" tooltip="Open" className=" p-button-secondary" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} onClick={() => handleClient(rowData)} />
                 <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />

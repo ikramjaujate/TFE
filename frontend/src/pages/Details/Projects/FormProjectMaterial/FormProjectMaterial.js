@@ -16,7 +16,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import Dexie from 'dexie';
 
-const FormProjectMaterial = ({currentContent,documentAccepted}) => {
+const FormProjectMaterial = ({currentContent, disableButton}) => {
     const { id } = useParams();
 
     const toast = useRef(null);
@@ -81,17 +81,9 @@ const FormProjectMaterial = ({currentContent,documentAccepted}) => {
     }
 
     useEffect(() =>{
-        /**
-         * supprime tout formulaire + reajout tout dans current content
-         */
+
         if(currentContent.length){
            
-            /*setProjectMaterial([
-                {
-                    material: {},
-                    quantity: 0
-                }
-            ])*/
             const projectMaterials = []
             for(let projMat of currentContent){
                 if(projMat.idMaterial){
@@ -103,8 +95,10 @@ const FormProjectMaterial = ({currentContent,documentAccepted}) => {
                     })
                 }
             }
+
            
             setProjectMaterial(projectMaterials)
+
         }else{
             getMaterials()
             getSimpleProject();
@@ -112,6 +106,14 @@ const FormProjectMaterial = ({currentContent,documentAccepted}) => {
         
 
     },[currentContent])
+    useEffect(() => {
+        console.log(disableButton)
+        if(disableButton){
+            setIsDisabled(true)
+        }else{
+            setIsDisabled(false)
+        }
+    },[disableButton])
     useEffect(() => {
         
         getSimpleProject();
@@ -121,7 +123,6 @@ const FormProjectMaterial = ({currentContent,documentAccepted}) => {
             return;
         }
         if(['Canceled', 'Accepted', 'Done', 'In Progress', 'Closed'].includes(simpleProject.status)){
-            
             setIsDisabled(true)
         }else{
             setIsDisabled(false)

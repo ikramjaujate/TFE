@@ -17,3 +17,11 @@
 
   font-weight: 600;
 }
+
+.no-active button {
+  background-color: rgb(186, 186, 186)!important;
+  border: 0px solid #ffffff!important;
+}
+.no-active .p-button-icon {
+  text-decoration: none!important;
+}

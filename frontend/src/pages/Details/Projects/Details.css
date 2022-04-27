@@ -70,6 +70,7 @@ span.customer-badge.status-yes{
 
 .not-update{
     background-color: rgba(0, 0, 0, 0.15) !important;
+    /*text-decoration: line-through;*/
 }
 
 .svg.svg-inline--fa.fa-lock-open{

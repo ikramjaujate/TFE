@@ -65,6 +65,9 @@ const DetailsProjects = () => {
     const [invoicesData, setInvoicesData] = useState([])
     const [valideQuotation, setValideQuotation] = useState(null)
     const [documentPaid, setDocumentPaid] = useState(null)
+    const [disableButton, setDisableButton] = useState(false)
+
+
 
     let today = new Date( (new Date()).toISOString().split('T')[0] )
     const [timeSpent, setTimeSpent] = useState(0)
@@ -166,8 +169,6 @@ const DetailsProjects = () => {
 
     useEffect(() => {
         refresh()
-
-
     }, [])
     const handleAllProjects = () => {
         history.push(`/projects`)
@@ -207,7 +208,11 @@ const DetailsProjects = () => {
             if (element.idDocument == rowData.idDocument) {
                 element.isAccepted = e.checked
                 if(element.isAccepted){
+                    setDisableButton(true)
                     setCurrentContent(rowData.content)
+                }
+                if(!element.isAccepted){
+                    setDisableButton(false)
                 }
               
                 const bodyForm = {
@@ -227,6 +232,7 @@ const DetailsProjects = () => {
                     
                     setStatus(response.project.status)
                     toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Quotation state has been updated', life: 3000 });
+                    
                     refresh()
                 }).catch(error => {
                     toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Quotation cannot be updated', life: 3000 });
@@ -281,9 +287,10 @@ const DetailsProjects = () => {
         if (documentAccepted && rowData.idDocument != documentAccepted && rowData.type == "devis") {
             return <Checkbox inputId="binary" className='my-checkbox' disabled />
         }else if (rowData.type == "devis" && (['In Progress', 'Done', 'Closed', 'Canceled']).includes(status) ) {
+            //TODO: refresh
             return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} disabled />
         } else if (rowData.type == "devis") {
-            return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData) }} />
+            return <Checkbox inputId="binary" className='my-checkbox' checked={getRowIsAccepted(rowData)} onChange={e => { setRowIsAccepted(e, rowData)}} />
         }}
 
     const statusBodyTemplateIsPaid = (rowData) => {
@@ -558,7 +565,7 @@ setChartData({
                     </Panel>
                 </div>
                 <Panel header="MATERIALS" headerTemplate={headerMaterialsInfo} toggleable className='m-3'>
-                    <FormProjectMaterial currentContent={currentContent} documentAccepted={documentAccepted} />
+                    <FormProjectMaterial disableButton={disableButton} currentContent={currentContent} documentAccepted={documentAccepted} />
                 </Panel>
 
 
