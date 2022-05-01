@@ -65,28 +65,23 @@ app.use(
   })
 );
 
-/*
 app.use(permissionsPolicy({
   features: {
-    fullscreen: ['self'],               // fullscreen=()
-    vibrate: ['none'],                  // vibrate=(none)
-    payment: ['self', '"ikram.m-michotte.be"'], // payment=(self "example.com")
-    syncXhr: [],                        // syncXhr=()
+    fullscreen: ['self']
   }
-}))*/
+}));
 
 
-
-/*app.use(expressCspHeader({
+app.use(helmet.contentSecurityPolicy({
   directives: {
-      'default-src': [SELF],
-      'script-src': [SELF, INLINE, 'ikram.m-michotte.be'],
-      'style-src': [SELF, 'https://fonts.googleapis.com'],
-      'worker-src': [NONE],
-      'font-src' : [SELF, 'https://fonts.gstatic.com'],
-      'block-all-mixed-content': false
+    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+    'default-src': ['\'self\'',  'blob:'],
+    'object-src' : ['\'self\'',  'data:'],
+    'img-src' : ['\'self\'',  'data:'],
+    'script-src' : ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
+    'script-src-attr': ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
   }
-}));*/
+}));
 
 
 //Expect-CT

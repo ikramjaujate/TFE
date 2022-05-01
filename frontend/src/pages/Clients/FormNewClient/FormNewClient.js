@@ -10,7 +10,7 @@ import { Panel } from 'primereact/panel';
 import { SelectButton } from 'primereact/selectbutton';
 import { InputMask } from 'primereact/inputmask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, faLockOpen, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faLockOpen, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { CreateNewClient, UpdateUser, DeleteUser } from '../../../services/users'
 import { CreateNewCompany, UpdateCompany, DeleteCompany } from '../../../services/companies'
 import GetCountries from "../../../services/countries";
@@ -431,7 +431,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                                 <FontAwesomeIcon icon={faLock} />
                             </Button> :
                             <Button className="p-button-help " onClick={(e) => { handleClickDelete(e, true) }} disabled={!sendData}>
-                                <FontAwesomeIcon icon={faLockOpen} />
+                                <FontAwesomeIcon icon={faUnlockKeyhole} />
                             </Button>
                         }
 
