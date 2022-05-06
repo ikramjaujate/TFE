@@ -31,7 +31,7 @@
     "swagger-ui-express": "^4.3.0"
   },
   "scripts": {
-    "test": "npm run db:reset_test && NODE_ENV=test jest ./test/unittest",
+    "test": "npm run db:reset_test && NODE_ENV=test jest ./test/unittest --exit",
     "test_integration": "npm run db:reset_test && NODE_ENV=test mocha ./test/integration/**/*.js --exit",
     "start": "nodemon app.js",
     "db:drop": "npx sequelize-cli db:drop",
