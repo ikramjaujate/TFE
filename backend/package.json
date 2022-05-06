@@ -31,8 +31,8 @@
     "swagger-ui-express": "^4.3.0"
   },
   "scripts": {
-    "test": "npm run db:reset_test_workflow && NODE_ENV=test jest ./test/unittest",
-    "test_integration": "npm run db:reset_test_workflow && NODE_ENV=test mocha ./test/integration/**/*.js --exit",
+    "test": "npm run db:reset_test && NODE_ENV=test jest ./test/unittest",
+    "test_integration": "npm run db:reset_test && NODE_ENV=test mocha ./test/integration/**/*.js --exit",
     "start": "nodemon app.js",
     "db:drop": "npx sequelize-cli db:drop",
     "db:create": "npx sequelize-cli db:create",
@@ -41,7 +41,7 @@
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:reset": "npm run db:drop && npm run db:create && npm run db:generate-migration && npm run db:migrate && npm run db:seed",
     "db:reset_test": "NODE_ENV=test npm run db:drop && NODE_ENV=test npm run db:create && NODE_ENV=test npm run db:generate-migration && NODE_ENV=test npm run db:migrate && NODE_ENV=test npm run db:seed",
-    "db:reset_test_workflow": "NODE_ENV=test npm run db:create && NODE_ENV=test npm run db:generate-migration && NODE_ENV=test npm run db:migrate && NODE_ENV=test npm run db:seed",
+    
     "swagger-autogen": "node swagger.js"
   },
   "devDependencies": {
