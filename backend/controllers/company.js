@@ -75,6 +75,7 @@ const createCompany = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
+        if(!validateCreateCompanyBody(req.body)) throw new Error("Bad request") 
         const country = req.body.country;
         
         const existingCountry = await Country.findOne({
@@ -104,7 +105,8 @@ const createCompany = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             VAT_num: req.body.vta,
-            mobile: req.body.mobile
+            mobile: req.body.mobile,
+            isActive: true
         }
 
         const companyCreated = await Company.create(company);
@@ -310,6 +312,19 @@ const getProjectByCompanyId = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+function validateCreateCompanyBody(body){
+    if(!body) return false;
+    if(!body.name) return false;
+    if(body.mobile){
+        if(body.mobile[0] != '+' && body.mobile[0] != 0 ) return false
+        const reg = /\D+/g
+        const new_body = body.mobile.slice(1)
+        const match = new_body.match(reg)
+        if(match) return false
+    }
+    if(!body.vta) return false;
+    return true;
+}
 
 module.exports = {
     getAllCompanies,
@@ -317,5 +332,6 @@ module.exports = {
     updateCompany,
     getCompanyById,
     getProjectByCompanyId,
-    deleteCompany
+    deleteCompany,
+    validateCreateCompanyBody
 }

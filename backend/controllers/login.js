@@ -16,7 +16,9 @@ const login = async (req, res) => {
         const passwordHash = user.dataValues['password'].trim();
         const validPassword = await argon2.verify(passwordHash, password)
         
-        if (!validPassword) return res.status(401).json({error: "Invalid Credentials"});
+        if (!validPassword) {
+             throw new Error("Invalid credentials");
+        }
         const role = user.role
         const token = jwt.sign(
             { user_id: username, role: user.role},
@@ -35,6 +37,7 @@ const login = async (req, res) => {
 
         //return res.status(404).send('Invalid Credentials');
     } catch (error) {
+        console.log(error)
         return res.status(500).send(error.message);
     }
 }

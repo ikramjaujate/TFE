@@ -107,5 +107,4 @@ const server = app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
 
-
-
+module.exports = server

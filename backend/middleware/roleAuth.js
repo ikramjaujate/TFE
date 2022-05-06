@@ -12,7 +12,7 @@ const checkRoleAuth = (roles) => async(req, res, next) => {
         });
         
         if(roles.includes(userData.role)){
-            console.log(userData.role)
+            
             next()
         }
         else{

@@ -192,10 +192,9 @@ const updateMaterial = async (req, res) => {
             }
         });
         
-        console.log(req.body.quantityChanges)
-        console.log(req.body.quantity)
+
         if(req.body.quantityChanges != 0){
-            console.log('toto')
+
             await Materials_Update.create({
                 idMaterial: req.body.id,
                 idUserLogin: user.idUserLogin,

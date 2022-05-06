@@ -1,7 +1,7 @@
 
 const { Person, Address, Country, Company, Project, Sequelize } = require('../models');
 const { Op } = require("sequelize");
-const util = require('util');
+
 
 const redisClient = require("./redis");
 
@@ -27,6 +27,7 @@ const createUser = async (req, res) => {
     }] */
     try {
         const country = req.body.country;
+        if(!validateCreateUserBody(req.body)) throw new Error("Bad request") 
 
         const existingCountry = await Country.findOne({
             where: { nicename: country }
@@ -42,8 +43,7 @@ const createUser = async (req, res) => {
             locality: req.body.locality,
             postal_code: req.body.postalCode
         }
-
-
+      
         const createAddress = await Address.create(address);
 
 
@@ -57,9 +57,10 @@ const createUser = async (req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             VAT_num: req.body.vta,
-            mobile: req.body.mobile
+            mobile: req.body.mobile,
+            isActive: true
         }
-
+        
         const user = await Person.create(person);
 
         if (!user) {
@@ -220,10 +221,13 @@ const updateUser = async (req, res) => {
             }
         });
 
-
+        
         if (!user) {
             throw new Error("No user")
         };
+        
+        req.body.vta = req.body.vta? req.body.vta :null
+       
         const existingEmail = await Person.findOne({
             where: {
                 email: req.body.email
@@ -408,6 +412,22 @@ const getSimpleUsersWithProjects = async (req, res) => {
         return res.status(500).send(error.message);
     }
 }
+function validateCreateUserBody(body){
+   
+    if(!body) return false;
+    if(!body.country) return false;
+    if(!body.street) return false;
+    if(!body.locality) return false;
+    if(!body.postalCode) return false;
+    if(body.mobile){
+        if(body.mobile[0] != '+' && body.mobile[0] != 0 ) return false
+        const reg = /\D+/g
+        const new_body = body.mobile.slice(1)
+        const match = new_body.match(reg)
+        if(match) return false
+    }
+    return true;
+}
 module.exports = {
     createUser,
     getAllUsers,
@@ -415,5 +435,6 @@ module.exports = {
     updateUser,
     getProjectByUserId,
     getSimpleUsersWithProjects,
-    deleteUser
+    deleteUser,
+    validateCreateUserBody
 }

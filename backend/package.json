@@ -2,6 +2,8 @@
   "dependencies": {
     "argon2": "^0.28.4",
     "buffer": "^6.0.3",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "expect-ct": "^1.0.0",
@@ -14,6 +16,8 @@
     "jsonwebtoken": "^8.5.1",
     "jspdf-invoice-template-nodejs": "^1.0.3",
     "jwt-decode": "^3.1.2",
+    "mocha": "^10.0.0",
+    "node-mocks-http": "^1.11.0",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
     "permissions-policy": "^0.2.0",
@@ -27,7 +31,8 @@
     "swagger-ui-express": "^4.3.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run db:reset_test && NODE_ENV=test jest ./test/unittest",
+    "test_integration": "npm run db:reset_test && NODE_ENV=test mocha ./test/integration/**/*.js --exit",
     "start": "nodemon app.js",
     "db:drop": "npx sequelize-cli db:drop",
     "db:create": "npx sequelize-cli db:create",
@@ -35,9 +40,13 @@
     "db:generate-migration": " node ./node_modules/sequelize-auto-migrations-v2/bin/makemigration --name ",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:reset": "npm run db:drop && npm run db:create && npm run db:generate-migration && npm run db:migrate && npm run db:seed",
+    "db:reset_test": "NODE_ENV=test npm run db:drop && NODE_ENV=test npm run db:create && NODE_ENV=test npm run db:generate-migration && NODE_ENV=test npm run db:migrate && NODE_ENV=test npm run db:seed",
     "swagger-autogen": "node swagger.js"
   },
   "devDependencies": {
+    "jest": "^28.0.3",
+    "request": "^2.88.2",
+    "supertest": "^6.2.3",
     "swagger-autogen": "^2.19.0"
   }
 }

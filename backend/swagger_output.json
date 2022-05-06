@@ -23,9 +23,6 @@
         "description": "",
         "parameters": [],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -795,7 +792,7 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "tags": [
           "Company"
         ],
@@ -2809,9 +2806,6 @@
                     "example": "any"
                   },
                   "quantityChanges": {
-                    "example": "any"
-                  },
-                  "quantity": {
                     "example": "any"
                   },
                   "id": {
