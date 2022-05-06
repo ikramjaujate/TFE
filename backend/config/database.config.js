@@ -13,10 +13,10 @@ module.exports = {
     }
   },
   "test": {
-    "username": DATABASE_USERNAME,
-    "password": DATABASE_PASSWORD,
-    "database": DATABASE_NAME_TEST,
-    "host": DATABASE_HOST,
+    "username": 'postgres',
+    "password": 'test',
+    "database": 'test',
+    "host": "127.0.0.1",
     "dialect": "postgres",
     "logging" : false,
     "define" : {
