@@ -19,6 +19,8 @@ jobs:
             --health-interval 10s
             --health-timeout 5s
             --health-retries 5
+        ports:
+          - 6379:6379
       postgres:
         image: postgres:13
         env:
@@ -48,8 +50,9 @@ jobs:
         
         env:
           # El nombre del host utilizado para comunicarse con el contenedor de servicio Redis
-          REDIS_HOST: localhost
+          REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
+          DEFAULT_EXPIRATION_REDIS: 3600
   integration-test :
     runs-on: ubuntu-latest
     services:
