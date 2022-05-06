@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Setup backend
+      - name: Run unit test backend
         working-directory: .
         run: |
           cd backend 
@@ -55,12 +55,22 @@ jobs:
           DEFAULT_EXPIRATION_REDIS: 3600
   integration-test :
     runs-on: ubuntu-latest
+      
     services:
+      redis:
+        image: redis
+        options: >-
+            --health-cmd "redis-cli ping"
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+        ports:
+          - 6379:6379
       postgres:
         image: postgres:13
         env:
-          POSTGRES_DB: Test
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: test
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
         ports:
           - 5432:5432
@@ -76,12 +86,17 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Setup backend
+      - name: Run integration
         working-directory: .
         run: |
           cd backend
           npm install
           CI= npm run test_integration
+        env:
+          # El nombre del host utilizado para comunicarse con el contenedor de servicio Redis
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+          DEFAULT_EXPIRATION_REDIS: 3600
 
   VPS-deploiement:
     runs-on: ubuntu-latest
