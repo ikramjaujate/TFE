@@ -6,3 +6,7 @@
     background-color: var(--main-color);
     border: var(--main-color);
 }
+
+button.p-button.p-component.login-button:hover{
+    border: 1px solid var(--main-color);
+}

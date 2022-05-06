@@ -1,14 +1,16 @@
 import './Login.scss'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+
 import { Password } from 'primereact/password';
 import { classNames } from 'primereact/utils';
-
+import { Toast } from 'primereact/toast';
 
 function Login() {
+    const toast = useRef(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [blankPassword, setBlankPassword] = useState('')
@@ -48,6 +50,8 @@ function Login() {
                             window.location.replace("/")
                         }
                     }
+                }).catch(error => {
+                    toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Invalid credentials', life: 3000 });
                 })
         }
     }
@@ -68,6 +72,7 @@ function Login() {
     };
     const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
     const getFormErrorMessage = (meta) => {
+        console.log(meta)
         return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
     };
 
@@ -90,32 +95,35 @@ function Login() {
 
 
     return (
+        <>
+        <Toast ref={toast} baseZIndex={999999} />
         <div className="login">
 
             <form className="p-fluid" validate={validate}>
-
+            
                 <div className="field">
                     <span className="p-input-icon-right">
                         <i className="pi pi-envelope" />
             
-                        <InputText id="email" name="email" placeholder='Email*' value={username} onChange={(e) => setUsername(e.target.value)} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
+                        <InputText id="email" name="email" placeholder='Email*'  value={username} onChange={(e) => setUsername(e.target.value)} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
                     </span>
-                    {getFormErrorMessage('email')}
+
                 </div>
 
                 <div className="field">
                     <span className="p-input-icon-right">
             
                         <Password id="password" placeholder='Password*' feedback={false} name="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask
-                            className={classNames({ 'p-invalid': isFormFieldValid('password') })} />
+                            />
                     </span>
-                    {getFormErrorMessage('password')}
+                  
                 </div>
 
                 <Button onClick={loginUser} label="Login" className="login-button" />
             </form>
 
         </div>
+        </>
     )
 
 } export default Login;
