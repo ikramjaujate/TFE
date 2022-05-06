@@ -10,6 +10,14 @@ jobs:
 
     runs-on: ubuntu-latest
     services:
+      redis:
+        image: redis
+       options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    services:
       postgres:
         image: postgres:13
         env:
@@ -36,7 +44,11 @@ jobs:
           cd backend 
           npm install
           CI= npm run test
-
+        
+        env:
+          # El nombre del host utilizado para comunicarse con el contenedor de servicio Redis
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
   integration-test :
     runs-on: ubuntu-latest
     services:
