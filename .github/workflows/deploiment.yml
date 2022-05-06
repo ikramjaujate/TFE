@@ -97,6 +97,7 @@ jobs:
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
           DEFAULT_EXPIRATION_REDIS: 3600
+          TOKEN_TEST:  ${{ secrets.TOKEN_TEST }}
 
   VPS-deploiement:
     runs-on: ubuntu-latest
