@@ -286,7 +286,7 @@ const FormProject = ({ refreshTable, sendData }) => {
                     <div className="col-12 md:col-4">
                     </div>
                     <div className="col-12 md:col-4">
-                        <div className="p-inputgroup">
+                        <div className="p-inputgroup ">
                             <span className="p-inputgroup-addon">
                                 <FontAwesomeIcon icon={faHourglassEnd} />
                             </span>

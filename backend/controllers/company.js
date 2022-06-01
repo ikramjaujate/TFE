@@ -75,8 +75,10 @@ const createCompany = async (req, res) => {
                "bearerAuth": []
     }] */
     try {
-        if(!validateCreateCompanyBody(req.body)) throw new Error("Bad request") 
+        console.log(req.body)
+        if(!validateCreateCompanyBody(req.body)) throw new Error("Bad request")
         const country = req.body.country;
+        
         
         const existingCountry = await Country.findOne({
             where: { nicename: country }
@@ -318,9 +320,11 @@ function validateCreateCompanyBody(body){
     if(body.mobile){
         if(body.mobile[0] != '+' && body.mobile[0] != 0 ) return false
         const reg = /\D+/g
+        
         const new_body = body.mobile.slice(1)
         const match = new_body.match(reg)
-        if(match) return false
+        
+        if(match) return true
     }
     if(!body.vta) return false;
     return true;

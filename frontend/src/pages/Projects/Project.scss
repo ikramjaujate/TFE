@@ -54,6 +54,10 @@ span.customer-badge.status-canceled{
     background-color: white;
     border: var(--main-color)
 }
+.select-day input{
+    border-top-right-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+}
 .title {
     
     padding-bottom: .5rem;

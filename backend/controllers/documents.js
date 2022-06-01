@@ -41,7 +41,7 @@ const createDocuments = async (req, res) => {
     try {
 
         console.log(req.body)
-        const buf = Buffer.from('hello world', 'utf8');
+        const buf = Buffer.from('Document not yet upload', 'utf8');
 
         let parameter = req.body
         parameter['file'] = buf

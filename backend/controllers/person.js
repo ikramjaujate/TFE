@@ -28,12 +28,12 @@ const createUser = async (req, res) => {
     try {
         const country = req.body.country;
         if(!validateCreateUserBody(req.body)) throw new Error("Bad request") 
-
+        
         const existingCountry = await Country.findOne({
             where: { nicename: country }
         });
-      
-
+        
+        
         if (!existingCountry) {
             throw new Error("No country")
         };
@@ -43,6 +43,7 @@ const createUser = async (req, res) => {
             locality: req.body.locality,
             postal_code: req.body.postalCode
         }
+        
       
         const createAddress = await Address.create(address);
 
@@ -62,7 +63,7 @@ const createUser = async (req, res) => {
         }
         
         const user = await Person.create(person);
-
+        
         if (!user) {
             throw new Error("User couldn't be created")
         };
@@ -424,7 +425,7 @@ function validateCreateUserBody(body){
         const reg = /\D+/g
         const new_body = body.mobile.slice(1)
         const match = new_body.match(reg)
-        if(match) return false
+        if(match) return true
     }
     return true;
 }

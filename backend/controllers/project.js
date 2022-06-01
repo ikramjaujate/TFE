@@ -379,7 +379,9 @@ const getProjectMaterialByProjectId = async (req, res) => {
 }
 
 function validateUpdateBody(body) {
+    if(!body) return false;
     if (!body.id) {
+        
         throw new Error('No project id')
     }
     if (!body.name || body.name == "") {
@@ -398,6 +400,7 @@ function validateUpdateBody(body) {
     if (new Date(body.start_date) > new Date(body.end_date)) {
         throw new Error('Invalid date')
     }
+    return true
 }
 
 module.exports = {
@@ -408,5 +411,6 @@ module.exports = {
     getProjectById,
     getPossiblesStatuses,
     getProjectMaterialByProjectId,
-    getSimpleProject
+    getSimpleProject,
+    validateUpdateBody
 }
