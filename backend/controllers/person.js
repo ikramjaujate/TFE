@@ -425,7 +425,7 @@ function validateCreateUserBody(body){
         const reg = /\D+/g
         const new_body = body.mobile.slice(1).replace(/\s/g, '')
         const match = new_body.match(reg)
-        if(match) return true
+        if(match) return false
     }
     return true;
 }
