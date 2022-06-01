@@ -321,10 +321,11 @@ function validateCreateCompanyBody(body){
         if(body.mobile[0] != '+' && body.mobile[0] != 0 ) return false
         const reg = /\D+/g
         
-        const new_body = body.mobile.slice(1)
+        const new_body = body.mobile.slice(1).replace(/\s/g, '')
         const match = new_body.match(reg)
+        console.log(match)
         
-        if(match) return true
+        if(match) return false
     }
     if(!body.vta) return false;
     return true;
