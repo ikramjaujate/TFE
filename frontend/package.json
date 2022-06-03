@@ -15,12 +15,16 @@
         "@fullcalendar/interaction": "^5.10.1",
         "@fullcalendar/react": "^5.10.1",
         "@fullcalendar/timegrid": "^5.10.1",
+        "@testing-library/react": "^11.2.7",
         "axios": "^0.26.1",
         "chart.js": "3.3.2",
         "classnames": "^2.2.6",
         "cypress": "^9.5.4",
         "dexie": "^3.2.1",
         "dexie-encrypted": "^2.0.0",
+        "jest-enzyme": "^7.1.2",
+        "jest-styled-components": "^7.0.8",
+        "jest-transform-css": "^4.0.1",
         "jspdf": "^2.5.1",
         "jspdf-invoice-template": "^1.4.2",
         "jwt-decode": "^3.1.2",
@@ -38,12 +42,15 @@
         "react-pdf": "^5.7.2",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^5.0.0",
+        "react-test-renderer": "^17.0.2",
         "react-transition-group": "^4.4.1",
-        "sass": "^1.32.8"
+        "sass": "^1.32.8",
+        "yarn": "^1.22.18"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "test": "jest",
         "test-end-2-end": "cypress open",
         "eject": "react-scripts eject",
         "lint:fix:dry": "eslint --fix-dry-run --fix-type suggestion,layout --ext .js ./src",
@@ -62,7 +69,26 @@
         ]
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.18.2",
+        "@babel/preset-react": "^7.17.12",
         "@fortawesome/fontawesome-free": "^6.1.1",
+        "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+        "babel-jest": "^28.1.0",
+        "enzyme": "^3.11.0",
+        "enzyme-to-json": "^3.6.2",
+        "jest": "^27.5.1",
+        "jest-localstorage-mock": "^2.4.21",
         "react-error-overlay": "^6.0.9"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "jsx"
+        ],
+        "rootDir": "./src/__test__/",
+        "transform": {
+            "^.+\\.js$": "babel-jest",
+            ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
+        }
     }
 }

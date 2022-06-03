@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component Snapshot - renders correctement 1`] = `
+<div
+  className="login"
+>
+  <form
+    className="p-fluid"
+    validate={[Function]}
+  >
+    <div
+      className="field"
+    >
+      <span
+        className="p-input-icon-right"
+      >
+        <i
+          className="pi pi-envelope"
+        />
+        <input
+          className="p-inputtext p-component"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          onInput={[Function]}
+          onKeyPress={[Function]}
+          placeholder="Email*"
+          value=""
+        />
+      </span>
+    </div>
+    <div
+      className="field"
+    >
+      <span
+        className="p-input-icon-right"
+      >
+        <div
+          className="p-password p-component p-inputwrapper p-input-icon-right"
+          id="password"
+          style={null}
+        >
+          <input
+            className="p-inputtext p-component p-password-input"
+            id={null}
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onInput={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            placeholder="Password*"
+            style={null}
+            type="password"
+            value=""
+          />
+          <i
+            className="pi pi-eye"
+            onClick={[Function]}
+          />
+        </div>
+      </span>
+    </div>
+    <button
+      className="p-button p-component login-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <span
+        className="p-button-label p-c"
+      >
+        Login
+      </span>
+    </button>
+  </form>
+</div>
+`;
