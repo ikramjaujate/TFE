@@ -13,10 +13,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 
   describe('Login component', () => {
-    it('Snapshot - renders correctement', () => {
-      const snapshot = renderer.create(<Login/>).toJSON();
-      expect(snapshot).toMatchSnapshot();
-    });
+
     it('Vérifier existantce des inputs', () => {
       const wrapper = shallow(<Login/>);
       expect(wrapper.find('input')).toHaveLength(0);

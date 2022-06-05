@@ -66,8 +66,9 @@ const App = () => {
                     <div className={`side-menu ${menuIsVisible ? "menu-is-visible" : "menu-is-hidden"}`}>
                         <SideMenuBar menu={menu} setMenuVisible={forcedCloseMenu}></SideMenuBar>
                     </div>
-
+                    
                     <div className={`main-content ${menuIsVisible ? "" : "menu-is-hidden-content"}`}>
+                    <Switch>
                         <PrivateRoute exact path="/" component={Home} menu={menu.slice(1)} />
                         <PrivateRoute exact path="/clients" component={Clients} />
                         <PrivateRoute exact path='/clients/person/:id/detail' component={() => Details('p')} />
@@ -81,7 +82,12 @@ const App = () => {
                         <PrivateRoute exact path="/quotation" component={Quotation} />
                         <PrivateRoute exact path="/calendar" component={CalendarClient} />
                         <PrivateRoute exact path="/users" component={Users} />
+                        <Route path='/*'>
+                            <Redirect to="/" exact component={Home} />
+                        </Route>
+                        </Switch>
                     </div>
+                   
                 </div>
 
             </div>
