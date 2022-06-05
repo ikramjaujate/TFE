@@ -84,11 +84,8 @@ const Invoices = () => {
     }
 
     const projectRedirectionTemplate = (rowData) => {
-        return (
-                
-            <Link className='svg' to={`/projects/${rowData.Project.idProject}/detail`} >{rowData.Project.name}</Link>
-            //<span>{rowData.Project.name}</span>
-           
+        return (           
+            <Link className='svg' to={`/projects/${rowData.Project.idProject}/detail`} >{rowData.Project.name}</Link>           
         )
     }
 

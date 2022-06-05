@@ -4,3 +4,5 @@
 .vscode
 *.DS_store
 *.DS_Store
+dev/database
+dev/www

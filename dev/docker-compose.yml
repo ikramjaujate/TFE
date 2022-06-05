@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+
+  masterservices-app:
+    image: node:16
+    container_name: masterservices-app
+    depends_on:
+      - "masterservices-db"
+      - "masterservices-redis"
+    restart: unless-stopped
+    volumes:
+      - ./www/backend:/var/www/backend
+    ports:
+      - 3001:3001
+    networks:
+      custom-network:
+        ipv4_address: 192.168.10.10
+    command: bash -c "cd /var/www/backend && npm i --quiet && NODE_OPTIONS=--unhandled-rejections=warn && npm run db:reset && npm run swagger-autogen"
+
+  masterservices-db:
+    image: postgres
+    container_name: masterservices-database
+    restart: unless-stopped
+    environment:
+        - POSTGRES_DB=MasterServices
+        - POSTGRES_USER=dev_user
+        - POSTGRES_PASSWORD=dev_pwd
+    logging:
+      options:
+        max-size: 10m
+        max-file: '3'
+    networks:
+      custom-network:
+        ipv4_address: 192.168.10.11
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  masterservices-redis:
+    image: 'bitnami/redis:6.2.6'
+    container_name: masterservices-redis
+    mem_limit: 256m
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      custom-network:
+        ipv4_address: 192.168.10.12
+
+networks:
+  custom-network:
+    name: custom-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
