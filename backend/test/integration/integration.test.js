@@ -197,3 +197,111 @@ describe('CREATE /api/users', function() {
         })
     });
 })
+
+describe('GET /api/projects', function() {
+    it('should fetch all projects successfully', function(done) {
+        chai.request(server)
+        .get('/api/projects')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('projects')
+            res.body.projects.should.be.a('array');
+            done();
+        })
+    });
+})
+
+describe('GET /api/projects/id', function() {
+    it('should fetch a project by id successfully', function(done) {
+        chai.request(server)
+        .get('/api/projects/1')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            
+            res.body.should.have.property('project')
+            
+            res.body.project.should.be.a('array');
+            done();
+        })
+    });
+})
+
+
+
+describe('GET /api/projects/id/project-materials', function() {
+    it('should fetch all projects-materials by project id successfully', function(done) {
+        chai.request(server)
+        .get('/api/projects/1/project-materials')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('projectMaterials')
+            
+            res.body.projectMaterials.should.be.a('array');
+            done();
+        })
+    });
+})
+
+
+
+describe('GET /api/simple-project/id', function() {
+    it('should fetch a project by id successfully', function(done) {
+        chai.request(server)
+        .get('/api/simple-project/1')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('project')     
+            res.body.project.should.be.a('object');
+            res.body.project.status.should.be.eql('Pre-Sale')
+            done();
+        })
+    });
+})
+
+describe('GET /api/users', function() {
+    it('should fetch all users successfully', function(done) {
+        chai.request(server)
+        .get('/api/users')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('usersAccount')     
+            res.body.usersAccount.should.be.a('array');
+            done();
+        })
+    });
+})
+
+describe('GET /api/project-materials', function() {
+    it('should fetch all project-materials successfully', function(done) {
+        chai.request(server)
+        .get('/api/project-materials')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('projectMaterials')     
+            res.body.projectMaterials.should.be.a('array');
+            done();
+        })
+    });
+})
+
+
+
+describe('GET /api/project-materials/id/projects', function() {
+    it('should fetch all project-materials successfully', function(done) {
+        chai.request(server)
+        .get('/api/project-materials')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('projectMaterials')     
+            res.body.projectMaterials.should.be.a('array');
+            done();
+        })
+    });
+})
