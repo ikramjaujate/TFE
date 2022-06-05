@@ -305,3 +305,64 @@ describe('GET /api/project-materials/id/projects', function() {
         })
     });
 })
+
+
+
+describe('GET /api/countries', function() {
+    it('should fetch all countries successfully', function(done) {
+        chai.request(server)
+        .get('/api/countries')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('countries')     
+            res.body.countries.should.be.a('array');
+            done();
+        })
+    });
+})
+
+describe('GET /api/materials/last-updated-at', function() {
+    it('should fetch last updated at materials successfully', function(done) {
+        chai.request(server)
+        .get('/api/materials/last-updated-at')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            console.log(res.body)
+            res.body.should.have.property('lastUpdatedAt')     
+            res.body.lastUpdatedAt.should.be.a('string');
+            done();
+        })
+    });
+})
+
+describe('GET /api/company/1', function() {
+    it('should fetch all information about company by company 1 successfully', function(done) {
+        chai.request(server)
+        .get('/api/company/1')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('company')     
+            res.body.company.should.be.a('array');
+            done();
+        })
+    });
+})
+
+describe('GET /api/simple-persons', function() {
+    it('should fetch all person clients (in a simple way) successfully', function(done) {
+        chai.request(server)
+        .get('/api/simple-persons')
+        .set({ Authorization: `Bearer ${TOKEN_TEST}` })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('simpleUsers')     
+            res.body.simpleUsers.should.be.a('array');
+            done();
+        })
+    });
+})
+
+
