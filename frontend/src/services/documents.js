@@ -24,6 +24,16 @@ const GetAllQuotations = async () => {
     ); 
 }
 
+const GetAllInvoices = async () => {
+    return await (
+        fetch(`/api/invoices`, {
+            method: 'GET',
+            headers: BASIC_HEADERS
+        }).then(response => {
+            return response.json()
+        })
+    ); 
+}
 
 const UploadDocumentState = async (id, bodyForm) => {
     return await (
@@ -66,5 +76,6 @@ export {
     UploadPdfDocument,
     UploadDocumentState,
     SendDocument,
-    GetAllQuotations
+    GetAllQuotations,
+    GetAllInvoices
 }
