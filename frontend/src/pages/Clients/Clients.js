@@ -258,7 +258,7 @@ const Clients = () => {
                 </div>
 
                 <div className="col-12">
-                    <DataTable sortOrder="1" rowClassName={rowClass} sortField='id' paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable sortOrder="1" rowClassName={rowClass} sortField='id' paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No clients found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} clients" rows={20} paginator>
                         <Column body={clientTypeTemplate} style={{ width: '2rem' }} headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="displayName" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Name" filter filterPlaceholder="Search by name" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>

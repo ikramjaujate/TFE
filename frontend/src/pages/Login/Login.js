@@ -98,6 +98,9 @@ function Login() {
         <>
         <Toast ref={toast} baseZIndex={999999} />
         <div className="login">
+        <div className='logo-masterservices'>
+            <img src="logo.png" alt="" />
+        </div>
 
             <form className="p-fluid" validate={validate}>
             

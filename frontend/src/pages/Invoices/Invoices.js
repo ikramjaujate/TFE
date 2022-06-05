@@ -1,7 +1,8 @@
 import './Invoices.scss'
 
 import React, { useState, useEffect , useRef} from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
@@ -72,7 +73,16 @@ const Invoices = () => {
         window.open(URL.createObjectURL(blob));
     }
     const informationQuotationTemplate = (rowData) => {
+        if(rowData.isPaid){
 
+            return (
+                <React.Fragment>
+                    <Button icon="pi pi-file-pdf"  className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />
+                   
+                   
+                </React.Fragment>
+            );
+        }
         return (
             <React.Fragment>
                 <Button icon="pi pi-file-pdf"  className="p-button-outlined p-button-info ml-2" onClick={() => openPdf(rowData)} />
@@ -101,7 +111,7 @@ const Invoices = () => {
     }
     const invoicePaid = (rowData) => {
         
-        return <span className={`isPaid-badge ${rowData.isPaid ? 'yes-badge' : 'no-badge'} `}>{rowData.isPaid ? 'Yes' : 'No'}</span>;
+        return <span className={`isPaid-badge ${rowData.isPaid ? 'yes-badge' : 'no-badge'} `}>{rowData.isPaid ?  <FontAwesomeIcon className="" icon={faCircleCheck} /> : '❌'}</span>;
         
     }
     return (
@@ -113,7 +123,7 @@ const Invoices = () => {
             <div className="grid table-demo">
 
                 <div className="col-12 my-table">
-                    <DataTable sortOrder="1" filterDisplay="menu" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No invoices found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable sortOrder="1" filterDisplay="menu" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No invoices found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} invoices" rows={20} paginator>
                         <Column field="idDocument" style={{ width: '10rem'}} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={capitalizeFirstLetter} style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Document's title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={projectRedirectionTemplate} filterField="Project.name"   style={{ width: '12rem', flexGrow: 1, flexBasis: '200px' }} filterPlaceholder="Search by name"  filter sortable header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>

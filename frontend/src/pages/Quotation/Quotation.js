@@ -112,7 +112,7 @@ const Quotation = () => {
             <div className="grid table-demo">
 
                 <div className="col-12 my-table">
-                    <DataTable sortOrder="1" filterDisplay="menu" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No quotations found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable sortOrder="1" filterDisplay="menu" sortField='idDocument' filters={filters} globalFilterFields={['Project.name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No quotations found." rowHover selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} quotations" rows={20} paginator>
                         <Column field="idDocument" style={{ width: '10rem'}} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={capitalizeFirstLetter} style={{ width: '12rem', flexGrow: 1, flexBasis: '14px' }}  sortable header="Document's title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column body={projectRedirectionTemplate} filterField="Project.name"   style={{ width: '12rem', flexGrow: 1, flexBasis: '200px' }} filterPlaceholder="Search by name"  filter sortable header="Project's name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>

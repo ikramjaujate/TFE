@@ -1,6 +1,10 @@
 .login{
     width: 20rem;
-    margin: 10rem auto;
+    position: absolute;
+    top:45%;
+    left: 50%;
+    transform: translate(-50%,-45%);
+    //margin: 20rem auto;
 }
 .p-button{
     background-color: var(--main-color);
@@ -9,4 +13,22 @@
 
 button.p-button.p-component.login-button:hover{
     border: 1px solid var(--main-color);
+}
+input#email:-webkit-autofill,
+input#email:-webkit-autofill:hover,
+input#email:-webkit-autofill:focus,
+input#email:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+
+.logo-masterservices{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.logo-masterservices img{
+    width: 10rem;
+    height: auto;
 }

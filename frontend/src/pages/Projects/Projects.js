@@ -52,6 +52,7 @@ const Projects = () => {
     }
 
     useEffect(() => {
+        
         projects.forEach(project => {
             
             
@@ -176,11 +177,8 @@ const Projects = () => {
 
     }
     const onRowSelect = (project) => {
-        
-        
+             
         setSelectedRow(project);
-
-
 
         if (project) {
             setSelectedClient(project);
@@ -204,7 +202,7 @@ const Projects = () => {
             <div className="grid table-demo">
 
                 <div className="col-12">
-                    <DataTable  sortOrder="1"  sortField='id' filters={filters} globalFilterFields={['displayName','name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="project-datatable mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable  sortOrder="1"  sortField='id' filters={filters} globalFilterFields={['displayName','name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedRow} onSelectionChange={e => onRowSelect(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="project-datatable mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} projects" rows={20} paginator>
                         <Column field="id" style={{ width: '8rem' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="name" style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Project's Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="displayName" style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Client's Name" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>

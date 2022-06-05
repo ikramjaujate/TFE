@@ -174,7 +174,7 @@ const Material = () => {
             />
             <div className="grid table-demo">
                 <div className="col-12">
-                    <DataTable className='material-datatable mt-3' sortOrder="1"  sortField="idMaterial" filters={filters} rowClassName={rowClass} globalFilterFields={['name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedMaterial} onSelectionChange={e => setSelectedMaterial(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                    <DataTable className='material-datatable mt-3' sortOrder="1"  sortField="idMaterial" filters={filters} rowClassName={rowClass} globalFilterFields={['name']} paginatorTemplate={PaginatorTemplate} value={data} emptyMessage="No projects found." rowHover selectionPageOnly selection={selectedMaterial} onSelectionChange={e => setSelectedMaterial(e.value)} loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} materials" rows={20} paginator>
                     
                         <Column field="idMaterial" style={{ width: '10rem' ,  flexGrow: 1, flexBasis: '14px' }} sortable header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="name" style={{ width: '10rem', flexGrow: 1, flexBasis: '14px' }} sortable header="Label" filter filterPlaceholder="Search by name" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
