@@ -27,7 +27,6 @@ const Invoices = () => {
         setLoading(true);
         documentService.GetAllInvoices().then(response => {
             setData(response["documents"]);
-            console.log(response['documents'])
         });
         setLoading(false)
 
@@ -104,7 +103,6 @@ const Invoices = () => {
 
     }
     const invoicePaid = (rowData) => {
-        console.log(rowData)
         
         return <span className={`isPaid-badge ${rowData.isPaid ? 'yes-badge' : 'no-badge'} `}>{rowData.isPaid ? 'Yes' : 'No'}</span>;
         
