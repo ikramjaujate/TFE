@@ -34,16 +34,18 @@ const App = () => {
     const [menuIsVisible, setMenuIsVisible] = useState(false);
 
     const menu = [
-        { label: 'Dashboard', icon: faHome, to: '/' },
-        { label: 'Clients', icon: faAddressBook, to: '/clients' },
-        { label: 'Employees', icon: faHardHat, to: '/employees' },
-        { label: 'Material', icon: faTools, to: '/material' },
-        { label: 'Projects', icon: faBook, to: '/projects' },
-        { label: 'Quotations', icon: faFileSignature, to: '/quotation' },
-        { label: 'Invoices', icon: faFileContract, to: '/invoices' },
-        { label: 'Calendar', icon: faCalendar, to: '/calendar' },
-        { label: 'Users', icon: faUsers, to: '/users' , isLast: true}
+        { label: 'Dashboard', icon: faHome, to: '/', isVisible: true },
+        { label: 'Clients', icon: faAddressBook, to: '/clients', isVisible: true },
+        { label: 'Employees', icon: faHardHat, to: '/employees', isVisible: true },
+        { label: 'Material', icon: faTools, to: '/material', isVisible: true },
+        { label: 'Projects', icon: faBook, to: '/projects', isVisible: true },
+        { label: 'Quotations', icon: faFileSignature, to: '/quotation', isVisible: true },
+        { label: 'Invoices', icon: faFileContract, to: '/invoices', isVisible: true },
+        { label: 'Calendar', icon: faCalendar, to: '/calendar', isVisible: true },
+        { label: '', icon: '', to: '/', isVisible: false, hasMenu:menuIsVisible},
+        { label: 'Users', icon: faUsers, to: '/users', isVisible: true , isLast: true}
     ];
+
 
     const onToggleMenu = () => {
         setMenuIsVisible(!menuIsVisible);

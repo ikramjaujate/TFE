@@ -19,7 +19,7 @@ const SideMenuBar = ({menu, setMenuVisible}) => {
                         
                         aria-label={item.label}
                         role="menuitem"
-                        className={`router-link`}
+                        className={item.isVisible? 'router-link' : 'router-link empty-side-link'}
                         activeClassName="router-link-active"
                         to={item.to}
                         onClick={setMenuVisible}
