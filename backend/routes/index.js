@@ -83,12 +83,14 @@ const {
     getDocumentById,
     updateStateDocument,
     sendDocumentByEmail,
-    getAllQuotations
+    getAllQuotations,
+    getAllInvoices
 } = require('../controllers/documents.js');
 
 router.get('/documents', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getAllDocuments)
 router.get('/documents/:id', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getDocumentById)
 router.get('/quotations', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getAllQuotations)
+router.get('/invoices', verifyToken,checkRoleAuth(['admin', 'dev', 'sec']), getAllInvoices)
 router.post('/documents', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),createDocuments)
 router.post('/sendDocument', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),sendDocumentByEmail)
 router.patch('/documents/:id', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']),updateStateDocument)
