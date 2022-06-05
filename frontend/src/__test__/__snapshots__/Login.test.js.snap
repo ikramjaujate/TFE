@@ -4,6 +4,14 @@ exports[`Login component Snapshot - renders correctement 1`] = `
 <div
   className="login"
 >
+  <div
+    className="logo-masterservices"
+  >
+    <img
+      alt=""
+      src="logo.png"
+    />
+  </div>
   <form
     className="p-fluid"
     validate={[Function]}
