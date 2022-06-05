@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Run unit test backend
+      - name: Run unit test frontend
         working-directory: .
         run: |
           cd frontend 
