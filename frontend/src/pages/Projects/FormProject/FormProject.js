@@ -23,6 +23,7 @@ import { projectTypes } from '../../../shared/consts/projectTypes';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import moment from "moment";
 import * as projectService from '../../../services/projects'
+import * as materialService from '../../../services/materials'
 const FormProject = ({ refreshTable, sendData }) => {
 
     const toast = useRef(null);
@@ -172,6 +173,7 @@ const FormProject = ({ refreshTable, sendData }) => {
             toast.current.show({ severity: 'info', summary: 'Success Message', detail: 'Project has been updated', life: 3000 });
             clearForm()
             Dexie.delete('MyDatabase');
+            materialService.databaseCreation()
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Project cannot be updated', life: 3000 });
         })

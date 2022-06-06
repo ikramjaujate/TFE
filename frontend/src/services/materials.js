@@ -1,12 +1,21 @@
 import { BASIC_HEADERS } from "../shared/consts/headers";
 import Dexie from 'dexie';
 
-const db = new Dexie('MyDatabase');
+let db = new Dexie('MyDatabase');
 
 
 db.version(1).stores({
     cache: '++id, key, lastUpdatedAt'
 });
+
+const databaseCreation = () => {
+    db = new Dexie('MyDatabase');
+
+
+    db.version(1).stores({
+        cache: '++id, key, lastUpdatedAt'
+    });
+}
 
 const GetMaterials = async () => {
     
@@ -120,5 +129,6 @@ export {
     GetStockStatus,
     GetMaterialById,
     GetMaterialWasUpdated,
-    GetMaterialChanges
+    GetMaterialChanges,
+    databaseCreation
 }
