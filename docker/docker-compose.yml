@@ -18,8 +18,8 @@ services:
     volumes:
       - ./www/backend:/var/www/backend
     networks:
-      vps-ikram-network:
-        ipv4_address: 192.168.10.10
+      vps-ikram-network-lan:
+        ipv4_address: 192.168.20.10
     command: bash -c "cd /var/www/backend && npm i && npm run db:reset && npm run swagger-autogen"
 
   db:
@@ -29,14 +29,14 @@ services:
     environment:
         - POSTGRES_DB=${POSTGRES_DB}
         - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     logging:
       options:
         max-size: 10m
         max-file: '3'
     networks:
-      vps-ikram-network:
-        ipv4_address: 192.168.10.11
+      vps-ikram-network-lan:
+        ipv4_address: 192.168.20.11
     volumes:
       - ./database/data:/var/lib/postgresql/data
 
@@ -47,14 +47,14 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     networks:
-      vps-ikram-network:
-        ipv4_address: 192.168.10.12
+      vps-ikram-network-lan:
+        ipv4_address: 192.168.20.12
 
 networks:
-  vps-ikram-network:
-    name: vps-ikram-network
+  vps-ikram-network-lan:
+    name: vps-ikram-network-lan
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.10.0/24
-          gateway: 192.168.10.1
+        - subnet: 192.168.20.0/24
+          gateway: 192.168.20.1

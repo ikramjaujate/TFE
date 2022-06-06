@@ -24,7 +24,7 @@ const login = async (req, res) => {
             { user_id: username, role: user.role},
             process.env.TOKEN_SECRET,
             {
-              expiresIn: "10000h",
+              expiresIn: "1h",
             }
           );
         
