@@ -14,24 +14,28 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
     const [name, setName] = useState('')
     const [valueClient, setValueClient] = useState([])
     const [typeSelected, setTypeSelected] = useState('p')
-
-    const nameClient = []
-    for (let i in dataClients) {
-        if (dataClients[i]["type"] == 'p') {
-
-            nameClient.push(dataClients[i]["displayName"])
-
-        } else {
-            nameClient.push(dataClients[i]["displayName"])
-
+    const [nameClient, setNameClient] = useState([])
+    
+    
+    useEffect(() => {
+        const nameClientTest = []
+        
+        for (let i in dataClients) {
+            nameClientTest.push({"displayName": dataClients[i]["displayName"]})
         }
 
-    }
+        
+        setNameClient(nameClientTest)
+        
+    }, [dataClients])
+    
     const selected = (option, props) => {
+        
         for (let i in dataClients) {
-            if (dataClients[i]['displayName'] == option) {
+            if (dataClients[i]['displayName'] == option?.displayName) {
+                
                 setTypeSelected(dataClients[i]['type'])
-                setValueClient(dataClients[i]['displayName'])
+               
             }
         }
     
@@ -41,12 +45,12 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
                 <div>
                     {typeSelected == 'p' ?
                         <div className="type-selected">
-                            <div>{valueClient}</div>
+                            <div>{valueClient.displayName}</div>
                         </div>
                         :
                         <div>
                             <div className="type-selected">
-                                <div>{valueClient}</div>
+                                <div>{valueClient.displayName}</div>
                             </div>
                         </div>}
                 </div>
@@ -54,10 +58,11 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
         }
     }
     const onCreate = () => {
-   
+        
         const client = dataClients.find(client => {
-            return client.displayName == valueClient
+            return client.displayName == valueClient.displayName
         })
+       
 
         if(!client){
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Company cannot be created', sticky: true });
@@ -106,7 +111,7 @@ const NewProject = ({ refreshTable, dataClients, onHide }) => {
                         <span className="p-inputgroup-addon">
                             <i className={`pi ${typeSelected == "p" ? "pi-user" : "pi-building"}`}></i>
                         </span>
-                        <Dropdown className='my-dropdown' value={valueClient} valueTemplate={selected} options={nameClient} onChange={(e) => setValueClient(e.value)} placeholder="Company's Name" />
+                        <Dropdown className='my-dropdown' valueTemplate={selected}  value={valueClient} options={nameClient} onChange={(e) => {setValueClient(e.value); console.log(e)}} placeholder="Client's Name" filter optionLabel="displayName"/>
                     </div>
 
                 </div>

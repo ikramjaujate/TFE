@@ -27,7 +27,7 @@ const Quotation = () => {
         setLoading(true);
         documentService.GetAllQuotations().then(response => {
             setData(response["documents"]);
-            console.log(response['documents'])
+           
         });
         setLoading(false)
 
@@ -95,7 +95,7 @@ const Quotation = () => {
 
     const capitalizeFirstLetter = (rowData) => {
         const quotationTitle =  rowData.title.charAt(0).toUpperCase() + rowData.title.slice(1);
-        console.log(quotationTitle)
+       
 
         
         return (

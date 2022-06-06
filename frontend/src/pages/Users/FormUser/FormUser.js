@@ -49,7 +49,7 @@ const FormUser = ({ refreshTable, sendData }) => {
             }
            
         }
-        console.log(jwt_decode(localStorage.getItem('access_token')).user_id)
+       
     },[sendData])
 
     const onAddUser = (e) => {
@@ -102,7 +102,7 @@ const FormUser = ({ refreshTable, sendData }) => {
         if(!password){
             newPassword = sendData.password
         }
-        console.log(newPassword)
+       
 
         
         const bodyForm = {

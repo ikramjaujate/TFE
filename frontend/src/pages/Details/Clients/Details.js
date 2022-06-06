@@ -189,7 +189,7 @@ const Details = (clientType) => {
                 
                 setProjects(response["user"]);
                 setFactures(facturesDocument)
-                console.log(projectDocuments)
+                
                 setProject(projectDocuments);
             })
             

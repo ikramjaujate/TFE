@@ -47,7 +47,6 @@ const Projects = () => {
     const getClients = () => {
         GetClients().then(response => {
             setPersonsDropdown(response["users"]);
-
         });
     }
 
@@ -146,6 +145,7 @@ const Projects = () => {
     }, [])
 
     const refresh = () => {
+        setDataClients([])
         setData([])
         getProjects()
         setSelectedClient(null)
