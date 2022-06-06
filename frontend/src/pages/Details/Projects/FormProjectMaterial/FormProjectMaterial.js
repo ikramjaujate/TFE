@@ -4,7 +4,7 @@ import './FormProjectMaterial.css'
 import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { faBox, faWarning, faCircleExclamation, faSearch  } from "@fortawesome/free-solid-svg-icons";
+import { faBox, faWarning, faExclamation, faSearch  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from "primereact/button";
 import { Toast } from 'primereact/toast';
@@ -24,6 +24,8 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
     const [data, setData] = useState([]);
     const [simpleProject, setSimpleProject] = useState(null)
     const [disable, setDisable] = useState(false)
+    const [hasBeenModified, setHasBeenModified] = useState(false)
+    const [initialProjectMaterials, setInitialProjectMaterials] = useState([])
 
     const [projectMaterial, setProjectMaterial] = useState([
         {
@@ -51,10 +53,20 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
                     quantity: pm.quantity
                 }
                 
-
             }))
+            setInitialProjectMaterials(projectMaterials.map( pm => {
+                
+                return {
+                    material: data.find(m => {
+                        return m.idMaterial == pm.idMaterial
+                    }),
+                    quantity: pm.quantity
+                }
+                
+            }))
+            
+            
            
-
 
         })
     }
@@ -107,17 +119,20 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
 
     },[currentContent])
     useEffect(() => {
-        console.log(disableButton)
+        
         if(disableButton){
+            
             setIsDisabled(true)
         }else{
             setIsDisabled(false)
         }
     },[disableButton])
+
     useEffect(() => {
         
         getSimpleProject();
     }, [])
+
     useEffect(() => {
         if(!simpleProject){
             return;
@@ -132,7 +147,6 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
         getProjectMaterials();
     }, [data])
 
-    
 
 
     const handleFormChange = (index, event) => {
@@ -148,6 +162,8 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
         data[index][event.target.name] = event.target.value;
         setProjectMaterial(data);
         setDisable(true)
+        setHasBeenModified(JSON.stringify(initialProjectMaterials) !== JSON.stringify(projectMaterial) )
+        
 
     }
 
@@ -169,6 +185,7 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
 
     const onAddMaterialToProject = (e) => {
         e.preventDefault()
+        
         const bodyForm = {
             'idProject' : Number(id),
             'materials' : []
@@ -190,6 +207,7 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
             throw new Error('Something went wrong.');
 
         }).then(response => {
+            setHasBeenModified(false)
             toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'New materials has been added to the project', life: 3000 });
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'Materials could not be added to the project', life: 3000 });
@@ -272,7 +290,8 @@ const FormProjectMaterial = ({currentContent, disableButton}) => {
                 <div className='btn-container-flex'>
                 </div>
                 <div className='btn-container-flex '>
-
+                    {hasBeenModified ?  <div className='is-modified'><span className='is-modified-span'> ❗️ Modified ❗️</span></div> : <></>}
+                 {/*<Button label="Modify" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " disabled={isDisabled} autoFocus />*/}
                     <Button label="Update" icon="pi pi-save" onClick={onAddMaterialToProject} className="p-button-warning " disabled={isDisabled} autoFocus />
 
                 </div>

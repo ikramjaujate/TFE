@@ -424,6 +424,19 @@ const sendDocumentByEmail = async (req, res) => {
             emailTo = `${user.email}`
         }
 
+        let documentType = ''
+        let  value = ''
+        let proposal = ''
+        if(document.type == 'devis'){
+            documentType = 'Quotation'
+            value = 'quote'
+            proposal = 'proposal'
+        }else{
+            documentType = 'Invoice'
+            value = 'invoice'
+            proposal = 'invoice'
+        }
+        
         const oauth2Client = new OAuth2(
             OAUTH_CLIENTID,
             OAUTH_CLIENT_SECRET,
@@ -455,16 +468,16 @@ const sendDocumentByEmail = async (req, res) => {
 
         const mailOptions = {
             to: `${emailTo}`,
-            subject: 'Quotation : ' + req.body.projectName,
+            subject: `${documentType} : ` + req.body.projectName,
             text: `Dear ${displayName}, 
-            \n \n Following your request for a quote for project ${req.body.projectName}, please find attached our proposal. This proposal considers all the remarks made during the different meetings. 
-            \n \n I would appreciate it if you would return this proposal with the mention "Accepted" followed by your signature and the date. 
+            \n \n Following your request for a ${value} for project ${req.body.projectName}, please find attached our proposal. This proposal considers all the remarks made during the different meetings. 
+            \n \n I would appreciate it if you would return this ${proposal} with the mention "Accepted" followed by your signature and the date. 
              \n Before any acceptance, I remain of course at your entire disposal for any further information.
             \n \n Best regards,
              \n Master Services`,
             attachments: [
                 {
-                    filename: `quote-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,
+                    filename: `${value}-${displayName.replace(' ', '_')}-${req.body.createdAt}.pdf`,
                     content: document.file
                 }
             ]

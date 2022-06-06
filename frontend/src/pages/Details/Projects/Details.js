@@ -207,7 +207,9 @@ const DetailsProjects = () => {
 
             if (element.idDocument == rowData.idDocument) {
                 element.isAccepted = e.checked
+                
                 if(element.isAccepted){
+                    
                     setDisableButton(true)
                     setCurrentContent(rowData.content)
                 }

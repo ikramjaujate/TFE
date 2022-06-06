@@ -25,3 +25,20 @@ span.billable-badge.status-billable{
     letter-spacing: 0.3px;
 }
 
+.is-modified{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+    border: 1px dotted #c8392e;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.is-modified-span{
+
+    font-size: 1.2rem!important;
+    color: #c8392e;
+    font-style: italic;
+    font-weight: bold;
+}
