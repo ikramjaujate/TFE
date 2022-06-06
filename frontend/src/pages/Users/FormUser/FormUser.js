@@ -143,7 +143,7 @@ const FormUser = ({ refreshTable, sendData }) => {
             roleCreate = 'sec'
         }       
 
-        console.log(jwt_decode(localStorage.getItem('access_token')).role)
+        
         if(jwt_decode(localStorage.getItem('access_token')).role == 'admin' && ['dev'].includes(roleCreate)){
             toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'User cannot be deleted', life: 3000 });
             return;
