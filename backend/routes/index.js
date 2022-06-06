@@ -24,12 +24,13 @@ const {
     getAllUsersLogin,
     createUserLogin,
     updateUserLogin,
+    deleteUserLogin
     
 } = require('../controllers/users.js')
 router.get('/users', verifyToken, checkRoleAuth(['admin', 'dev']), getAllUsersLogin)
 router.post('/users', verifyToken, checkRoleAuth(['admin', 'dev']),createUserLogin)
 router.patch('/users', verifyToken, checkRoleAuth(['admin', 'dev']),updateUserLogin)
-
+router.delete('/user/:id', verifyToken, checkRoleAuth(['admin', 'dev']),deleteUserLogin)
 // PERSONS
 router.get('/simple-persons', verifyToken,  checkRoleAuth(['admin', 'dev', 'sec']),getSimpleUsersWithProjects)
 router.get('/persons', verifyToken, checkRoleAuth(['admin', 'dev', 'sec']), getAllUsers)

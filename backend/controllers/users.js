@@ -137,8 +137,42 @@ const updateUserLogin = async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 }
+
+const deleteUserLogin = async (req, res) => {
+    // #swagger.tags = ['Users']
+    /* 
+    #swagger.summary = 'Update user'
+    #swagger.description = 'Updating the user.'
+    #swagger.security = [{
+               "bearerAuth": []
+    }] 
+
+    */
+    try {
+
+        const user = await userLogin.findOne({
+            where: {
+                email: req.body.email
+            }
+        });
+
+        if (!user) {
+            throw new Error("No user")
+        };
+        
+        
+        await user.destroy(); 
+        
+        return res.status(200).json({ user });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ error: error.message })
+    }
+}
+
 module.exports = {
     getAllUsersLogin,
     createUserLogin,
-    updateUserLogin
+    updateUserLogin,
+    deleteUserLogin
 }

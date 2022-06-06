@@ -34,8 +34,21 @@ const UpdateUserLogin = async (bodyForm) => {
         })
     );
 }
+
+const DeleteUserLogin = async (id, bodyForm) => {
+    return await (
+        fetch(`/api/user/${id}`, {
+            method: 'DELETE',
+            headers: BASIC_HEADERS,
+            body: JSON.stringify(bodyForm)
+        }).then(response => {
+            return response.json()
+        })
+    );
+}
 export {
     GetUsers,
     CreateNewUser,
-    UpdateUserLogin
+    UpdateUserLogin,
+    DeleteUserLogin
 }

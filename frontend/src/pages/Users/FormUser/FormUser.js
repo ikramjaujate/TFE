@@ -34,6 +34,7 @@ const FormUser = ({ refreshTable, sendData }) => {
     }
 
     useEffect(() => {
+        
         setCurrentAccount(jwt_decode(localStorage.getItem('access_token')).user_id)
         if (sendData) {
             setEmail(sendData.email)
@@ -129,6 +130,54 @@ const FormUser = ({ refreshTable, sendData }) => {
         })
     }
 
+
+    const onDeleteUser = (e) => {
+        
+        e.preventDefault()
+        let roleCreate = ''
+        if(role == 'Developer'){
+            roleCreate = 'dev'
+        }else if(role == 'Administrator'){
+            roleCreate = 'admin'
+        }else if (role == 'Secretary'){
+            roleCreate = 'sec'
+        }       
+
+        console.log(jwt_decode(localStorage.getItem('access_token')).role)
+        if(jwt_decode(localStorage.getItem('access_token')).role == 'admin' && ['dev'].includes(roleCreate)){
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'User cannot be deleted', life: 3000 });
+            return;
+        }
+        
+        const bodyForm = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            role: roleCreate
+        }
+       
+        userLoginService.DeleteUserLogin(sendData.id,bodyForm).then(response => {
+
+            if (response.hasOwnProperty("user")) {
+                return response
+            }
+            throw new Error('Something went wrong.');
+
+        }).then(response => {
+            toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'User has been deleted', life: 3000 });
+            clearForm()
+        }).catch(error => {
+            toast.current.show({ severity: 'error', summary: 'Error Message', detail: 'User cannot be deleted', life: 3000 });
+        })
+    }
+
+    const validateMail = (value) => {
+
+        if(value.slice(-1) == '@'){
+            value += 'masterservices.com'
+        }
+        setEmail(value)
+    }
     return (<>
      <Toast ref={toast} baseZIndex={999999} />
         <Panel className='mt-2' header={<span >
@@ -157,7 +206,7 @@ const FormUser = ({ refreshTable, sendData }) => {
                         <span className="p-inputgroup-addon">
                             <i className="pi pi-envelope"></i>
                         </span>
-                        <InputText value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+                        <InputText value={email} onChange={(e) => validateMail(e.target.value)} placeholder="Email" />
                         <span className="p-inputgroup-addon" > <i className="pi pi-flag-fill"></i></span>
                     </div>
 
@@ -201,7 +250,7 @@ const FormUser = ({ refreshTable, sendData }) => {
                        
                         <Button label="Add" icon="pi pi-plus" className="p-button-success mr-2" onClick={onAddUser} disabled={sendData} />
                         <Button label="Update" icon="pi pi-save" className="p-button-warning mr-2 " onClick={onUpdateUser} disabled={!sendData} />
-                        <Button icon="pi pi-trash" className="p-button-danger " onClick={() => {console.log('deletion')}} disabled={!sendData || sendData?.email == jwt_decode(localStorage.getItem('access_token')).user_id} />
+                        <Button icon="pi pi-trash" className="p-button-danger " onClick={onDeleteUser} disabled={!sendData || sendData?.email == jwt_decode(localStorage.getItem('access_token')).user_id} />
 
                     </div>
 
