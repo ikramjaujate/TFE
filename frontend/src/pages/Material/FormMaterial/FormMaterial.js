@@ -181,7 +181,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
                             <span className="p-inputgroup-addon">
                                 <i className="pi pi-box"></i>
                             </span>
-                            <InputNumber value={quantity} onChange={(e) => setQuantity(e.value)} showButtons mode="decimal" useGrouping={false} placeholder="Quantity" />
+                            <InputNumber className='input-number' value={quantity} onChange={(e) => setQuantity(e.value)} showButtons mode="decimal" useGrouping={false} placeholder="Quantity" />
                         </div>
 
                     </div>
@@ -191,7 +191,7 @@ const FormMaterial = ({ refreshTable, sendData }) => {
                             <span className="p-inputgroup-addon">
                                 €
                             </span>
-                            <InputNumber value={price} onValueChange={(e) => setPrice(e.value)} showButtons mode="currency" currency="EUR" placeholder="Material's name" />
+                            <InputNumber className='input-price' value={price} onValueChange={(e) => setPrice(e.value)} showButtons mode="currency" currency="EUR" placeholder="Material's name" />
                         </div>
 
                     </div>

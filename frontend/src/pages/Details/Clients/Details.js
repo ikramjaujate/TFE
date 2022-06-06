@@ -33,7 +33,7 @@ const Details = (clientType) => {
     const company = [
         { label: 'Company', url: '/clients' }
     ];
-    
+
 
     const homePerson = { icon: 'pi pi-user', url: '/clients' }
     const homeCompany = { icon: 'pi pi-building', url: '/clients' }
@@ -44,6 +44,7 @@ const Details = (clientType) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [mobile, setMobile] = useState('');
+    const [phone, setPhone] = useState('');
     const [vta, setVta] = useState('');
     const [email, setEmail] = useState('');
     const [locality, setLocality] = useState('');
@@ -87,19 +88,20 @@ const Details = (clientType) => {
             GetCompanyById(id).then(response => {
 
                 setCompanies(response["company"]);
-                if(response["company"][0]['Address']['Country'].nicename == "France"){
+                if (response["company"][0]['Address']['Country'].nicename == "France") {
                     response["company"][0].VAT_num = response["company"][0].VAT_num.replace(/^.{2}/g, 'FR')
-                }else if(response["company"][0]['Address']['Country'].nicename == "Luxembourg"){
-                    response["company"][0].VAT_num =response["company"][0].VAT_num.replace(/^.{2}/g, 'LU')
-                }else if (response["company"][0]['Address']['Country'].nicename == "Netherlands"){
-                    response["company"][0].VAT_num =response["company"][0].VAT_num.replace(/^.{2}/g, 'NL')
-                }else if(response["company"][0]['Address']['Country'].nicename == "Belgium"){
-                    response["company"][0].VAT_num =response["company"][0].VAT_num.replace(/^.{2}/g, 'BE')
+                } else if (response["company"][0]['Address']['Country'].nicename == "Luxembourg") {
+                    response["company"][0].VAT_num = response["company"][0].VAT_num.replace(/^.{2}/g, 'LU')
+                } else if (response["company"][0]['Address']['Country'].nicename == "Netherlands") {
+                    response["company"][0].VAT_num = response["company"][0].VAT_num.replace(/^.{2}/g, 'NL')
+                } else if (response["company"][0]['Address']['Country'].nicename == "Belgium") {
+                    response["company"][0].VAT_num = response["company"][0].VAT_num.replace(/^.{2}/g, 'BE')
                 }
                 setVta(response["company"][0].VAT_num)
                 setName(response["company"][0].name)
                 setEmail(response["company"][0].email)
                 setMobile(response["company"][0].mobile)
+                setPhone(response["company"][0].phone)
                 setCountry(response["company"][0]['Address']['Country'].nicename)
                 setIdCompany(response["company"][0].idCompany)
                 setPostalCode(response["company"][0]['Address'].postal_code)
@@ -132,34 +134,36 @@ const Details = (clientType) => {
             GetClientByID(id).then(response => {
 
                 setPerson(response["user"]);
-                if(response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "France"){
+                if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "France") {
                     response["user"][0].VAT_num = response["user"][0].VAT_num.replace(/^.{2}/g, 'FR')
                     setVta(response["user"][0].VAT_num)
-                }else if( response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Luxembourg"){
-                    response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'LU')
+                } else if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Luxembourg") {
+                    response["user"][0].VAT_num = response["user"][0].VAT_num.replace(/^.{2}/g, 'LU')
                     setVta(response["user"][0].VAT_num)
-                }else if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Netherlands"){
-                    response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'NL')
+                } else if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Netherlands") {
+                    response["user"][0].VAT_num = response["user"][0].VAT_num.replace(/^.{2}/g, 'NL')
                     setVta(response["user"][0].VAT_num)
-                }else if(response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Belgium"){
-                    response["user"][0].VAT_num =response["user"][0].VAT_num.replace(/^.{2}/g, 'BE')
+                } else if (response["user"][0].VAT_num && response["user"][0]['Address']['Country'].nicename == "Belgium") {
+                    response["user"][0].VAT_num = response["user"][0].VAT_num.replace(/^.{2}/g, 'BE')
                     setVta(response["user"][0].VAT_num)
-                }else{
+                } else {
                     setVta(response["user"][0].VAT_num)
                 }
-                
+
                 setFirstName(response["user"][0].firstName)
                 setLastName(response["user"][0].lastName)
                 setEmail(response["user"][0].email)
                 setMobile(response["user"][0].mobile)
+                setPhone(response["user"][0].phone)
                 setCountry(response["user"][0]['Address']['Country'].nicename)
                 setIdPerson(response["user"][0].idPerson)
+
                 setPostalCode(response["user"][0]['Address'].postal_code)
                 setStreet(response["user"][0]['Address'].street)
                 setLocality(response["user"][0]['Address'].locality)
                 setIso(response["user"][0]['Address']['Country'].iso)
             })
-            GetProjectsByClientID(id).then(async(response) => {
+            GetProjectsByClientID(id).then(async (response) => {
                 const projectDocuments = []
                 const facturesDocument = []
                 for (let i in response["user"]) {
@@ -170,30 +174,30 @@ const Details = (clientType) => {
 
                     const projectName = response['user'][i].name
                     await GetDocumentsByProjectId(response["user"][i].idProject).then(response => {
-                        
-                       
-                        for(const document of response['project'] ){
+
+
+                        for (const document of response['project']) {
                             document['project_name'] = projectName
-                            if(document.type == "devis"){
-                                
+                            if (document.type == "devis") {
+
                                 projectDocuments.push(document)
-                            }else if(document.type == "facture"){
+                            } else if (document.type == "facture") {
                                 facturesDocument.push(document)
                             }
                         }
-                        
-                        
+
+
                     })
 
                 }
-                
+
                 setProjects(response["user"]);
                 setFactures(facturesDocument)
-                
+
                 setProject(projectDocuments);
             })
-            
-            
+
+
             setData([...data]);
             setLoading(false);
         }
@@ -284,13 +288,13 @@ const Details = (clientType) => {
     }
     const statusBodyTemplateIsAccepted = (rowData) => {
         return <Checkbox inputId="binary" className='my-checkbox-center' checked={getRowIsAccepted(rowData)} disabled />
-       
+
     }
     const availableTemplate = (rowData) => {
-        if(documentAccepted && rowData.idDocument != documentAccepted){
-            return  <i className='pi pi-lock'></i>
+        if (documentAccepted && rowData.idDocument != documentAccepted) {
+            return <i className='pi pi-lock'></i>
         }
-        return  <i className='pi pi-lock-open'></i>
+        return <i className='pi pi-lock-open'></i>
     }
     const statusBodyTemplateIsPaid = (rowData) => {
 
@@ -351,14 +355,7 @@ const Details = (clientType) => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="col-12 md:col-3">
-                                    <div className="p-inputgroup">
-                                        <span className='title-span' >
-                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                                        </span>
-
-                                    </div>
-                                </div>
+                                
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
@@ -367,14 +364,40 @@ const Details = (clientType) => {
 
                                     </div>
                                 </div>
-                                <div className="col-12 md:col-3">
+                                {mobile && phone ?
+                                <>
+                                    <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Phone number :  <span className='value-client'> {phone}</span>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
                                             Mobile phone :  <span className='value-client'> {mobile}</span>
                                         </span>
 
                                     </div>
-                                </div>
+                                </div></>
+                                    : mobile ? <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Mobile phone :  <span className='value-client'> {mobile}</span>
+                                            </span>
+
+                                        </div>
+                                    </div> :
+                                    <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Phone number :  <span className='value-client'> {phone}</span>
+                                            </span>
+
+                                        </div>
+                                    </div> }
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
@@ -387,6 +410,14 @@ const Details = (clientType) => {
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
                                             VAT :  <span className='value-client'> {vta}</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div className="col-12 md:col-3">
+                                    <div className="p-inputgroup">
+                                        <span className='title-span' >
+                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={20} /> <span className='value-client'> {country}</span>
                                         </span>
 
                                     </div>
@@ -446,14 +477,7 @@ const Details = (clientType) => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="col-12 md:col-3">
-                                    <div className="p-inputgroup">
-                                        <span className='title-span' >
-                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
-                                        </span>
-
-                                    </div>
-                                </div>
+                                
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
@@ -462,14 +486,40 @@ const Details = (clientType) => {
 
                                     </div>
                                 </div>
-                                <div className="col-12 md:col-3">
+                                {mobile && phone ?
+                                <>
+                                    <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Phone number :  <span className='value-client'> {phone}</span>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
                                             Mobile phone :  <span className='value-client'> {mobile}</span>
                                         </span>
 
                                     </div>
-                                </div>
+                                </div></>
+                                    : mobile ? <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Mobile phone :  <span className='value-client'> {mobile}</span>
+                                            </span>
+
+                                        </div>
+                                    </div> :
+                                    <div className="col-12 md:col-3">
+                                        <div className="p-inputgroup">
+                                            <span className='title-span' >
+                                                Phone number :  <span className='value-client'> {phone}</span>
+                                            </span>
+
+                                        </div>
+                                    </div> }
                                 <div className="col-12 md:col-3">
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
@@ -482,6 +532,14 @@ const Details = (clientType) => {
                                     <div className="p-inputgroup">
                                         <span className='title-span' >
                                             VAT :  <span className='value-client'> {vta}</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div className="col-12 md:col-3">
+                                    <div className="p-inputgroup">
+                                        <span className='title-span' >
+                                            Country :  <img alt="flag" src={`/assets/flags/flag_placeholder.png`} className={`flag flag-${iso}`} width={30} /> <span className='value-client'> {country}</span>
                                         </span>
 
                                     </div>
@@ -504,20 +562,20 @@ const Details = (clientType) => {
                     </DataTable>
                 </Panel>
                 <Panel headerTemplate={headerQuotationTemplateInfo} toggleable className='m-3'>
-                    <DataTable paginatorTemplate={PaginatorTemplate} value={project} sortField="createdAt" sortOrder={-1}   emptyMessage="No documents found."  selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-                        <Column field="idDocument" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px'}} header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                    <DataTable paginatorTemplate={PaginatorTemplate} value={project} sortField="createdAt" sortOrder={-1} emptyMessage="No documents found." selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <Column field="idDocument" style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Quotation title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="project_name" style={{ width: '12rem', flexGrow: 1,flexBasis: '200px' }} sortable header="Project's name" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="project_name" style={{ width: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's name" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
-                        <Column field="isAccepted" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} className='accepted-checkbox'  body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="isAccepted" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} className='accepted-checkbox' body={statusBodyTemplateIsAccepted} sortable header="Accepted" headerStyle={{ color: "#c9392f" }}></Column>
                     </DataTable>
                 </Panel>
                 <Panel headerTemplate={headerInvoiceTemplateInfo} toggleable className='m-3'>
-                <DataTable paginatorTemplate={PaginatorTemplate} value={factures} sortField="createdAt" sortOrder={-1}   emptyMessage="No documents found."  selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
-                    <Column field="idDocument" style={{ width: '12rem', flexGrow: 1, flexBasis: '50px'}} header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                    <DataTable paginatorTemplate={PaginatorTemplate} value={factures} sortField="createdAt" sortOrder={-1} emptyMessage="No documents found." selectionPageOnly loading={loading} scrollable scrollHeight="400px" selectionMode="single" scrollDirection="both" className="mt-3" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} posts" rows={20} paginator>
+                        <Column field="idDocument" style={{ width: '12rem', flexGrow: 1, flexBasis: '50px' }} header="Reference" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="title" style={{ textAlign: "center", width: '10rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Invoice title" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="project_name" style={{ width: '12rem', flexGrow: 1,flexBasis: '200px' }} sortable header="Project's name" headerStyle={{ color: "#c9392f" }}></Column>
+                        <Column field="project_name" style={{ width: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Project's name" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="notes" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Notes" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="createdAt" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} body={(rowData) => { return moment(rowData.createAt).utc().format('YYYY-MM-DD') }} sortable header="Created At" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="isPaid" className='accepted' style={{ width: '8rem', flexGrow: 1, flexBasis: '50px' }} body={statusBodyTemplateIsPaid} sortable header="Paid" headerStyle={{ color: "#c9392f" }}></Column>

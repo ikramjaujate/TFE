@@ -159,3 +159,13 @@ button.p-button.p-component.p-button-add:hover {
   border-color: #ffeeee;
   color: #ca3838;
 }
+
+.input-number input{
+  border-top-right-radius: 0px!important;
+  border-bottom-right-radius: 0px!important;
+}
+
+.input-price input{
+  border-top-right-radius: 0px!important;
+  border-bottom-right-radius: 0px!important;
+}

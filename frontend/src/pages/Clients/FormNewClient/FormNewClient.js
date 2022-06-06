@@ -305,6 +305,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
         }
 
     }
+
     return (
         <>
             <Toast ref={toast} baseZIndex={999999} />
@@ -410,7 +411,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                                 <i className="pi pi-map"></i>
                             </span>
 
-                            <Dropdown inputId="dropdown" value={country} options={nameCountry} onChange={(e) => setCountry(e.value)} placeholder="Country" />
+                            <Dropdown inputId="dropdown" value={country} options={nameCountry} onChange={(e) => setCountry(e.value)}  placeholder="Country" />
                             <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span>
                         </div>
 

@@ -44,7 +44,7 @@ Pour vous connectez, deux adresses de test ont été créées.
     dev-test@masterservices.com
     secretaire-test@masterservices.com
 
-    pwd: Mast3rServ!ce
+    pwd: **Mast3rServ!ce**
 ```
 
 
