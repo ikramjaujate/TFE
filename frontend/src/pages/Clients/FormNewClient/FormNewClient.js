@@ -363,6 +363,7 @@ const FormNewClient = ({ refreshTable, sendData }) => {
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">VAT</span>
                             <InputText value={vta} onChange={(e) => vtaChange(e.target.value)} placeholder="VAT number" />
+                            {isCompany ? <span className="p-inputgroup-addon"> <i className="pi pi-flag-fill"></i></span> : <></>}
                         </div>
 
                     </div>

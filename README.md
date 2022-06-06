@@ -12,13 +12,13 @@ Le client ne possède actuellement aucun moyen informatisé de gérer l'ensemble
 
 ## Procédure d'installation de l'application en local
 
-⚠️ Pour pouvoir exécuter l'application en local, il est important d'installer docker sur votre machine locale.
+⚠️ Pour pouvoir exécuter l'application en local, il est important d'installer docker sur votre machine.
 
-1. Ouverture du terminal à la racine du projet
-2. Diriger vous vers le dossier `dev` du projet
-3. Executer le script `start-dev.sh`
+1. Ouverture du terminal à la racine du projet.
+2. Dirigez vous vers le dossier `dev`.
+3. Exécutez le script `start-dev.sh`.
 
-Si le script ne s'execute pas, suivez les étapes ci-dessous :
+Si le script ne s'exécute pas, suivez les étapes ci-dessous :
 ```
     chmod +x start-dev.sh
     ./start-dev.sh
@@ -38,7 +38,7 @@ Si vous voyez les éléments ci-dessous apparaître dans votre terminal, l'appli
 
 🚀 Maintenant vous pouvez naviguer sur votre navigateur à l'adresse : http://localhost:3001
 
-Pour vous connectez, deux adresses de test ont été créées.
+Pour vous connecter à l'aide des deux adresses de test créées :
 
 ```
     dev-test@masterservices.com

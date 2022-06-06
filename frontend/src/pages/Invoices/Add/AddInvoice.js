@@ -109,9 +109,13 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation, documentPaid }) => {
         })
     }
 
+    
     const generate = () => {
+        
+        
         const invoiceData = [...invoice]
-        if(sendQuotation){
+        if(sendQuotation && !documentPaid){
+           
             invoiceData.push(...sendQuotation.content)
         }
         if (notes.length == 0) {
@@ -142,6 +146,7 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation, documentPaid }) => {
             idx += 1
             table[i] = add
         }
+        
         for (let i in projectMaterials) {
             if(documentPaid){
                 break
@@ -313,11 +318,8 @@ const AddInvoice = ({ sendId, refreshTable, sendQuotation, documentPaid }) => {
 
                 </div>
                 <div className='btn-container-flex mt-3'>
-
-                    {disable ?
-                        <Button label="Add" icon="pi pi-check" onClick={generate} className="p-button-success rajout" autoFocus />
-                        : <Button label="Add" icon="pi pi-check" onClick={generate} className="p-button-success rajout" autoFocus disabled={!disable} />}
-
+                    <Button label="Add" icon="pi pi-check" onClick={generate} className="p-button-success rajout" autoFocus disabled={!fileName ? true : false}/>
+                    
                 </div>
 
             </div>

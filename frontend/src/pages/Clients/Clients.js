@@ -264,7 +264,7 @@ const Clients = () => {
                         <Column field="email" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Email" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
                         <Column field="VAT_num" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="VAT" headerStyle={{ color: "#c9392f" }}></Column>
                         <Column field="mobile" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Mobile" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
-                        <Column field="phone" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Phone" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>
+                        {/*<Column field="phone" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '50px' }} sortable header="Phone" headerStyle={{ textAlign: 'center', color: "#c9392f" }}></Column>*/}
                         <Column field="address" style={{ minWidth: '12rem', flexGrow: 1, flexBasis: '200px' }} sortable header="Address" headerStyle={{ textAlign: 'center', color: "#c9392f" }} body={countryTemplate}  ></Column>
                         <Column body={informationClientTemplate} style={{ width: '5rem' }} headerStyle={{ color: "#c9392f" }} header={disableClientsTemplate}> </Column>
 

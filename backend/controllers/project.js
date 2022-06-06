@@ -303,6 +303,13 @@ const getPossiblesStatuses = async (req, res) => {
         const documents = await Document.findAll({
             where: { idProject: req.params.id }
         });
+        const project = await Project.findOne({
+            where: { idProject: req.params.id }
+        })
+
+        if(project && project.status == "Closed"){
+            return res.status(200).json({ 'types': [...projectTypes.slice(-2,-1)] });
+        }
 
         if (!documents) {
             return res.status(200).json({ 'types': [...projectTypes.slice(0, 2), ...projectTypes.slice(-1)] });
@@ -315,7 +322,7 @@ const getPossiblesStatuses = async (req, res) => {
 
             console.log('paidInvoices')
             
-            return res.status(200).json({ 'types': [...projectTypes.slice(-3)] });
+            return res.status(200).json({ 'types': [...projectTypes.slice(-3, -1)] });
         }
 
         const unPaidInvoices = documents.filter(doc => {
@@ -325,15 +332,20 @@ const getPossiblesStatuses = async (req, res) => {
 
         if (unPaidInvoices.length) {
             console.log('unPaidInvoices')
-            return res.status(200).json({ 'types': [...projectTypes.slice(-4, -2), ...projectTypes.slice(-1)] });
+            
+            return res.status(200).json({ 'types': [...projectTypes.slice(-4, -2)] });
         }
 
         const acceptedQuote = documents.filter(doc => {
             return (doc.type == 'devis' && doc.isAccepted)
         })
-
+       
         if (acceptedQuote.length) {
             console.log('acceptedQuote')
+
+            if(project && project.status == "In Progress"){
+                return res.status(200).json({ 'types': [...projectTypes.slice(0, 3)] });
+            }
 
             return res.status(200).json({ 'types': [...projectTypes.slice(0, 3), ...projectTypes.slice(-1)] });
         }
