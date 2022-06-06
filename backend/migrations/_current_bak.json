@@ -157,6 +157,50 @@
             },
             "indexes": []
         },
+        "Project_Workforces": {
+            "tableName": "Project_Workforces",
+            "schema": {
+                "idProjectPers": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idProjectPers",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idPersonnel": {
+                    "allowNull": false,
+                    "field": "idPersonnel",
+                    "references": {
+                        "model": "Workforces",
+                        "key": "idPersonnel"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "idProject": {
+                    "allowNull": false,
+                    "field": "idProject",
+                    "references": {
+                        "model": "Project",
+                        "key": "idProject"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "Address": {
             "tableName": "Address",
             "schema": {
@@ -622,7 +666,39 @@
                 }
             },
             "indexes": []
+        },
+        "Workforces": {
+            "tableName": "Workforces",
+            "schema": {
+                "idPersonnel": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "idPersonnel",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "label": {
+                    "allowNull": false,
+                    "field": "label",
+                    "seqType": "Sequelize.STRING"
+                },
+                "salary": {
+                    "allowNull": false,
+                    "field": "salary",
+                    "seqType": "Sequelize.FLOAT"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
         }
     },
-    "revision": 79
+    "revision": 81
 }
