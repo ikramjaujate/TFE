@@ -36,6 +36,31 @@ test('Unit test create company without vta ', async () => {
     assert.equal(validateCreateCompanyBody(request.body), false)
 })
 
+test('Unit test create company without name ', async () => {
+    let request  = httpMocks.createRequest({
+        body: {
+            
+            'name': null,
+            'email': 'toto.pierre@gmail.com',
+            'vta': null,
+        }
+    });
+    assert.equal(validateCreateCompanyBody(request.body), false)
+    
+})
+
+test('Unit test create company without name and vta', async () => {
+    let request  = httpMocks.createRequest({
+        body: {
+            
+            'name': null,
+            'email': 'toto.pierre@gmail.com',
+            'vta': null,
+        }
+    });
+    assert.equal(validateCreateCompanyBody(request.body), false)
+    
+})
 
 test('Unit test create COMPANY with invalid mobile', async () => {
     let request  = httpMocks.createRequest({

@@ -1,13 +1,14 @@
 const {validateCreateUserBody} = require('../../controllers/person')
+const {validateUpdateBody} = require('../../controllers/project')
 var httpMocks = require('node-mocks-http');
 var assert = require('assert');
 
-test('Unit test create user without body ', async () => {
+test('Unit test create person without body ', async () => {
     let request  = undefined
     assert.equal(validateCreateUserBody(request), false)
 })
 
-test('Unit test create user with country ', async () => {
+test('Unit test create person with country ', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -25,7 +26,7 @@ test('Unit test create user with country ', async () => {
     assert.equal(validateCreateUserBody(request.body), true)
     
 })
-test('Unit test create user without country ', async () => {
+test('Unit test create person without country ', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -42,7 +43,7 @@ test('Unit test create user without country ', async () => {
     assert.equal(validateCreateUserBody(request.body), false)
 })
 
-test('Unit test create user without postalCode ', async () => {
+test('Unit test create person without postalCode ', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -57,7 +58,7 @@ test('Unit test create user without postalCode ', async () => {
     });
     assert.equal(validateCreateUserBody(request.body), false)
 })
-test('Unit test create user without street ', async () => {
+test('Unit test create person without street ', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -71,7 +72,7 @@ test('Unit test create user without street ', async () => {
     });
     assert.equal(validateCreateUserBody(request.body), false)
 })
-test('Unit test create user without locality', async () => {
+test('Unit test create person without locality', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -85,7 +86,7 @@ test('Unit test create user without locality', async () => {
     assert.equal(validateCreateUserBody(request.body), false)
 })
 
-test('Unit test create user with invalid mobile', async () => {
+test('Unit test create person with invalid mobile', async () => {
     let request  = httpMocks.createRequest({
         body: {
             
@@ -101,4 +102,20 @@ test('Unit test create user with invalid mobile', async () => {
         }
     });
     assert.equal(validateCreateUserBody(request.body), false)
+})
+
+test('Unit test modify person with correct body ', async () => {
+    let request  = httpMocks.createRequest({
+        body: {
+            'id': 10,
+            'name': 'Test with chai',
+            'status': 'Pre-Sale',
+            'start_date': new Date(),
+            'end_date':  new Date(),
+            
+        }
+    });
+
+    assert.equal(validateUpdateBody(request.body), true)
+    
 })
