@@ -12,7 +12,7 @@ Le client ne possède actuellement aucun moyen informatisé de gérer l'ensemble
 
 ## Procédure d'installation de l'application en local
 
-⚠️ Pour pouvoir executer l'application en local, il est important d'installer docker sur votre machine locale.
+⚠️ Pour pouvoir exécuter l'application en local, il est important d'installer docker sur votre machine locale.
 
 1. Ouverture du terminal à la racine du projet
 2. Diriger vous vers le dossier `dev` du projet
