@@ -13,7 +13,7 @@
     "express-fileupload": "^1.2.1",
     "googleapis": "^100.0.0",
     "helmet": "^5.0.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jspdf-invoice-template-nodejs": "^1.0.3",
     "jwt-decode": "^3.1.2",
     "mocha": "^10.0.0",
